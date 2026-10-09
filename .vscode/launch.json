@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Micro maze · Godot C#",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-demo",
+      "program": "${env:GODOT4}",
+      "args": ["--path", "${workspaceFolder}/game"],
+      "cwd": "${workspaceFolder}/game",
+      "stopAtEntry": false
+    }
+  ]
+}

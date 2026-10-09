@@ -1,0 +1,29 @@
+config_version=5
+
+[application]
+config/name="CardRPG · 灰烬回廊"
+run/main_scene="res://Scenes/MicroMaze.tscn"
+config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
+config/use_custom_user_dir=true
+config/custom_user_dir_name="CardRPG/MicroMaze"
+
+[dotnet]
+project/assembly_name="CardRPG"
+
+[display]
+window/size/viewport_width=1280
+window/size/viewport_height=800
+window/size/window_width_override=1280
+window/size/window_height_override=800
+window/stretch/mode="canvas_items"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+gl_compatibility/driver.windows="opengl3_angle"
+textures/default_filters/use_nearest_mipmap_filter=false
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.031, 0.043, 0.051, 1)
+
+[audio]
+driver/enable_input=false

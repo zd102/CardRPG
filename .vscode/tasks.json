@@ -1,0 +1,20 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build-demo",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/game/CardRPG.csproj", "--nologo"],
+      "problemMatcher": "$msCompile",
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "test-rules",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["test", "${workspaceFolder}/tests/CardRPG.Core.Tests/CardRPG.Core.Tests.csproj"],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}
