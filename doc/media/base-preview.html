@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>余火站 · 局外场景与基地建设提案</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101b20;--panel:#18292d;--line:#355055;--ink:#e9ede5;--muted:#a7bab8;--amber:#e9bd79;--green:#a7cfad;--dim:#748e90}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 20% 10%,#223a3c 0,transparent 55%),var(--bg);color:var(--ink);font:16px/1.65 "Microsoft YaHei","PingFang SC",sans-serif}button,input{font:inherit}button,a,input{touch-action:manipulation}button{cursor:pointer}a{color:var(--amber);text-underline-offset:4px}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #ffdc9d;outline-offset:4px}button:disabled{cursor:default}button{color:inherit}main{max-width:1480px;margin:auto;padding:32px 36px 40px}.eyebrow{font:12px/1.5 Consolas,monospace;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}header{display:flex;justify-content:space-between;gap:24px;align-items:flex-start;margin-bottom:28px}h1{margin:8px 0 7px;font-size:46px;font-weight:500;letter-spacing:5px;line-height:1.2}header p{margin:0;color:var(--muted)}.guide{max-width:330px;text-align:right;font-size:13px;color:var(--muted)}.guide a{display:inline-block;margin:8px 0 0 18px}.timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:0 0 20px}.phase{background:#15272b;border:1px solid var(--line);padding:12px 14px;text-align:left;min-height:70px;border-radius:5px}.phase b{display:block;font-size:15px;font-weight:500}.phase small{font:11px/1.4 Consolas,monospace;color:var(--muted)}.phase[aria-pressed=true]{background:#3c382d;border-color:var(--amber)}.phase[aria-pressed=true] b{color:var(--amber)}.workbench{display:grid;grid-template-columns:minmax(0,1fr) 316px;gap:18px;align-items:start}.canvas-wrap{border:1px solid var(--line);border-radius:8px;background:#12282e;overflow:hidden}.scene-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-bottom:1px solid #35505580}.scene-head h2{font-size:18px;font-weight:500;margin:0}.stage-caption{font-size:12px;color:var(--muted)}.scene{position:relative;width:100%;aspect-ratio:960/760;isolation:isolate}.scene svg{width:100%;height:100%;display:block}.hotspot{position:absolute;transform:translate(-50%,-50%);padding:7px 10px;min-height:44px;border:1px solid #6d8988;border-radius:4px;background:#122429ed;font-size:13px;line-height:1.25;white-space:nowrap;box-shadow:0 3px 10px #08181d55;z-index:2}.hotspot span{color:var(--muted);font:10px Consolas,monospace;margin-right:6px}.hotspot[aria-pressed=true]{background:var(--amber);border-color:#ffe0a3;color:#1c292a;box-shadow:0 0 25px #e9bd7925}.hotspot[aria-pressed=true] span{color:#3b504c}.hotspot:hover{border-color:var(--amber)}.scene-note{padding:12px 20px;background:#0e2227;border-top:1px solid var(--line);font-size:13px;color:#c4d2c9;min-height:68px}.scene-note strong{color:var(--amber);font-weight:400}.inspector{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px}.inspector h2{font-size:27px;line-height:1.35;margin:8px 0 16px;font-weight:500}.inspector p{color:var(--muted);margin:0 0 18px;font-size:14px}.tag{display:inline-flex;align-items:center;padding:3px 9px;border:1px solid #51665c;color:var(--green);font-size:12px;border-radius:3px}.tag.future{color:var(--amber);border-color:#7f694c}.detail-label{font-size:12px;color:var(--amber);letter-spacing:1px;margin:22px 0 8px}.feature{padding-left:15px;border-left:2px solid #788e70;font-size:14px}.inspector ul{padding-left:19px;margin:10px 0;color:var(--muted);font-size:14px}.mini-project{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:14px}.mini-project a{display:block;margin-top:5px}.legend{display:flex;flex-wrap:wrap;gap:16px;padding:15px 2px;color:var(--muted);font-size:12px}.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;background:var(--amber)}.legend .green{background:var(--green)}.legend .blue{background:#769ca3}.story{margin-top:24px;border:1px solid var(--line);background:#17292d;border-radius:7px;padding:16px 20px}.story summary{cursor:pointer;min-height:32px;color:var(--ink)}.story p{font-size:13px;color:var(--muted);margin:8px 0 12px}.checks{display:flex;flex-wrap:wrap;gap:8px 20px}.checks label{display:flex;align-items:center;gap:8px;font-size:13px;min-height:44px;color:#ccd7cf}.checks label:has(input:disabled){color:var(--dim)}input[type=checkbox]{accent-color:var(--amber);width:17px;height:17px}.catalog-head{display:flex;justify-content:space-between;gap:20px;align-items:center;margin:32px 0 16px}.catalog-head h2{font-size:24px;font-weight:500;margin:0}.catalog-head p{color:var(--muted);font-size:13px;margin:5px 0 0}.reset{background:transparent;border:1px solid var(--line);border-radius:4px;padding:9px 14px;min-height:44px;font-size:13px}.projects{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.project{padding:18px;background:#17282c;border:1px solid var(--line);border-radius:6px;display:flex;flex-direction:column}.project[data-built=true]{border-color:#7c9c79;background:#1d302e}.project h3{font-size:17px;font-weight:500;margin:9px 0}.project p{font-size:13px;line-height:1.7;margin:0 0 14px;color:var(--muted)}.project .cost{color:#e9c990;font-size:13px;margin-top:auto}.project .require{font-size:11px;color:var(--muted);min-height:36px;margin-top:7px}.project button{width:100%;min-height:44px;padding:8px 12px;background:#d9b576;color:#17292b;border:1px solid transparent;border-radius:4px;margin-top:12px;font-size:13px}.project button:disabled{background:#23383b;color:#91a5a5;border-color:#3d555a}.project[data-built=true] button{background:#2b4940;color:#d8ebd7;border-color:#6d8d6d}.project a{font-size:11px;text-decoration:none}.board-note{color:var(--muted);font-size:13px;margin:16px 0 0}footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;font-size:12px;color:var(--muted)}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .lit,.workshop-on,.water-on,.final-on,.robot-on,.clothes-on,.plant-on,.radio-on,.watch-on,.residents-on,.route-on,.project-art{opacity:0;transition:opacity .3s}.scene[data-stage="1"] .lit,.scene[data-stage="2"] .lit,.scene[data-stage="3"] .lit,.scene[data-stage="4"] .lit{opacity:1}.scene[data-stage="2"] .workshop-on,.scene[data-stage="3"] .workshop-on,.scene[data-stage="4"] .workshop-on{opacity:1}.scene[data-stage="3"] .water-on,.scene[data-stage="4"] .water-on{opacity:1}.scene[data-stage="4"] .final-on{opacity:1}.scene[data-robot=true] .robot-on,.scene[data-clothes=true] .clothes-on,.scene[data-plants=true] .plant-on,.scene[data-plants=true] .radio-on,.scene[data-watch=true] .watch-on,.scene[data-residents=true] .residents-on,.scene[data-route=true] .route-on{opacity:1}.scene .project-art.visible{opacity:1}.leaf-tall{display:none}.scene[data-grown=true] .leaf-tall{display:block}.scene[data-grown=true] .leaf-small{display:none}
+    @media(min-width:1400px){.workbench{grid-template-columns:minmax(0,1fr) 350px}.inspector{padding:28px}.inspector p,.feature{font-size:15px}.hotspot{font-size:14px}}
+    @media(max-width:1100px){main{padding:24px}.workbench{grid-template-columns:minmax(0,1fr) 285px}.inspector{padding:18px}.projects{grid-template-columns:repeat(2,minmax(0,1fr))}.hotspot{padding:6px 8px;font-size:12px}.hotspot span{display:none}}
+    @media(max-width:780px){main{padding:18px 14px}header{display:block;margin-bottom:20px}h1{font-size:38px}.guide{text-align:left;max-width:none;margin-top:16px}.guide a{margin-left:0;margin-right:18px}.timeline{grid-template-columns:repeat(5,minmax(120px,1fr));overflow:auto;padding:4px 4px 8px}.workbench{grid-template-columns:1fr}.inspector{padding:20px}.scene-head{padding:12px}.scene-head h2{font-size:16px}.stage-caption{font-size:11px}.scene-note{padding:12px}.hotspot{font-size:11px}.catalog-head{align-items:flex-start}.projects{grid-template-columns:repeat(2,minmax(0,1fr))}footer{display:block}.guide p{font-size:12px}}
+    @media(max-width:460px){.projects{grid-template-columns:1fr}.scene{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:0 10px 12px;aspect-ratio:auto}.scene svg{height:auto;aspect-ratio:960/760;margin:0 -10px;width:calc(100% + 20px);max-width:none}.hotspot{position:static;transform:none;flex:0 1 calc(50% - 3px);font-size:13px;min-height:44px}.hotspot span{display:inline}.catalog-head{display:block}.reset{margin-top:12px}.stage-caption{max-width:130px;text-align:right}}
+    @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div><div class="eyebrow">灰烬远征 / 场景设计 01</div><h1>余火站</h1><p>把带回来的东西，变成下一次出发的理由。</p></div>
+    <div class="guide"><p>交互设计稿 · 尚未接入游戏<br>切换阶段、点选房间，再试着建起一处设施。</p><a href="../14_局外场景与基地建设/01_局外场景与回营体验.md">场景方案 ↗</a><a href="../14_局外场景与基地建设/02_基地建设与推进.md">建设与成本 ↗</a></div>
+  </header>
+  <nav class="timeline" aria-label="预览主线阶段">
+    <button class="phase" data-phase="0" aria-pressed="false"><small>00 / 初始</small><b>余火未熄</b></button>
+    <button class="phase" data-phase="1" aria-pressed="false"><small>01 / Q01</small><b>第一盏灯</b></button>
+    <button class="phase" data-phase="2" aria-pressed="true"><small>02 / Q02</small><b>有自己的工具</b></button>
+    <button class="phase" data-phase="3" aria-pressed="false"><small>03 / Q03</small><b>住得下来的站</b></button>
+    <button class="phase" data-phase="4" aria-pressed="false"><small>04 / Q07</small><b>灯火相连</b></button>
+  </nav>
+  <div class="workbench">
+    <div>
+      <div class="canvas-wrap">
+        <div class="scene-head"><h2 id="phase-title">有自己的工具</h2><span class="stage-caption">固定布局 / 点击区域查看用途</span></div>
+        <div class="scene" id="scene" data-stage="2">
+          <svg viewBox="0 0 960 760" role="img" aria-labelledby="drawing-title drawing-desc">
+            <title id="drawing-title">余火站剖面布局</title><desc id="drawing-desc">屋顶温室与住居长廊在上层，炉心居中，工坊、库房、诊所和调度室围绕大厅，站台在前景。按主线、支线与可选建设显示变化。</desc>
+            <defs>
+              <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#24434a"/><stop offset="1" stop-color="#11292f"/></linearGradient>
+              <linearGradient id="warm" x2="0" y2="1"><stop stop-color="#dcab5b" stop-opacity=".25"/><stop offset="1" stop-color="#dcab5b" stop-opacity="0"/></linearGradient>
+              <radialGradient id="glow"><stop stop-color="#f0c57f" stop-opacity=".35"/><stop offset="1" stop-color="#f0c57f" stop-opacity="0"/></radialGradient>
+              <pattern id="floor" width="64" height="40" patternUnits="userSpaceOnUse" patternTransform="skewX(-25)"><path d="M0 0H64V40" fill="none" stroke="#638585" stroke-opacity=".13"/></pattern>
+              <g id="person"><circle cy="-26" r="7" fill="#b5bfa8"/><path d="M-9-17H9L13 13H-12Z" fill="#728c80"/><path d="M-6 13V30M6 13V30" stroke="#95aa99" stroke-width="5"/></g>
+              <g id="lamp"><path d="M0-26V0" stroke="#799392" stroke-width="3"/><path d="M-11 0H11L7-8H-7Z" fill="#e4bc7a"/><circle cy="4" r="5" fill="#f7dca1"/><ellipse cy="30" rx="52" ry="58" fill="url(#glow)"/></g>
+              <g id="pot"><path d="M-13 0H13L9 17H-9Z" fill="#a47d60"/><path d="M0 1V-20M0-9Q-17-29-19-10Q-13-4 0-7M0-15Q16-35 21-20Q18-12 0-12" fill="#9fc48e" stroke="#9fc48e" stroke-width="2"/></g>
+            </defs>
+            <rect width="960" height="760" fill="url(#sky)"/>
+            <g fill="#436065" opacity=".29"><path d="M0 160H50V82H86V148H125V59H181V167H209V100H240V188H300V143H345V213H0Z"/><path d="M641 165H681V73H723V137H758V35H788V173H833V102H880V149H932V81H960V299H641Z"/></g>
+            <g fill="#b9c7a3" opacity=".22"><path d="M137 82H142V96H137ZM157 82H162V96H157ZM693 98H698V109H693ZM769 62H774V75H769ZM849 130H854V144H849Z"/></g>
+            <circle cx="812" cy="75" r="26" fill="#c0cfb3" opacity=".17"/>
+            <path d="M0 525L464 301 960 475V760H0Z" fill="#10252a"/><path d="M0 525L464 301 960 475V760H0Z" fill="url(#floor)"/>
+            <g fill="none" stroke="#4a686c"><path d="M32 581V177L410 88 919 196V603" stroke-width="12"/><path d="M32 181L919 197M72 206V554M880 218V587" stroke-width="4"/><path d="M35 178L256 221 410 91 670 209 917 197" stroke-width="2"/></g>
+            <!-- 屋顶：固定棚架与任务植物 -->
+            <path d="M348 179V109L568 64 734 111V181Z" fill="#263f43" stroke="#628082" stroke-width="3"/>
+            <path d="M362 111L568 77 719 116 526 151Z" fill="#42615f" opacity=".6"/>
+            <path d="M407 104V176M480 91V181M566 77V186M637 98V185M710 115V187" fill="none" stroke="#6a8681" stroke-width="3"/>
+            <path d="M345 183H738V199H345Z" fill="#496666"/><path d="M362 171H508V184H362Z" fill="#685b4e"/>
+            <g class="plant-on"><g class="leaf-small" fill="#a3c591"><path d="M382 172V161L373 151 382 156 392 147 386 164V172ZM419 172V155L409 149 420 153 427 143 425 166V172ZM462 172V158L451 151 461 154 472 144 468 167V172Z"/></g><g class="leaf-tall"><use href="#pot" x="385" y="159"/><use href="#pot" x="435" y="159"/><use href="#pot" x="485" y="159"/></g></g>
+            <g class="project-art" data-art="P06"><path d="M343 103L568 55 741 105 526 149Z" fill="#70918c" stroke="#b2c1a5" stroke-width="3"/><path d="M343 103V181M741 105V190" stroke="#adc0a4" stroke-width="4"/><path d="M591 165H682V175H591ZM603 175V187M673 175V187" stroke="#b9a27a" stroke-width="5"/></g>
+            <!-- 生活廊：衣架、居民与公共长桌 -->
+            <path d="M196 225H758V327H196Z" fill="#243d42" stroke="#5b7979" stroke-width="3"/><path d="M210 243H744V310H210Z" fill="#183238"/>
+            <path d="M192 326H763V344H192Z" fill="#597574"/><path d="M236 223V323M703 223V323" stroke="#6a8280" stroke-width="7"/>
+            <path d="M569 251V313M539 263H600" stroke="#81938a" stroke-width="3"/>
+            <g class="clothes-on"><path d="M552 264L539 279 549 287 553 304H580L583 287 595 279 581 265Z" fill="#b49670"/><path d="M565 266V297" stroke="#d4bd93"/></g>
+            <g class="water-on"><path d="M213 229H743V239H213Z" fill="#c9a36a" opacity=".25"/><use href="#lamp" x="272" y="255"/><use href="#lamp" x="655" y="255"/><use href="#person" x="628" y="294"/></g>
+            <g class="project-art" data-art="P05"><path d="M311 292L423 277 482 298 368 316Z" fill="#b09a73" stroke="#c6b68b" stroke-width="2"/><path d="M321 297V324M469 301V326" stroke="#9b8c6e" stroke-width="6"/><path d="M386 287V294H394V286" stroke="#f1dec0" stroke-width="3" fill="none"/><path d="M301 310H341M432 319H475" stroke="#c5ab7d" stroke-width="5"/></g>
+            <g class="residents-on"><use href="#person" x="521" y="296"/><use href="#person" x="226" y="302"/><path d="M463 237H482V255H463Z" fill="#c1b292"/></g>
+            <!-- 工作区与诊所 -->
+            <path d="M88 371H352V544H88Z" fill="#263f43" stroke="#668481" stroke-width="3"/><path d="M106 391H335V455H106Z" fill="#193136"/><path d="M106 489H339V506H106ZM121 506V539M321 506V539" fill="#6e8275" stroke="#94a68f" stroke-width="3"/>
+            <g stroke="#b99b6c" stroke-width="4"><path d="M126 405V436M149 405V428M172 405L166 436M199 405V432M223 405L229 435"/></g>
+            <g class="workshop-on"><use href="#lamp" x="231" y="389"/><path d="M102 379H338V386H102Z" fill="#d4b37c" opacity=".45"/><path d="M243 480H291V489H243Z" fill="#9cab90"/></g>
+            <g class="project-art" data-art="P02"><path d="M297 411H332V473H297Z" fill="#384c47" stroke="#cfb783" stroke-width="3"/><circle cx="314" cy="440" r="12" fill="none" stroke="#e7c88c" stroke-width="3"/><circle cx="314" cy="440" r="4" fill="#d0aa70"/><path d="M303 475V487M326 475V487" stroke="#b59b73" stroke-width="4"/></g>
+            <g class="robot-on"><path d="M338 518H365V547H338Z" fill="#60817a" stroke="#bcc4a3" stroke-width="2"/><path d="M343 509H361V519H343Z" fill="#68827b"/><path d="M342 547L338 559M360 547L365 559M339 525L326 535M363 525L373 516" stroke="#a6b49a" stroke-width="4"/><circle cx="347" cy="513" r="2" fill="#d2e8ac"/><circle cx="356" cy="513" r="2" fill="#d2e8ac"/></g>
+            <g class="project-art" data-art="P03"><path d="M292 529H329V556H292Z" fill="#917f60"/><path d="M300 521V529M316 518V529" stroke="#d2b984" stroke-width="3"/><path d="M291 553H330" stroke="#d2b984" stroke-width="3"/></g>
+            <path d="M656 371H842V544H656Z" fill="#263f43" stroke="#668481" stroke-width="3"/><path d="M677 391H720V465H677Z" fill="#445e5e"/><path d="M736 478H826V497H736ZM745 497V535M818 497V535" fill="#829b91" stroke="#bcc7b1" stroke-width="3"/>
+            <path d="M794 392V419M780 405H808" stroke="#b7c3aa" stroke-width="6"/><path d="M746 492H814V530H746Z" fill="#597673"/>
+            <g class="water-on"><path d="M725 381H830" stroke="#b7c4ac" stroke-width="4"/><use href="#lamp" x="752" y="389"/><path d="M777 466V477H792V486" fill="none" stroke="#bac6b5" stroke-width="4"/><path d="M792 488V499" stroke="#a2d5cf" stroke-width="3"/><use href="#person" x="689" y="513"/></g>
+            <!-- 炉心与投影 -->
+            <path d="M402 350H615V566H402Z" fill="#203b40" stroke="#6c8681" stroke-width="3"/><path d="M444 332H570V351H444Z" fill="#71877b"/><path d="M481 296H537V333H481Z" fill="#4f6c6b"/>
+            <path d="M431 494L453 464H558L583 494V566H431Z" fill="#476461" stroke="#92a08a" stroke-width="3"/><path d="M455 505H559V552H455Z" fill="#172c2d"/><path d="M468 541L478 523 491 544 510 518 526 543 541 529 548 546Z" fill="#b77a4f" opacity=".65"/>
+            <g class="lit"><circle cx="506" cy="426" r="125" fill="url(#glow)"/><use href="#lamp" x="411" y="366"/><path d="M442 375H584V433H442Z" fill="#c1b782" opacity=".3"/><circle cx="560" cy="389" r="9" fill="#dccb91"/><path d="M451 426V402H463V415H476V393H488V421H503V402H518V426Z" fill="#bfc8a3" opacity=".65"/></g>
+            <g class="project-art" data-art="P07"><path d="M585 475V504M567 505H603" stroke="#bba577" stroke-width="4"/><path d="M568 452H603V473H568Z" fill="#889b82"/><circle cx="576" cy="451" r="9" fill="#4e6c68" stroke="#c0b287"/><circle cx="596" cy="451" r="9" fill="#4e6c68" stroke="#c0b287"/><path d="M571 473L541 457 539 436 571 460Z" fill="#dec793" opacity=".25"/></g>
+            <g class="final-on"><ellipse cx="507" cy="529" rx="120" ry="85" fill="url(#glow)"/><path d="M468 541L478 516 491 535 510 507 526 536 541 520 548 546Z" fill="#f4c875"/><path d="M411 557H424M589 557H604" stroke="#f3d197" stroke-width="5"/></g>
+            <!-- 库房与调度室 -->
+            <path d="M98 581H323V688H98Z" fill="#294247" stroke="#627e7b" stroke-width="3"/><path d="M114 605H182V672H114ZM251 619H305V672H251Z" fill="#506b63" stroke="#80967f" stroke-width="2"/><path d="M119 634H177M267 626L264 665" stroke="#c1ac7f" stroke-width="3"/>
+            <g class="project-art" data-art="P01"><path d="M197 608V669M232 608V669M188 672H207M223 672H242" stroke="#c4b185" stroke-width="4"/><path d="M188 615H206L211 638H182Z" fill="#96afa0"/><path d="M223 615H241L246 638H217Z" fill="#c0a377"/><circle cx="197" cy="607" r="5" fill="#d0bd8c"/><circle cx="232" cy="607" r="5" fill="#d0bd8c"/></g>
+            <path d="M655 581H850V688H655Z" fill="#294247" stroke="#627e7b" stroke-width="3"/><path d="M672 592H762V629H672Z" fill="#a3ae8e" opacity=".7"/><path d="M681 601L705 608 729 598 750 618M705 608L696 619" fill="none" stroke="#334e4d" stroke-width="2"/>
+            <g class="route-on"><path d="M681 601L705 608 729 598 750 618" fill="none" stroke="#f3d797" stroke-width="3"/><circle cx="681" cy="601" r="4" fill="#f3d797"/><circle cx="750" cy="618" r="4" fill="#f3d797"/></g>
+            <g class="radio-on"><path d="M790 599H832V626H790Z" fill="#a48f6c"/><path d="M804 599L817 578M794 607H815M794 612H815M794 617H815" stroke="#c6c3a1" stroke-width="2"/><circle cx="825" cy="615" r="4" fill="#ccdcad"/></g>
+            <g class="project-art" data-art="P04"><path d="M685 649L785 635 824 657 723 674Z" fill="#a7af89" stroke="#c8c69a" stroke-width="2"/><path d="M700 655L731 648 753 662 791 651" stroke="#ad7958" stroke-width="3" fill="none"/><path d="M722 673V686M814 660V686" stroke="#aa9874" stroke-width="4"/></g>
+            <!-- 站台、轨道、守夜位置 -->
+            <path d="M342 618H604L626 673H321Z" fill="#4d6966" stroke="#8a9b85" stroke-width="3"/><path d="M346 632H600M338 651H609" stroke="#7b8b78" stroke-width="2"/><path d="M358 689L337 760M589 689L620 760" stroke="#91a291" stroke-width="5"/><path d="M358 703H593M349 723H604M342 745H613" stroke="#597571" stroke-width="9"/>
+            <g class="final-on"><use href="#lamp" x="349" y="615"/><use href="#lamp" x="600" y="615"/><path d="M28 204H196M758 205H918" stroke="#d9bd84" stroke-width="4"/></g>
+            <g class="watch-on"><path d="M854 650H881V686H854Z" fill="#5e7c75" stroke="#c3c7a4" stroke-width="2"/><circle cx="867" cy="641" r="10" fill="#74968a"/><circle cx="871" cy="640" r="4" fill="#f4d695"/><path d="M860 686L852 705M876 686L884 705M879 661L895 650" stroke="#aaba9c" stroke-width="5"/><circle cx="897" cy="647" r="8" fill="url(#glow)"/><circle cx="897" cy="647" r="3" fill="#ffe5a9"/></g>
+            <g class="project-art" data-art="P08"><path d="M828 623L871 608 914 626H828Z" fill="#a4aa86" stroke="#d2c498" stroke-width="2"/><path d="M831 624V707M909 626V708" stroke="#a8b195" stroke-width="4"/><path d="M903 632V646" stroke="#e7c37e" stroke-width="2"/><path d="M897 645H909L912 653H894Z" fill="#d3b779"/></g>
+            <g fill="#b6c8b2" opacity=".5"><circle cx="36" cy="321" r="1"/><circle cx="910" cy="347" r="1.2"/><circle cx="809" cy="205" r="1.3"/><circle cx="193" cy="111" r="1"/></g>
+          </svg>
+          <button class="hotspot" data-area="H07" style="left:58%;top:27%" aria-pressed="false"><span>H07</span>屋顶温室</button>
+          <button class="hotspot" data-area="H06" style="left:49%;top:45%" aria-pressed="false"><span>H06</span>住居长廊</button>
+          <button class="hotspot" data-area="H02" style="left:23%;top:60%" aria-pressed="false"><span>H02</span>岑砧工坊</button>
+          <button class="hotspot" data-area="H01" style="left:53%;top:59%" aria-pressed="true"><span>H01</span>炉心大厅</button>
+          <button class="hotspot" data-area="H04" style="left:78%;top:60%" aria-pressed="false"><span>H04</span>阿苇诊所</button>
+          <button class="hotspot" data-area="H03" style="left:22%;top:92%" aria-pressed="false"><span>H03</span>整备库房</button>
+          <button class="hotspot" data-area="H05" style="left:78%;top:92%" aria-pressed="false"><span>H05</span>调度室</button>
+          <button class="hotspot" data-area="H08" style="left:50%;top:93%" aria-pressed="false"><span>H08</span>站台与外门</button>
+        </div>
+        <div class="scene-note" id="scene-note"></div>
+      </div>
+      <div class="legend"><span><i></i>主线恢复灯光与用途</span><span><i class="green"></i>支线留下居民与生活</span><span><i class="blue"></i>可选工程改变局部设施</span></div>
+    </div>
+    <aside class="inspector" aria-label="所选区域详情"><div class="eyebrow" id="area-id">H01 / HOME</div><h2 id="area-title">炉心大厅</h2><div class="tag" id="area-status">常驻服务</div><div class="detail-label">这里可以做什么</div><p id="area-purpose"></p><div class="detail-label">此刻看见的变化</div><div class="feature" id="area-change"></div><div class="detail-label">设计边界</div><p id="area-rule"></p><div id="area-projects"></div></aside>
+  </div>
+  <details class="story" open>
+    <summary>独立预览支线成果</summary>
+    <p>主线阶段只控制基础修复。以下开关代表对应条件已完成；切到更早阶段会清除不兼容的条件与建设演示。进入章末也不会自动补齐支线。</p>
+    <div class="checks">
+      <label><input type="checkbox" data-story="route">S01 · 货站路签</label>
+      <label><input type="checkbox" data-story="robot">S07 · 维修偶接站</label>
+      <label><input type="checkbox" data-story="clothes">S09 · 居民包裹</label>
+      <label><input type="checkbox" data-story="plants">S11 · 广播与种子</label>
+      <label><input type="checkbox" data-story="q04">Q04 · 植物成长里程碑</label>
+      <label><input type="checkbox" data-story="archive">X11 · 恢复档案缺页</label>
+      <label><input type="checkbox" data-story="watch">S12 · 守夜机入驻</label>
+      <label><input type="checkbox" data-story="residents">S06 · 居民获救</label>
+    </div>
+  </details>
+  <section aria-labelledby="catalog-title">
+    <div class="catalog-head"><div><div class="eyebrow">08 OPTIONAL PROJECTS</div><h2 id="catalog-title">想先修好哪一处？</h2><p>查看材料成本，演示建成后的场景变化。基础服务始终可用。</p></div><button class="reset" id="reset">还原全部预览</button></div>
+    <div class="projects" id="projects"></div>
+    <p class="board-note">演示不模拟材料库存与扣料，不写入游戏存档。真实建造从仓库支付、即时完成、永久保留；仅布置和展示可免费切换。制作、改装与建设共享材料，八项全部跳过也能完成主线。</p>
+  </section>
+  <div class="sr-only" role="status" aria-live="polite" id="announcement"></div>
+  <noscript><p>启用 JavaScript 后可切换阶段与建设。完整文字方案可通过页首链接阅读。</p></noscript>
+  <footer><span>局外场景提案 · 2026.10.12 · 代码绘制的布局示意</span><span>返回时有变化，出发时有目标。</span></footer>
+</main>
+<script>
+'use strict';
+const stages = [
+  {name:'余火未熄',note:'炉心仍在低功率运转。带回继电器，就能先点亮工作灯。'},
+  {name:'第一盏灯',note:'工作灯照出旧日屋顶。家里有了第一处由你带回的变化。'},
+  {name:'有自己的工具',note:'夹具已校准，制作与改装开放。可以预览人台或靶台，也可以直接出发。'},
+  {name:'住得下来的站',note:'诊所流出清水。接下来的建设由你选择，生活成果随支线独立出现。'},
+  {name:'灯火相连',note:'稳压装置已带回，余火站与旧区都亮着灯。可选工程与未完成的支线仍可回访。'}
+];
+const areas = {
+  H01:{name:'炉心大厅',purpose:'查看已入库的收获、交付任务、打开建设总览，回看墙上的旧日投影。',rule:'交付原任务物一次就完成对应修复。工作灯亮起与炉心最终稳定分别由 Q01、Q07 决定。',change:s=>s===0?'暗红炉火与临时提灯。等待第一件安全带回的设备。':s===4?'炉心持续运转，工作灯与外门灯连成一条完整灯带。':'Q01 带回的继电器已经装好，墙上有了过去的晴天。'},
+  H02:{name:'岑砧工坊',purpose:'制作装备、预览一个牌副本的改装变化、免费基础试用；建靶台后复现已见意图。',rule:'Q02 开放制作与改装；X05 原教学免费。普通模拟不发奖励，维修偶入驻不需要另付建设费。',change:s=>s<2?'岑砧整理旧工具，完整工坊等待已校准的夹具。':story.robot?'工具灯已经亮起。维修偶在桌边模仿你带回的装备。':'工具墙和校准台可用，岑砧把一块空地留给你的试验。'},
+  H03:{name:'整备库房',purpose:'查看收藏与完整牌包、手动换装、选择最多两件备用，并明确携带需要的任务物。',rule:'比较、筛选和手动配装免费。人台保存方案，不增加装备部位，不复制藏品，也不自动购买改装。',change:()=>built.has('P01')?'两具人台可以展示并保存两套方案。收藏仍可随时穿戴。':'装备与备用箱已经可用，空余墙面可安装两具配装人台。'},
+  H04:{name:'阿苇诊所',purpose:'免费基础恢复与出发补给，查看已知状态说明，战败后重新整理下一次目标。',rule:'净水修复前也有基本医疗。恢复不收费，植物不生产补给，战败不损坏基地。',change:s=>s>=3?'净水滤芯让清洗台恢复流水，帘后的病床亮起暖灯。':'水桶与简易药柜维持基础服务；滤芯带回后会恢复清洁供水。'},
+  H05:{name:'调度室',purpose:'选择已解锁起点、追踪装备与材料来源；建长桌后并列记录两条手工规划路线。',rule:'普通地图与来源追踪免费。规划只计算已知步数，不移动角色，不预测随机掉落或消除巡逻风险。',change:()=>story.plants?'电台传来记录过的广播。'+(story.route?'外环货站路签挂在站牌上。':'货站出发条件仍须按 S01 完成。'):story.route?'外环货站路签已挂好，能从合法前进站出发。':'地图上标着已知道路；新的站牌随真实的路线任务开放。'},
+  H06:{name:'住居长廊',purpose:'看看送回的包裹和获救居民，选择公共桌椅摆位、纪念物与已解锁的生活对话。',rule:'不建长桌也不影响居民安全和任务服务。没有好感货币、住房人数门槛或食物消耗。',change:()=>[story.clothes?'衣架上出现修补过的工作服。':'衣架留着一个空位。',story.residents?'三名获救居民已经有了落脚处。':'居民入驻由实际护送交付决定。',built.has('P05')?'公共长桌上多了一只杯子。':'走廊里可以搭一张公共长桌。'].join('')},
+  H07:{name:'屋顶温室',purpose:'观看种子成长、选择遮雨棚与长凳布置，看看城市中还亮着的灯。',rule:'S11 交付就有植物，Q04 后成长一次。遮雨棚是可选建设，没有浇水、离线收菜或战斗产量。',change:s=>!story.plants?'空种植槽仍然朝着天光。旧日投影和住户公告里留着种子的线索。':(s===4||story.q04)?'带回的种子长成绿植；故事进度让它们生长，不需要每日照料。':'种子已经发芽。完成 Q04 后，这里会长出一片绿意。'},
+  H08:{name:'站台与外门',purpose:'查看起点、目标、装备与备用，再确认出发；回访时能看到货箱、灯光和守夜人的变化。',rule:'站台不是远征地图的 A01。各功能页可直接进入出征确认，省去来回跑动。',change:s=>(s===4?'两种供能方案都让站台恢复稳定照明。':'轨道通向灰区，灯光随主线逐渐恢复。')+(story.watch?'守夜机已经在外门值班，是否加盖棚子由你决定。':'守夜机只在完成对应支线后出现。')}
+};
+const projects = [
+  {id:'P01',name:'配装人台',area:'H03',min:2,flags:[],cost:'废钢 ×2 · 精密弹簧 ×1',gate:'Q02 已交付',effect:'保存两套自有配装与备用，比较完整牌包。'},
+  {id:'P02',name:'可编程靶台',area:'H02',min:2,flags:[],cost:'废钢 ×2 · 导能线 ×1',gate:'Q02 已交付',effect:'复现已见普通敌人意图，用合法固定起手比较配置。'},
+  {id:'P03',name:'维修偶的小角落',area:'H02',min:2,flags:['robot'],cost:'废钢 ×1 · 导能线 ×1',gate:'Q02 ＋ S07 已交付',effect:'展示一个收藏动作，保存三条个人组合笔记。'},
+  {id:'P04',name:'地图长桌',area:'H05',min:2,flags:['route'],cost:'废钢 ×2 · 精密弹簧 ×1',gate:'Q02 ＋ S01 已交付',effect:'并列记录两条路线，比较已知行动与出口。'},
+  {id:'P05',name:'公共长桌',area:'H06',min:3,flags:[],cost:'废钢 ×2 · 耐热陶片 ×1',gate:'Q03 已交付',effect:'三种桌椅摆位、一个纪念物位和居民短对话。'},
+  {id:'P06',name:'屋顶遮雨棚',area:'H07',min:3,flags:['plants'],cost:'废钢 ×2 · 耐热陶片 ×1',gate:'Q03 ＋ S11 已交付',effect:'两种温室布置、长凳与雨棚声景。'},
+  {id:'P07',name:'档案投影架',area:'H01',min:4,flags:['archive'],cost:'导能线 ×1 · 共鸣玻璃 ×1',gate:'Q05 ＋ X11 缺页恢复；预览在章末展示',effect:'编排三个已获得片段，保存一张基地纪念页。'},
+  {id:'P08',name:'守夜值班棚',area:'H08',min:4,flags:['watch'],cost:'废钢 ×2 · 导能线 ×1',gate:'Q06 ＋ S12 末阶段交付；预览在章末展示',effect:'更换灯罩与铃声表现，查看守夜与回营记录。'}
+];
+const storyMin = {route:1,robot:0,clothes:1,plants:2,q04:3,archive:4,watch:4,residents:4};
+let stage=2, selected='H01';
+const story = {route:false,robot:false,clothes:false,plants:false,q04:false,archive:false,watch:false,residents:false};
+const built=new Set();
+const byId=id=>document.getElementById(id);
+const available=p=>stage>=p.min&&p.flags.every(flag=>story[flag]);
+function announce(message){byId('announcement').textContent=message;}
+function selectArea(id,moveFocus=false){
+  selected=id;
+  renderArea();
+  document.querySelectorAll('[data-area]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.area===id)));
+  if(moveFocus){document.querySelector('[data-area="'+id+'"]').focus();}
+  announce(areas[id].name+'。'+areas[id].purpose);
+}
+function renderArea(){
+  const area=areas[selected];
+  byId('area-id').textContent=selected+' / 余火站';
+  byId('area-title').textContent=area.name;
+  byId('area-purpose').textContent=area.purpose;
+  byId('area-change').textContent=area.change(stage);
+  byId('area-rule').textContent=area.rule;
+  const limited=(selected==='H02'&&stage<2)||(selected==='H07'&&!story.plants);
+  byId('area-status').textContent=limited?'基础场景 · 等待对应修复':'区域用途可查看';
+  byId('area-status').className='tag'+(limited?' future':'');
+  byId('area-projects').replaceChildren();
+  projects.filter(p=>p.area===selected).forEach(p=>{
+    const row=document.createElement('div'); row.className='mini-project';
+    const title=document.createElement('span');title.textContent=p.id+' · '+p.name+(built.has(p.id)?' / 已演示建成':' / 可选工程');
+    const link=document.createElement('a');link.href='#project-'+p.id;link.textContent='查看成本与前提 ↓';
+    row.append(title,link);byId('area-projects').append(row);
+  });
+}
+function makeCards(){
+  projects.forEach(p=>{
+    const card=document.createElement('article');card.className='project';card.id='project-'+p.id;
+    const link=document.createElement('a');link.href='#scene';link.textContent=p.id+' / '+areas[p.area].name;
+    link.addEventListener('click',event=>{event.preventDefault();selectArea(p.area,true);});
+    const title=document.createElement('h3');title.textContent=p.name;
+    const effect=document.createElement('p');effect.textContent=p.effect;
+    const cost=document.createElement('div');cost.className='cost';cost.textContent=p.cost;
+    const gate=document.createElement('div');gate.className='require';gate.textContent=p.gate;
+    const button=document.createElement('button');button.type='button';button.dataset.build=p.id;button.setAttribute('aria-pressed','false');
+    button.addEventListener('click',()=>{
+      if(!available(p))return;
+      if(built.has(p.id))built.delete(p.id);else built.add(p.id);
+      selectArea(p.area);render();
+      announce(p.name+(built.has(p.id)?'已演示建成。':'已还原建造前预览。')+'仅切换设计稿，不扣除材料。');
+    });
+    card.append(link,title,effect,cost,gate,button);byId('projects').append(card);
+  });
+}
+function render(){
+  for(const key of Object.keys(story)){if(stage<storyMin[key])story[key]=false;}
+  if(stage===4)story.q04=true;
+  projects.forEach(p=>{if(!available(p))built.delete(p.id);});
+  const scene=byId('scene');scene.dataset.stage=String(stage);
+  for(const key of ['route','robot','clothes','plants','watch','residents'])scene.dataset[key]=String(story[key]);
+  scene.dataset.grown=String(stage===4||story.q04);
+  byId('phase-title').textContent=stages[stage].name;
+  byId('scene-note').replaceChildren();
+  const caption=document.createElement('strong');caption.textContent='回营时刻 / ';
+  byId('scene-note').append(caption,document.createTextNode(stages[stage].note));
+  document.querySelectorAll('[data-phase]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.phase)===stage)));
+  document.querySelectorAll('[data-story]').forEach(input=>{
+    input.checked=story[input.dataset.story];input.disabled=stage<storyMin[input.dataset.story]||(input.dataset.story==='q04'&&stage===4);
+  });
+  document.querySelectorAll('[data-art]').forEach(part=>part.classList.toggle('visible',built.has(part.dataset.art)));
+  projects.forEach(p=>{
+    byId('project-'+p.id).dataset.built=String(built.has(p.id));
+    const button=document.querySelector('[data-build="'+p.id+'"]');button.disabled=!available(p);
+    button.setAttribute('aria-pressed',String(built.has(p.id)));
+    button.textContent=built.has(p.id)?'还原建前预览':available(p)?'演示建成后的变化':'等待上述任务条件';
+  });
+  renderArea();
+}
+document.querySelectorAll('[data-phase]').forEach(button=>button.addEventListener('click',()=>{stage=Number(button.dataset.phase);render();announce('已切换至'+stages[stage].name+'。'+stages[stage].note);}));
+document.querySelectorAll('[data-area]').forEach(button=>button.addEventListener('click',()=>selectArea(button.dataset.area)));
+document.querySelectorAll('[data-story]').forEach(input=>input.addEventListener('change',()=>{story[input.dataset.story]=input.checked;render();announce('已更新独立任务成果。');}));
+byId('reset').addEventListener('click',()=>{stage=2;built.clear();Object.keys(story).forEach(key=>story[key]=false);selectArea('H01');render();announce('已还原为 Q02 阶段，无支线、无可选建设。');});
+makeCards();render();
+</script>
+</body>
+</html>
