@@ -47,4 +47,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export.ps1
 - tests/CardRPG.Core.Tests：规则、保存恢复与完整闭环测试。
 - artifacts/Expedition：本机 Windows 导出包，不纳入 Git。
 
-[设计文档](doc/00_游戏概览.md) · [接战规则](doc/06_世界与关卡/03_遭遇事件与交互节点.md) · [验收清单](doc/11_开发管理与验收/02_测试计划与验收清单.md)
+[设计文档](doc/00_游戏概览.md) · [第一章完整设计提案（尚未实现）](doc/13_第一章_余火铸造区/01_章节总案.md) · [接战规则](doc/06_世界与关卡/03_遭遇事件与交互节点.md) · [验收清单](doc/11_开发管理与验收/02_测试计划与验收清单.md)
