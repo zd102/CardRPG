@@ -3,34 +3,199 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>灰烬远征 · 界面预览</title>
+<meta name="description" content="灰烬远征第一章外环：像素风全屏场景、任务状态变化、悬浮战斗 HUD 与不同窗口尺寸的实际游戏截图。">
+<title>灰烬远征 · 第一章像素界面预览</title>
 <style>
-:root{color-scheme:dark;font-family:"Microsoft YaHei UI",system-ui,sans-serif;background:#0c151b;color:#edf0e6}
-body{max-width:1500px;margin:auto;padding:40px 24px 64px}header{max-width:840px;margin-bottom:36px}
-small{color:#dfbb7b;letter-spacing:.15em}h1{font-size:2rem;font-weight:500;margin:12px 0}p{color:#a9bbb7;line-height:1.8}
-nav{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}a{color:#dfbb7b;text-decoration:none}nav a{border:1px solid #35484b;border-radius:4px;padding:9px 14px}
-a:hover{color:#fff0d2}a:focus-visible{outline:2px solid #dfbb7b;outline-offset:4px}
-main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}figure{margin:0;border:1px solid #35484b;border-radius:6px;overflow:hidden;background:#152329;scroll-margin-top:20px}
-img{display:block;width:100%;height:auto}figcaption{padding:18px 20px}h2{font-size:1.2rem;font-weight:500;margin:0 0 8px}figcaption p{font-size:.9rem;margin:0}footer{margin-top:32px;color:#a9bbb7;font-size:.875rem}
-@media(max-width:900px){main{grid-template-columns:1fr}body{padding:24px 16px}}
+:root{color-scheme:dark;font-family:"Microsoft YaHei UI",system-ui,sans-serif;background:#0b151e;color:#fff0d4;line-height:1.7}
+*{box-sizing:border-box}
+body{max-width:1480px;margin:0 auto;padding:40px 28px 48px}
+a{color:#f4c578;text-underline-offset:4px}
+a:hover{color:#fff0d4}
+a:focus-visible,summary:focus-visible{outline:2px solid #f4c578;outline-offset:5px}
+.skip{position:absolute;left:24px;top:-100px;background:#192c3e;padding:12px;z-index:1}
+.skip:focus{top:12px}
+.eyebrow{font-size:12px;letter-spacing:.16em;color:#f4c578}
+h1{font-size:clamp(28px,4vw,48px);line-height:1.3;font-weight:600;margin:12px 0 18px}
+header>p{max-width:860px;font-size:17px;color:#bed2cf;margin:0 0 18px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;color:#97b2b6;margin:18px 0}
+nav{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 30px}
+nav a{padding:9px 16px;border:1px solid #476169;text-decoration:none;background:#14242f}
+nav a:hover{background:#223a43;border-color:#f4c578}
+section{margin-top:48px;scroll-margin-top:24px}
+section>h2{font-size:26px;font-weight:500;margin:0 0 8px}
+section>p{max-width:920px;margin:0 0 24px;color:#bed2cf}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+figure{margin:0;background:#142530;border:1px solid #344e58;min-width:0;scroll-margin-top:24px}
+.picture{display:block;overflow:hidden}
+img{display:block;width:100%;height:auto;background:#101e29}
+figcaption{padding:17px 20px 20px}
+h3{font-size:18px;font-weight:500;margin:0 0 6px}
+figcaption p{font-size:14px;color:#bed2cf;margin:0}
+.hero figcaption{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+.hero h2{font-size:20px;margin:0;font-weight:500}
+details{margin-top:14px;border-top:1px solid #344e58;padding-top:10px}
+summary{color:#f4c578;cursor:pointer;font-size:14px}
+details .picture{margin-top:12px}
+footer{margin-top:48px;padding-top:24px;border-top:1px solid #344e58;font-size:14px;color:#97b2b6}
+footer p{margin:8px 0}
+@media(max-width:800px){body{padding:24px 16px 36px}.grid{grid-template-columns:1fr;gap:20px}section{margin-top:36px}nav{gap:8px}nav a{padding:8px 12px}figcaption{padding:14px 16px}header>p{font-size:15px}}
 </style>
 </head>
 <body>
-<header><small>ASHEN EXPEDITION / UI PREVIEW</small><h1>灰烬远征 · 单区域场景与只读地图</h1>
-<p>行动页一次只显示当前区域：行为放在场景物件旁，相邻区域以边缘出口呈现。M 打开的全区域地图只供查看，不提供移动或行为操作。以下均为实际 Godot 运行截图，可点击查看原图。</p>
-<nav aria-label="页面导航"><a href="#camp">据点</a><a href="#explore">单区域行动</a><a href="#map">只读地图</a><a href="#places">六个场景</a><a href="#battle">战斗</a><a href="#blessing">祝福</a><a href="#inventory">装备</a><a href="#extracted">撤离结算</a><a href="#defeated">战败结算</a><a href="#help">指引</a></nav></header>
-<main>
-<figure id="camp"><a href="expedition-camp.png"><img src="expedition-camp.png" alt="据点：全屏铸造区，悬浮远征目标和右侧整备 HUD"></a><figcaption><h2>01 / 据点整备</h2><p>全景场景上叠加目标与整备 HUD，出征按钮固定在面板底部。</p></figcaption></figure>
-<figure id="explore"><a href="expedition.png"><img src="expedition.png" alt="货运广场：场景内的运输队、保险箱、补给、观察点及边缘区域出口"></a><figcaption><h2>02 / 单区域行动</h2><p>只显示当前区域，点击物件旁的行为执行，通过场景边缘出口前往相邻区域。没有右侧行动栏。</p></figcaption></figure>
-<figure id="map"><a href="expedition-map.png"><img src="expedition-map.png" alt="只读地图：六处地标、当前位置和道路，不提供移动交互"></a><figcaption><h2>地图 / 只读路线总览</h2><p>M 打开地图，点击地标不会移动或扣步；返回场景后从出口移动。</p></figcaption></figure>
-<figure id="battle"><a href="expedition-battle.png"><img src="expedition-battle.png" alt="战斗：场景中的可点击敌人、悬浮生命与意图、底部手牌 HUD"></a><figcaption><h2>03 / 卡牌战斗</h2><p>点击角色或名称选敌，生命与意图悬浮在角色附近；手牌及操作固定在底部。</p></figcaption></figure>
-<figure id="blessing"><a href="expedition-blessing.png"><img src="expedition-blessing.png" alt="祝福：回响装置与两个可并列比较的祝福选项"></a><figcaption><h2>04 / 回响祝福</h2><p>回响装置铺满场景，两个祝福选项并列悬浮在底部。</p></figcaption></figure>
-<figure id="inventory"><a href="expedition-inventory.png"><img src="expedition-inventory.png" alt="装备：穿戴与供牌、卡组条目、未撤离战利品"></a><figcaption><h2>05 / 装备与卡组</h2><p>装备覆盖层保留场景背景，长收藏在层内滚动，关闭按钮固定。</p></figcaption></figure>
-<figure id="extracted"><a href="expedition-extracted.png"><img src="expedition-extracted.png" alt="撤离成功：收获摘要、仓库统计与返回据点按钮"></a><figcaption><h2>06 / 撤离结算</h2><p>结算 HUD 悬浮于场景之上，突出收获已入库与返回据点。</p></figcaption></figure>
-<figure id="defeated"><a href="expedition-defeated.png"><img src="expedition-defeated.png" alt="战败结算：损失与保留内容，以及返回据点按钮"></a><figcaption><h2>06 / 战败结算</h2><p>明确损失未入库收获，绑定装备和永久情报保留。</p></figcaption></figure>
-<figure id="help"><a href="expedition-help.png"><img src="expedition-help.png" alt="指引：去哪里、何时开战、带走还是深入，附战斗速查"></a><figcaption><h2>07 / 行动指引</h2><p>手册覆盖层集中展示三个决定与战斗速查，支持 F1 打开、Esc 返回。</p></figcaption></figure>
+<a class="skip" href="#main">跳到截图</a>
+<header>
+<div class="eyebrow">ASHEN EXPEDITION / CHAPTER ONE</div>
+<h1>余火未熄，走进外环。</h1>
+<p>像素风场景铺满窗口，探索发生在物件与出口之间。任务会点亮灯火、打开暗门，也让新的伙伴回到余火站。</p>
+<div class="meta"><span>2026-10-13 · Windows 导出包实机截图</span><span>据点 + 7 个探索地点</span><span>23 张生成素材已接入</span></div>
+<nav aria-label="截图导航"><a href="#camp">余火站</a><a href="#places">外环地点</a><a href="#changes">任务前后</a><a href="#interface">战斗与界面</a><a href="#layouts">窗口适配</a></nav>
+</header>
+<main id="main">
+<figure class="hero" id="camp">
+<a class="picture" href="chapter1-camp.png" aria-label="查看原图：余火站 · 初次出征"><img src="chapter1-camp.png" alt="余火站 · 初次出征的实际游戏画面" width="1280" height="800" loading="eager" decoding="async" fetchpriority="high"></a>
+<figcaption><h2>余火站 · 初次出征</h2><p>工作台、任务交付、行前整备与出征入口直接落在场景中。点击图片查看原图。</p></figcaption>
+</figure>
+<section id="places" aria-labelledby="places-title">
+<h2 id="places-title">七个外环地点</h2>
+<p>从入口营地出发，点击场景里的物件与出口探索。暗室和列车随发现与任务开放。</p>
+<div class="grid">
+<figure id="explore">
+<a class="picture" href="chapter1/02-gate.png" aria-label="查看原图：A01 · 入口营地"><img src="chapter1/02-gate.png" alt="A01 · 入口营地的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>A01 · 入口营地</h3><p>帐篷、出口和撤离车辆都直接呈现在场景中。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/05-square.png" aria-label="查看原图：A02 · 货运广场"><img src="chapter1/05-square.png" alt="A02 · 货运广场的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>A02 · 货运广场</h3><p>夹具、货箱与可绕开的敌人共享同一张全景。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/03-scrap.png" aria-label="查看原图：A03 · 废料场"><img src="chapter1/03-scrap.png" alt="A03 · 废料场的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>A03 · 废料场</h3><p>维修偶藏在工作台上，继电器位于右侧。</p></figcaption>
+</figure>
+<figure id="blessing">
+<a class="picture" href="chapter1/04-workshop.png" aria-label="查看原图：A04 · 维修工坊"><img src="chapter1/04-workshop.png" alt="A04 · 维修工坊的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>A04 · 维修工坊</h3><p>台架、共鸣与检修灯都可以在原地操作。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/07-station.png" aria-label="查看原图：A05 · 外环货站"><img src="chapter1/07-station.png" alt="A05 · 外环货站的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>A05 · 外环货站</h3><p>尚未修复的配电柜与撤离平台。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1-hidden-room.png" aria-label="查看原图：A06 · 荧光检修夹层"><img src="chapter1-hidden-room.png" alt="A06 · 荧光检修夹层的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>A06 · 荧光检修夹层</h3><p>循着荧光暗门发现工具与货单。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/11-train-choices.png" aria-label="查看原图：A07 · 静止列车"><img src="chapter1/11-train-choices.png" alt="A07 · 静止列车的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>A07 · 静止列车</h3><p>检查车厢后，在居民包裹、导能线和补给之间选择。</p></figcaption>
+</figure>
+</div>
+</section>
+<section id="changes" aria-labelledby="changes-title">
+<h2 id="changes-title">让任务留在场景里</h2>
+<p>完成任务会改变地点与据点。下方可展开同一场景的变化前画面进行对照。</p>
+<div class="grid">
+<figure>
+<a class="picture" href="chapter1/07-lit-home.png" aria-label="查看原图：点灯之后 · 旧日投影"><img src="chapter1/07-lit-home.png" alt="点灯之后 · 旧日投影的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>点灯之后 · 旧日投影</h3><p>交付继电器后，工作灯点亮，墙上出现城市投影。</p><details><summary>查看变化前</summary><a class="picture" href="chapter1-camp.png" aria-label="查看原图：点灯之后 · 旧日投影 · 变化前"><img src="chapter1-camp.png" alt="点灯之后 · 旧日投影 · 变化前的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a></details></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/11-lived-in-home.png" aria-label="查看原图：有人归来 · 维修偶与居民衣架"><img src="chapter1/11-lived-in-home.png" alt="有人归来 · 维修偶与居民衣架的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>有人归来 · 维修偶与居民衣架</h3><p>救援与包裹交付后，余火站多了新的住客与生活痕迹。</p><details><summary>查看变化前</summary><a class="picture" href="chapter1/07-lit-home.png" aria-label="查看原图：有人归来 · 维修偶与居民衣架 · 变化前"><img src="chapter1/07-lit-home.png" alt="有人归来 · 维修偶与居民衣架 · 变化前的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a></details></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/03-scrap-rescued.png" aria-label="查看原图：救援之后 · 空下来的工作台"><img src="chapter1/03-scrap-rescued.png" alt="救援之后 · 空下来的工作台的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>救援之后 · 空下来的工作台</h3><p>维修偶离开夹具，救援标记随之消失。</p><details><summary>查看变化前</summary><a class="picture" href="chapter1/03-scrap.png" aria-label="查看原图：救援之后 · 空下来的工作台 · 变化前"><img src="chapter1/03-scrap.png" alt="救援之后 · 空下来的工作台 · 变化前的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a></details></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/04-workshop-dark.png" aria-label="查看原图：熄灯之后 · 荧光暗门"><img src="chapter1/04-workshop-dark.png" alt="熄灯之后 · 荧光暗门的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>熄灯之后 · 荧光暗门</h3><p>关闭检修灯，墙后的入口显露，可前往检修夹层。</p><details><summary>查看变化前</summary><a class="picture" href="chapter1/04-workshop.png" aria-label="查看原图：熄灯之后 · 荧光暗门 · 变化前"><img src="chapter1/04-workshop.png" alt="熄灯之后 · 荧光暗门 · 变化前的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a></details></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/07-station-powered.png" aria-label="查看原图：修复之后 · 货站通电"><img src="chapter1/07-station-powered.png" alt="修复之后 · 货站通电的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>修复之后 · 货站通电</h3><p>配电柜与撤离信号亮起，安全撤离成为可用操作。</p><details><summary>查看变化前</summary><a class="picture" href="chapter1/07-station.png" aria-label="查看原图：修复之后 · 货站通电 · 变化前"><img src="chapter1/07-station.png" alt="修复之后 · 货站通电 · 变化前的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a></details></figcaption>
+</figure>
+</div>
+</section>
+<section id="interface" aria-labelledby="interface-title">
+<h2 id="interface-title">战斗与按需展开的界面</h2>
+<p>敌人、意图和手牌浮在场景上。装备、任务、地图和整备居中展开，关闭后回到探索。</p>
+<div class="grid">
+<figure id="battle">
+<a class="picture" href="chapter1-battle.png" aria-label="查看原图：战斗 · 角色与手牌"><img src="chapter1-battle.png" alt="战斗 · 角色与手牌的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>战斗 · 角色与手牌</h3><p>选择敌人，再点击手牌出牌；结束回合与撤退位于右上方。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/08-trial.png" aria-label="查看原图：台架 · 免费试用"><img src="chapter1/08-trial.png" alt="台架 · 免费试用的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>台架 · 免费试用</h3><p>使用借用牌组体验组合，练习靶不会还击，可随时退出。</p></figcaption>
+</figure>
+<figure id="map">
+<a class="picture" href="chapter1/02-map.png" aria-label="查看原图：地图 · 只读路线"><img src="chapter1/02-map.png" alt="地图 · 只读路线的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>地图 · 只读路线</h3><p>M 查看地点与道路，移动仍通过场景出口完成。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/01-preparation.png" aria-label="查看原图：行前整备"><img src="chapter1/01-preparation.png" alt="行前整备的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>行前整备</h3><p>选择起始装备、备用和出发地点。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/09-crafting.png" aria-label="查看原图：制作与改装"><img src="chapter1/09-crafting.png" alt="制作与改装的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>制作与改装</h3><p>查看配方、材料与制作结果。</p></figcaption>
+</figure>
+<figure id="inventory">
+<a class="picture" href="chapter1/10-equipment.png" aria-label="查看原图：装备与随身物品"><img src="chapter1/10-equipment.png" alt="装备与随身物品的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>装备与随身物品</h3><p>穿戴、备用和未入库收获集中查看，长内容在覆盖层内滚动。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/12-journal.png" aria-label="查看原图：任务与发现"><img src="chapter1/12-journal.png" alt="任务与发现的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>任务与发现</h3><p>查看任务进度，交付已带回的物品。</p></figcaption>
+</figure>
+<figure id="extracted">
+<a class="picture" href="chapter1/06-extraction.png" aria-label="查看原图：撤离成功"><img src="chapter1/06-extraction.png" alt="撤离成功的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>撤离成功</h3><p>显示本次带回的收获与仓库，再返回余火站。</p></figcaption>
+</figure>
+<figure id="defeated">
+<a class="picture" href="chapter1/14-defeated.png" aria-label="查看原图：战败结算"><img src="chapter1/14-defeated.png" alt="战败结算的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>战败结算</h3><p>交代本次损失与永久保留的进展，支持回营再出发。</p></figcaption>
+</figure>
+<figure id="help">
+<a class="picture" href="chapter1/01-help.png" aria-label="查看原图：行动指引"><img src="chapter1/01-help.png" alt="行动指引的实际游戏画面" width="1280" height="800" loading="lazy" decoding="async"></a>
+<figcaption><h3>行动指引</h3><p>F1 打开操作说明，Esc 返回场景。</p></figcaption>
+</figure>
+</div>
+</section>
+<section id="layouts" aria-labelledby="layouts-title">
+<h2 id="layouts-title">不同窗口下的实际画面</h2>
+<p>1100×760 与 1600×900。对照场景裁切、额外抽牌与三敌人战斗；点击图片可查看原始分辨率。</p>
+<div class="grid">
+<figure>
+<a class="picture" href="chapter1/1100-camp.png" aria-label="查看原图：1100×760 · 据点"><img src="chapter1/1100-camp.png" alt="1100×760 · 据点的实际游戏画面" width="1100" height="760" loading="lazy" decoding="async"></a>
+<figcaption><h3>1100×760 · 据点</h3><p>物件标记随场景裁切保持对齐。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/1600-camp.png" aria-label="查看原图：1600×900 · 据点"><img src="chapter1/1600-camp.png" alt="1600×900 · 据点的实际游戏画面" width="1600" height="900" loading="lazy" decoding="async"></a>
+<figcaption><h3>1600×900 · 据点</h3><p>更宽的窗口继续显示完整的场景与操作入口。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/1100-extra-cards.png" aria-label="查看原图：1100×760 · 六张手牌"><img src="chapter1/1100-extra-cards.png" alt="1100×760 · 六张手牌的实际游戏画面" width="1100" height="760" loading="lazy" decoding="async"></a>
+<figcaption><h3>1100×760 · 六张手牌</h3><p>额外抽牌后，手牌和结束试用操作均在窗口内。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/1600-extra-cards.png" aria-label="查看原图：1600×900 · 六张手牌"><img src="chapter1/1600-extra-cards.png" alt="1600×900 · 六张手牌的实际游戏画面" width="1600" height="900" loading="lazy" decoding="async"></a>
+<figcaption><h3>1600×900 · 六张手牌</h3><p>手牌居中排布，场景延伸到屏幕边缘。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/1100-three-enemies.png" aria-label="查看原图：1100×760 · 三敌人同屏"><img src="chapter1/1100-three-enemies.png" alt="1100×760 · 三敌人同屏的实际游戏画面" width="1100" height="760" loading="lazy" decoding="async"></a>
+<figcaption><h3>1100×760 · 三敌人同屏</h3><p>巡逻召来支援后，每个目标、公开意图和手牌保持可见。</p></figcaption>
+</figure>
+<figure>
+<a class="picture" href="chapter1/1600-three-enemies.png" aria-label="查看原图：1600×900 · 三敌人同屏"><img src="chapter1/1600-three-enemies.png" alt="1600×900 · 三敌人同屏的实际游戏画面" width="1600" height="900" loading="lazy" decoding="async"></a>
+<figcaption><h3>1600×900 · 三敌人同屏</h3><p>可点击第三个敌人切换目标，回合操作保持可用。</p></figcaption>
+</figure>
+</div>
+</section>
 </main>
-<section id="places"><h2 style="margin-top:36px">六个独立区域场景</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:24px"><figure><a href="place-gate.png"><img loading="lazy" src="place-gate.png" alt="入口营地的独立场景和交互点"></a><figcaption><h2>入口营地</h2></figcaption></figure><figure><a href="place-square.png"><img loading="lazy" src="place-square.png" alt="货运广场的独立场景和交互点"></a><figcaption><h2>货运广场</h2></figcaption></figure><figure><a href="place-scrap.png"><img loading="lazy" src="place-scrap.png" alt="废料场的独立场景和交互点"></a><figcaption><h2>废料场</h2></figcaption></figure><figure><a href="place-workshop.png"><img loading="lazy" src="place-workshop.png" alt="临时工坊的独立场景和交互点"></a><figcaption><h2>临时工坊</h2></figcaption></figure><figure><a href="place-furnace.png"><img loading="lazy" src="place-furnace.png" alt="地下熔炉的独立场景和交互点"></a><figcaption><h2>地下熔炉</h2></figcaption></figure><figure><a href="place-exit.png"><img loading="lazy" src="place-exit.png" alt="货运站的独立场景和交互点"></a><figcaption><h2>货运站</h2></figcaption></figure></div></section>
-<footer>2026-10-12 · 默认 1280×800 · 已验证 1100×760 与 1600×900 · <a href="../../game/Art/Generated/README.md">生图提示词与接入状态</a></footer>
+<footer>
+<p>全部截图来自当前第一章外环的 Windows 独立导出包。任务状态与界面均在真实鼠标、键盘验证过程中拍摄；默认窗口 1280×800。</p>
+<p>当前可玩范围为外环；水务、铸造、中枢区与完整基地建设仍为后续内容。</p>
+<p><a href="../../game/Art/Generated/chapter/README.md">素材清单与提示词</a> · <a href="../13_第一章_余火铸造区/08_外环实现与验收.md">外环验收记录</a> · <a href="../../README.md">返回项目说明</a> · <a href="#main">回到顶部</a></p>
+</footer>
 </body>
 </html>

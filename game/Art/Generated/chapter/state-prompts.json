@@ -1,0 +1,29 @@
+{
+  "mode": "built-in image_gen",
+  "jobs": [
+    {
+      "id": "camp-lit",
+      "transparent": false,
+      "reference": "camp.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: full-screen environment background variant for the current pixel cartoon industrial fantasy RPG.\nInput image 1 is the EDIT TARGET. Keep its EXACT camera, wide 8:5 framing, architectural silhouette, all prop positions and exits, crisp pixel-art rendering, texture detail level and teal/blue with honey amber palette. This is the same location after a single quest event. No text, UI, labels, watermark, or border. Do not redesign or crop the scene.\nChange only: The rectangular cream projection screen above the center-back desk now shows a luminous warm nostalgic pixel projection of this city on a sunny day: golden sky, small distant rooftops and trees, no lettering. The hanging work lamp above it is repaired and glows brighter, casting a warm gentle pool of light onto the desk. Keep the rest of the depot and the cool blue right exit as in the original. No new characters or robots."
+    },
+    {
+      "id": "A03-rescued",
+      "transparent": false,
+      "reference": "A03.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: full-screen environment background variant for the current pixel cartoon industrial fantasy RPG.\nInput image 1 is the EDIT TARGET. Keep its EXACT camera, wide 8:5 framing, architectural silhouette, all prop positions and exits, crisp pixel-art rendering, texture detail level and teal/blue with honey amber palette. This is the same location after a single quest event. No text, UI, labels, watermark, or border. Do not redesign or crop the scene.\nChange only: The small golden repair robot standing at x35%, y51% in front of the middle-left bench has been rescued and has left. Remove only this robot and its entire body; reveal the existing empty metal bench, tool clamps and scrap behind it plausibly. Keep every other object, including the cyan relay box at right foreground, all scrap heaps, crane, lamps, paths and exits unchanged. No replacement character."
+    },
+    {
+      "id": "A04-dark",
+      "transparent": false,
+      "reference": "A04.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: full-screen environment background variant for the current pixel cartoon industrial fantasy RPG.\nInput image 1 is the EDIT TARGET. Keep its EXACT camera, wide 8:5 framing, architectural silhouette, all prop positions and exits, crisp pixel-art rendering, texture detail level and teal/blue with honey amber palette. This is the same location after a single quest event. No text, UI, labels, watermark, or border. Do not redesign or crop the scene.\nChange only: The inspection lamp above the large right-side door has been switched OFF, reducing amber light only on that door and its surrounding wall. Reveal the hidden passage: the same right door is now slightly ajar with vivid but restrained mint/cyan fluorescent moss tracing its outline, a dark passage and tiny luminous plants visible through the opening. Keep the giant central brass resonance rings and cyan core, the left workbench and its lighting, and every exit and prop in exactly the original position. Preserve visibility of the environment; do not darken the whole picture."
+    },
+    {
+      "id": "A05-powered",
+      "transparent": false,
+      "reference": "A05.png",
+      "prompt": "Use case: precise-object-edit\nAsset type: full-screen environment background variant for the current pixel cartoon industrial fantasy RPG.\nInput image 1 is the EDIT TARGET. Keep its EXACT camera, wide 8:5 framing, architectural silhouette, all prop positions and exits, crisp pixel-art rendering, texture detail level and teal/blue with honey amber palette. This is the same location after a single quest event. No text, UI, labels, watermark, or border. Do not redesign or crop the scene.\nChange only: The broken freight station electrical system is now repaired. The big left switchboard has several distinct cyan and green status lights and its power connectors glow softly; loose cable ends are now neatly connected at the switchboard. A small green departure lamp on the right rail elevator is lit, and its rail cart has warm ready-to-depart cabin lights. Keep the station kiosk, rail cart position, architecture, camera, distant city and all exits unchanged. No new characters, no text."
+    }
+  ]
+}

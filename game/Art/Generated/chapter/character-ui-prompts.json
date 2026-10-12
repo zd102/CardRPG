@@ -1,0 +1,50 @@
+{
+  "mode": "built-in image_gen",
+  "jobs": [
+    {
+      "id": "enemy-E01",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept\nAsset type: one isolated full-body game character sprite, transparent background.\nStyle: painterly realistic industrial dark fantasy matching a Victorian abandoned foundry RPG; weathered charcoal iron, aged brass, amber light, cool teal reflections, refined tactile materials. Camera front three-quarter view facing slightly left, neutral combat-ready standing pose. Entire body and all accessories fully inside canvas, generous clear padding on every side, feet at same baseline near lower edge. Character fills about 80 percent of height. Single character only, no floor, no scenery, no text, no lettering, no logo, no border, no decorative frame. Truly transparent alpha background.\nSubject: A heavy humanoid cargo-hauling iron automaton, broad shoulders, mechanical exposed piston arms, rectangular amber visor, circular furnace heart, battered riveted iron armor, holds a long heavy industrial hammer in its right hand. Readable imposing silhouette, legs and hammer fully visible."
+    },
+    {
+      "id": "enemy-E02",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept\nAsset type: one isolated full-body game character sprite, transparent background.\nStyle: painterly realistic industrial dark fantasy matching a Victorian abandoned foundry RPG; weathered charcoal iron, aged brass, amber light, cool teal reflections, refined tactile materials. Camera front three-quarter view facing slightly left, neutral combat-ready standing pose. Entire body and all accessories fully inside canvas, generous clear padding on every side, feet at same baseline near lower edge. Character fills about 80 percent of height. Single character only, no floor, no scenery, no text, no lettering, no logo, no border, no decorative frame. Truly transparent alpha background.\nSubject: A stout armored rivet guard automaton with a very large vertical rectangular riot shield made of weathered steel and brass rivets on its left arm, a short industrial mace in right hand, narrow amber visor, compact powerful silhouette with broad heavy feet. Different silhouette from a hammer carrier."
+    },
+    {
+      "id": "enemy-E03",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept\nAsset type: one isolated full-body game character sprite, transparent background.\nStyle: painterly realistic industrial dark fantasy matching a Victorian abandoned foundry RPG; weathered charcoal iron, aged brass, amber light, cool teal reflections, refined tactile materials. Camera front three-quarter view facing slightly left, neutral combat-ready standing pose. Entire body and all accessories fully inside canvas, generous clear padding on every side, feet at same baseline near lower edge. Character fills about 80 percent of height. Single character only, no floor, no scenery, no text, no lettering, no logo, no border, no decorative frame. Truly transparent alpha background.\nSubject: A tall slender patrol automaton with a distinctive antique brass alarm bell and amber rotating beacon mounted above its shoulders, long articulated legs, one arm carrying a signal lantern, exposed mechanical spine, alert surveying posture. No weapon pointing off canvas."
+    },
+    {
+      "id": "enemy-E13",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept\nAsset type: one isolated full-body game character sprite, transparent background.\nStyle: painterly realistic industrial dark fantasy matching a Victorian abandoned foundry RPG; weathered charcoal iron, aged brass, amber light, cool teal reflections, refined tactile materials. Camera front three-quarter view facing slightly left, neutral combat-ready standing pose. Entire body and all accessories fully inside canvas, generous clear padding on every side, feet at same baseline near lower edge. Character fills about 80 percent of height. Single character only, no floor, no scenery, no text, no lettering, no logo, no border, no decorative frame. Truly transparent alpha background.\nSubject: The quartermaster foreman boss: enormous sophisticated armored foundry automaton, massive broad black iron torso, copper furnace vents, bright orange circular reactor, huge two-handed forge hammer grounded beside the feet, an armored angular crown-like brow, aged bronze rank details. Clearly more imposing than ordinary guards."
+    },
+    {
+      "id": "repair-robot",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept\nAsset type: one isolated full-body game character sprite, transparent background.\nStyle: painterly realistic industrial dark fantasy matching a Victorian abandoned foundry RPG; weathered charcoal iron, aged brass, amber light, cool teal reflections, refined tactile materials. Camera front three-quarter view facing slightly left, neutral combat-ready standing pose. Entire body and all accessories fully inside canvas, generous clear padding on every side, feet at same baseline near lower edge. Character fills about 80 percent of height. Single character only, no floor, no scenery, no text, no lettering, no logo, no border, no decorative frame. Truly transparent alpha background.\nSubject: A small friendly knee-high brass repair robot with round glowing cyan eyes, a slightly oversized wrench held up in greeting, little sturdy feet, patched copper and iron casing, charming curious posture. Full figure, warm sympathetic personality, no human."
+    },
+    {
+      "id": "crest",
+      "transparent": true,
+      "prompt": "Use case: stylized-concept\nAsset type: a single square inventory and HUD emblem on a genuinely transparent background.\nSubject: a small exquisitely crafted circular aged brass insignia with an amber ember crystal in its center, iron ring, subtle radial mechanical marks and two understated leaf-shaped iron supports. Front view, symmetrical, clear silhouette, premium dark industrial fantasy RPG icon, warm gold against charcoal metal. Fills 85% of canvas. No text, numbers, lettering, scenery, frame outside emblem, no shadow outside the emblem. Transparent alpha."
+    },
+    {
+      "id": "card-strike",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept\nAsset type: borderless portrait card illustration, premium industrial fantasy deckbuilding RPG.\nSubject: close-up of a battered forged iron war hammer striking an anvil in a burst of restrained amber sparks. Beautiful tactile charcoal iron and old brass, teal atmospheric shadows, dramatic diagonal composition, cinematic hand-painted realism. Hammer and impact clearly visible in upper two-thirds, lower third dark soft atmospheric metal for native card text overlay. Tall portrait 3:4 format. Full bleed, no borders, no text, no lettering, no numbers, no UI, no watermark."
+    },
+    {
+      "id": "card-ward",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept\nAsset type: borderless portrait card illustration, premium industrial fantasy deckbuilding RPG.\nSubject: a heavy riveted shield and brass mechanical gauntlet enveloped in a translucent turquoise protective resonance field, intricate concentric energy rings, weathered iron material. Hand-painted realism, cool teal illumination and small amber highlights. Subject clearly visible upper two-thirds, lower third dark soft metal for native card text overlay. Tall portrait 3:4, full bleed. No borders, no text, no lettering, no numbers, no UI, no watermark."
+    },
+    {
+      "id": "card-arc",
+      "transparent": false,
+      "prompt": "Use case: stylized-concept\nAsset type: borderless portrait card illustration, premium industrial fantasy deckbuilding RPG.\nSubject: a compact brass induction staff and exposed copper coils releasing a beautiful blue-white electrical arc across a dark workshop. Painterly realistic, exquisite worn metal and ceramic insulators, teal and electric cyan with restrained warm amber. Subject upper two-thirds, lower third very dark atmosphere for native card text overlay. Tall portrait 3:4, full bleed. No borders, no text, no lettering, no numbers, no UI, no watermark."
+    }
+  ]
+}

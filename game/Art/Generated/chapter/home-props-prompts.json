@@ -1,0 +1,11 @@
+{
+  "mode": "built-in image_gen",
+  "jobs": [
+    {
+      "id": "clothes-rack",
+      "transparent": true,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept\nAsset type: single isolated transparent pixel-art prop sprite for the survivor depot of this industrial fantasy RPG.\nInput image 1 is a STYLE REFERENCE only, not the edit target. Create a new separate object matching its crisp cartoon pixel art, stepped edges, compact clusters, charcoal blue shadows, aged brass and amber highlights. Subject: a modest freestanding old wrought-iron and brass coat rack with a sturdy four-foot base, holding two residents' patched coats, one warm terracotta and one muted moss green, and a small cream scarf. A heartwarming sign of people returning home. Three-quarter view, grounded slightly top-down perspective matching the reference room. The complete rack, garments and feet must be visible with clear padding on all edges. Detailed intentional pixel shading and fabric folds, clean readable silhouette, no blocky solid-color placeholder, no photo textures. Single isolated coat rack only. Genuinely transparent alpha background, no scene, no floor, no cast shadow outside object, no frame, no text, no people, no UI."
+    }
+  ]
+}

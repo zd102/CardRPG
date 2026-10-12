@@ -1,8 +1,12 @@
 # 生图素材接入
 
-2026-10-12 尝试内置 image_gen 生图，首张 foundry 请求返回 HTTP 502：`支持模型 gpt-image-2 的供应商今日已自动禁用`。本次未生成或接入任何 AI 图片，未调用 API / CLI 后备方案。当前界面使用项目内的 Godot 程序绘图。
+2026-10-13：默认第一章已接入 **23 张卡通像素素材**，包括余火站、7 个探索地点、4 张任务状态变体、角色、徽章、卡牌和居民衣架。均通过内置 `image_gen` 生成或编辑，未调用 CLI/API 后备方案。资源清单、最终提示词与接入方式见 [chapter/README.md](chapter/README.md)。
 
-当前单区域场景 + HUD：foundry.png 和 echo.png 可作为据点等页面的全屏背景，Godot 导入后优先加载；文件不存在时保持程序绘图。探索页使用 ExpeditionLocalScene 绘制当前地点的环境和交互物件，ExpeditionRegion 仅用于只读地图，战斗角色使用 ExpeditionActor；这些部分没有接入位图，以保持标注与对象位置一致。所有标题、描述和按钮由原生控件渲染。
+## 旧原型尝试记录
+
+2026-10-12 最初尝试生图时，foundry 请求返回 HTTP 502：`支持模型 gpt-image-2 的供应商今日已自动禁用`。以下为通道恢复前的旧 Expedition 原型记录与写实提示词，不代表当前第一章素材状态。
+
+旧原型中，foundry.png 和 echo.png 可作为据点等页面的全屏背景，文件不存在时保持程序绘图。ExpeditionLocalScene、ExpeditionRegion 和 ExpeditionActor 继续保留供原型回归；默认入口已使用 Chapter 系列组件。标题、描述和按钮始终由原生控件渲染。
 
 | 文件 | 用途 | 状态 |
 | --- | --- | --- |
