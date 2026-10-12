@@ -1,11 +1,11 @@
 config_version=5
 
 [application]
-config/name="CardRPG · 灰烬回廊"
-run/main_scene="res://Scenes/MicroMaze.tscn"
+config/name="CardRPG · 灰烬远征"
+run/main_scene="res://Scenes/Expedition.tscn"
 config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/use_custom_user_dir=true
-config/custom_user_dir_name="CardRPG/MicroMaze"
+config/custom_user_dir_name="CardRPG/Expedition"
 
 [dotnet]
 project/assembly_name="CardRPG"

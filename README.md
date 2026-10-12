@@ -1,68 +1,48 @@
-# CardRPG
+# CardRPG · 灰烬远征
 
-Godot 4.7.2 .NET + C# 卡牌 RPG。首个可玩探索 Demo **「灰烬回廊」**已完成：在一座微型迷宫中寻找铜钥匙、打开回程捷径，点亮出口。支持键盘操作，也可全程仅用鼠标完成探索和菜单操作。
+装备决定卡组，行动推进区域，撤离保住收获。一个可玩的中文单人卡牌 RPG Demo：在废弃铸造区搜索装备、应对巡逻、改变挑战条件，带着战利品返回据点。
 
-![灰烬回廊 Demo](doc/media/micro-maze.png)
+![灰烬远征区域界面](doc/media/expedition.png)
 
 ## 开始游玩
 
-首次克隆请按[Demo 编译、运行与导出](doc/10_技术实现/06_Demo编译运行与导出.md)准备环境。Windows x64 导出完成后，双击 `artifacts/MicroMaze/CardRPG-MicroMaze.exe`。移动整个 `MicroMaze` 文件夹时，保留旁边的 `.pck` 和 `data_CardRPG_windows_x86_64` 目录。
+直接运行 **artifacts/Expedition/CardRPG-Expedition.exe**。复制游戏时保留整个 Expedition 目录，包括 .pck 和 data_CardRPG_windows_x86_64 文件夹。
 
-从源码启动：双击根目录 **`Play-Demo.cmd`**，会自动编译并打开游戏。需要已安装 Godot 4.7.2 .NET、.NET SDK 10.0.401；Godot 路径通过用户环境变量 `GODOT4` 读取。
+从源码运行：双击 **Play-Demo.cmd**。需要 Godot 4.7.2 .NET、.NET SDK 10.0.401，Godot 可执行文件路径由 GODOT4 环境变量提供。详细步骤见[编译、运行与导出](doc/10_技术实现/06_Demo编译运行与导出.md)。
 
-| 操作 | 鼠标 | 键盘 |
-| --- | --- | --- |
-| 移动 | 左键点击已探索地面的任意位置，按实际落点自由移动并绕开障碍 | WASD / 方向键，立即接管并取消鼠标路线 |
-| 开关门、拾取、阅读、点亮出口 | 左键点击可见物件，自动靠近并交互；悬停时在物件旁显示操作提示 | E |
-| 停止自动前往 | 场景中点击右键 | 按移动键接管，或打开地图 / 暂停 |
-| 查看已探索地图 | 右上角地图图标，用“继续探索”返回 | M / Esc |
-| 暂停 / 返回 | 右上角暂停图标，用“继续探索”返回 | Esc |
-| 查看操作指引 | 右上角“?”，用“继续探索”返回 | F1 / Esc |
-| 重新探索 | 暂停 → 重新开始 → 重新探索；“取消重开”保留当前进度 | R，确认后重置；Esc 取消 |
-| 通关后重玩 / 退出 | 完成面板“重新探索”或“退出 Demo”；暂停中也可退出 | Tab 选择按钮，Enter 确认 |
+## 怎么玩
 
-场景铺满窗口，角色居中。左上角仅显示区域与当前目标，右上角收纳地图、暂停和帮助；取得钥匙或银币后才显示对应物品。起步提示在移动后消失，交互文字贴近物件且不拦截点击，操作反馈短暂显示后淡出。底部与右侧不再保留常驻说明面板。
+1. 在据点选择铁锤或短杖，查看它们提供的卡牌，然后出征。
+2. 点击相邻地点移动，每次消耗一步；阅读与思考不消耗时间。
+3. 广场可主动挑战运输队，或撬保险箱。首步噪声会引来巡逻并预警；继续撬锁会被拦截，现在离开则可以脱离。
+4. 战斗中点击敌人选择目标，再点击卡牌使用。每回合抽 5 张，结束回合弃掉剩余手牌。
+5. 工坊可以换装和选择临时祝福；废料场可恢复货运站电源；切断熔炉警钟会移除首领支援。
+6. 拿到装备后，回入口或已通电的货运站撤离。只有撤离才入库；战败丢失本次装备和材料，已有绑定装备与情报保留。
 
-鼠标移动不吸附格子中心，不限制四向或八向：空旷处沿任意角度直达点击位置，支持小于一格的微调，遇障碍自动绕行。圆形标记显示落点；点击紧贴墙面的地面时，会根据角色体积停在可站立的位置。
+鼠标可完成全部操作；Tab 聚焦、Enter / Space 执行，I 查看装备，F1 查看指引，Esc 关闭说明或装备页。每次有效操作自动保存，退出后可继续进行中的战斗。
 
-左键再次点击会从当前位置转向新落点。打开地图、暂停、帮助或重开会取消待执行的移动与交互，返回后保持停留。开门后点击门后的地面即可穿过；点击门本身用于开关门。无法到达或尚未探索的位置会显示提示，寻路不会自动开门或穿过未知地形。
+首轮可以只打运输队就撤离，下一轮再试工坊和首领。战术撤退需要承受本轮敌方攻击，存活后返回入口并损失最多 3 材料。
 
-先尝试庭院北面的木门。墙、拐角和关闭的门会挡住视线；栅栏可透视但不可穿过。地图保留已观察地形，钥匙和出口的位置需亲自探索。捷径门第一次需要从深处开启。
+## 当前范围
 
-本阶段聚焦探索；卡牌战斗、敌人、存档与正式音效尚未接入。布局、视距和移动速度是 Demo 参数，后续可根据试玩调整。
+一个固定六地点区域、五件装备、八种卡牌、三种临时祝福、巡逻预警与搜索中断、两种撤离位置、仓库收藏及完整存档。卡组完全来自装备，随机奖励和祝福不因读档重抽。
+
+这是流程原型：属性加点、完整装备槽位、随机词缀、制作经济、背包负重和正式音效尚未实现。材料当前只累计。数值与内容规模待真人试玩调整。
 
 ## 开发与验证
 
-完整环境配置、首次构建、自动验证及常见问题见[构建指南](doc/10_技术实现/06_Demo编译运行与导出.md)。以下命令在仓库根目录执行：
-
 ```powershell
-# 编译全部项目
-dotnet build CardRPG.sln
-# 规则测试（无需启动 Godot）
-dotnet test tests/CardRPG.Core.Tests/CardRPG.Core.Tests.csproj
-# 打开 Godot 编辑器
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/play.ps1 -Editor
-# Windows Release 导出
+dotnet build CardRPG.sln --nologo --disable-build-servers
+dotnet test tests/CardRPG.Core.Tests/CardRPG.Core.Tests.csproj --nologo
+. ./scripts/common.ps1
+Invoke-Godot -Arguments @('--headless', '--path', ('"' + $GameRoot + '"'), '--', '--verify-expedition')
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export.ps1
-# 运行引擎内完整路线验证
-& $env:GODOT4 --headless --path game -- --verify-demo
-# 全鼠标操作验证（真实鼠标事件经过 GUI 与游戏输入处理）
-& $env:GODOT4 --headless --path game -- --verify-mouse
 ```
 
-VS Code 按 F5 可调试 C#，先重启 VS Code 以继承 `GODOT4`。正式工程入口是 `game/project.godot`，首场景是 `game/Scenes/MicroMaze.tscn`。
+- src/CardRPG.Core：独立规则层、装备卡牌目录和完整远征状态。
+- game/Scenes/Expedition.tscn：唯一入口。
+- game/Scripts：Godot 界面、代码绘图与真实输入验证。
+- tests/CardRPG.Core.Tests：规则、保存恢复与完整闭环测试。
+- artifacts/Expedition：本机 Windows 导出包，不纳入 Git。
 
-- `src/CardRPG.Core/`：与 Godot 无关的移动、碰撞、视野、地形记忆、交互状态和鼠标寻路。
-- `game/Data/micro-maze.json`：35 × 25 的地图与图例，修改后重启游戏即可加载。
-- `game/Scripts/`：TileMapLayer 像素场景、角色、界面和可选验证入口。
-- `tests/CardRPG.Core.Tests/`：遮挡、穿墙、门锁、捷径、奖励与通关规则测试。
-- `artifacts/`：本机导出包和验证输出，不纳入 Git。
-
-本机使用 ANGLE / Direct3D 11 兼容渲染，已在 `project.godot` 中配置。像素图块和角色由代码绘制，界面使用系统中文字体，无额外美术资源下载。
-
-## 项目资料
-
-- [游戏设计概览](doc/00_游戏概览.md)
-- [Demo 编译、运行与导出](doc/10_技术实现/06_Demo编译运行与导出.md)
-- [开发环境、启动方式与验证记录](doc/10_技术实现/05_性能平台与发布构建.md)
-- [微型迷宫 Demo 验收](doc/11_开发管理与验收/04_微型迷宫Demo验收.md)
+[设计文档](doc/00_游戏概览.md) · [接战规则](doc/06_世界与关卡/03_遭遇事件与交互节点.md) · [验收清单](doc/11_开发管理与验收/02_测试计划与验收清单.md)

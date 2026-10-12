@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Micro maze · Godot C#",
+      "name": "Expedition · Godot C#",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build-demo",
