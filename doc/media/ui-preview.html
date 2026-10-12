@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>灰烬远征 · 界面预览</title>
+<style>
+:root{color-scheme:dark;font-family:"Microsoft YaHei UI",system-ui,sans-serif;background:#0c151b;color:#edf0e6}
+body{max-width:1500px;margin:auto;padding:40px 24px 64px}header{max-width:840px;margin-bottom:36px}
+small{color:#dfbb7b;letter-spacing:.15em}h1{font-size:2rem;font-weight:500;margin:12px 0}p{color:#a9bbb7;line-height:1.8}
+nav{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}a{color:#dfbb7b;text-decoration:none}nav a{border:1px solid #35484b;border-radius:4px;padding:9px 14px}
+a:hover{color:#fff0d2}a:focus-visible{outline:2px solid #dfbb7b;outline-offset:4px}
+main{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}figure{margin:0;border:1px solid #35484b;border-radius:6px;overflow:hidden;background:#152329;scroll-margin-top:20px}
+img{display:block;width:100%;height:auto}figcaption{padding:18px 20px}h2{font-size:1.2rem;font-weight:500;margin:0 0 8px}figcaption p{font-size:.9rem;margin:0}footer{margin-top:32px;color:#a9bbb7;font-size:.875rem}
+@media(max-width:900px){main{grid-template-columns:1fr}body{padding:24px 16px}}
+</style>
+</head>
+<body>
+<header><small>ASHEN EXPEDITION / UI PREVIEW</small><h1>灰烬远征 · 单区域场景与只读地图</h1>
+<p>行动页一次只显示当前区域：行为放在场景物件旁，相邻区域以边缘出口呈现。M 打开的全区域地图只供查看，不提供移动或行为操作。以下均为实际 Godot 运行截图，可点击查看原图。</p>
+<nav aria-label="页面导航"><a href="#camp">据点</a><a href="#explore">单区域行动</a><a href="#map">只读地图</a><a href="#places">六个场景</a><a href="#battle">战斗</a><a href="#blessing">祝福</a><a href="#inventory">装备</a><a href="#extracted">撤离结算</a><a href="#defeated">战败结算</a><a href="#help">指引</a></nav></header>
+<main>
+<figure id="camp"><a href="expedition-camp.png"><img src="expedition-camp.png" alt="据点：全屏铸造区，悬浮远征目标和右侧整备 HUD"></a><figcaption><h2>01 / 据点整备</h2><p>全景场景上叠加目标与整备 HUD，出征按钮固定在面板底部。</p></figcaption></figure>
+<figure id="explore"><a href="expedition.png"><img src="expedition.png" alt="货运广场：场景内的运输队、保险箱、补给、观察点及边缘区域出口"></a><figcaption><h2>02 / 单区域行动</h2><p>只显示当前区域，点击物件旁的行为执行，通过场景边缘出口前往相邻区域。没有右侧行动栏。</p></figcaption></figure>
+<figure id="map"><a href="expedition-map.png"><img src="expedition-map.png" alt="只读地图：六处地标、当前位置和道路，不提供移动交互"></a><figcaption><h2>地图 / 只读路线总览</h2><p>M 打开地图，点击地标不会移动或扣步；返回场景后从出口移动。</p></figcaption></figure>
+<figure id="battle"><a href="expedition-battle.png"><img src="expedition-battle.png" alt="战斗：场景中的可点击敌人、悬浮生命与意图、底部手牌 HUD"></a><figcaption><h2>03 / 卡牌战斗</h2><p>点击角色或名称选敌，生命与意图悬浮在角色附近；手牌及操作固定在底部。</p></figcaption></figure>
+<figure id="blessing"><a href="expedition-blessing.png"><img src="expedition-blessing.png" alt="祝福：回响装置与两个可并列比较的祝福选项"></a><figcaption><h2>04 / 回响祝福</h2><p>回响装置铺满场景，两个祝福选项并列悬浮在底部。</p></figcaption></figure>
+<figure id="inventory"><a href="expedition-inventory.png"><img src="expedition-inventory.png" alt="装备：穿戴与供牌、卡组条目、未撤离战利品"></a><figcaption><h2>05 / 装备与卡组</h2><p>装备覆盖层保留场景背景，长收藏在层内滚动，关闭按钮固定。</p></figcaption></figure>
+<figure id="extracted"><a href="expedition-extracted.png"><img src="expedition-extracted.png" alt="撤离成功：收获摘要、仓库统计与返回据点按钮"></a><figcaption><h2>06 / 撤离结算</h2><p>结算 HUD 悬浮于场景之上，突出收获已入库与返回据点。</p></figcaption></figure>
+<figure id="defeated"><a href="expedition-defeated.png"><img src="expedition-defeated.png" alt="战败结算：损失与保留内容，以及返回据点按钮"></a><figcaption><h2>06 / 战败结算</h2><p>明确损失未入库收获，绑定装备和永久情报保留。</p></figcaption></figure>
+<figure id="help"><a href="expedition-help.png"><img src="expedition-help.png" alt="指引：去哪里、何时开战、带走还是深入，附战斗速查"></a><figcaption><h2>07 / 行动指引</h2><p>手册覆盖层集中展示三个决定与战斗速查，支持 F1 打开、Esc 返回。</p></figcaption></figure>
+</main>
+<section id="places"><h2 style="margin-top:36px">六个独立区域场景</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:24px"><figure><a href="place-gate.png"><img loading="lazy" src="place-gate.png" alt="入口营地的独立场景和交互点"></a><figcaption><h2>入口营地</h2></figcaption></figure><figure><a href="place-square.png"><img loading="lazy" src="place-square.png" alt="货运广场的独立场景和交互点"></a><figcaption><h2>货运广场</h2></figcaption></figure><figure><a href="place-scrap.png"><img loading="lazy" src="place-scrap.png" alt="废料场的独立场景和交互点"></a><figcaption><h2>废料场</h2></figcaption></figure><figure><a href="place-workshop.png"><img loading="lazy" src="place-workshop.png" alt="临时工坊的独立场景和交互点"></a><figcaption><h2>临时工坊</h2></figcaption></figure><figure><a href="place-furnace.png"><img loading="lazy" src="place-furnace.png" alt="地下熔炉的独立场景和交互点"></a><figcaption><h2>地下熔炉</h2></figcaption></figure><figure><a href="place-exit.png"><img loading="lazy" src="place-exit.png" alt="货运站的独立场景和交互点"></a><figcaption><h2>货运站</h2></figcaption></figure></div></section>
+<footer>2026-10-12 · 默认 1280×800 · 已验证 1100×760 与 1600×900 · <a href="../../game/Art/Generated/README.md">生图提示词与接入状态</a></footer>
+</body>
+</html>

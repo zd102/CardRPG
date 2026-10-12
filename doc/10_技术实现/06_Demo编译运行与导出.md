@@ -22,6 +22,8 @@ Invoke-Godot -Arguments @('--headless', '--path', ('"' + $GameRoot + '"'), '--',
 
 界面验证在无显示模式也发送真实 GUI 输入。截图需要普通渲染启动，并在用户参数传入 --verify-expedition 与 --capture-dir=绝对目录；正常运行不会产生截图。
 
+截图验证还会依次切换 1100×760 与 1600×900，覆盖六个单区域场景、只读地图、其余页面、完整装备收藏与双敌人战斗。检查行为和出口按钮无需滚动、互不重叠，只显示合法相邻出口，底部说明不遮挡操作；逐个点击地图标签后比较完整状态，确保不会移动、扣步或改变战斗。还验证 M / Esc 地图导航、Tab / Enter 操作、角色选敌与出牌后保留目标。验证不读写玩家存档；截图输出位于调用者指定的目录。
+
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export.ps1
 ```
