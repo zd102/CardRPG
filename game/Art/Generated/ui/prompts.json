@@ -1,0 +1,18 @@
+{
+  "mode": "built-in image_gen",
+  "date": "2026-10-13",
+  "assets": [
+    {
+      "name": "field-panel",
+      "prompt": "Use case: stylized-concept. Asset type: production game UI nine-slice texture, a single square panel skin, NOT a screenshot or mockup. Create one front-facing perfectly rectangular salvaged industrial field-manual panel filling the entire 1024 by 1024 canvas, outer edges flush with the image edges, zero exterior padding. Deep almost-black ink-green enamel center (#14231f), low contrast subtle worn texture, 88 percent of the interior empty and very dark for legible cream text added by game code. Thin antique brass double-line rim and compact worn squared metal corner brackets, small rivets ONLY in the four corners within 6 percent of canvas. Crisp carefully hand-pixelled 1990s adventure game UI at effective 256px resolution enlarged fourfold, restrained premium pixel art matching a warm amber ruined rail workshop. Orthographic 2D flat texture, no perspective. Identical straight horizontal and vertical edges suitable for 9-slice stretching. No words, glyphs, numbers, labels, symbols, gear wheels, ornamental top crest, objects, logos or watermark. Opaque background. The four corners must be small, center nearly uniform, border must touch all four canvas edges."
+    },
+    {
+      "name": "brass-button",
+      "prompt": "Use case: stylized-concept. Asset type: production game UI nine-slice texture, single blank rectangular button skin. One front-facing wide antique yellow brass enamel nameplate, width to height 3 to 1, fills the whole wide rectangular canvas edge to edge with zero exterior margin. Muted warm ochre brass (#b78d4c) on its blank center, tiny restrained oxidized dark olive edge, crisp double beveled rim, two very small flush rivets at the extreme left and right, restrained wear only along the edge. At least 86 percent blank even middle for dark text rendered by game code. Pixel art from a lovingly detailed ruined industrial railway workshop RPG, effective 384 by 128 resolution enlarged 4x, sharp pixel clusters. Straight small symmetrical corners suitable for nine-slice UI scaling. NO text, numbers, symbols, ornament, gradients that impair readability, shadows outside the rectangle, perspective, background scene, logo or watermark. Opaque. Important: a single solid button texture ONLY, no contact sheet and no other elements."
+    },
+    {
+      "name": "ledger-paper",
+      "prompt": "Use case: stylized-concept. Asset type: production game UI nine-slice paper sheet texture. Single square sheet of faded oatmeal paper from an industrial field notebook, viewed precisely flat from the front, fills entire 1024 by 1024 image edge to edge. Warm light desaturated parchment (#d6c7a1), very restrained tiny pixel flecks, slightly darkened olive-brown edge no thicker than 3 percent of the canvas, compact squared worn corners. Interior 90 percent almost uniform, clean and blank, high readability for dark ink text that will be rendered by code. Carefully pixelled game texture effective 256 by 256 enlarged fourfold, match a warm amber abandoned railway workshop and ink-green/brass UI. Absolutely NO text, lines, grids, handwriting, numbers, logos, stamps, binding, holes, shadows, objects or background. Single opaque flat blank paper panel ready for 9-slice stretching."
+    }
+  ]
+}

@@ -43,7 +43,7 @@ public partial class ChapterScene : Control
     public override void _Ready()
     {
         MouseFilter = MouseFilterEnum.Ignore; ClipContents = true;
-        TextureFilter = TextureFilterEnum.Nearest; Resized += QueueRedraw;
+        TextureFilter = TextureFilterEnum.Linear; Resized += QueueRedraw;
     }
     public override void _Draw()
     {

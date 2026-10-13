@@ -22,9 +22,11 @@ Invoke-Godot -Arguments @('--headless', '--path', ('"' + $GameRoot + '"'), '--',
 
 界面验证在无显示模式也发送真实 GUI 输入。截图需普通渲染启动，传入 --verify-chapter 与 --capture-dir=绝对目录；正常游玩不产生截图。验证隔离玩家存档，旧 expedition-v1.json 不读取或覆盖。
 
-验证走完七个地点、救援与暗室、战斗、夹具校准、两处撤离、任务交付、台架试用、制作与包裹。检查 23 张纹理加载、8 张透明素材背景、任务绘景切换，以及 1100×760 和 1600×900 下的页面、地图和额外抽牌后的手牌排布；M / Esc、Enter 出征与真实鼠标操作均被执行。装备与任务长详情在覆盖层内滚动，场景不预留固定侧栏或底部操作面板。
+验证走完七个地点、救援与暗室、战斗、夹具校准、两处撤离、任务交付、台架试用、制作与包裹。检查 12 张新版场景、24 个透明图集区域及卡牌插画映射，确认资源来自 `Art/Print`，并检查任务绘景切换、地图和额外抽牌后的手牌排布；M / Esc、Enter 出征与真实鼠标操作均被执行。装备与任务长详情在覆盖层内滚动，场景不预留固定侧栏或底部操作面板。
 
 补充流程从新远征开始，通过正常移动等待巡逻抵达，在两处巡逻地点与三种窗口尺寸检查交互标记，再实际结束回合触发第三个敌人增援、战败结算、回营和重新出征。验证过程中不读写玩家存档。
+
+插画手册界面还验证装备分类、供牌详情的边界与键盘说明、只读地图点击、窗口内 Tab 焦点，以及“整备 → 装备 → Esc 返回整备”的路径。在 1100×760、1280×800、1600×900 下检查窗口边界与场景标记避让，并比较浏览前后的完整状态，确保不消耗步数或修改进度。不可用手牌仍可聚焦查看原因，按下不会消耗资源。桌面使用原生像素布局，避免小窗口把文字整体缩小。[查看新版界面](../media/hud-preview.html)。
 
 旧原型回归可显式指定 `res://Scenes/Expedition.tscn -- --verify-expedition`；它不是默认入口。第一章外环存档与规则独立，范围见[交付记录](../13_第一章_余火铸造区/08_外环实现与验收.md)。
 
@@ -40,7 +42,15 @@ Windows 导出需要安装与 Godot 版本匹配的导出模板。脚本输出 a
 & .\artifacts\Expedition\CardRPG-Expedition.exe --headless -- --verify-chapter | Out-Host
 ```
 
-实际画面验证需移除 `--headless` 并追加 `--capture-dir=绝对目录`。成功日志必须包含 `CHAPTER_VERIFIED` 且进程退出码为 0。当前截图留档见[界面预览](../media/ui-preview.html)。
+实际画面验证需移除 `--headless` 并追加 `--capture-dir=绝对目录`。成功日志必须包含 `CHAPTER_VERIFIED` 且进程退出码为 0。当前截图留档见[界面预览](../media/hud-preview.html)。
+
+截图脚本在布局稳定后通过 `RenderingServer.ForceDraw(false)` 主动绘制再读取画面，避免静态或后台窗口因等待自动绘制信号而停顿。导出包截图命令示例（使用默认 ANGLE 渲染）：
+
+```powershell
+& .\artifacts\Expedition\CardRPG-Expedition.exe --disable-vsync --max-fps 60 -- --verify-chapter "--capture-dir=$PWD/artifacts/print-hud-verify" | Out-Host
+```
+
+2026-10-13 本轮结果：构建 0 警告、0 错误，37 项核心测试通过；源码无界面验证、导出包无界面验证及默认 ANGLE 下的导出包截图流程均返回 `CHAPTER_VERIFIED`。预览页已更新 20 张导出包实机截图。截图验证使用独立测试状态，不读写玩家存档。
 
 ## 常见问题
 

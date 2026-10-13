@@ -2,33 +2,40 @@ using Godot;
 
 namespace CardRPG;
 
-/// <summary>A keyboard-accessible interaction pinned to an object in the painted world.</summary>
+/// <summary>A compact marker; pointer and keyboard focus reveal the same description.</summary>
 public partial class ChapterHotspot : Button
 {
-    public Color Tint { get; set; } = new("dfbb7b");
+    public Color Tint { get; set; } = new("d3ad68");
     public bool Exit { get; set; }
+    public string Symbol { get; set; } = "loot";
+    public string Caption { get; set; } = "";
+    public bool Important { get; set; }
+    public override string _GetTooltip(Vector2 atPosition) => "";
     public override void _Ready()
     {
-        AddThemeFontSizeOverride("font_size", 14);
-        AddThemeColorOverride("font_color", new Color("f3ebd7"));
-        AddThemeColorOverride("font_hover_color", Colors.White);
-        AddThemeColorOverride("font_disabled_color", new Color("a4aaa2"));
         foreach (var state in new[] { "normal", "hover", "pressed", "disabled", "focus" })
-            AddThemeStyleboxOverride(state, new StyleBoxEmpty { ContentMarginTop = 31, ContentMarginBottom = 6, ContentMarginLeft = 10, ContentMarginRight = 10 });
+            AddThemeStyleboxOverride(state, new StyleBoxEmpty());
+        var glyph = new ExpeditionGlyph { Symbol = Symbol, Tint = Disabled ? new Color("89958d") : Tint, MouseFilter = MouseFilterEnum.Ignore };
+        AddChild(glyph); glyph.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        glyph.OffsetLeft = glyph.OffsetTop = 12; glyph.OffsetRight = glyph.OffsetBottom = -12;
         MouseEntered += QueueRedraw; MouseExited += QueueRedraw;
         FocusEntered += QueueRedraw; FocusExited += QueueRedraw; Resized += QueueRedraw;
     }
     public override void _Draw()
     {
-        var active = IsHovered() || HasFocus(); var color = Disabled ? new Color("87958b") : Tint;
-        var center = new Vector2(Size.X / 2, 12);
-        DrawCircle(center, active ? 16 : 13, new Color("071114c9"));
-        Vector2[] diamond = [center + new Vector2(0, -9), center + new Vector2(9, 0), center + new Vector2(0, 9), center + new Vector2(-9, 0), center + new Vector2(0, -9)];
-        DrawPolyline(diamond, color, active ? 2 : 1.2f, true);
-        if (Exit) DrawPolyline([center + new Vector2(-3, -4), center + new Vector2(2, 0), center + new Vector2(-3, 4)], color, 1.5f, true);
-        else DrawCircle(center, 2.5f, color);
-        DrawLine(center + new Vector2(0, 12), center + new Vector2(0, 24), new Color(color, .6f), 1, true);
-        // The native button paints the label. A thin underline never covers its glyphs.
-        DrawLine(new Vector2(12, Size.Y - 2), new Vector2(Size.X - 12, Size.Y - 2), new Color(color, active ? .9f : .3f), 1, true);
+        var active = IsHovered() || HasFocus(); var color = Disabled ? new Color("89958d") : Tint;
+        var center = Size / 2;
+        if (Exit)
+        {
+            Vector2[] points = [center+new Vector2(0,-26), center+new Vector2(26,0), center+new Vector2(0,26), center+new Vector2(-26,0), center+new Vector2(0,-26)];
+            DrawColoredPolygon(points, new Color("f1e7ce")); DrawPolyline(points, color, active ? 3 : 2);
+        }
+        else { DrawCircle(center,24,new Color("f1e7ce")); DrawArc(center,24,0,Mathf.Tau,32,color,active ? 3 : 2); }
+        if (Important) DrawCircle(new Vector2(Size.X-3,3),5,new Color("ead3a0"));
+        if (Disabled) DrawLine(center+new Vector2(-13,13),center+new Vector2(13,-13),color,2);
+        if (!active && !Important && !Exit) return;
+        var font = GetThemeDefaultFont(); var width = font.GetStringSize(Caption,fontSize:14).X;
+        DrawRect(new Rect2((Size.X-width)/2-8,Size.Y+5,width+16,26),new Color("f1e7ce"));
+        DrawString(font,new Vector2((Size.X-width)/2,Size.Y+24),Caption,fontSize:14,modulate:color);
     }
 }

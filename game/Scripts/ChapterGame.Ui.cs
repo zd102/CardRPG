@@ -19,10 +19,10 @@ public partial class ChapterGame
     }
     private static Label Text(string value, int size, Color color)
     {
+        size = size <= 14 ? 14 : size <= 17 ? 16 : size <= 21 ? 20 : 28;
         var label = new Label { Text = value, AutowrapMode = TextServer.AutowrapMode.WordSmart, MouseFilter = MouseFilterEnum.Ignore };
         label.AddThemeFontSizeOverride("font_size", size); label.AddThemeColorOverride("font_color", color);
-        label.AddThemeColorOverride("font_shadow_color", new Color("03090dd9"));
-        label.AddThemeConstantOverride("shadow_offset_x", 1); label.AddThemeConstantOverride("shadow_offset_y", 2); return label;
+        label.AddThemeConstantOverride("line_spacing", 4); return label;
     }
     private static Label Inline(string value, int size, Color color)
     {
@@ -46,6 +46,20 @@ public partial class ChapterGame
     {
         var panel = Panel(parent, background); var box = Column(gap); panel.AddChild(box); return box;
     }
+    private static VBoxContainer Paper(Node parent, int padding = 20)
+    {
+        var panel = ChapterSkin.Panel(parent, "ledger-paper", padding);
+        panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        var box = Column(12); panel.AddChild(box); return box;
+    }
+    private static void Rule(Node parent)
+    {
+        var line = new HSeparator();
+        line.AddThemeStyleboxOverride("separator", new StyleBoxLine { Color = Outline, Thickness = 1 });
+        parent.AddChild(line);
+    }
+    private static void Fill(Node parent) => parent.AddChild(new Control { SizeFlagsVertical = SizeFlags.ExpandFill, MouseFilter = MouseFilterEnum.Ignore });
+    private static string SlotName(string slot) => slot switch { "weapon" => "武器", "body" => "身体", "backpack" => "背包", _ => "手部" };
     private static void Heading(Node parent, string title, string subtitle)
     {
         var box = Column(4); parent.AddChild(box); box.AddChild(Text(title, 21, Ink)); box.AddChild(Text(subtitle, 16, Muted));
@@ -53,11 +67,11 @@ public partial class ChapterGame
     private static void Eyebrow(Node parent, string text, Color? color = null) => parent.AddChild(Text(text, 13, color ?? Accent));
     private static void Metric(Node parent, string label, string value, Color color, string? symbol = null)
     {
-        var row = Row(8); parent.AddChild(row);
+        var row = Row(8); row.SizeFlagsHorizontal = SizeFlags.ExpandFill; parent.AddChild(row);
         if (symbol != null) row.AddChild(new ExpeditionGlyph { Symbol = symbol, CustomMinimumSize = new Vector2(25, 32), Tint = color });
         var box = Column(0); row.AddChild(box);
         box.AddChild(Inline(label, 12, Muted));
-        var number = Text(value, 16, color); number.AutowrapMode = TextServer.AutowrapMode.Off; box.AddChild(number);
+        var number = Text(value, 20, color); number.AutowrapMode = TextServer.AutowrapMode.Off; box.AddChild(number);
     }
     private static void HealthBar(Node parent, int value, int max, Color color)
     {
@@ -77,23 +91,32 @@ public partial class ChapterGame
     }
     private Button Button(string id, string label, Action action, bool enabled = true, bool primary = false)
     {
-        var button = new Button
+        var button = new ChapterButton
         {
-            Name = id, Text = label, Disabled = !enabled, CustomMinimumSize = new Vector2(0, 44),
-            FocusMode = FocusModeEnum.All, MouseDefaultCursorShape = CursorShape.PointingHand
+            Name = id, Text = label, Disabled = !enabled, CustomMinimumSize = new Vector2(0, 46),
+            FocusMode = FocusModeEnum.All, MouseDefaultCursorShape = CursorShape.PointingHand,
+            TextureFilter = TextureFilterEnum.Nearest
         };
         button.AddThemeFontSizeOverride("font_size", 16);
-        button.AddThemeColorOverride("font_color", primary ? new Color("172329") : Ink);
-        button.AddThemeColorOverride("font_hover_color", primary ? new Color("172329") : Ink);
+        button.AddThemeColorOverride("font_color", primary ? new Color("f1e7ce") : Ink);
+        button.AddThemeColorOverride("font_hover_color", primary ? new Color("f1e7ce") : Ink);
+        button.AddThemeColorOverride("font_focus_color", primary ? new Color("f1e7ce") : Ink);
         button.AddThemeColorOverride("font_pressed_color", Ink);
-        button.AddThemeColorOverride("font_disabled_color", new Color("92a09b"));
-        button.AddThemeStyleboxOverride("normal", Style(primary ? Accent : new Color("162326d9"), primary ? Accent : new Color("9b896b6b")));
-        button.AddThemeStyleboxOverride("hover", Style(primary ? new Color("f0d6a2") : new Color("364443f5"), Accent));
-        button.AddThemeStyleboxOverride("pressed", Style(new Color("18272e"), Accent));
-        button.AddThemeStyleboxOverride("disabled", Style(new Color("172327"), new Color("344548")));
-        var focus = Style(Colors.Transparent, new Color("f9edcb")); focus.BorderWidthBottom = focus.BorderWidthLeft = focus.BorderWidthRight = focus.BorderWidthTop = 2;
+        button.AddThemeColorOverride("font_disabled_color", primary ? new Color("e7dcc2") : new Color("56665b"));
+        StyleBoxFlat Skin(Color? tint = null)
+        {
+            var skin = ChapterSkin.Box(primary ? "brass-button" : "field-panel", 14, tint);
+            skin.ContentMarginTop = skin.ContentMarginBottom = 9; return skin;
+        }
+        button.AddThemeStyleboxOverride("normal", Skin());
+        button.AddThemeStyleboxOverride("hover", Skin(new Color(1.22f, 1.18f, 1.08f)));
+        button.AddThemeStyleboxOverride("pressed", Skin(new Color(.78f, .85f, .8f)));
+        button.AddThemeStyleboxOverride("disabled", Skin(new Color(.55f, .62f, .59f)));
+        button.AddThemeColorOverride("font_pressed_color", primary ? new Color("f1e7ce") : Ink);
+        var focus = Style(Colors.Transparent, Accent); focus.BorderWidthBottom = focus.BorderWidthLeft = focus.BorderWidthRight = focus.BorderWidthTop = 3;
         button.AddThemeStyleboxOverride("focus", focus);
         button.Pressed += () => { if (!button.Disabled) action(); };
+        Inspect(button, () => button.TooltipText);
         Buttons[id] = button; return button;
     }
 }

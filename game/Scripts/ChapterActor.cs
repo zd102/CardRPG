@@ -10,7 +10,7 @@ public partial class ChapterActor : Control
     public bool Defeated { get; set; }
     public override void _Ready()
     {
-        MouseFilter = MouseFilterEnum.Ignore; TextureFilter = TextureFilterEnum.Nearest; Resized += QueueRedraw;
+        MouseFilter = MouseFilterEnum.Ignore; TextureFilter = TextureFilterEnum.Linear; Resized += QueueRedraw;
     }
     public override void _Draw()
     {

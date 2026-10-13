@@ -162,13 +162,13 @@ public sealed partial class ChapterSession
         State.Run.Add(b.Id); State.Paused.Remove(b.Id);
         switch (b.Id)
         {
-            case "K01": Add(State.Cargo, 1, 0, 1); break;
-            case "K02": Add(State.Cargo, 1, 0, 0); break;
-            case "K09": Add(State.Cargo, 1, 0, 0); State.PatrolPlace = ""; State.Warned = false; break;
+            case "K01": SpawnGround("battle-K01", "运输队战利品", ("M01", 1), ("M03", 1)); break;
+            case "K02": SpawnGround("battle-K02", "傀儡残骸", ("M01", 1)); break;
+            case "K09": SpawnGround("battle-K09", "巡逻残骸", ("M01", 1)); State.PatrolPlace = ""; State.Warned = false; break;
             case "E13":
-                State.World.Add("leader-won"); GiveGear("G03"); Add(State.Cargo, 2, 0, b.BonusSecured ? 3 : 1); break;
+                State.World.Add("leader-won"); SpawnGround("battle-E13", "领班战利品", ("G03", 1), ("M01", 2), ("M03", b.BonusSecured ? 3 : 1)); break;
         }
         State.Battle = null; State.Phase = ChapterPhase.Exploring;
-        Note("战斗结束，战利品仍需撤离。" + (b.Id == "E13" ? "领班首胜已记录，若装备遗失可回广场取回。" : ""));
+        Note("战斗结束，战利品留在战场，装入行囊后再撤离。" + (b.Id == "E13" ? "领班首胜已记录，若装备遗失可回广场取回。" : ""));
     }
 }

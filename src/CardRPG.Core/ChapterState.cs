@@ -1,6 +1,24 @@
 namespace CardRPG.Core;
 
 public enum ChapterPhase { Camp, Exploring, Battle, Extracted, Defeated }
+public sealed class ChapterItem
+{
+    public long Id { get; set; }
+    public string Kind { get; set; } = "";
+    public int Quantity { get; set; } = 1;
+    public string Container { get; set; } = "warehouse";
+    public string Source { get; set; } = "";
+    public bool Registered { get; set; }
+    public bool Calibrated { get; set; }
+    public bool FreeSupply { get; set; }
+    public ChapterItem Copy() => (ChapterItem)MemberwiseClone();
+}
+public sealed class ChapterGround
+{
+    public string Place { get; set; } = "";
+    public string Name { get; set; } = "";
+    public bool FreePickup { get; set; }
+}
 public sealed class ChapterEnemy
 {
     public string Id { get; set; } = "E01";
@@ -33,7 +51,20 @@ public sealed class ChapterBattle
 }
 public sealed class ChapterState
 {
-    public string ContentVersion { get; set; } = "chapter1-outer-ring-v1";
+    public string ContentVersion { get; set; } = "chapter1-inventory-v2";
+    public List<ChapterItem> Stock { get; set; } =
+    [
+        new() { Id = 1, Kind = "G01", Container = "weapon", Registered = true },
+        new() { Id = 2, Kind = "G09", Container = "body", Registered = true }
+    ];
+    public long NextItemId { get; set; } = 3;
+    public Dictionary<string, ChapterGround> Ground { get; set; } = [];
+    public Dictionary<long, string> DepartureInventory { get; set; } = [];
+    public Dictionary<string, int> SecuredFirstMaterials { get; set; } = [];
+    public int WarehouseLevel { get; set; }
+    public int FreeSupplyAllowance { get; set; } = 2;
+    public bool LegacyOverCapacity { get; set; }
+    public string Backpack { get; set; } = "";
     public ChapterPhase Phase { get; set; }
     public string Location { get; set; } = "A01";
     public string Previous { get; set; } = "A01";
@@ -42,12 +73,12 @@ public sealed class ChapterState
     public string Body { get; set; } = "G09";
     public string Hands { get; set; } = "";
     public int Health { get; set; } = 42;
-    public int Supplies { get; set; } = 2;
+    public int Supplies { get; set; }
     public int Pressure { get; set; }
     public int Runs { get; set; }
     public int Extractions { get; set; }
-    public int[] Bank { get; set; } = [0, 0, 0];
-    public int[] Cargo { get; set; } = [0, 0, 0];
+    public int[] Bank { get; set; } = new int[7];
+    public int[] Cargo { get; set; } = new int[7];
     public uint RandomState { get; set; } = 1701;
     public HashSet<string> Owned { get; set; } = ["G01", "G09"];
     public HashSet<string> Loot { get; set; } = [];

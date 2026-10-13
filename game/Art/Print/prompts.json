@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-13",
+  "tool": "image_gen",
+  "style": "Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark.",
+  "note": "Exact prompt text recovered from the generation session. Initial equipment and A06 were revised; final PNG hashes are listed separately. Coordinates in prompts were adjusted to the delivered art in ChapterGame.World.cs.",
+  "generations": [
+    {
+      "asset": "camp.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "../Generated/chapter/camp.png",
+      "prompt": "Use case: style-transfer. Production background painting for a 2D industrial adventure game, landscape 16:10. Input is the EDIT TARGET only for the rough positions of interactive objects, NOT its visual style. Completely redraw and art-direct it as a bold hand-cut linocut and cut-paper illustration, like an illustrated vintage railway travel poster. Deliberate charming angular architecture, elegant large silhouettes, expressive irregular ink outlines, 2 or 3 flat tones per object, very sparse carved hatching only on focal objects. Crisp graphic edges at full resolution, not pixel art. Restrained six-ink palette: warm ivory paper #e7dcc2, charcoal green #253d3a, muted sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory and sage daylight must dominate; brick red used in only a few focal accents. Scene: survivor railway depot in a generous old workshop hall, cozy and practical. KEEP major layout: equipment workbench with hammer lower-left at x23% y61%; artisan's unlit hanging worklamp and blank wall center x48% y52%; packed travel satchel on low stool x65% y70%; large open exit arch at x79% y43%, beyond it a distant simple factory skyline and tracks. Broad uncluttered matte floor, a few strong rail lines leading out. Leave the top 18% quiet for game HUD. Simplify shelves to 4 or 5 meaningful objects; eliminate brick-by-brick textures. One potted plant, one hanging cloth banner may remain. No characters. No luminous lantern forest. No orange-blue cinematic color grading, no photorealistic rendering, no 3D, no volumetric lighting, no bloom, no gradients, no wet reflective ground, no tiny filigree, no all-over grain, no blur, no mosaic or pixelation filter. No text, no lettering, no UI, no watermark. This is a redesign of shapes and color relationships, not a filter on the old image."
+    },
+    {
+      "asset": "equipment.png",
+      "stage": "initial",
+      "transparent_background": true,
+      "reference": null,
+      "prompt": "Use case: stylized-concept. Asset type: one transparent equipment sprite atlas for an illustrated industrial adventure game. Exactly EIGHT isolated objects in a perfectly regular FOUR-column TWO-row grid, equal cells, each object wholly inside the central 72 percent of its cell. Wide 2:1 image. Transparent alpha background, no cell borders, no labels, no shadows outside objects. Objects in reading order: top row 1 a chunky short iron hammer with vermilion cloth handle, 2 a slim ivory ceramic induction staff with one sage coil, 3 a very heavy wedge-headed armor-breaking hammer, 4 a rugged riveted torso breastplate; bottom row 1 a patched sage mechanic's coat on a hanger, 2 a pair of copper bracers, 3 a folded mechanical shovel with a broad spade, 4 a pair of oversized leather mechanic's tool gloves. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. These are charming hand-illustrated real equipment objects, substantial simple silhouettes and carefully placed ink hatching, not monochrome UI icons. Each object two or three large color planes, soft organic ink wobble but CRISP edges. No neon, fantasy ornament, high gloss, metal sparkle, gradient shading or micro details. Keep all eight cells aligned exactly for programmatic atlas regions."
+    },
+    {
+      "asset": "A01.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. New game background, landscape 16:10, full bleed. Reference image is STYLE REFERENCE ONLY: reproduce its exact graphic linocut visual language and color relationships, but draw this DIFFERENT location. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Scene: A modest railway entry campsite outdoors. Broad flat ivory sky, sage factory walls and a simple vermilion gate. A canvas tent at left, a packed return truck clearly at x69% y61%, two dirt routes exiting toward x45% y37% and x20% y44%. Quiet broad foreground. No people. Compose only 6 to 9 large object groups with intentional negative space. Keep top 18 percent visually quiet for native HUD; quiet lower foreground for cards. All interactions stated as normalized coordinates. No UI, lettering or fake writing."
+    },
+    {
+      "asset": "A02.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. New game background, landscape 16:10, full bleed. Reference image is STYLE REFERENCE ONLY: reproduce its exact graphic linocut visual language and color relationships, but draw this DIFFERENT location. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Scene: A spacious freight square seen obliquely from above. Large memorable silhouettes of one crane and a low factory hall. A clamp on a low table at x25% y64%; a single sturdy cargo crate x54% y74%; a simple foreman's tool chest x62% y44%; a transfer box x77% y65%. Four paths at left foreground, left middle, rear center, rear right. No characters. Warm ivory sky and sage buildings, rare brick-red tarps. Compose only 6 to 9 large object groups with intentional negative space. Keep top 18 percent visually quiet for native HUD; quiet lower foreground for cards. All interactions stated as normalized coordinates. No UI, lettering or fake writing."
+    },
+    {
+      "asset": "A03.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. New game background, landscape 16:10, full bleed. Reference image is STYLE REFERENCE ONLY: reproduce its exact graphic linocut visual language and color relationships, but draw this DIFFERENT location. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Scene: A whimsical industrial scrap yard, with only a few large piles of bent panels and two large discarded gears. Small friendly trapped repair robot under a fallen clamp x34% y51%; one dismantlable engine x20% y74%; supplies x73% y53%; a small clearly drawn sealed rectangular relay at x90% y68%. Broad open central floor for later battles. Paths at left middle, rear left, rear right, right foreground. No other characters. Compose only 6 to 9 large object groups with intentional negative space. Keep top 18 percent visually quiet for native HUD; quiet lower foreground for cards. All interactions stated as normalized coordinates. No UI, lettering or fake writing."
+    },
+    {
+      "asset": "A04.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. New full-bleed landscape 16:10 game background. Reference image is STYLE REFERENCE ONLY, match its hand-cut print graphic quality and palette, make the following DIFFERENT place. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Scene: An intimate old repair workshop. An angular tool bench x28% y59% with calibration vise lower x29% y76%. A suspended muted-ochre work lamp x91% y40%; beside it a concealed closed wall hatch x84% y60%. Two simple resonance objects at x49% y46% and x61% y62%. Large floorboards, restrained diagonal sunlight, a few hanging tools, no little clutter. Exits at left middle, left foreground and right foreground. No people. Use just 6 to 9 large meaningful object groups; top 18 percent quiet for UI; clear foreground for later cards. No HUD, text, lettering, watermark."
+    },
+    {
+      "asset": "A05.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. New full-bleed landscape 16:10 game background. Reference image is STYLE REFERENCE ONLY, match its hand-cut print graphic quality and palette, make the following DIFFERENT place. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Scene: An outdoor outer-ring railway station with a simple canopy. Disconnected square electrical cabinet at x24% y50%, coil of salvage wire below x24% y71%; a blank route-token rack x48% y55%, return vehicle x74% y61%. Idle semaphore at right. Factory mass on horizon, pale ivory sky with only three cloud shapes. Paths x11% y39% and x49% y31%. No people. A few red warning pennants, clear sage and ochre architecture. Use just 6 to 9 large meaningful object groups; top 18 percent quiet for UI; clear foreground for later cards. No HUD, text, lettering, watermark."
+    },
+    {
+      "asset": "A06.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. New full-bleed landscape 16:10 game background. Reference image is STYLE REFERENCE ONLY, match its hand-cut print graphic quality and palette, make the following DIFFERENT place. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Scene: A tiny secret workshop inspection chamber, an intimate sage-green and charcoal room framed by thick beams. Wall at left carries a large carved pale-sage abstract mechanical diagram without text. Center-right x65% y59% a distinctive folded shovel on a low wooden shelf beside a paper manifest. Rear-right exit opening at x84% y40%. Strong simple silhouettes and broad dark-ink masses with ivory flat highlights; no neon, no glow gradients. Few objects, a quiet discovery. Use just 6 to 9 large meaningful object groups; top 18 percent quiet for UI; clear foreground for later cards. No HUD, text, lettering, watermark."
+    },
+    {
+      "asset": "A07.png",
+      "stage": "original",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. New full-bleed landscape 16:10 game background. Reference image is STYLE REFERENCE ONLY, match its hand-cut print graphic quality and palette, make the following DIFFERENT place. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Scene: Inside an abandoned railway carriage. Clear long perspective of broad sage bench seats, ivory windows with simple factory silhouettes, ochre luggage racks. A large inspection lid on the far floor x50% y41%; a wrapped parcel at x30% y71%; two wire coils x83% y71%; a first-aid flask x91% y81%. Open exit at x68% y42%. No people, no writing. Expressive elegant proportions, restrained red upholstery accents, daylight. Use just 6 to 9 large meaningful object groups; top 18 percent quiet for UI; clear foreground for later cards. No HUD, text, lettering, watermark."
+    },
+    {
+      "asset": "actors.png",
+      "stage": "original",
+      "transparent_background": true,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. A SINGLE production character-and-prop sprite atlas for the same game as the reference. Transparent alpha background. Exactly FOUR columns and TWO rows of EIGHT equal cells, every figure upright, centered horizontally, feet at 88% cell height, contained inside central 76% of its cell. No borders, labels or extraneous objects. Hand-cut linocut and cut-paper illustration. Bold angular silhouettes, slightly irregular dark ink outline, 2 or 3 flat planes per object, sparse intentional carved hatching on focal edges. Crisp native-resolution contours, no pixelation or blur. Six inks: warm ivory #e7dcc2, charcoal green #253d3a, sage #748777, brick vermilion #b65b47, honey ochre #c39c53, pale stone #b4b49a. Ivory/sage daylight dominant, rare vermilion accents. No gradients, realistic textures, wet reflections, bloom, orange-blue cinematic lighting, ornate filigree or random noise. No lettering, text, UI, watermark. Match the reference's cut-paper railway illustration, but isolated charming chunky characters, NOT scenery. Reading order: top row 1 stout porter automaton, barrel body, two thick legs, single small visor, blocky hammer hand; 2 broad riveted shield automaton carrying large simple rectangular shield; 3 slender mechanical patrol watchman with a large old brass bell on one shoulder; 4 heavy freight foreman automaton in a vermilion apron with wrench and one ochre shoulder insignia. Bottom row 1 wooden workshop practice dummy on a broad base, 2 tiny friendly repair robot with round head, scarf and small wrench, 3 a domestic wooden clothes rack with two simple patched coats and a hanging little bag, 4 an industrial railway badge emblem shaped like a gear enclosing a small flame. 2 or 3 flat tones per part, strong outlined contours, very little internal detail, subtle few intentional ink cuts. Consistent scale within characters. Avoid human realism, cables everywhere, dozens of rivets, neon eyes, metallic sheen, 3D, gradients, halos, drop shadows or fine pixel noise."
+    },
+    {
+      "asset": "equipment.png",
+      "stage": "revision",
+      "transparent_background": true,
+      "reference": [
+        "equipment initial generation",
+        "camp.png"
+      ],
+      "prompt": "Use case: style-transfer. Image 1 is the EDIT TARGET equipment atlas; image 2 is the STYLE REFERENCE. Keep the exact eight objects, exact 4 by 2 cell positions, sizes, clean separated transparency and silhouettes from image 1. REDRAW every object with the very flat cut-paper / linocut design language of image 2. Remove 85 percent of small scratches, metal highlights, rivets, seams and soft shading. Use ONLY large hard-edged flat patches in charcoal green, ivory, muted sage, ochre, and small brick-red accents. All steel must be illustrated as a single sage or ivory plane with one charcoal shadow face, never grey realistic metal. At most 2 or 3 tones per object. A few confident uneven carved black contour lines, no glossy edges, no gradient, no realistic fabric texture, no speckle texture, no tiny scratches, no photographic or game-render gloss. These should look like eight screen-printed objects from a vintage workshop catalogue, designed and playful, NOT rendered realistic loot. Preserve transparent background. No text."
+    },
+    {
+      "asset": "items.png",
+      "stage": "original",
+      "transparent_background": true,
+      "reference": "camp.png",
+      "prompt": "Use case: stylized-concept. One transparent adventure inventory sprite sheet, exactly 4 columns by 2 rows, eight equal square cells. Objects kept wholly inside central 72% of each cell with wide empty transparent gutters. Match reference style STRICTLY: very flat hand-cut poster shapes in ivory, charcoal green, sage, ochre, restrained brick red. Each object ONLY TWO flat ink planes plus dark outline, deliberate silhouettes. No metal shading, no highlights, no realistic surface, no texture noise, no gradient. Reading order: top row 1 sealed electrical relay box with one coil and red tab; 2 chunky workshop calibration clamp; 3 railway route-token tag with a punched hole and abstract arrow, NO text; 4 tied brown-paper parcel. Bottom row 1 an open canvas travel satchel showing a rolled blanket and metal flask; 2 three short salvage steel bars tied together; 3 a coil of copper wire; 4 a broad coiled spring. These are expressive crisp catalogue illustrations, not flat monochrome UI symbols and not realistically rendered loot. All complete, separated, on genuine alpha transparency, without cell borders, labels, lettering or watermark."
+    },
+    {
+      "asset": "camp-lit.png",
+      "stage": "revision",
+      "transparent_background": false,
+      "reference": "camp.png",
+      "prompt": "Use case: precise-object-edit. Input is EDIT TARGET. Preserve its resolution, framing, designed cut-paper shapes, crisp contours and limited ink palette. Change ONLY the hanging worklamp at image center and the blank wall underneath it: lamp is now powered, show a sharply bounded warm ochre pool of flat printed light and a nostalgic little factory/city silhouette projection on the wall. No bloom or gradients. Keep all furniture, bag, architecture, palette and camera identical. No text, no HUD, no watermark."
+    },
+    {
+      "asset": "A03-rescued.png",
+      "stage": "revision",
+      "transparent_background": false,
+      "reference": "A03.png",
+      "prompt": "Use case: precise-object-edit. Input is EDIT TARGET. Preserve its resolution, framing, designed cut-paper shapes, crisp contours and limited ink palette. Remove ONLY the little trapped robot beneath the fallen clamp left of center (around x27% y53%). Leave the bent clamp and empty safe spot, using the same floor and ink shapes. Everything else exactly unchanged. No text, no HUD, no watermark."
+    },
+    {
+      "asset": "A04-dark.png",
+      "stage": "revision",
+      "transparent_background": false,
+      "reference": "A04.png",
+      "prompt": "Use case: precise-object-edit. Input is EDIT TARGET. Preserve its resolution, framing, designed cut-paper shapes, crisp contours and limited ink palette. The hanging lamp at right x83% y36% is switched off: darken its inner shade. The previously hidden square hatch beneath it at x81% y53% is now visibly ajar, revealing a simple pale sage geometric phosphor arrow and the narrow entrance into a dark secret room. Use flat ink shapes, no neon glow or gradient. Make the right-hand wall a deeper muted green so the pale sign stands out. Preserve all object positions, bench, left doorway, floor, palette and camera. No text, no HUD, no watermark."
+    },
+    {
+      "asset": "A05-powered.png",
+      "stage": "revision",
+      "transparent_background": false,
+      "reference": "A05.png",
+      "prompt": "Use case: precise-object-edit. Input is EDIT TARGET. Preserve its resolution, framing, designed cut-paper shapes, crisp contours and limited ink palette. Change ONLY the electrical cabinet at x29% y61% and railway semaphore at x91% y24%: cabinet is repaired with its panel closed, one pale green round status lamp; semaphore is raised to the go position with a green disk. Rest of image exactly unchanged, flat print colors, no glowing bloom. No text, no HUD, no watermark."
+    },
+    {
+      "asset": "A06.png",
+      "stage": "revision",
+      "transparent_background": false,
+      "reference": "A06.png",
+      "prompt": "Use case: precise-object-edit. Input is EDIT TARGET. Preserve its resolution, framing, designed cut-paper shapes, crisp contours and limited ink palette. Restyle ONLY illumination and the view beyond the right doorway. This is a SECRET DARK INSPECTION CHAMBER, not a bright outdoor workshop. Replace bright outdoor landscape beyond doorway with a darker interior corridor. Large wall and floor masses now dark charcoal-green; the diagram on left wall uses pale sage ink, shovel and manifest retain ivory highlights; ochre lantern at left has only a small sharply bounded flat light patch. Keep every object, camera and position. Crisp graphic linocut shadows, no gradients, blur, neon glow or realistic lighting. Keep the upper quiet band dark sage. This scene should provide a dark mysterious variation within the same six-ink palette. No text, no HUD, no watermark."
+    }
+  ],
+  "final_assets": {
+    "A01.png": "f920930c55cfb753823e6fa2d5044ef07fc40c94ec5373e253cc5746af9cb7bd",
+    "A02.png": "4ed4a9b0ffe4f5519f9cb05675aff04534e3b02062c2dafe7b4146ab162c985e",
+    "A03-rescued.png": "2712f103a8e7b4c3e1e939e13d2e3549a8bc983c0d06aed91d246081b7b2ba0f",
+    "A03.png": "3179c3c6e9fafc29ff3b7436c98fb08b4f7e8d25c96943a988ae2d622f92cc0a",
+    "A04-dark.png": "24e4ec0d9b7560ef9c04b2bc0ca53fde3fd0531f9efe3fe71647440c3b8686c0",
+    "A04.png": "3078a89274f78cceb5de451ff98df7e7a6e94399135af7a6d1c854d36fbd3fd5",
+    "A05-powered.png": "2ce5740029138ed46871f5d9af657e7b744519649cf90042fd70048d7c9f74ce",
+    "A05.png": "d4eb8492dcc0828a5d222f7fb955bd6bb47ed9a17c73ea1ce469f9d36f4047c9",
+    "A06.png": "bce939f9b2bb6037eadb8609c551b86a17f023c12c68ce967f4f797f3024e90d",
+    "A07.png": "9c0ebc10f7dd92d1c57c6d4e1aec70e0ca139ff1988179310dd75a737346ab4c",
+    "actors.png": "6fcf0d58f240370dba48b4bfba013243584bd06d51541a2ea3af2cbd17a3bbdd",
+    "camp-lit.png": "c2247372165d59d92261c4c79de89991828c9a972c504260c0b367f0aa1c0822",
+    "camp.png": "40b2d2fb69a8880771fe02db0b28cf7f52e9f4ddec64245a01368314ba875f33",
+    "equipment.png": "655d4a230507040f43dbb74aef34cd0de2f798a16288ef769fe5e5adc9901835",
+    "items.png": "69a11e98afa98e9619f5022de70960ed76f631c4c661721191980e441776a45d"
+  }
+}

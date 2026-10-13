@@ -8,17 +8,29 @@ public class ChapterTests
     private static void Move(ChapterSession g, params string[] places)
     { foreach (var p in places) Assert.True(g.Move(p), "Move " + p); }
     private static void Act(ChapterSession g, params string[] actions)
-    { foreach (var a in actions) Assert.True(g.Act(a), "Act " + a); }
+    {
+        foreach (var a in actions)
+        {
+            Assert.True(g.Act(a), "Act " + a);
+            Collect(g);
+        }
+    }
+    internal static void Collect(ChapterSession g)
+    {
+        foreach (var item in g.State.Stock.Where(i => g.State.Ground.TryGetValue(i.Container, out var ground) && ground.Place == g.State.Location && ground.FreePickup).ToArray())
+            if (g.CanPickup(item.Id, item.Quantity)) Assert.True(g.Pickup(item.Id, item.Quantity));
+    }
     public static ChapterSession CompleteOuterRing()
     {
         var g = new ChapterSession(); Assert.True(g.Depart()); Move(g, "A03");
-        Act(g, "rescue", "relay", "scrap"); Move(g, "A04"); Act(g, "bench", "dark");
+        Act(g, "rescue", "relay", "cloth", "scrap"); Move(g, "A01"); Act(g, "extract");
+        Assert.True(g.ReturnToCamp()); Assert.True(g.TurnIn("Q01")); Assert.True(g.TurnIn("S07"));
+        Assert.True(g.CraftBackpack("BP01")); Assert.True(g.Equip("BP01")); Assert.True(g.Equip("G10"));
+        Assert.True(g.Depart()); Move(g, "A03"); Act(g, "scrap"); Move(g, "A04"); Act(g, "bench", "dark");
         Move(g, "A06"); Act(g, "shovel"); Move(g, "A04"); Assert.True(g.Equip("G25"));
-        Move(g, "A02"); Act(g, "crate", "crate"); Move(g, "A01"); Act(g, "extract");
-        Assert.True(g.ReturnToCamp()); Assert.True(g.TurnIn("Q01")); Assert.True(g.TurnIn("S07")); Assert.True(g.TurnIn("S08"));
-        Assert.True(g.Equip("G10")); Assert.True(g.Depart()); Move(g, "A02"); Act(g, "clamp");
-        Move(g, "A04"); Act(g, "bench", "calibrate"); Move(g, "A05"); Act(g, "repair", "sign", "wire", "extract");
-        Assert.True(g.ReturnToCamp()); Assert.True(g.TurnIn("Q02")); Assert.True(g.TurnIn("S01"));
+        Move(g, "A02"); Act(g, "crate", "crate", "clamp"); Move(g, "A04"); Act(g, "calibrate");
+        Move(g, "A05"); Act(g, "repair", "sign", "wire", "extract");
+        Assert.True(g.ReturnToCamp()); Assert.True(g.TurnIn("Q02")); Assert.True(g.TurnIn("S01")); Assert.True(g.TurnIn("S08"));
         return g;
     }
 
@@ -45,7 +57,7 @@ public class ChapterTests
         Assert.True(g.EndTrial()); Assert.Equal(health, g.State.Health); Assert.Equal(rng, g.State.RandomState);
         Assert.Equal(equipped, g.Equipped); Assert.Equal(owned, g.State.Owned.Order());
         var before = g.State.Bank.ToArray(); Assert.True(g.Craft("G26"));
-        Assert.Equal(new[] { before[0] - 2, before[1] - 2, before[2] - 1 }, g.State.Bank);
+        Assert.Equal(new[] { before[0] - 2, before[1] - 2, before[2] - 1 }, g.State.Bank.Take(3));
         var paid = g.ToJson(); Assert.False(g.Craft("G26")); Assert.Equal(paid, g.ToJson());
         Assert.True(g.Equip("G26")); Assert.Equal(10, g.Deck().Count);
         Assert.True(g.BuyMod("G01", "D01")); Assert.Equal(new[] { "C19", "C01", "C01", "C02" }, g.GearCards("G01"));
@@ -56,12 +68,13 @@ public class ChapterTests
     [Fact]
     public void TaskItemsRequireExtractionAndFailureRestoresUniqueSources()
     {
-        var g = new ChapterSession(); g.Depart(); Move(g, "A03"); Act(g, "rescue", "relay", "scrap");
+        var g = new ChapterSession(); g.Depart(); Move(g, "A03"); Act(g, "rescue", "relay");
+        var free = g.State.Stock.Single(i => i.FreeSupply); Assert.True(g.Drop(free.Id, free.Quantity));
         Assert.False(g.TurnIn("Q01")); Move(g, "A04"); Act(g, "dark", "bench");
         Move(g, "A06"); Act(g, "shovel"); Move(g, "A04"); Assert.True(g.Equip("G25"));
         Move(g, "A03"); Act(g, "K02"); g.State.Health = 1; g.EndTurn();
         Assert.Equal(ChapterPhase.Defeated, g.State.Phase); Assert.Equal("G01", g.State.Weapon);
-        Assert.Empty(g.State.Loot); Assert.Empty(g.State.Items); Assert.Equal(new[] { 0, 0, 0 }, g.State.Cargo);
+        Assert.Empty(g.State.Loot); Assert.Empty(g.State.Items); Assert.Equal(new int[7], g.State.Cargo);
         Assert.Contains("robot-rescued", g.State.World); Assert.Contains("dark-door", g.State.World);
         Assert.True(g.ReturnToCamp()); Assert.False(g.CanTurnIn("S07")); Assert.True(g.Depart()); Move(g, "A03");
         Assert.Contains(g.Actions(), a => a.Id == "relay"); Assert.DoesNotContain(g.Actions(), a => a.Id == "rescue");
@@ -135,7 +148,7 @@ public class ChapterTests
         var g = CompleteOuterRing(); Assert.Equal(g.ToJson(), ChapterSession.FromJson(g.ToJson()).ToJson());
         Assert.Throws<InvalidDataException>(() => ChapterSession.FromJson("{}"));
         Assert.Throws<InvalidDataException>(() => ChapterSession.FromJson(new ExpeditionSession().ToJson()));
-        Assert.Throws<InvalidDataException>(() => ChapterSession.FromJson(g.ToJson().Replace("chapter1-outer-ring-v1", "unknown")));
+        Assert.Throws<InvalidDataException>(() => ChapterSession.FromJson(g.ToJson().Replace(ChapterSession.InventoryVersion, "unknown")));
         g.State.Owned.Add("missing"); Assert.Throws<InvalidDataException>(() => ChapterSession.FromJson(g.ToJson()));
     }
 
@@ -149,7 +162,7 @@ public class ChapterTests
             g.State.Location = p.Id; Assert.InRange(g.NearestExit().Distance, 0, 3);
         }
         foreach (var gear in ChapterContent.Gear.Values)
-        { Assert.Equal(gear.Slot == "hands" ? 2 : 4, gear.Cards.Length); Assert.All(gear.Cards, c => Assert.True(ChapterContent.Cards.ContainsKey(c))); }
+        { Assert.Equal(gear.Slot == "backpack" ? 0 : gear.Slot == "hands" ? 2 : 4, gear.Cards.Length); Assert.All(gear.Cards, c => Assert.True(ChapterContent.Cards.ContainsKey(c))); }
     }
 
     [Fact]
@@ -178,11 +191,11 @@ public class ChapterTests
         var b = g.State.Battle!;
         // Resolve the final hit to test the encounter/unique reward transaction independently of balance.
         b.Enemies[0].Health = 1; b.Enemies[0].Shield = 0; b.Enemies[1].Health = 0;
-        var attack = b.Hand.FindIndex(c => ChapterContent.Cards[c].Damage > 0); Assert.True(g.PlayCard(attack, 0));
+        var attack = b.Hand.FindIndex(c => ChapterContent.Cards[c].Damage > 0); Assert.True(g.PlayCard(attack, 0)); Collect(g);
         Assert.Contains("G03", g.State.Loot); Assert.Contains("leader-won", g.State.World);
         Move(g, "A03"); Act(g, "K02"); g.State.Health = 1; g.EndTurn(); g.ReturnToCamp(); g.Depart(); Move(g, "A02");
         Assert.DoesNotContain(g.Actions(), a => a.Id == "E13"); Act(g, "leader-tool"); Assert.Contains("G03", g.State.Loot);
-        Assert.Equal(new[] { 0, 0, 0 }, g.State.Cargo);
+        Assert.Equal(new int[7], g.State.Cargo);
     }
 
     [Fact]

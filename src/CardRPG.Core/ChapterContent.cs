@@ -2,6 +2,7 @@ namespace CardRPG.Core;
 
 public record ChapterCard(string Id, string Name, int Action, int Mana, int Damage, int Shield, string Text);
 public record ChapterGear(string Id, string Name, string Slot, string[] Cards, string Hint);
+public record ChapterItemDefinition(string Id, string Name, int Slots, int Stack, int Grams);
 public record ChapterPlace(string Id, string Name, string Description, string[] Neighbors);
 public record ChapterRecipe(string Gear, int Steel, int Wire, int Spring);
 public record ChapterQuest(string Id, string Name, string Hint);
@@ -34,7 +35,10 @@ public static class ChapterContent
         ["G10"] = new("G10", "修补工装", "body", ["C03", "C03", "C25", "C26"], "交付继电器；保留护盾与抽牌。"),
         ["G15"] = new("G15", "回响护腕", "hands", ["C07", "C07"], "交付校准夹具；防御转换为进攻。"),
         ["G25"] = new("G25", "折页清障铲", "weapon", ["C01", "C01", "C18", "C02"], "熄灯后显现的检修夹层；群攻会占用 2 行动。"),
-        ["G26"] = new("G26", "检修工具手套", "hands", ["C36", "C35"], "先完成据点台架试用，再制作。以盾压换取过牌。")
+        ["G26"] = new("G26", "检修工具手套", "hands", ["C36", "C35"], "先完成据点台架试用，再制作。以盾压换取过牌。"),
+        ["BP01"] = new("BP01", "拼布挎包", "backpack", [], "增加 8 格，总容量 12 格；简易缝制从开局可用。"),
+        ["BP02"] = new("BP02", "加固行囊", "backpack", [], "增加 12 格，总容量 16 格；完成夹具任务后可制作。"),
+        ["BP03"] = new("BP03", "承架背包", "backpack", [], "增加 16 格，总容量 20 格；外环整备完成后可制作。")
     };
     public static readonly Dictionary<string, ChapterPlace> Places = new()
     {
@@ -62,7 +66,27 @@ public static class ChapterContent
         new("S09", "迟到的包裹", "在静止列车拿到居民包裹，撤离后交还失主。"),
         new("S10", "给空座位的演出 · 序", "工坊开放后，试用检修手套：用预备工具后再攻击。后续演出在铸造区开放。")
     ];
-    public static string ItemName(string id) => id switch
-    { "T01" => "封装继电器", "T02" => "工坊校准夹具", "T11" => "货站路签", "T14" => "居民包裹", _ => id };
-    public static string MaterialName(int i) => new[] { "废钢", "导能线", "精密弹簧" }[i];
+    public static readonly string[] MaterialIds = ["M01", "M02", "M03", "M07", "M08", "M09", "M10"];
+    public static readonly Dictionary<string, ChapterItemDefinition> Items = CreateItems();
+    private static Dictionary<string, ChapterItemDefinition> CreateItems()
+    {
+        var items = new Dictionary<string, ChapterItemDefinition>();
+        int[] weights = [4000, 2000, 5000, 6000, 3000, 1000, 4500, 1000, 1000, 1500, 2000];
+        var index = 0;
+        foreach (var gear in Gear.Values)
+            items[gear.Id] = new(gear.Id, gear.Name, gear.Slot == "hands" ? 1 : 2, 1, weights[index++]);
+        foreach (var (id, name, grams) in new (string, string, int)[]
+        {
+            ("M01", "废钢", 600), ("M02", "导能线", 200), ("M03", "精密弹簧", 100),
+            ("M07", "再生织物", 100), ("M08", "净化药剂", 100), ("M09", "密封树脂", 200), ("M10", "承重构件", 2000)
+        }) items[id] = new(id, name, 1, 10, grams);
+        foreach (var (id, name, grams) in new (string, string, int)[]
+        { ("T01", "封装继电器", 1200), ("T02", "工坊校准夹具", 2500), ("T11", "货站路签", 100), ("T14", "居民包裹", 1500) })
+            items[id] = new(id, name, 1, 1, grams);
+        items["U01"] = new("U01", "密封补给", 1, 2, 350);
+        return items;
+    }
+    public static int BagCapacity(string id) => id switch { "BP01" => 8, "BP02" => 12, "BP03" => 16, _ => 0 };
+    public static string ItemName(string id) => Items.TryGetValue(id, out var item) ? item.Name : id;
+    public static string MaterialName(int i) => ItemName(MaterialIds[i]);
 }
