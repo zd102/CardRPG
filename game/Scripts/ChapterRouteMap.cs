@@ -10,7 +10,7 @@ public partial class ChapterRouteMap : Control
     public string Current { get; set; } = "";
     public HashSet<string> Revealed { get; set; } = new();
     public bool StationPowered { get; set; }
-    private StyleBoxFlat _paper = null!;
+    private StyleBoxTexture _paper = null!;
     private static readonly Dictionary<string, Vector2> Points = new()
     {
         ["A01"] = new(.13f, .42f), ["A02"] = new(.36f, .23f), ["A03"] = new(.35f, .70f),

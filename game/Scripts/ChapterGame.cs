@@ -30,7 +30,7 @@ public partial class ChapterGame : Control
     public override void _Ready()
     {
         _verify = OS.GetCmdlineUserArgs().Contains("--verify-chapter");
-        Theme = new Theme { DefaultFont = new SystemFont { FontNames = ["Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", "sans-serif"] }, DefaultFontSize = 16 };
+        Theme = new Theme { DefaultFont = ChapterSkin.BodyFont, DefaultFontSize = 16 };
         GetWindow().MinSize = new Vector2I(1100, 760); GetTree().AutoAcceptQuit = false;
         GetWindow().CloseRequested += RequestQuit;
         Resized += RefreshLayout;

@@ -22,31 +22,33 @@ public partial class ChapterGame
         }
         var shade = new ColorRect { Name = "ModalShade", Color = new Color("030b09b8"), MouseFilter = MouseFilterEnum.Stop };
         _root.AddChild(shade); shade.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var panel = ChapterSkin.Panel(_root, padding: 24); panel.Name = "FieldManual";
-        Dock(panel, 44, 108, -44, -28, ar: 1, ab: 1);
-        var binding=new ChapterPaperBinding {ShowBehindParent=false}; panel.AddChild(binding); binding.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        binding.SetAsTopLevel(false);
-        var layout = Column(14); panel.AddChild(layout);
+        var panel = ChapterSkin.Panel(_root, "ledger-paper", 18); panel.Name = "FieldManual";
+        Dock(panel, 24, 108, -24, -20, ar: 1, ab: 1);
+        var layout = Column(10); panel.AddChild(layout);
         var head = Row(18); layout.AddChild(head);
         var titles = FlexibleColumn(head); titles.AddThemeConstantOverride("separation", 2);
         var titleRow=Row(14); titles.AddChild(titleRow); Illustration(titleRow,_panel switch {"gear"=>"G01","craft"=>"G26","journal"=>"T11","prepare"=>"satchel",_=>"crest"},48,46,false);
         titleRow.AddChild(Inline(title, 28, Ink));
+        var folio = Inline(_panel switch { "character" => "01 / 远征档案", "prepare" => "02 / 出发检查", "gear" => "03 / 装备物资", "craft" => "04 / 制作改装", "journal" => "05 / 行程记录", "map" => "06 / 区域路线", _ => "07 / 现场指南" }, 14, Muted);
+        folio.SizeFlagsHorizontal = SizeFlags.ExpandFill; folio.HorizontalAlignment = HorizontalAlignment.Right;
+        folio.SizeFlagsVertical = SizeFlags.ShrinkCenter; head.AddChild(folio);
         var close = IconButton("close_panel", "close", _panelHistory.Count > 0 ? "返回上页 · Esc" : "返回场景 · Esc", ClosePanel);
         close.SizeFlagsVertical = SizeFlags.ShrinkCenter; head.AddChild(close);
         Rule(layout);
-        var content = Row(20); content.SizeFlagsVertical = SizeFlags.ExpandFill; layout.AddChild(content);
+        var content = Row(12); content.SizeFlagsVertical = SizeFlags.ExpandFill; layout.AddChild(content);
         var settlement = Session.State.Phase is ChapterPhase.Extracted or ChapterPhase.Defeated;
         if (!settlement)
         {
-            var rail = Column(6); rail.CustomMinimumSize = new Vector2(82, 0); content.AddChild(rail);
+            var rail = Column(8); rail.CustomMinimumSize = new Vector2(98, 0); content.AddChild(rail);
             foreach (var (key, caption) in new[] { ("character", "角色"), ("prepare", "整备"), ("gear", "装备"), ("craft", "工坊"), ("journal", "任务"), ("map", "地图"), ("help", "指引") })
             {
                 var target = key;
-                var nav = Button("nav_" + key, "      " + caption, () => { if (_panel != target) Toggle(target); }, true, _panel == key);
+                var nav = Button("nav_" + key, "     " + caption, () => { if (_panel != target) Toggle(target); }, true, _panel == key);
+                nav.CustomMinimumSize = new Vector2(98, 48);
                 var icon = Glyph(key=="gear"?"bag":key, _panel == key ? new Color("f1e7ce") : Ink, 22); nav.AddChild(icon); Dock(icon,8,-11,30,11,at:.5f,ab:.5f);
                 rail.AddChild(nav);
             }
-            Fill(rail); rail.AddChild(Text("外环", 14, Muted));
+            Fill(rail); rail.AddChild(Text("余火站\n外环 · 第一章", 14, Muted));
         }
         var body = FlexibleColumn(content); body.Name = "WindowContent";
         if (_actionWarning != "") body.AddChild(Text(_actionWarning, 16, Danger));
@@ -75,7 +77,7 @@ public partial class ChapterGame
 
     private void Tabs(Node parent, string prefix, (string Id, string Label)[] tabs, string selected, Action<string> select)
     {
-        var row = Row(6); parent.AddChild(row);
+        var row = new HFlowContainer(); row.AddThemeConstantOverride("h_separation", 6); row.AddThemeConstantOverride("v_separation", 6); parent.AddChild(row);
         foreach (var (id, caption) in tabs)
         {
             var key = id;
@@ -93,13 +95,13 @@ public partial class ChapterGame
         Tabs(box, "gear_tab_", [("all", "全部装备"), ("weapon", "武器"), ("body", "身体"), ("hands", "手部"), ("backpack", "背包"), ("cargo", "物品与仓库")], _gearFilter, key => _gearFilter = key);
         if (_gearFilter == "cargo") { PhysicalInventory(box); return; }
         var split = Row(14); split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
-        var wearing = FlexibleColumn(split, .95f);
+        var wearing = Section(split, .95f);
         wearing.AddChild(Text("当前穿戴", 20, Ink));
         var board = Scroll(wearing); EquipmentBoard(board, Session.Equipped.ToArray(), "wear", false);
         board.AddChild(Text($"提供 {Session.Deck().Count} 张牌 · 备用 {s.Backups.Count} 件", 14, Muted));
         board.AddChild(Button("gear_overview", "属性与完整卡组 →", () => OpenNested("character")));
 
-        var choices = FlexibleColumn(split, 1);
+        var choices = Section(split, 1);
         choices.AddChild(Text("可选装备", 20, Ink));
         var shelf = Scroll(choices);
         var gearIds = s.Owned.Concat(s.Loot).Distinct().Order().Where(id => _gearFilter == "all" || ChapterContent.Gear[id].Slot == _gearFilter).ToArray();
@@ -114,7 +116,7 @@ public partial class ChapterGame
             tile.SizeFlagsHorizontal = SizeFlags.ExpandFill; grid.AddChild(tile);
         }
         if (gearIds.Length == 0) shelf.AddChild(Text("此部位还没有可选装备。", 16, Muted));
-        var details = FlexibleColumn(split, 1.2f); var detail = Scroll(details);
+        var details = Section(split, 1.2f); details.AddChild(Text("装备详情", 20, Ink)); var detail = Scroll(details);
         if (_selectedGear == "") { detail.AddChild(Text("选择装备查看供牌与穿戴选项。", 16, Muted)); return; }
         var selected = ChapterContent.Gear[_selectedGear]; var kind = _selectedGear;
         var hero = Row(10); detail.AddChild(hero); Illustration(hero, ItemArt(kind), 64, 64);
@@ -186,7 +188,7 @@ public partial class ChapterGame
         var s = Session.State; box.AddChild(Text(Session.Objective, 20, Accent));
         Tabs(box, "quest_tab_", [("all", "全部记录"), ("main", "主线"), ("side", "支线"), ("done", "已完成")], _questFilter, key => _questFilter = key);
         var split = Row(16); split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
-        var list = FlexibleColumn(split, 1.35f); var quests = Scroll(list);
+        var list = Section(split, 1.35f); list.AddChild(Text("委托档案",20,Ink)); var quests = Scroll(list);
         foreach (var quest in ChapterContent.Quests.Where(q => _questFilter switch { "main" => q.Id.StartsWith("Q"), "side" => q.Id.StartsWith("S"), "done" => s.Done.Contains(q.Id), _ => true }))
         {
             var q = CardBox(quests); var heading = Row(12); q.AddChild(heading);

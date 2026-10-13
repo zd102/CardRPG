@@ -65,7 +65,10 @@ public partial class ChapterGame
     private HBoxContainer SymbolValue(Node parent, string symbol, string value, Color color, string description = "", int size = 20)
     {
         var row = Row(6); row.MouseFilter = MouseFilterEnum.Pass; parent.AddChild(row);
-        row.AddChild(Glyph(symbol, color, size + 6)); row.AddChild(Inline(value, size, color));
+        row.AddChild(Glyph(symbol, color, size + 6));
+        var label = Inline(value, size, color);
+        if (value.Any(char.IsDigit) && !value.Any(c => c >= 0x3400)) label.AddThemeFontOverride("font", ChapterSkin.NumberFont);
+        row.AddChild(label);
         if (description != "")
         {
             row.FocusMode = FocusModeEnum.All;

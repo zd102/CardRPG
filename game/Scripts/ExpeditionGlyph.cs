@@ -10,6 +10,13 @@ public partial class ExpeditionGlyph : Control
     public override void _Ready() { MouseFilter = MouseFilterEnum.Ignore; Resized += QueueRedraw; }
     public override void _Draw()
     {
+        if (ChapterSkin.Icon(Symbol) is { } texture)
+        {
+            TextureFilter = TextureFilterEnum.Linear;
+            var edge = Mathf.Min(Size.X, Size.Y);
+            DrawTextureRect(texture, new Rect2((Size - Vector2.One * edge) / 2, Vector2.One * edge), false, Tint);
+            return;
+        }
         var scale = Mathf.Min(Size.X, Size.Y) / 48;
         DrawSetTransform((Size - new Vector2(48, 48) * scale) / 2, 0, Vector2.One * scale);
         var color = Tint;

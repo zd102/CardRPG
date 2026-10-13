@@ -1,0 +1,14 @@
+{
+  "tool": "built-in image_gen",
+  "date": "2026-10-13",
+  "assets": [
+    {
+      "file": "surfaces.png",
+      "prompt": "Use case: stylized-concept. Production game UI texture atlas, square 1024x1024, exact 2 by 2 grid of four edge-to-edge 512x512 square tiles, no gutters. Old railway expedition field manual, restrained woodcut printmaking, warm ivory paper, deep forest green ink, muted brass and vermilion. TOP LEFT: pale cream handmade paper panel with thin double forest green engraved border 12 pixels from tile edge, small brass corner details, very quiet empty interior. TOP RIGHT: slightly darker sage parchment panel with forest green double border and small engraved corner accents, quiet empty interior. BOTTOM LEFT: ivory button surface, green engraved perimeter bevel within outer 16 pixels, cream quiet center. BOTTOM RIGHT: vermilion red button surface with subtle worn ink grain, fine pale brass perimeter within outer 16 pixels, uniform red empty center. Designed for nine-slice scaling: all ornament strictly confined to outer 24 pixels of each tile, large unmarked flat interiors. Orthographic flat UI asset, no perspective, no objects, NO TEXT, no letters, no watermark. Each tile fills its entire quadrant exactly."
+    },
+    {
+      "file": "symbols.png",
+      "prompt": "Generate a clean production sprite sheet. 1536 wide by 1024 high landscape canvas. Transparent background. EXACT regular 6 columns x 4 rows, every cell 256x256. In EVERY cell put one simple thick solid WHITE pictogram centered with 50 pixel clear padding on all four sides. White filled silhouettes with transparent holes. Flat screenprint graphic design, bold minimalist symbols, no distress, no grain, NO speckles, no surrounding decoration, no fine details, no sketch lines, no texture, no shadows. Uniform optical size, every icon fits in its own cell. Row 1: simple valentine HEART, food TIN CAN, BACKPACK, PERSON head and shoulders, folded MAP, open BOOK. Row 2: crossed WRENCH AND HAMMER, QUESTION MARK, X close, LIGHTNING BOLT, DROP, SHIELD. Row 3: HAMMER, three playing CARDS, HOUSE, exit DOOR with right arrow, EYE, CHECK mark. Row 4: PADLOCK, metal INGOT, loop of WIRE, coil SPRING, loot CRATE, CLOCK. All 24 icons must align to exact regular grid. No words, numbers, border or visible grid."
+    }
+  ]
+}

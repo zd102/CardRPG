@@ -13,7 +13,7 @@ public partial class ChapterGame
         var s = Session.State;
         _hud = new Control { Name = "Hud", MouseFilter = MouseFilterEnum.Ignore };
         _root.AddChild(_hud); _hud.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var plate = ChapterSkin.Panel(_hud, padding: 12); plate.Name = "Vitals";
+        var plate = ChapterSkin.Panel(_hud, "ledger-paper", 12); plate.Name = "Vitals";
         Dock(plate, 20, 18, 310, 96);
         var status = Column(6); plate.AddChild(status);
         var vitals = Row(18); status.AddChild(vitals);
@@ -31,13 +31,18 @@ public partial class ChapterGame
             SymbolValue(location, "home", "安全", Muted, "安全据点；整备、阅读与制作不推进区域压力。", 14);
         else
             SymbolValue(location, "eye", s.Pressure.ToString(), s.Warned ? Danger : Muted, Session.PressureText + "\n" + Session.PatrolText, 14);
-        var menu = Row(6); _hud.AddChild(menu); Dock(menu, -378, 18, -20, 64, al: 1, ar: 1);
+        var menu = Row(6); _hud.AddChild(menu); Dock(menu, -378, 18, -20, 90, al: 1, ar: 1);
         foreach (var item in new[] { ("character", "character", "角色全览 · C", "character"), ("map", "map", "地图 · M", "map"), ("inventory", "bag", "装备与背包 · I", "gear"),
                      ("journal", "journal", "任务与发现 · J", "journal"), ("craft", "craft", "制作与改装", "craft"),
                      ("help", "help", "图标与操作指引 · F1", "help"), ("quit", "close", "保存并退出", "quit") })
         {
             var id = item.Item1; var panel = item.Item4;
             var button = IconButton(id, item.Item2, item.Item3, () => { if (panel == "quit") RequestQuit(); else Toggle(panel); });
+            button.CustomMinimumSize = new Vector2(46, 72);
+            Dock(button.GetChild<Control>(0), -12, 10, 12, 34, .5f, 0, .5f, 0);
+            var caption = Inline(id switch { "character" => "角色", "map" => "地图", "inventory" => "装备", "journal" => "任务", "craft" => "工坊", "help" => "指引", _ => "退出" }, 14, Ink);
+            caption.HorizontalAlignment = HorizontalAlignment.Center;
+            button.AddChild(caption); Dock(caption, 0, 39, 0, 63, ar: 1);
             menu.AddChild(button);
         }
         if (_panel == "" && s.Phase is ChapterPhase.Camp or ChapterPhase.Exploring)
@@ -131,7 +136,7 @@ public partial class ChapterGame
         if (!camp) box.AddChild(Text("回到据点后可调整。", 16, Muted));
         var page = Scroll(box);
         var split = Row(18); page.AddChild(split);
-        var loadout = FlexibleColumn(split, 1.1f);
+        var loadout = Section(split, 1.1f);
         loadout.AddChild(Text("随身装备",20,Ink));
         if (s.Extractions == 0)
         {

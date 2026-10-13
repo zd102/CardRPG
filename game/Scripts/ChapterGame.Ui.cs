@@ -22,6 +22,7 @@ public partial class ChapterGame
         size = size <= 14 ? 14 : size <= 17 ? 16 : size <= 21 ? 20 : 28;
         var label = new Label { Text = value, AutowrapMode = TextServer.AutowrapMode.WordSmart, MouseFilter = MouseFilterEnum.Ignore };
         label.AddThemeFontSizeOverride("font_size", size); label.AddThemeColorOverride("font_color", color);
+        label.AddThemeFontOverride("font", size >= 20 ? ChapterSkin.TitleFont : ChapterSkin.BodyFont);
         label.AddThemeConstantOverride("line_spacing", 4); return label;
     }
     private static Label Inline(string value, int size, Color color)
@@ -40,7 +41,9 @@ public partial class ChapterGame
     }
     private static PanelContainer Panel(Node parent, Color? background = null, Color? border = null)
     {
-        var panel = new PanelContainer(); panel.AddThemeStyleboxOverride("panel", Style(background ?? Surface, border ?? Outline)); parent.AddChild(panel); return panel;
+        var panel = ChapterSkin.Panel(parent, background.HasValue ? "field-panel" : "ledger-paper", 14);
+        if (border.HasValue) panel.AddThemeStyleboxOverride("panel", Style(background ?? Surface, border.Value));
+        return panel;
     }
     private static VBoxContainer CardBox(Node parent, Color? background = null, int gap = 10)
     {
@@ -50,6 +53,14 @@ public partial class ChapterGame
     {
         var panel = ChapterSkin.Panel(parent, "ledger-paper", padding);
         panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        var box = Column(12); panel.AddChild(box); return box;
+    }
+    private static VBoxContainer Section(Node parent, float ratio = 1)
+    {
+        var panel = ChapterSkin.Panel(parent, "ledger-paper", 12);
+        panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        panel.SizeFlagsVertical = SizeFlags.ExpandFill;
+        panel.SizeFlagsStretchRatio = ratio;
         var box = Column(12); panel.AddChild(box); return box;
     }
     private static void Rule(Node parent)
@@ -71,7 +82,7 @@ public partial class ChapterGame
         if (symbol != null) row.AddChild(new ExpeditionGlyph { Symbol = symbol, CustomMinimumSize = new Vector2(25, 32), Tint = color });
         var box = Column(0); row.AddChild(box);
         box.AddChild(Inline(label, 12, Muted));
-        var number = Text(value, 20, color); number.AutowrapMode = TextServer.AutowrapMode.Off; box.AddChild(number);
+        var number = Text(value, 20, color); number.AddThemeFontOverride("font", ChapterSkin.NumberFont); number.AutowrapMode = TextServer.AutowrapMode.Off; box.AddChild(number);
     }
     private static void HealthBar(Node parent, int value, int max, Color color)
     {
@@ -95,7 +106,7 @@ public partial class ChapterGame
         {
             Name = id, Text = label, Disabled = !enabled, CustomMinimumSize = new Vector2(0, 46),
             FocusMode = FocusModeEnum.All, MouseDefaultCursorShape = CursorShape.PointingHand,
-            TextureFilter = TextureFilterEnum.Nearest
+            TextureFilter = TextureFilterEnum.Linear
         };
         button.AddThemeFontSizeOverride("font_size", 16);
         button.AddThemeColorOverride("font_color", primary ? new Color("f1e7ce") : Ink);
@@ -103,9 +114,9 @@ public partial class ChapterGame
         button.AddThemeColorOverride("font_focus_color", primary ? new Color("f1e7ce") : Ink);
         button.AddThemeColorOverride("font_pressed_color", Ink);
         button.AddThemeColorOverride("font_disabled_color", primary ? new Color("e7dcc2") : new Color("56665b"));
-        StyleBoxFlat Skin(Color? tint = null)
+        StyleBoxTexture Skin(Color? tint = null)
         {
-            var skin = ChapterSkin.Box(primary ? "brass-button" : "field-panel", 14, tint);
+            var skin = ChapterSkin.Box(primary ? "brass-button" : "button", 14, tint);
             skin.ContentMarginTop = skin.ContentMarginBottom = 9; return skin;
         }
         button.AddThemeStyleboxOverride("normal", Skin());

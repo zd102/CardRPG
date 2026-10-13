@@ -28,13 +28,13 @@ public partial class ChapterGame
             _selectedStock = selected?.Id ?? 0;
         }
         var columns = Row(14); columns.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(columns);
-        var carrying = FlexibleColumn(columns, 1);
+        var carrying = Section(columns, 1);
         carrying.AddChild(Text($"随身 · {Session.CarryUsed}/{Session.CarryCapacity} 格", 20, Ink));
         carrying.AddChild(Text(s.Backpack == "" ? "口袋 4 格 · 尚未穿戴背包" : "口袋 4 + 背包 " + ChapterContent.BagCapacity(s.Backpack) + " 格", 14, Muted));
         var carryGrid = Scroll(carrying);
         StorageGrid(carryGrid, Session.CarriedItems, Session.CarryCapacity, "carry");
         carrying.AddChild(Text("点击物品查看取放操作\n双格装备的续格标有“占位”", 14, Muted));
-        var other = FlexibleColumn(columns, 1.1f);
+        var other = Section(columns, 1.1f);
         if (Session.AtBase)
         {
             other.AddChild(Text($"仓库 · {Session.WarehouseUsed}/{Session.WarehouseCapacity} 格", 20, Ink));
@@ -57,7 +57,7 @@ public partial class ChapterGame
             if (!Session.GroundHere.Any()) ground.AddChild(Text("这里没有已发现的遗留物。", 16, Muted));
             other.AddChild(Text($"基地仓库 {Session.WarehouseUsed}/{Session.WarehouseCapacity} 格\n返还预留 {Session.WarehouseReserved} 格", 14, Muted));
         }
-        var details = FlexibleColumn(columns, 1.05f); details.AddChild(Text("物品详情", 20, Ink));
+        var details = Section(columns, 1.05f); details.AddChild(Text("物品详情", 20, Ink));
         var detail = Scroll(details);
         if (selected == null)
         {
@@ -70,7 +70,7 @@ public partial class ChapterGame
 
     private void StorageGrid(Node parent, IEnumerable<ChapterItem> stock, int capacity, string name)
     {
-        var grid = new GridContainer { Name = "StorageGrid_" + name, Columns = 4, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        var grid = new GridContainer { Name = "StorageGrid_" + name, Columns = Size.X < 1280 ? 3 : 4, SizeFlagsHorizontal = SizeFlags.ExpandFill };
         grid.AddThemeConstantOverride("h_separation", 4); grid.AddThemeConstantOverride("v_separation", 4); parent.AddChild(grid);
         var used = 0;
         foreach (var group in stock.GroupBy(i => (i.Kind, i.FreeSupply, i.Calibrated)))

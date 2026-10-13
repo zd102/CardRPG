@@ -12,7 +12,8 @@ public partial class ChapterGame
     {
         var tile = Button(id, "", select);
         tile.CustomMinimumSize = new Vector2(96, height);
-        tile.AddThemeStyleboxOverride("normal", Style(selected ? new Color("d4d7bd") : Surface, selected ? Accent : Outline, 4));
+        tile.AddThemeStyleboxOverride("normal", ChapterSkin.Box(selected ? "field-panel" : "ledger-paper", 4));
+        if (selected) tile.AddThemeStyleboxOverride("normal", ChapterSkin.Box("field-panel", 4, new Color("e1edcd")));
         tile.TooltipText = title + "\n" + caption;
         if (kind != "")
         {
@@ -57,11 +58,12 @@ public partial class ChapterGame
         var context = battle == null ? "当前穿戴构筑" : battle.Id == "trial" ? "台架试用 · 借用构筑" : $"战斗中 · 第 {battle.Round} 回合";
         box.AddChild(Text(context + "  /  " + (Session.AtBase ? "余火站" : ChapterContent.Places[s.Location].Name), 16, Muted));
         var columns = Row(16); columns.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(columns);
-        var profileColumn = FlexibleColumn(columns, .88f); var profile = Scroll(profileColumn); profile.AddThemeConstantOverride("separation", 8);
+        var profileColumn = Section(columns, .88f); var profile = Scroll(profileColumn); profile.AddThemeConstantOverride("separation", 8);
         var vitals = CardBox(profile, new Color("d4d7bd"), 4);
         var identity = Row(10); vitals.AddChild(identity); identity.AddChild(Glyph("character", Ink, 28)); identity.AddChild(Inline("远征者", 20, Ink));
         var health = Row(8); vitals.AddChild(health);
         var hp = Inline($"{s.Health} / {ChapterSession.MaxHealth}", 28, s.Health <= 14 ? Danger : Ink); hp.Name = "OverviewHealth"; health.AddChild(hp);
+        hp.AddThemeFontOverride("font", ChapterSkin.NumberFont);
         var healthLabel = Inline("生命", 14, Muted); healthLabel.SizeFlagsVertical = SizeFlags.ShrinkCenter; health.AddChild(healthLabel);
         HealthBar(vitals, s.Health, ChapterSession.MaxHealth, Success);
         var resources = new GridContainer { Columns = 2 }; resources.AddThemeConstantOverride("h_separation", 12); resources.AddThemeConstantOverride("v_separation", 12); profile.AddChild(resources);
@@ -79,12 +81,12 @@ public partial class ChapterGame
             _ => "当前无生效共鸣"
         }, 14, Muted));
 
-        var wearing = FlexibleColumn(columns, .95f); wearing.AddChild(Text(battle == null ? "穿戴装备" : "本场装备", 20, Ink));
+        var wearing = Section(columns, .95f); wearing.AddChild(Text(battle == null ? "穿戴装备" : "本场装备", 20, Ink));
         var board = Scroll(wearing); EquipmentBoard(board, battle?.Id == "trial" && s.Backpack != "" ? equipment.Append(s.Backpack).ToArray() : equipment, "overview", true);
         board.AddChild(Text(battle?.Id == "trial" ? "试用借装不改变真实穿戴与负重。" : Session.CanEquip ? "点击部位可调整装备。" : "可查看装备；换装需到据点或台架。", 14, Muted));
         board.AddChild(Button("overview_inventory", "管理随身与仓库 →", () => { _gearFilter = "cargo"; OpenNested("gear"); }));
 
-        var deckColumn = FlexibleColumn(columns, 1.45f);
+        var deckColumn = Section(columns, 1.45f);
         var heading = Text($"完整卡组 · {cards.Count} 张", 20, Ink); heading.Name = "OverviewDeckCount"; deckColumn.AddChild(heading);
         var deck = Scroll(deckColumn);
         deck.AddChild(Text(battle == null ? "按卡牌合并副本 · 标注装备来源" : "本场实际副本 · 手牌、抽牌堆与弃牌堆合计", 14, Muted));
