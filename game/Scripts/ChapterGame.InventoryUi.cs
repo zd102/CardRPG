@@ -16,110 +16,20 @@ public partial class ChapterGame
         if (Session.State.LegacyOverCapacity)
             box.AddChild(Text("旧档物品已保留。请整理超出容量的库存后再出发；可存取、制作、扩仓或放弃普通物品。", 16, Danger));
     }
-    private void PhysicalInventory(VBoxContainer box)
-    {
-        var s = Session.State;
-        var visible = s.Stock.Where(i => i.Container == "carry" || Session.AtBase && i.Container == "warehouse" ||
-            !Session.AtBase && Session.GroundHere.Any(p => p.Key == i.Container)).ToArray();
-        var selected = visible.FirstOrDefault(i => i.Id == _selectedStock);
-        if (selected == null)
-        {
-            selected = visible.FirstOrDefault(i => i.Container.StartsWith("ground:")) ?? visible.FirstOrDefault();
-            _selectedStock = selected?.Id ?? 0;
-        }
-        var columns = Row(14); columns.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(columns);
-        var carrying = Section(columns, 1);
-        carrying.AddChild(Text($"随身 · {Session.CarryUsed}/{Session.CarryCapacity} 格", 20, Ink));
-        carrying.AddChild(Text(s.Backpack == "" ? "口袋 4 格 · 尚未穿戴背包" : "口袋 4 + 背包 " + ChapterContent.BagCapacity(s.Backpack) + " 格", 14, Muted));
-        var carryGrid = Scroll(carrying);
-        StorageGrid(carryGrid, Session.CarriedItems, Session.CarryCapacity, "carry");
-        carrying.AddChild(Text("点击物品查看取放操作\n双格装备的续格标有“占位”", 14, Muted));
-        var other = Section(columns, 1.1f);
-        if (Session.AtBase)
-        {
-            other.AddChild(Text($"仓库 · {Session.WarehouseUsed}/{Session.WarehouseCapacity} 格", 20, Ink));
-            other.AddChild(Text("穿戴不占格 · 仓储物品不计负重", 14, Muted));
-            StorageGrid(Scroll(other), Session.StoredStock, Session.WarehouseCapacity, "warehouse");
-        }
-        else
-        {
-            other.AddChild(Text("当前位置 · 遗留物", 20, Ink));
-            other.AddChild(Text("同趟可回取 · 未带走物品下趟重置", 14, Muted));
-            var ground = Scroll(other);
-            foreach (var pair in Session.GroundHere.ToArray())
-            {
-                ground.AddChild(Text(pair.Value.Name, 16, Accent));
-                ground.AddChild(Text(pair.Value.FreePickup ? "本次首次装包免费" : $"每次取放行动值 +{Session.SceneActionCost()}", 14, Muted));
-                var key = pair.Key;
-                ground.AddChild(Button("loot_all_" + key.Replace(':', '_'), "全部拾取", () => Change(() => Session.PickupAll(key)), s.Phase == ChapterPhase.Exploring));
-                StorageGrid(ground, s.Stock.Where(i => i.Container == key), 0, key.Replace(':', '_'));
-            }
-            if (!Session.GroundHere.Any()) ground.AddChild(Text("这里没有已发现的遗留物。", 16, Muted));
-            other.AddChild(Text($"基地仓库 {Session.WarehouseUsed}/{Session.WarehouseCapacity} 格\n返还预留 {Session.WarehouseReserved} 格", 14, Muted));
-        }
-        var details = Section(columns, 1.05f); details.AddChild(Text("物品详情", 20, Ink));
-        var detail = Scroll(details);
-        if (selected == null)
-        {
-            Illustration(detail, "satchel", 120, 120); detail.AddChild(Text("暂无物品。搜索区域或在工坊制作，获得物品后可在这里整理。", 16, Muted)); return;
-        }
-        var batch = visible.Where(i => i.Container == selected.Container && i.Kind == selected.Kind && i.FreeSupply == selected.FreeSupply && i.Calibrated == selected.Calibrated).ToArray();
-        if (batch.Length > 1) detail.AddChild(Text($"同类共 {batch.Sum(i => i.Quantity)} 件，按来源批次取放。", 14, Muted));
-        foreach (var item in batch) StockRow(detail, item, item.Container.StartsWith("ground:"));
-    }
-
-    private void StorageGrid(Node parent, IEnumerable<ChapterItem> stock, int capacity, string name)
-    {
-        var grid = new GridContainer { Name = "StorageGrid_" + name, Columns = Size.X < 1280 ? 3 : 4, SizeFlagsHorizontal = SizeFlags.ExpandFill };
-        grid.AddThemeConstantOverride("h_separation", 4); grid.AddThemeConstantOverride("v_separation", 4); parent.AddChild(grid);
-        var used = 0;
-        foreach (var group in stock.GroupBy(i => (i.Kind, i.FreeSupply, i.Calibrated)))
-        {
-            var first = group.First(); var def = ChapterContent.Items[first.Kind];
-            var selected = group.Any(i => i.Id == _selectedStock);
-            var total = group.Sum(i => i.Quantity);
-            for (var offset = 0; offset < total; offset += def.Stack)
-            for (var part = 0; part < def.Slots; part++)
-            {
-                var quantity = Math.Min(def.Stack, total - offset);
-                var tile = ItemTile($"stock_{first.Id}_{offset}_{part}", part == 0 ? first.Kind : "", part == 0 ? "×" + quantity : "↳ 占位", part == 0 ? def.Name : def.Name,
-                    () => { _selectedStock = first.Id; Render(); }, selected, 88);
-                tile.CustomMinimumSize = new Vector2(42, 88); tile.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-                if (part == 0)
-                {
-                    Dock(tile.GetChild<Control>(0), 8, 6, -8, -25, ar: 1, ab: 1);
-                    var count = tile.GetChildren().OfType<Label>().First(); count.HorizontalAlignment = HorizontalAlignment.Right;
-                    Dock(count, -36, 2, -4, 23, al: 1, ar: 1);
-                }
-                else if (tile.GetChild(0) is ExpeditionGlyph continuation) continuation.Symbol = "arrow";
-                tile.TooltipText = def.Name + $" · 同类 {total} 件 / {(total + def.Stack - 1) / def.Stack * def.Slots} 格" +
-                    (part > 0 ? "\n同一装备占用的续格" : "") + "\n" + (first.FreeSupply ? "本趟配发" : first.Registered ? "已登记装备" : "点击查看详情");
-                grid.AddChild(tile); used++;
-            }
-        }
-        for (var n = used; n < capacity; n++)
-        {
-            var cell = Panel(grid, new Color("d4d3bd"), new Color("a4ad94"));
-            cell.Name = "Empty_" + n; cell.CustomMinimumSize = new Vector2(42, 88); cell.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-            cell.MouseFilter = MouseFilterEnum.Ignore;
-            var label = Text((n + 1).ToString("00"), 14, Muted); label.HorizontalAlignment = HorizontalAlignment.Center; label.VerticalAlignment = VerticalAlignment.Center;
-            cell.AddChild(label);
-        }
-        grid.SetMeta("occupied", used); grid.SetMeta("capacity", capacity);
-    }
     private void StockRow(VBoxContainer box, ChapterItem item, bool ground)
     {
-        var def = ChapterContent.Items[item.Kind]; var card = CardBox(box);
-        var info = Row(8); card.AddChild(info);
+        var def = ChapterContent.Items[item.Kind];
+        var row = Row(16); box.AddChild(row);
+        var info = Row(8); info.CustomMinimumSize = new Vector2(228, 0); row.AddChild(info);
         if (item.Kind is "U01" or "M08") info.AddChild(Glyph("supply", Accent, 40));
         else Illustration(info, ItemArt(item.Kind), 42, 44, false);
         var words = FlexibleColumn(info);
-        words.AddChild(Text($"{def.Name} ×{item.Quantity}" + (item.FreeSupply ? " · 本趟配发" : item.Calibrated ? " · 已校准" : ""), 16, Ink));
-        words.AddChild(Text($"每堆 {def.Stack} 件／{def.Slots} 格 · 单件 {def.Grams / 1000m:0.##} kg", 14, Muted));
-        if (ground) words.AddChild(Text("地面 · " + Session.State.Ground[item.Container].Name, 14, Muted));
-        else words.AddChild(Text(item.Container == "carry" ? "随身物品" : "基地仓库", 14, Muted));
-        if (item.Registered) words.AddChild(Text("已登记装备", 14, Success));
-        var actions = new HFlowContainer(); actions.AddThemeConstantOverride("h_separation", 5); actions.AddThemeConstantOverride("v_separation", 5); card.AddChild(actions);
+        words.AddChild(Text($"{def.Name} ×{item.Quantity}" + (item.FreeSupply ? " · 配发" : item.Calibrated ? " · 校准" : ""), 16, Ink));
+        words.AddChild(Text($"每堆 {def.Stack} 件 · {def.Slots} 格 · {def.Grams / 1000m:0.##} kg/件", 14, Muted));
+        var forecast = FlexibleColumn(row); forecast.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        forecast.AddChild(Text(StockForecast(item, ground), 16, Ink));
+        var actions = new HFlowContainer { CustomMinimumSize = new Vector2(260, 0), SizeFlagsVertical = SizeFlags.ShrinkCenter };
+        actions.AddThemeConstantOverride("h_separation", 5); actions.AddThemeConstantOverride("v_separation", 5); row.AddChild(actions);
         if (ground)
         {
             actions.AddChild(Button("pickup_" + item.Id, "拾取 1", () => Change(() => Session.Pickup(item.Id, 1)), Session.CanPickup(item.Id, 1)));
@@ -141,13 +51,7 @@ public partial class ChapterGame
     }
     private static string ItemArt(string kind) => kind.StartsWith("BP") ? "satchel" : kind switch
     { "M01" => "steel", "M02" => "wire", "M03" => "spring", "M07" => "T14", "M08" or "U01" => "T01", "M09" => "T01", "M10" => "G25", _ => kind };
-    private void ConfirmDiscard(ChapterItem item)
-    {
-        var dialog = new ConfirmationDialog { Title = "放弃实物", DialogText = $"永久放弃 {ChapterContent.ItemName(item.Kind)} ×{item.Quantity}？\n此操作不返还材料。", OkButtonText = "确认放弃", CancelButtonText = "保留" };
-        AddChild(dialog); dialog.Confirmed += () => Change(() => Session.DiscardAtBase(item.Id, item.Quantity));
-        dialog.Canceled += () => dialog.QueueFree(); dialog.Confirmed += () => dialog.QueueFree();
-        dialog.PopupCentered(new Vector2I(420, 180));
-    }
+    private void ConfirmDiscard(ChapterItem item) => Confirm("放弃实物", $"永久放弃 {ChapterContent.ItemName(item.Kind)} ×{item.Quantity}？\n此操作不返还材料。", () => Change(() => Session.DiscardAtBase(item.Id, item.Quantity)), "确认放弃");
     private void StorageCrafting(VBoxContainer page)
     {
         foreach (var kind in new[] { "BP01", "BP02", "BP03" })
@@ -155,15 +59,23 @@ public partial class ChapterGame
             var card = CardBox(page); var row = Row(12); card.AddChild(row); Illustration(row, "satchel", 72, 76);
             var copy = FlexibleColumn(row); copy.AddChild(Text(ChapterContent.ItemName(kind), 20, Ink));
             copy.AddChild(Text($"额外 {ChapterContent.BagCapacity(kind)} 格 · 自重 {ChapterContent.Items[kind].Grams / 1000m:0.##} kg · 不供牌", 16, Muted));
-            card.AddChild(Text(Materials(Session.BackpackCost(kind)), 14, Muted));
-            var label = Session.HasPhysical(kind) ? "已经持有" : !Session.BackpackRecipeOpen(kind) ? "需完成后续整备任务" : "制作背包";
+            Costs(card, Session.BackpackCost(kind));
+            var reason = Session.CraftReason(kind); if (reason != "") card.AddChild(Text(reason, 16, Muted));
+            var label = Session.HasPhysical(kind) ? "✓ 已持有" : reason == "" ? "制作背包" : "暂不可制作";
             card.AddChild(Button("make_" + kind, label, () => Change(() => Session.CraftBackpack(kind)), Session.CanCraftBackpack(kind), true));
         }
         var medical = CardBox(page); medical.AddChild(Text("密封补给 ×2", 20, Ink));
         medical.AddChild(Text("织物 1、药剂 1；普通份可留仓，出征免费份在本趟结束清除。", 16, Muted));
+        Costs(medical, [0,0,0,1,1,0,0]);
+        if (!Session.CanCraftSupplies) medical.AddChild(Text(Session.State.Phase != ChapterPhase.Camp ? "需回到据点" : Session.AvailableMaterial(3) < 1 || Session.AvailableMaterial(4) < 1 ? "请补齐标出的材料" : "仓库需腾出成品空间",16,Danger));
         medical.AddChild(Button("make_U01", "制作补给", () => Change(Session.CraftSupplies), Session.CanCraftSupplies));
         var warehouse = CardBox(page); warehouse.AddChild(Text($"仓库 · {Session.WarehouseUsed}/{Session.WarehouseCapacity} 格", 20, Ink));
-        warehouse.AddChild(Text(Session.State.WarehouseLevel == 3 ? "已完成全部扩建。" : Materials(Session.WarehouseCost), 16, Muted));
+        if (Session.State.WarehouseLevel == 3) warehouse.AddChild(Text("✓ 已完成全部扩建。",16,Success));
+        else
+        {
+            Costs(warehouse, Session.WarehouseCost);
+            if (!Session.CanUpgradeWarehouse) warehouse.AddChild(Text(Session.State.Phase != ChapterPhase.Camp ? "需回到据点" : Session.State.WarehouseLevel == 0 && !Session.State.Done.Contains("Q02") ? "需完成：有自己的工具" : Session.State.WarehouseLevel > 0 && !Session.SliceComplete ? "需完成外环主线与货站任务" : "请补齐标出的材料",16,Danger));
+        }
         warehouse.AddChild(Button("upgrade_warehouse", "扩建仓库", () => Change(Session.UpgradeWarehouse), Session.CanUpgradeWarehouse, true));
     }
 }

@@ -51,6 +51,10 @@ public sealed class ChapterBattle
 }
 public sealed class ChapterState
 {
+    public ChapterRunReport? LastReport { get; set; }
+    public Dictionary<string, int> DepartureQuantities { get; set; } = [];
+    public HashSet<string> DepartureWorld { get; set; } = [];
+    public bool HasDepartureReportBaseline { get; set; }
     public string ContentVersion { get; set; } = "chapter1-inventory-v2";
     public List<ChapterItem> Stock { get; set; } =
     [

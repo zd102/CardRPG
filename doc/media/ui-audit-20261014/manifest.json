@@ -1,0 +1,586 @@
+[
+  {
+    "file": "01-camp.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "dcf41cc4f0db0701f8eb5ad26223adac5d843c6d0929956603275c27135877e8"
+  },
+  {
+    "file": "01-help.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "415c7bf1a515a4684362d3c5c44b816fea3d2fff252a65d538c1d37079eec3b4"
+  },
+  {
+    "file": "01-preparation.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "9ab66555319b60b6ad7dd70c8a68c948a16bf153c28eee96c0c9fd8640353993"
+  },
+  {
+    "file": "02-gate.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "e5fdb9897670c8d6cea232269ba39e9281d46ee5ad7cd09dafa6f2dddae013a5"
+  },
+  {
+    "file": "02-map.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "953cb1a3a448e23c726058202ace6a3c7592b79b709f214ba7eb1a3dbc39d21a"
+  },
+  {
+    "file": "03-scrap-rescued.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "f52136c1a9ccc18f1df7065fbb2cdd34999a9e737f9abe1043fc5a0c7e0a0c2f"
+  },
+  {
+    "file": "03-scrap.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "e1ff9c26848629eff7657e08e029d3fa9ea40533d2cd0f59e635a3e3fbdd8043"
+  },
+  {
+    "file": "04-battle.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "6ace705c9a9c74a14ee5c44800ebaae1457ba72ba84d48c6707297fc1fa0a07d"
+  },
+  {
+    "file": "04-card-inspection.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "bc63f2bc41cf83b3a2d9135f7874bffce0aa3637e3597ba777a96f339510ab44"
+  },
+  {
+    "file": "04-workshop-dark.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "0d1916e49fc39d9af025ec3c2c145bb4ed24726d2d808d5fa82041cec2fd3d0f"
+  },
+  {
+    "file": "04-workshop.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "d82647b8d66bdf1d18fd7dc65f2d204e4dca3b67dce4c2ef817abdffa44ea2ab"
+  },
+  {
+    "file": "05-hidden-room.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "ad8031dc6170814879eb4a482fb6d86c059d8041bbe5d70e07908a389021db33"
+  },
+  {
+    "file": "05-square.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "3f467fb7cee95b2659fd90c7484ae6b5ff535b0b5b38d5fd5b318b439d847ea5"
+  },
+  {
+    "file": "06-extraction.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "c481bb66a0a3390c95cc38aaf12f9f413a9904c129842596b0da47c38d8220fc"
+  },
+  {
+    "file": "07-lit-home.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "8110f6a68b209c592f686bfd7f3162770c64646eff24486fbafa7b67461523f2"
+  },
+  {
+    "file": "07-station-powered.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "15b4cd1e198ad863dabf524ee12524517b2e1d62d7c5ca8979979133b3ebfd77"
+  },
+  {
+    "file": "07-station.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "f6cb8d47b8ea7085a7be90220c99c8c292f20838e09e20c0e94e6d9ea0b3a554"
+  },
+  {
+    "file": "08-trial.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "e36dd0a3941fc4569e04575313b4ecff149afcba793564a64a064ce20eb7c234"
+  },
+  {
+    "file": "09-crafting.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "cc8ceaa720f44c5e8430db045df0c4d6dfecaa8ec2c9f7fe2df4d1c67f944839"
+  },
+  {
+    "file": "10-equipment.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "868bc5fb5c4bec871cd5e295444089dae9c47227f3dd58f5e8aa0a8dfbb58fdb"
+  },
+  {
+    "file": "11-lived-in-home.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "2dc82216f6367c06254ebd6154de6d43c9c2d3a9035313b0e876654b2b3a138b"
+  },
+  {
+    "file": "11-train-choices.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "2f1ba234001b6df3601e94d01f5a2d09ab04d9a5f33c866dcaac982e5c5e332e"
+  },
+  {
+    "file": "11-train.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "abbc65a653b597e3c97b53057f93eaead2032234de9348f3f18264f6505cad26"
+  },
+  {
+    "file": "1100-camp.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "c06fd568a85662545b4a434a5b7a0e11993e948f07f081af52bcd02a7a88c195"
+  },
+  {
+    "file": "1100-cargo.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "8679d2394b17cec47d4681a8d4a58a97928a4f6611578d8f47a2c3fa6602a230"
+  },
+  {
+    "file": "1100-character.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "35a92163d19ed9a4c52f43fae1e3f4c7b7f3a106e59700a77ef44a0d87f006c1"
+  },
+  {
+    "file": "1100-crafting.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "ef519b1766667ce58844adf71eb59e410b9e3109ea9cba099b51528770f959b9"
+  },
+  {
+    "file": "1100-equipment-detail.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "fb2b0895677f6d1a79fba88188b601fc1595336a1b2899e8848108b9ac851be9"
+  },
+  {
+    "file": "1100-exploration.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "370ca3ee8e27bfc4b55216f76d68fa5f8648279b783d00d58b1941bab3d28ae3"
+  },
+  {
+    "file": "1100-extra-cards.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "1074951975afd8bc0743759cac0881746e72595ff202f95737cb4651c4adadc4"
+  },
+  {
+    "file": "1100-journal.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "f83677cf820786701be7d614dc182cc20e17489d941f5a926243bb6841eeb40f"
+  },
+  {
+    "file": "1100-map.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "82b94015778c67cc5b336b159777178c96e0f609f9d106940e8878e0f63ddead"
+  },
+  {
+    "file": "1100-mods.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "047f5b7052f241c9715526f8e90e856ca8df91f029f10879084104c7dff455bd"
+  },
+  {
+    "file": "1100-patrol-warning.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "68ebd3f2b971b98a14cc01f95e74084ad0894436816385882317484ed5527058"
+  },
+  {
+    "file": "1100-preparation.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "cb904fd9496b0e3c6b223e8cbf1effbbeb460025cccedbdae594d46d43047334"
+  },
+  {
+    "file": "1100-route-map.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "68a271bec4981d86c903cb1103ec9036dbde6673638cedf0c3e2301320b3faff"
+  },
+  {
+    "file": "1100-three-enemies.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "387f90632124ecfe2192b1adf44acc02db4e67342c5b1664f22c586803137e07"
+  },
+  {
+    "file": "12-journal.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "1da1e5cfa21ae4d13763ae69a3595f24f922ff64aa6869b0ea6c27cbc8517612"
+  },
+  {
+    "file": "1280-cargo.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "f8286ad51775c9bcd10cef1ffcb2fd43254416f6984eebf16626f58775911097"
+  },
+  {
+    "file": "1280-character.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "fe754a1c153896937ca5a2c8fae6d34c17bb6a3c37763aa784de046bc91e0e03"
+  },
+  {
+    "file": "1280-crafting.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "d87c5b112a4ac43233d8d38bfa167683b01724402373f0cca7308be6453df733"
+  },
+  {
+    "file": "1280-equipment-detail.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "76dd688b54c4f0529c037dd78042bd23f0097751a0d2c4dd2fcdeb1b81a4ee8d"
+  },
+  {
+    "file": "1280-journal.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "4cebba6ff071900adab6c6978af166e1541d99565fd1350a65fed29758dcef96"
+  },
+  {
+    "file": "1280-mods.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "e58264e118c7377b4648370fa5e56d3469cc2f905dcf1acf8bd29d0d8b840438"
+  },
+  {
+    "file": "1280-patrol-warning.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "edab7810fe22baba17b113050bcb1d0a076e4542e3e1501694bcde0a8b11f033"
+  },
+  {
+    "file": "1280-preparation.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "14a6c7dea19c235f4d3edbaf6260d75e4b9f6bee8852cf183daac9a646c691b8"
+  },
+  {
+    "file": "1280-route-map.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "442cf6c77cf7e32dba6d19d66ced3be1450c29690c388d1130f2089f3321914b"
+  },
+  {
+    "file": "1280-three-enemies.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "de2275ac2500bf5681bad5b473a9666e226f0e8f4efd477b5d822768f6ac62dc"
+  },
+  {
+    "file": "13-patrol.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "b2dbf58a2462ef8db0518bc52b186d2240fd27ddb88f0084652b617a78bb765a"
+  },
+  {
+    "file": "14-defeated.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "a95b7f19cbd857b591282947a1ea3a1ee4a96b786046d7fedd39141609d72232"
+  },
+  {
+    "file": "15-unavailable-card.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "7fca531dbd25e22ba8ce799e7e15d99a410a6734d846d812389988fa7c1376d8"
+  },
+  {
+    "file": "1600-camp.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "60594a203810a39bdb04993a68c3b8fe0f6f69f5650f940be1f1f8a72dca954d"
+  },
+  {
+    "file": "1600-cargo.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "4cda564f518ef669ea28239d575a30a8f1e929512093518bc18989784d6bf8cb"
+  },
+  {
+    "file": "1600-character.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "a0e68a8feb509be36adcbc29edb9b68cc0760102f1075cd35233f5a06cd38384"
+  },
+  {
+    "file": "1600-crafting.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "bc04783b241c5ea182287a4e3f5aebac7355f44225093ffda8784dbac09d0cab"
+  },
+  {
+    "file": "1600-equipment-detail.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "969a50a20fe2ad0715a5e7515d20518b38168e8c3ab57a6d499f3b4276786493"
+  },
+  {
+    "file": "1600-exploration.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "cea9e324026d3152cf0bc9c7a76ba97a79215b7ea1ffdd121617511267562b02"
+  },
+  {
+    "file": "1600-extra-cards.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "169d02fb7e3df0fcc58d388a1352528c692d553911c7b0e1ab7c4a71605396e5"
+  },
+  {
+    "file": "1600-journal.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "2e93c3456cc31cca452867c14231477d9fe2fe6bd9527855f823f7ade4cf78e8"
+  },
+  {
+    "file": "1600-map.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "738a8dbafb5a6cd791144194f139693bcd813dd260bd0573750cf1eb09e6eece"
+  },
+  {
+    "file": "1600-mods.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "3b7d3d0cca06366190b2ddae3748ba6b3744e25fb9787e4064df188123be43ba"
+  },
+  {
+    "file": "1600-patrol-warning.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "414b00ee5fdad616d558f42ed77bd3212de6c6225af051e3e2246794a7518883"
+  },
+  {
+    "file": "1600-preparation.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "9d282391e4000b987f085c69d21162026f49f025cb07589969609f6cb334d57d"
+  },
+  {
+    "file": "1600-route-map.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "3dfb309534f5d115a1535f82af6f256f457f6ff30fc83c5d424c9e71d70f9094"
+  },
+  {
+    "file": "1600-three-enemies.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "ecfa8c1bfec662a446b39bb22cfa180731a31665ba48a439e235dfcec2c9ffd7"
+  },
+  {
+    "file": "chapter-cover.png",
+    "size": [
+      1600,
+      900
+    ],
+    "sha256": "60594a203810a39bdb04993a68c3b8fe0f6f69f5650f940be1f1f8a72dca954d"
+  },
+  {
+    "file": "character-battle.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "5b2e8be45c7d43ce253ca430274e4a2c96b08ab1e5b7f164610e7a6ac16a8fa4"
+  },
+  {
+    "file": "inventory-backpack-crafting.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "1f867ea9b1a14b1723866bb5a27af13dd0d79a29dac9fa1ce5f500147dac3d46"
+  },
+  {
+    "file": "inventory-full-pockets.png",
+    "size": [
+      1280,
+      800
+    ],
+    "sha256": "c04072201311a7dd7573ebcd9be56569bd34659b232ab3e380cc5cafb61eb4d9"
+  },
+  {
+    "file": "inventory-ground-return.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "28c226e922f74b5a0b8521e9a3c87116ab7bdda82b0f66cfd4f5b7490245dc4e"
+  },
+  {
+    "file": "inventory-overweight.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "793aee09c2c5b7ffe0eb91a5f17a1866e91b054413b19624a1d0f1a9cb1c85db"
+  },
+  {
+    "file": "inventory-three-backups.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "6d1bfe44aab5241bee4674985bf83a1f1d3d60c314229b246804b7cbe9d8bfde"
+  },
+  {
+    "file": "inventory-warehouse.png",
+    "size": [
+      1100,
+      760
+    ],
+    "sha256": "c259429dfd01da1f52a8318ac0b2f7609bda13a8c9efe077b1981594ab2b69a2"
+  }
+]

@@ -35,7 +35,7 @@ public sealed partial class ChapterSession
     private bool ValidState()
     {
         var s = State;
-        if (!ValidInventory() || s.ContentVersion != InventoryVersion || !Enum.IsDefined(s.Phase) || s.Health is < 0 or > MaxHealth
+        if (!ValidInventory() || !ValidPresentation() || s.ContentVersion != InventoryVersion || !Enum.IsDefined(s.Phase) || s.Health is < 0 or > MaxHealth
             || s.Supplies < 0 || s.Pressure < 0 || s.RandomState == 0 || s.Runs < 0 || s.Extractions < 0
             || !ChapterContent.Places.ContainsKey(s.Location) || !ChapterContent.Places.ContainsKey(s.Previous)
             || s.Start is not ("A01" or "A05") || s.Start == "A05" && !s.Done.Contains("S01")

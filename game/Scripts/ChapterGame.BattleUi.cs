@@ -10,28 +10,28 @@ public partial class ChapterGame
     private void Battle()
     {
         var b = Session.State.Battle!; var trial = b.Id == "trial";
-        var command = ChapterSkin.Panel(_hud!, padding: 12); command.Name = "BattleResources";
-        Dock(command,20,106,310,216);
-        var resources = Column(10); command.AddChild(resources);
-        var energy = Row(22); resources.AddChild(energy);
+        var command = FlatPanel(_hud!, 10); command.Name = "BattleResources";
+        Dock(command,24,-254,420,-202,at:1,ab:1);
+        var resources = Row(12); command.AddChild(resources);
+        var energy = Row(14); resources.AddChild(energy);
         Pips(energy,"action",b.Action,3,Accent,"行动；每回合恢复至 3。");
         Pips(energy,"mana",b.Mana,3,new Color("466c65"),"魔法；每回合恢复 1，上限 3。");
-        var defense = Row(24); resources.AddChild(defense);
+        var defense = Row(12); resources.AddChild(defense);
         SymbolValue(defense,"guard",b.Shield.ToString(),Success,"护盾；下回合清除，稳固最多保留 4。");
-        SymbolValue(defense,"hammer",b.Enemies.Sum(ChapterSession.EnemyDamage).ToString(),Danger,"本轮敌方总攻击；护盾可抵挡伤害。");
         SymbolValue(defense,"round",b.Round.ToString(),Ink,"当前回合");
 
-        var end = Button("end_turn","结束回合",() => Change(() => Session.EndTurn()),primary:true);
+        var end = Button("end_turn","结束回合",RequestEndTurn,primary:!trial || !Session.State.World.Contains("trial-complete"));
         end.TooltipText = "结束回合 · Space\n弃掉剩余手牌，敌人执行当前公开意图，然后恢复行动并抽牌。";
         _root.AddChild(end); Dock(end,-128,-174,-20,-88,al:1,at:1,ar:1,ab:1);
-        var retreat = IconButton(trial ? "end_trial" : "retreat","exit",
-            trial ? "结束试用\n免费退出，真实生命与物品不变。" : "战术撤退\n承受本轮敌人意图，存活后退回进入位置。敌人状态保留，仍需自行撤离。",
-            () => Change(() => trial ? Session.EndTrial() : Session.EndTurn(true)));
-        _root.AddChild(retreat); Dock(retreat,-66,-74,-20,-28,al:1,at:1,ar:1,ab:1);
+        var retreat = Button(trial ? "end_trial" : "retreat", trial ? "结束试用" : "撤退…", Retreat, primary:trial && Session.State.World.Contains("trial-complete"));
+        retreat.TooltipText = trial ? "结束试用并查看配方；免费归还借装。" : TurnForecast(true);
+        _root.AddChild(retreat); Dock(retreat,-128,-74,-20,-28,al:1,at:1,ar:1,ab:1);
+        var risk = Panel(_hud!, Surface, Outline); Dock(risk,-156,-260,-20,-202,al:1,at:1,ar:1,ab:1);
+        risk.AddChild(Inline(trial ? "试用无伤害" : $"预计损血 {Math.Min(Session.State.Health, Math.Max(0, b.Enemies.Sum(ChapterSession.EnemyDamage)-b.Shield))}",16,Ink));
         if (trial)
         {
-            var guide = Text(Session.State.World.Contains("trial-complete") ? "✓ 试用完成" : "预备工具 → 攻击",16,Accent);
-            _root.AddChild(guide); Dock(guide,-256,106,-20,140,al:1,ar:1);
+            var guidePlate = Panel(_hud!, Surface, Outline); Dock(guidePlate,24,106,310,156);
+            guidePlate.AddChild(Inline(Session.State.World.Contains("trial-complete") ? "✓ 试用完成，可查看配方" : "预备工具 → 攻击",16,Ink));
         }
         if (b.Id == "E13")
         {
@@ -47,11 +47,11 @@ public partial class ChapterGame
             var target = Button("target_"+i,"",() => { _target=index; Render(); },e.Health>0);
             foreach (var state in new[] {"normal","hover","pressed","disabled"}) target.AddThemeStyleboxOverride(state,new StyleBoxEmpty());
             target.TooltipText = ChapterSession.EnemyName(e.Id) + $"  {e.Health}/{e.MaxHealth}\n" + ChapterSession.EnemyIntent(e,b.Enemies.Count);
-            _root.AddChild(target); Dock(target,0,236,0,-246,x-width/2,0,x+width/2,1);
+            _root.AddChild(target); Dock(target,0,156,0,-274,x-width/2,0,x+width/2,1);
             var actor = new ChapterActor { Name="Actor_"+i, Art="enemy-"+e.Id, Selected=selected, Defeated=e.Health==0 };
-            target.AddChild(actor); Dock(actor,10,88,-10,0,ar:1,ab:1);
-            var plate = ChapterSkin.Panel(target,padding:10); plate.MouseFilter=MouseFilterEnum.Ignore;
-            Dock(plate,6,0,-6,86,ar:1);
+            target.AddChild(actor); Dock(actor,10,102,-10,0,ar:1,ab:1);
+            var plate = FlatPanel(target,8); plate.MouseFilter=MouseFilterEnum.Ignore;
+            Dock(plate,6,0,-6,100,ar:1);
             var caption = Column(4); caption.MouseFilter=MouseFilterEnum.Ignore; plate.AddChild(caption);
             var name = Inline((selected ? "◆ " : "")+ChapterSession.EnemyName(e.Id),16,selected ? Accent : Ink);
             name.HorizontalAlignment=HorizontalAlignment.Center; caption.AddChild(name);
@@ -61,10 +61,11 @@ public partial class ChapterGame
             if (e.Shield>0) SymbolValue(intent,"guard",e.Shield.ToString(),Success,"",14);
             var (symbol,value)=IntentSymbol(e,b.Enemies.Count);
             SymbolValue(intent,symbol,value,e.Health==0 ? Muted : Danger,"",16);
+            if (e.Health > 0) caption.AddChild(Text(ChapterSession.EnemyIntent(e,b.Enemies.Count),14,Ink));
         }
         var piles = Row(24); piles.Alignment=BoxContainer.AlignmentMode.Center;
-        var pilesPlate = ChapterSkin.Panel(_hud!, "ledger-paper", 5); pilesPlate.Name = "CardPiles";
-        Dock(pilesPlate,-191,-239,69,-198,.5f,1,.5f,1); pilesPlate.AddChild(piles);
+        var pilesPlate = FlatPanel(_hud!, 5); pilesPlate.Name = "CardPiles";
+        Dock(pilesPlate,432,-254,712,-202,0,1,0,1); pilesPlate.AddChild(piles);
         SymbolValue(piles,"draw",b.Draw.Count.ToString(),Ink,"抽牌堆；耗尽时洗入弃牌。");
         SymbolValue(piles,"discard",b.Discard.Count.ToString(),Muted,"弃牌堆");
         SymbolValue(piles,"draw",$"+{b.ExtraDraw}/2",Muted,"本回合已经额外抽取的牌数；上限 2。",14);
@@ -75,10 +76,11 @@ public partial class ChapterGame
         {
             var index=i; var cardData=ChapterContent.Cards[b.Hand[i]]; var playable=Session.CanPlay(i,_target);
             // Unavailable cards remain focusable so keyboard users can inspect the cost and reason.
-            var card=Button("card_"+i,"",() => { if (playable) Change(() => Session.PlayCard(index,_target)); });
+            var card=Button("card_"+i,"",() => SelectCard(index));
             card.CustomMinimumSize=new Vector2(cardWidth,176); card.ClipContents=true;
-            var sheet=ChapterSkin.Box("ledger-paper",6,playable ? null : new Color(.64f,.68f,.66f));
+            var sheet=Style(playable ? Surface : new Color("d5d2c1"),Ink,12);
             card.AddThemeStyleboxOverride("normal",sheet);
+            if (_selectedCard == index) card.AddThemeStyleboxOverride("normal", Style(new Color("eee6d3"), Ink, 10));
             card.AddThemeStyleboxOverride("hover",ChapterSkin.Box("ledger-paper",6));
             card.AddThemeColorOverride("font_color",ChapterSkin.PaperInk); hand.AddChild(card);
             var ink=ChapterSkin.PaperInk;
@@ -86,6 +88,7 @@ public partial class ChapterGame
             if (cardData.Action>0) SymbolValue(cost,"action",cardData.Action.ToString(),ink,"",14);
             if (cardData.Mana>0) SymbolValue(cost,"mana",cardData.Mana.ToString(),ink,"",14);
             var icon=new ChapterIllustration { Art=CardArt(cardData),Mounted=false }; card.AddChild(icon); Dock(icon,10,30,-10,91,ar:1);
+            var badge = Glyph(CardSymbol(cardData), Ink, 20); card.AddChild(badge); Dock(badge,10,37,32,59);
             if (!playable)
             {
                 var locked=Glyph("lock",ink,18); card.AddChild(locked); Dock(locked,-28,10,-10,28,al:1,ar:1);
@@ -98,6 +101,21 @@ public partial class ChapterGame
             card.TooltipText=cardData.Name+$" · {cardData.Action} 行动 / {cardData.Mana} 魔法\n"+cardData.Text+"\n来源 · "+
                 string.Join(" / ",b.Equipment.Where(g=>Session.GearCards(g).Contains(cardData.Id)).Select(g=>ChapterContent.Gear[g].Name))+
                 (playable ? "" : "\n"+(b.Action<cardData.Action ? "行动不足" : b.Mana<cardData.Mana ? "魔法不足" : "需要存活的目标"));
+        }
+        if (_battleGuide && !trial)
+        {
+            var hint = NavigationButton("battle_guide", "选牌 → 选目标 → 确认出牌 · 收起", false, () => { _battleGuide = false; SavePreferences(); Render(); });
+            _root.AddChild(hint); Dock(hint,-190,94,190,134,.5f,0,.5f,0);
+        }
+        if (_selectedCard >= 0 && _selectedCard < b.Hand.Count)
+        {
+            var preview = Panel(_root, Surface, Ink); preview.Name = "CardPreview";
+            Dock(preview,-300,-442,300,-266,.5f,1,.5f,1);
+            var layout = Column(6); preview.AddChild(layout);
+            var copy = Scroll(layout); copy.AddChild(Text(CardPreview(),16,Ink));
+            var actions = Row(12); layout.AddChild(actions);
+            actions.AddChild(Button("cancel_card", "取消 · Esc", () => { _selectedCard = -1; Render(); }));
+            actions.AddChild(Button("play_selected", "确认出牌 · ← → 切换目标", CommitSelectedCard, Session.CanPlay(_selectedCard,_target),true));
         }
     }
 

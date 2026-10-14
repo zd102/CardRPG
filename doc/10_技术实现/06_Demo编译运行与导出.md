@@ -1,6 +1,6 @@
 # Demo 编译、运行与导出
 
-> 灰烬远征，2026-10-13。[返回概览](../00_游戏概览.md)
+> 灰烬远征，2026-10-14。[返回概览](../00_游戏概览.md)
 
 ## 启动
 
@@ -20,7 +20,7 @@ Invoke-Godot -Arguments @('--headless', '--path', ('"' + $GameRoot + '"'), '--im
 Invoke-Godot -Arguments @('--headless', '--path', ('"' + $GameRoot + '"'), '--', '--verify-chapter')
 ```
 
-界面验证在无显示模式也发送真实 GUI 输入。截图需普通渲染启动，传入 --verify-chapter 与 --capture-dir=绝对目录；正常游玩不产生截图。验证隔离玩家存档，旧 expedition-v1.json 不读取或覆盖。
+界面验证在无显示模式也发送真实 GUI 输入。实际截图使用 `./scripts/verify-ui.ps1`：在不激活的 Windows 隔离桌面创建隐藏进程，用真实 ANGLE 渲染读取视口，默认保存到 `artifacts/ui-rework-captures`；可用 `-OutputDirectory` 指定留档位置。脚本不会切换桌面或打开前台窗口。正常游玩不产生截图；验证不读取或覆盖玩家存档及设置。
 
 验证走完七个地点、救援与暗室、战斗、夹具校准、两处撤离、任务交付、台架试用、制作与包裹。检查 12 张新版场景、24 个透明图集区域及卡牌插画映射，确认资源来自 `Art/Print`，并检查任务绘景切换、地图和额外抽牌后的手牌排布；M / Esc、Enter 出征与真实鼠标操作均被执行。装备与任务长详情在覆盖层内滚动，场景不预留固定侧栏或底部操作面板。
 
@@ -42,15 +42,18 @@ Windows 导出需要安装与 Godot 版本匹配的导出模板。脚本输出 a
 & .\artifacts\Expedition\CardRPG-Expedition.exe --headless -- --verify-chapter | Out-Host
 ```
 
-实际画面验证需移除 `--headless` 并追加 `--capture-dir=绝对目录`。成功日志必须包含 `CHAPTER_VERIFIED` 且进程退出码为 0。当前截图留档见[界面预览](../media/hud-preview.html)。
+实际画面验证使用下方后台脚本；禁止直接去掉 `--headless` 启动前台窗口。成功日志必须包含 `CHAPTER_VERIFIED`、`UI_REWORK_VERIFIED`，且进程退出码为 0。`-Executable` 指定独立导出包；省略时验证源码。增加 `-Headless` 则只做无头交互验证，不生成截图。
 
 截图脚本在布局稳定后通过 `RenderingServer.ForceDraw(false)` 主动绘制再读取画面，避免静态或后台窗口因等待自动绘制信号而停顿。导出包截图命令示例（使用默认 ANGLE 渲染）：
 
 ```powershell
-& .\artifacts\Expedition\CardRPG-Expedition.exe --disable-vsync --max-fps 60 -- --verify-chapter "--capture-dir=$PWD/artifacts/print-hud-verify" | Out-Host
+./scripts/verify-ui.ps1 -Executable "$PWD/artifacts/Expedition/CardRPG-Expedition.exe" -OutputDirectory "$PWD/artifacts/ui-extraction-export-captures"
+./scripts/verify-ui.ps1 -Executable "$PWD/artifacts/Expedition/CardRPG-Expedition.exe" -Headless -OutputDirectory "$PWD/artifacts/ui-extraction-export-headless"
 ```
 
-2026-10-13 本轮结果：构建 0 警告、0 错误，37 项核心测试通过；源码无界面验证、导出包无界面验证及默认 ANGLE 下的导出包截图流程均返回 `CHAPTER_VERIFIED`。预览页已更新 20 张导出包实机截图。截图验证使用独立测试状态，不读写玩家存档。
+2026-10-14 布局修正：构建 0 警告、0 错误，77 项核心测试通过。独立导出包完成无头交互与后台 ANGLE 渲染回归，生成 116 张截图，保留[最新验证留档](../media/ui-extraction-20261014/README.md)。分发压缩包为 `artifacts/CardRPG-Expedition-20261014-ui.zip`，完整解压后运行 `Expedition/CardRPG-Expedition.exe`；不要单独移动 exe。产物在 `.gitignore` 的 `artifacts/` 下，Git 保存源码、文档与精选证据。
+
+2026-10-13 历史结果为 37 项规则测试与旧布局截图；旧 HTML 预览保留作历史资料，不代表当前导出包。
 
 ## 常见问题
 

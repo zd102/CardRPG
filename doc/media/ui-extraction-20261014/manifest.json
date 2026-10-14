@@ -1,0 +1,814 @@
+[
+  {
+    "file": "01-camp.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "9990e7bb6e6709895a1428eada73a2d78e2fe60196a12028b914356759b60466",
+    "original_preserved": false
+  },
+  {
+    "file": "01-help.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "ace37df95fdcfb6008aa4b348630113c3760e68c34277c4b5c1b9969477f6848",
+    "original_preserved": false
+  },
+  {
+    "file": "01-preparation.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "b083f6e58491373e391aed59b79c5ee761ad29c1d3ca32160505d70e3e1282d7",
+    "original_preserved": true
+  },
+  {
+    "file": "02-gate.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "da39f9473222f9c67098d97d0cc840a13db0cca75c1d756b6ffeb26024e8c9f6",
+    "original_preserved": false
+  },
+  {
+    "file": "02-map.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "b72557d96cc0c0a8ba72119cae23fe059687e152ccf38e59773ba20133bf74b8",
+    "original_preserved": false
+  },
+  {
+    "file": "03-scrap-rescued.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "2b961799b25fa8eb5a888abe8a0731c49440f6898236ac7754af319ef59ca4cf",
+    "original_preserved": false
+  },
+  {
+    "file": "03-scrap.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "f7264f9131948361ef2636b80e61b7d3ced62bfe50c16524181a008d098c24a6",
+    "original_preserved": false
+  },
+  {
+    "file": "04-battle.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "a9c6eec6c63e87d9b9f5fb3e6c5c73e27c9fac5d52662a5bc339917a7d934ded",
+    "original_preserved": true
+  },
+  {
+    "file": "04-card-inspection.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "9debce69c293177b4d45771c34ac13c40e9b73cc104e137df78c5cb97a517af3",
+    "original_preserved": false
+  },
+  {
+    "file": "04-workshop-dark.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "6b29c07a093370d57349674744b1ef4e08c6c5e79bd4c7128e338d491400c174",
+    "original_preserved": false
+  },
+  {
+    "file": "04-workshop.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "5c0befc88da6bb2ef7c57fd4096b3e943f4bd9e0abc2ac929ae6ca5a27d4c801",
+    "original_preserved": false
+  },
+  {
+    "file": "05-hidden-room.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "046443cffd7e2517d7ace27409b68fd2299433922078824a90ac1992eefaef16",
+    "original_preserved": false
+  },
+  {
+    "file": "05-square.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "5ae876c9c2bc7d0f1748de54b6d97ced6abc9e7d13101f326b233fb27ce5c3df",
+    "original_preserved": false
+  },
+  {
+    "file": "06-extraction.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "72243b648ea2abd550d6f23fe117fd37137e745fd76f6639baeb8a503b2367ca",
+    "original_preserved": false
+  },
+  {
+    "file": "07-lit-home.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "0cfc95ff844f03247520b49bee1923de05d690159106f711cfe2c3453e6beff9",
+    "original_preserved": false
+  },
+  {
+    "file": "07-station-powered.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "5d0ed9f0547049e749b552a3ba0d3034e0e046f60cf758f3903faef31daf3675",
+    "original_preserved": false
+  },
+  {
+    "file": "07-station.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "99d1e96e75c77567e3b11b3c474af3a265cfd87f1db105b650f525c29c45156f",
+    "original_preserved": false
+  },
+  {
+    "file": "08-trial.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "20561dde6ec4cba1a1b474fe70970cc2244751518ee49e0584ec084e8b1eee97",
+    "original_preserved": false
+  },
+  {
+    "file": "09-crafting.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "3b7d1d41f3142c179a7e14ff4788d665c4147e0cc488f032b714b34638e036db",
+    "original_preserved": false
+  },
+  {
+    "file": "10-equipment.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "9cbf7ce4b3a7181005231fabea75c666c84ae853a0f3924e5e21ce5a8b872039",
+    "original_preserved": false
+  },
+  {
+    "file": "11-lived-in-home.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "dd7a451f7c1d434a81415b9a0f57aa55be9e1287d8daeeec2b0b7f473bf808c8",
+    "original_preserved": false
+  },
+  {
+    "file": "11-train-choices.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "2dffb4f225718dabac56ed0079de79ddf8f722f8e295b8c0fe2063833005e92a",
+    "original_preserved": false
+  },
+  {
+    "file": "11-train.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "cd7c02a2b7ffd7d134ab133f829bba4246827a8de4fdd44440e3746d43b125ba",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-camp.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "ea3115fcec17326f3c25931c9b6d4a2f5440e8a20da429250b53353933cdd3a9",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-cargo.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "483a2ce4ddd865808314dddd9ca1244d2909fbc2df2525b6e014564e90413eb2",
+    "original_preserved": true
+  },
+  {
+    "file": "1100-character.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "05f033314e8a1a12ca3dc5f96db6d3fd6b96887b1e514070d2cabdd05ddb36cb",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-crafting.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "e99d96fcee8c256f594db9ea5b004f411e35688627715ff86305c750497e5235",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-equipment-detail.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "a2f2892ff8ca0ae1a9310c626c88c824f0dd60241fc4d33827190065d9826f0e",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-exploration.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "753328b27061261f994bd5df70346e25224438efb7f08ffbe6b14dbdf94555a9",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-extra-cards.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "201cc73a1d7fb2715642c5765b8149e3899d5ce9853293af43a54c185e6dab3e",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-journal.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "d42ca01a70984ef1ec732eab5fd4bb783c4c55ee23747a2e3118f7a3368a0f4e",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-map.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "f2962e5ccb36c1b37e78fc73dac2588882038a739aa39111bfe1dd2e785dd79a",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-mods.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "dc85b69ff4d5afdc94f8a5ce35daa606d19e66dea78db4bf4db0fafd4532b55a",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-patrol-warning.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "e6a75ad21cb0424294983765249fd6fcdbbf12edca53df05a7402f8c303a561c",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-preparation.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "529bb8c3a9f5c5023927e76b765665462931135e3365500aa895c221d4baa7b8",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-route-map.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "be1560f81392cc0f8d06d6d3e179e51c4a4b549e2c1d1efd151da5ff9a3d5408",
+    "original_preserved": false
+  },
+  {
+    "file": "1100-three-enemies.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "6db4ef8515d43376099da5f445fafdce290528ba9ecaea68aa2d6a9985737e4b",
+    "original_preserved": true
+  },
+  {
+    "file": "12-journal.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "9940ea9a4e7a24df2ee5ef42ce3a2c98778caf4d4c33023d5457937cbee6f13e",
+    "original_preserved": false
+  },
+  {
+    "file": "1280-cargo.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "0c6d05bac63c6ecc1c8c85d9f3ef2698299212bf37e249dc96265f8e386e4ce3",
+    "original_preserved": true
+  },
+  {
+    "file": "1280-character.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "04232bfdb2d5e2f3c8f4ccc4b20f5d3f207b6135249f820eaf22bc9a1c419889",
+    "original_preserved": false
+  },
+  {
+    "file": "1280-crafting.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "2fc8b27cb8403b13325f96964645095abaf7a15cd03ba32623e39cd5973a4d4b",
+    "original_preserved": true
+  },
+  {
+    "file": "1280-equipment-detail.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "c376bda5c490dbf08670d6758df918d9402f49537ff4168903ef6299c4c9804d",
+    "original_preserved": false
+  },
+  {
+    "file": "1280-journal.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "1b4cd3c8dd4c2e88aca14e7dd91d853c2716fe893fa2f15ea46dc7c5e88dc5f6",
+    "original_preserved": true
+  },
+  {
+    "file": "1280-mods.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "3b9587395089f4897da160c4a5ffce3607364f654a444befa805d734ed2b06e7",
+    "original_preserved": false
+  },
+  {
+    "file": "1280-patrol-warning.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "59045f526f5a27ff5f31cf76868f252ffd22ce87bac37f208ddc52a53def59a1",
+    "original_preserved": false
+  },
+  {
+    "file": "1280-preparation.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "fcbfd6af858bf2a4776b4c3b71f1f185f777acbef82aeccc84a18884adc2529f",
+    "original_preserved": false
+  },
+  {
+    "file": "1280-route-map.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "848e68f66ab924a18788320dc906c9cf028e417c8b0895d6f553fb140efbde92",
+    "original_preserved": true
+  },
+  {
+    "file": "1280-three-enemies.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "e9eb0fcfde15e3cfaf63a083ab1f55f0e609a7d91697ccb4069409af55d6aff0",
+    "original_preserved": false
+  },
+  {
+    "file": "13-patrol.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "6d518a4de04ce88ad23092bc5cc27442f87d851271c7d3ea32a95bf02f53633d",
+    "original_preserved": false
+  },
+  {
+    "file": "14-defeated.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "a5dd353e7859509fec58d42265841e8b2d0db53e75c8bf0ece30750d48e331c0",
+    "original_preserved": false
+  },
+  {
+    "file": "15-unavailable-card.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "9302d383981451c7f983d366c201701cdccd91d19bda5de1bb337765097a403e",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-camp.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "154f159b4866988a8f6a8c1438e45bee2b0b82c5192e8d1c121cff139909b910",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-cargo.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "88acc8865ef63481171651bafebbc964c4fd4e89043e5657cf0c6fa7d4197456",
+    "original_preserved": true
+  },
+  {
+    "file": "1600-character.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "66c70bd11fc83cd9dcbbd2b1a9d941c5cbd3422badbb52f95d4cd123d7bf3a57",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-crafting.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "23ef3385895859188f82b294e824cb1b634c0defb9077c065bc8a48cb3c9d06f",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-equipment-detail.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "e11ee1d47531567ff14776e9c39c187db8661994e98fd5af90eca853d7a6f15a",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-exploration.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "701a071d0e5178b42f468fd67d3e29a9010c68bdbeb6a86ffcc63f1eb68c0488",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-extra-cards.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "e780042f36d0bd5692a308022b3a6c0036eaf9da96ffc5cf8de58403017234f4",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-journal.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "1f931a3adaeaf0a010191e26fae4a2a090cf3350d2289bcef6a8803503fcdcd6",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-map.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "c4c5d31aa60628f4772453bc5ee28bc918cceab068909ff417d0bf0b0cf3c603",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-mods.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "fbf44d774629a666c449d8f536fc82475526689a5ef5f0fae892ea068edafc32",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-patrol-warning.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "c39cc7707e15219236c78882a46b38cf1334eb329ad96b2768fcee5217637e2e",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-preparation.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "e1a9ca1a475583cf185cf33cce9aa67ba3025c3ec6048bad6c4d0c02008e63a9",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-route-map.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "0bb9b928ca705cee4b160abb6f916bf914174afe94e961913bb27a5e766a6a25",
+    "original_preserved": false
+  },
+  {
+    "file": "1600-three-enemies.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "4c674ebf6aa88262796a4df3e735ffb107a8af2b039e80170ea037fe06e54900",
+    "original_preserved": false
+  },
+  {
+    "file": "chapter-cover.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "154f159b4866988a8f6a8c1438e45bee2b0b82c5192e8d1c121cff139909b910",
+    "original_preserved": false
+  },
+  {
+    "file": "character-battle.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "36ff43a7a197da40d2977cccbddfc103d93cc1d6c8cd137bfc9d497171811174",
+    "original_preserved": false
+  },
+  {
+    "file": "inventory-backpack-crafting.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "fb98e29d8d19476b4ef71ef8ac4a76ca1dc184d033afaeec0ed9c4e9d41c5033",
+    "original_preserved": false
+  },
+  {
+    "file": "inventory-full-pockets.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "bcaef1adc9a07941fed459b369140b3c3449bf7b8c75ef5e400036ce0d6ab12f",
+    "original_preserved": true
+  },
+  {
+    "file": "inventory-ground-return.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "8f70fb25480c09aa4a344ed876e7c08a79e5591b3e1461dd73e65e0e80579218",
+    "original_preserved": false
+  },
+  {
+    "file": "inventory-overweight.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "f4e8a42f1c78b64f1d9cfeb52f6b7fe1f2c32bacd3f872d2e1b5de96d8841b73",
+    "original_preserved": false
+  },
+  {
+    "file": "inventory-three-backups.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "9cbe99d86902cdeb40b526ceddca11a962859ff4e3ceeb30f4b41506c1d77f84",
+    "original_preserved": false
+  },
+  {
+    "file": "inventory-warehouse.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "56d98d5c674a7ce36f967e2d817ddb704f699a2e54054707cfcd24f9806d04c0",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-100-comparison.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "10f9b1b8984b8897ab9a9ea1d071123151260a2bacb9b8495ffdb4c0482a4ff4",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-100-prepare.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "7eea0234c3db476a22a92feb150a9c81e9d71f0befafb5805f1f9ab838f3a0ad",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-100-recipe.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "9d5049e6a77951bb94793886db12b6d9d81115756fe32d6a55e8f223a37ea904",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-100-storage.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "483a2ce4ddd865808314dddd9ca1244d2909fbc2df2525b6e014564e90413eb2",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-125-comparison.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "d622bcfb59013a70b540cc824cb4b87df8f0d077a1c6cb220541a2edd3232ac7",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-125-prepare.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "a4abedf729dc7d3f2b431b6e2e39cd96599decb324fe89b6bc8147b499985708",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-125-recipe.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "204984537fc6dbfe92283b4489ffc61d080a10edaaae5e781da38ce88b336530",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-125-storage.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "8de65257d3b4377b7b68e05dc70e0728d457141cea80091e7a51765fc82855cd",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-150-comparison.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "9fdc0a3578355678e19724baafb70ea0fb3beea3f985018935493a25612c58d4",
+    "original_preserved": true
+  },
+  {
+    "file": "rework-1100-150-prepare.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "133b794b0520152242001462328fa4013b4309aadef7a2fb4265728988f07ef4",
+    "original_preserved": true
+  },
+  {
+    "file": "rework-1100-150-recipe.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "ff855d3ef04171e89faa522639e27ece530277efd3efad937ca6b034bf247746",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1100-150-storage.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "626b73d995e0a18baff5addcec143aa5570e53a3f1979f8899918014c644516c",
+    "original_preserved": true
+  },
+  {
+    "file": "rework-1100-labels.png",
+    "width": 1100,
+    "height": 760,
+    "sha256": "f9cac85f1e0c8a17cdaf0ae46ea32e7b4959f4048bd2cb4f31123c77f8d45750",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-100-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "eb32f55a7e5bfaa92e1cfa6529c769ec60a2149d5916cd74c3638a45b48e0aa3",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-100-prepare.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "279268d36a1f3cc8cff2bc521e26883aead8101ea8756fe90202560a41f0fc34",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-100-recipe.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "0fc267f0696590e4439186bc3d5796482a066c15b2d3968d8c0896ed60f177f7",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-100-storage.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "0c6d05bac63c6ecc1c8c85d9f3ef2698299212bf37e249dc96265f8e386e4ce3",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-125-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "d129bd3a0ec072365b6940efcee961098e941ec1ebd20fc1190b8bfd01a31cf1",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-125-prepare.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "c7bfdc5bc384db5270c4bb0c34c8675cc89574a23598ad2bcdd0d36d1e0b6daf",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-125-recipe.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "53cd9280ff710e6af23ca1a56ef1fe10068b85f02a520858aa44f59fd38c0f12",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-125-storage.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "eef57bedbed584833972bba05f063c27822d1037df36c03f07a347e873fef7a5",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-150-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "233330c9cff74896c5a0aa3a62a8ec90c30421035f921d9e2bec39602913cd44",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-150-prepare.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "1acc95c127c0d096ad9a094a1863a1668c1daf2f95096d953b245d6904460993",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-150-recipe.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "04924d1b4dcfc304989750cf5b0b51a7e302d10fdffe150a582cf5fb4ccc760b",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-150-storage.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "a794b1c3eabac6000cbaa3cb80a424d7f764bcbe2fc32297110f27129cc0a651",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1280-labels.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "19b60d3f1078791fd857a5b8c6a6ecbba507f4b3b159749d1607462740a295d1",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-100-comparison.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "0bbcf0afafc6305249b7b48a1fcb4bd38ea60a1cfb9065ab17ee428d6c0aabf9",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-100-prepare.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "29293b42d6729467535534ea3ab653e61d799f537170f489a171628c130294af",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-100-recipe.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "71cafd2ee1723903d6f43a601bc67fc5d59d28e822e7382e90cf684d4585c17f",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-100-storage.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "88acc8865ef63481171651bafebbc964c4fd4e89043e5657cf0c6fa7d4197456",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-125-comparison.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "cb91ac034f0e53f599ec5a89807299c92fde59c02f2ed7644a1af382fc9b2719",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-125-prepare.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "510234783c53f087c63b0ea8226c159a807e847169bc8784e3b77380bd1acd99",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-125-recipe.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "59796067ef06ba65d84e6cd009657e358d54c2994aa53441e43b480c9e1c15d1",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-125-storage.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "82e19eb8c65e9192db3ef39ec0d0d96a717fc49e637681687f41d32738317cec",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-150-comparison.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "d6abf92ff2b7b8da6b81994926356ae05f00d5cfb59a475fb1a9f46a09e07731",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-150-prepare.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "e8f9309462bc7e37278c09170d24e41fc3b508dacb0aff1f2fca4e3842ec7c2f",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-150-recipe.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "20debc2f73700d02d9da1ad11152156916a7a6f52a9ef02a94e4b3942360483d",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-150-storage.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "4481d48126f14f506f7f83b5a88c71ac1e1549530aa920d2e6016e8c3b51a289",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-1600-labels.png",
+    "width": 1600,
+    "height": 900,
+    "sha256": "795d41a8aa271881f2388723c3e909722ab1b1d42101ace23d9f585ca2aced37",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-card-preview.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "a833a43b7d2ebacfe4a70e57f3402ebb30ed9477c1e68ee8cee6689625e4f15c",
+    "original_preserved": true
+  },
+  {
+    "file": "rework-lethal-retreat.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "7ab5e53a893dbdcca01bc24b9c7702ad555120e86825469d44c86376bbfea31c",
+    "original_preserved": false
+  },
+  {
+    "file": "rework-save-failure.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "8e699ea8acc97440333af7470ac44d7d607507c684e902dc64cc27caff01c4a6",
+    "original_preserved": true
+  },
+  {
+    "file": "rework-train-choice.png",
+    "width": 1280,
+    "height": 800,
+    "sha256": "55f7746b6635192d201ba4dc2910b5af7f7b522c1cf600421ce7a4641cce0ebc",
+    "original_preserved": false
+  }
+]

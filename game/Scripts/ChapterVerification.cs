@@ -46,6 +46,7 @@ public partial class ChapterVerification : Node
             Require(Game.Session.CarryCapacity == 12, "Backpack equips and expands carrying capacity");
             await Click("gear_tab_body"); await Click("equip_G10"); await Click("close_panel");
             Game.Buttons["depart"].GrabFocus(); await PressKey(Key.Enter);
+            await Click("prepare_depart");
             Require(Game.Session.State.Phase == ChapterPhase.Exploring, "Keyboard departure");
             await Click("move_A03"); await Click("act_scrap"); await CollectLoot();
             await Click("act_K02"); await Capture("04-battle.png");
@@ -67,7 +68,7 @@ public partial class ChapterVerification : Node
             await Frames(); Require(Game.Session.ToJson() == saved, "Chapter save restore");
             await Click("camp_trial"); await Capture("08-trial.png"); await Click("card_0"); await Click("card_0");
             Require(Game.Session.State.World.Contains("trial-complete"), "Trial actually played");
-            await Click("end_trial"); await Click("craft"); await Click("craft_tab_recipes"); await Click("make_G26"); await Capture("09-crafting.png");
+            await Click("end_trial"); await Click("craft_tab_recipes"); await Click("make_G26"); await Capture("09-crafting.png");
             Require(Game.Session.State.Owned.Contains("G26"), "Crafting registers gear");
             await Click("close_panel"); await Click("inventory"); await Click("gear_tab_hands"); await Click("equip_G26"); await Capture("10-equipment.png"); await Click("close_panel");
             await Click("camp_preparation"); await Click("start_A05"); await Click("prepare_depart"); Require(Game.Session.State.Location == "A05", "Forward station departure");
@@ -86,13 +87,14 @@ public partial class ChapterVerification : Node
                 await PressKey(Key.M); await Capture($"{size.X}-map.png"); await PressKey(Key.Escape);
                 Game.ReplaceSession(ChapterSession.FromJson(completed)); await Frames();
                 await Click("camp_trial"); await Click("card_0"); AssertHandVisible(); await Capture($"{size.X}-extra-cards.png");
-                AssertVisible("end_turn"); AssertVisible("end_trial"); await Click("end_trial");
+                AssertVisible("end_turn"); AssertVisible("end_trial"); await Click("end_trial"); await Click("close_panel");
             }
             Game.ReplaceSession(ChapterSession.FromJson(completed)); await Frames(); await Capture("chapter-cover.png");
             await VerifyManual(completed);
             await VerifyInventory(completed);
             await VerifyUnavailableCards();
             await VerifyPatrolAndDefeat();
+            await VerifyRework(completed);
             GD.Print("CHAPTER_VERIFIED | real input, 7 places, print palette, graphic HUD, focus inspection, modal focus, nested return, filters, three window sizes, rescue, hidden room, combat, calibration, exits, quests, trial, crafting, parcel, save restore, three enemies, defeat recovery, physical inventory, full pockets, ground pickup, backpack crafting");
             GetTree().Quit(0);
         }
@@ -100,6 +102,7 @@ public partial class ChapterVerification : Node
     }
     private async Task CollectLoot()
     {
+        if (Game.Buttons.ContainsKey("loot_manage")) await Click("loot_manage");
         if (Game.Session.State.Phase != ChapterPhase.Exploring || !Game.Buttons.ContainsKey("close_panel")) return;
         foreach (var item in Game.Session.State.Stock.Where(i => Game.Session.State.Ground.TryGetValue(i.Container, out var ground) && ground.Place == Game.Session.State.Location).ToArray())
         {
@@ -173,7 +176,7 @@ public partial class ChapterVerification : Node
             var before = Game.Session.ToJson();
             await Click("inventory"); AssertManualLayout();
             var summary=Game.GetNode<Control>("ChapterPresentation/FieldManual").FindChild("LoadoutSummary",true,false) as GridContainer;
-            Require(summary!=null && summary.Columns == 2 && summary.GetChildCount() == 4,"Four equipment slots are arranged on a board");
+            Require(summary!=null && summary.Columns == 1 && summary.GetChildCount() == 4,"Four equipment slots remain visible beside both containers");
             await Click("gear_tab_weapon"); await Click("inspect_G25");
             Require(!Game.Buttons.ContainsKey("equip_G10"), "Weapon filter excludes body equipment");
             await AssertSupplyCards("G25");
@@ -230,8 +233,24 @@ public partial class ChapterVerification : Node
         var panel = Game.GetNode<Control>("ChapterPresentation/FieldManual");
         foreach (var (container, used, capacity) in new[] { ("carry", Game.Session.CarryUsed, Game.Session.CarryCapacity), ("warehouse", Game.Session.WarehouseUsed, Game.Session.WarehouseCapacity) })
         {
-            var grid = panel.FindChild("StorageGrid_" + container, true, false) as GridContainer;
-            Require(grid != null && grid.GetMeta("occupied").AsInt32() == used && grid.GetChildCount() == Math.Max(used, capacity), "Grid occupancy matches physical storage: " + container);
+            var grid = panel.FindChild("StorageGrid_" + container, true, false) as ChapterSlotGrid;
+            Require(grid != null && grid.GetMeta("occupied").AsInt32() == used && grid.GetChildren().Sum(n => n.GetMeta("slots").AsInt32()) == used, "Continuous item blocks match physical storage: " + container);
+            Require(grid!.Columns >= 3, "Container exposes at least three columns: " + container);
+            var items = grid.GetChildren().OfType<Control>().ToArray();
+            foreach (var item in items) Require(item.Position.X >= 0 && item.GetRect().End.X <= grid.Size.X + 1, "Item fits container width");
+            for (var i = 0; i < items.Length; i++)
+            for (var j = i + 1; j < items.Length; j++) Require(!items[i].GetRect().Intersects(items[j].GetRect()), "Storage items do not overlap");
+        }
+        var workspace = (Control)panel.FindChild("StorageWorkspace", true, false);
+        Require(workspace.Size.Y >= GetViewport().GetVisibleRect().Size.Y * .55f, "Physical inventory retains the majority of screen height");
+        var actionBar = (Control)panel.FindChild("StockActionBar", true, false);
+        Require(actionBar.Size.Y <= 150, "Selected item actions do not displace container space");
+        foreach (var slot in new[] { "weapon", "body", "hands", "backpack" })
+        {
+            var tile = Game.Buttons["wear_" + slot]; AssertVisible("wear_" + slot);
+            Require(tile.Size.X >= 170, "Worn item name has sufficient reading width");
+            for (Node? ancestor = tile.GetParent(); ancestor != null; ancestor = ancestor.GetParent())
+                if (ancestor is ScrollContainer scroll) Require(scroll.GetGlobalRect().Encloses(tile.GetGlobalRect()), "All four worn items remain visible without scrolling");
         }
     }
     private void AssertManualLayout()
@@ -284,6 +303,9 @@ public partial class ChapterVerification : Node
         foreach (var target in targets) AssertVisible(target.Name.ToString());
         for (var i = 1; i < targets.Length; i++)
             Require(!targets[i - 1].GetGlobalRect().Intersects(targets[i].GetGlobalRect()), "Enemy targets overlap");
+        var feedback = Game.GetNode<Control>("ChapterPresentation").FindChild("BattleFeedback", true, false) as Control;
+        if (feedback is { Visible: true })
+            foreach (var target in targets) Require(!feedback.GetGlobalRect().Intersects(target.GetGlobalRect()), "Battle feedback preserves enemy names and intent");
     }
     private static void AssertArtAssets()
     {
@@ -315,7 +337,7 @@ public partial class ChapterVerification : Node
         var presentation = Game.GetNode<Control>("ChapterPresentation");
         var world = presentation.GetNode<ChapterScene>("World");
         Require(world.GetGlobalRect().IsEqualApprox(presentation.GetGlobalRect()), "Scene fills the entire presentation");
-        Require(!presentation.GetChildren().OfType<PanelContainer>().Any(p => p.Name != "TransientNotice" && p.Name != "Inspection"), "No persistent side or bottom panels");
+        Require(!presentation.GetChildren().OfType<PanelContainer>().Any(p => p.Name != "TransientNotice" && p.Name != "Inspection" && p.Name != "BattleFeedback" && p.Name != "CardPreview" && p.Name != "CardTravel"), "No persistent side or bottom panels");
         var pins = Game.Buttons.Values.OfType<ChapterHotspot>().Where(p => !p.Disabled).ToArray();
         foreach (var pin in pins) AssertVisible(pin.Name.ToString());
         for (var i = 0; i < pins.Length; i++)
@@ -327,8 +349,12 @@ public partial class ChapterVerification : Node
         var button = Game.Buttons[id]; var rect = button.GetGlobalRect(); var viewport = GetViewport().GetVisibleRect();
         Require(viewport.Encloses(rect), "Button outside viewport: " + id + " " + rect);
     }
-    private async Task Click(string id)
+    private async Task Click(string id, bool completeFlow = true)
     {
+        while (Game.IsFeedbackPlaying) await ToSignal(GetTree().CreateTimer(.05), SceneTreeTimer.SignalName.Timeout);
+        if (Game.Buttons.ContainsKey("story_continue") && id != "story_continue") await Click("story_continue");
+        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("deliver_")) await Click("quest_detail_" + id[8..]);
+        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("make_") && Game.Buttons.ContainsKey("recipe_" + id[5..])) await Click("recipe_" + id[5..]);
         // Management actions live in the selected item's detail pane.
         if (!Game.Buttons.ContainsKey(id) && (id.StartsWith("equip_") || id.StartsWith("backup_")))
             await Click("inspect_" + id[(id.IndexOf('_') + 1)..]);
@@ -341,7 +367,9 @@ public partial class ChapterVerification : Node
         Button? button = null;
         for (var attempt = 0; attempt < 5; attempt++)
         {
-            await Frames(); Require(Game.Buttons.TryGetValue(id, out button), "Missing button " + id);
+            await Frames();
+            if (!Game.Buttons.ContainsKey(id)) { await Capture("failure-" + id + ".png"); GD.Print("BUTTONS: " + string.Join(",", Game.Buttons.Keys)); }
+            Require(Game.Buttons.TryGetValue(id, out button), "Missing button " + id);
             Require(!button!.Disabled, "Disabled button " + id);
             // Scrolling may trigger a deferred layout refresh. Never keep a parent across an await.
             for (Node? parent = button.GetParent(); parent != null; parent = parent.GetParent())
@@ -356,6 +384,14 @@ public partial class ChapterVerification : Node
         GetViewport().PushInput(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = true }, true);
         GetViewport().PushInput(new InputEventMouseButton { Position = position, GlobalPosition = position, ButtonIndex = MouseButton.Left, Pressed = false }, true);
         await Frames(4);
+        if (completeFlow)
+        {
+            if (id == "depart") await Click("prepare_depart");
+            if (id.StartsWith("card_") && Game.Buttons.ContainsKey("play_selected")) await Click("play_selected");
+            if (id == "end_turn" && Game.Buttons.ContainsKey("confirm_action")) await Click("confirm_action");
+            if (id is "act_train-wire" or "act_train-supply" or "act_train-parcel" or "act_R01" or "act_R07") await Click("choice_confirm");
+            if (id == "act_extract" && Game.Buttons.ContainsKey("confirm_action")) await Click("confirm_action");
+        }
         if (!Game.Buttons.ContainsKey("close_panel")) AssertImmersiveScene();
     }
     private async Task PressKey(Key key)

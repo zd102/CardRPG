@@ -24,9 +24,20 @@ public partial class ChapterGame
         void Show()
         {
             if (_inspection == null || !GodotObject.IsInstanceValid(_inspection)) return;
+            if (control.Name == "close_panel" || control.Name.ToString().StartsWith("target_")) return;
             var text = description();
             if (string.IsNullOrWhiteSpace(text)) return;
+            if (_selectedCard >= 0 && _panel == "" && Session.State.Phase == ChapterPhase.Battle) return;
             _inspected = control; _inspectionCopy!.Text = text; _inspection.Visible = true;
+            if (_panel != "")
+            {
+                var rect = control.GetGlobalRect(); var shortCopy = !text.Contains('\n') && text.Length <= 28;
+                var width = Math.Min(shortCopy ? Math.Max(180, text.Length * 16 + 32) : 540, Size.X - 64);
+                var height = shortCopy ? 52 : Math.Min(210, Math.Max(80, text.Length / 28 * 24 + 56));
+                var x = Mathf.Clamp(rect.Position.X, 32, Size.X - width - 32);
+                var y = rect.End.Y + height + 12 < Size.Y - 32 ? rect.End.Y + 8 : Math.Max(90, rect.Position.Y - height - 8);
+                Dock(_inspection, x, y, x + width, y + height);
+            }
         }
         void Hide()
         {
@@ -41,16 +52,15 @@ public partial class ChapterGame
     private void InspectionLayer()
     {
         _inspected = null;
-        _inspection = ChapterSkin.Panel(_root, padding: 12); _inspection.Name = "Inspection";
+        _inspection = FlatPanel(_root, 12); _inspection.Name = "Inspection";
         _inspection.ZIndex = 20; _inspection.MouseFilter = MouseFilterEnum.Ignore; _inspection.Visible = false;
-        if (_panel != "") Dock(_inspection, 340, 14, -24, 96, ar:1);
+        if (_panel != "") Dock(_inspection, 340, 120, -24, 260, ar:1);
         else if (Session.State.Phase == ChapterPhase.Battle)
         {
-            var halfWidth = Mathf.Min(250,(Size.X-652)/2);
-            Dock(_inspection,-halfWidth,100,halfWidth,212,.5f,0,.5f,0);
+            Dock(_inspection,-300,-442,300,-266,.5f,1,.5f,1);
         }
-        else Dock(_inspection, -260, -120, 260, -16, .5f, 1, .5f, 1);
-        _inspectionCopy = Text("", 16, Ink); _inspection.AddChild(_inspectionCopy);
+        else Dock(_inspection, -300, -238, 300, -108, .5f, 1, .5f, 1);
+        _inspectionCopy = Text("", 16, Ink); _inspectionCopy.AddThemeFontSizeOverride("font_size",16); _inspection.AddChild(_inspectionCopy);
     }
 
     private Button IconButton(string id, string symbol, string description, Action action, bool primary = false)

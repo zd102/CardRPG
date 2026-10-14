@@ -1,0 +1,139 @@
+<div id="cardrpg-layout-analysis">
+  <div class="viz-controls">
+    <label class="form-label" for="cardrpg-layout-page">页面
+      <select class="form-select" id="cardrpg-layout-page">
+        <option value="equipment">装备比较</option>
+        <option value="inventory">背包与仓库</option>
+        <option value="battle">战斗阅读区</option>
+      </select>
+    </label>
+    <span class="text-small">区域关系示意 · 建议尚未实施</span>
+  </div>
+  <div class="la-comparison">
+    <section>
+      <h3>现有排版</h3>
+      <svg class="la-diagram" id="cardrpg-layout-current" role="img" aria-label="现有装备页的三个并列栏目"></svg>
+    </section>
+    <section>
+      <h3>建议排版</h3>
+      <svg class="la-diagram" id="cardrpg-layout-proposed" role="img" aria-label="建议将主要空间用于装备对照"></svg>
+    </section>
+  </div>
+  <div class="text-small" id="cardrpg-layout-detail" aria-live="polite"></div>
+</div>
+<style>
+  #cardrpg-layout-analysis .la-comparison {display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;margin:12px 0;}
+  #cardrpg-layout-analysis section {min-width:0;}
+  #cardrpg-layout-analysis .la-diagram {display:block;width:100%;}
+  #cardrpg-layout-analysis .la-diagram text {fill:var(--foreground);font-size:12px;font-weight:400;}
+  #cardrpg-layout-analysis .la-diagram .la-zone {fill:var(--muted);stroke:var(--border);stroke-width:1;}
+  #cardrpg-layout-analysis .la-diagram .la-focus {fill:color-mix(in srgb,var(--viz-series-1) 16%,var(--background));stroke:var(--border);stroke-width:1;}
+  #cardrpg-layout-analysis .la-diagram .la-frame {fill:none;stroke:var(--border);stroke-width:1;}
+  @media(max-width:760px) {#cardrpg-layout-analysis .la-comparison {grid-template-columns:minmax(0,1fr);}}
+</style>
+<script>
+(() => {
+  const root = document.getElementById('cardrpg-layout-analysis');
+  const picker = root.querySelector('#cardrpg-layout-page');
+  const detail = root.querySelector('#cardrpg-layout-detail');
+  const current = root.querySelector('#cardrpg-layout-current');
+  const proposed = root.querySelector('#cardrpg-layout-proposed');
+  const ns = 'http://www.w3.org/2000/svg';
+  const sets = {
+    equipment: {
+      detail:'装备：缩小固定穿戴摘要，把连续空间交给当前装备与候选装备的对照。',
+      before:[
+        [2,2,96,10,['变暗的场景 HUD／远处说明']],
+        [2,15,96,10,['页标题']],
+        [2,28,10,66,['导','航']],
+        [15,28,83,11,['状态与分类']],
+        [15,42,25,52,['当前穿戴','四个部位']],
+        [43,42,25,52,['候选装备']],
+        [71,42,27,52,['装备详情','小供牌卡'],true]
+      ],
+      after:[
+        [2,2,96,10,['页标题＋相关资源']],
+        [2,15,10,79,['导','航']],
+        [15,15,83,10,['紧凑的部位与当前穿戴摘要']],
+        [15,28,25,66,['候选目录']],
+        [43,28,26,51,['当前装备','费用／效果'],true],
+        [72,28,26,51,['候选装备','费用／效果'],true],
+        [43,82,55,12,['变化摘要＋穿戴操作'],true]
+      ]
+    },
+    inventory: {
+      detail:'库存：保持两容器的稳定位置，减少常驻详情对物品空间的挤占。',
+      before:[
+        [2,2,96,10,['变暗的场景 HUD']],
+        [2,15,96,10,['页标题']],
+        [2,28,10,66,['导','航']],
+        [15,28,83,11,['状态与装备分类']],
+        [15,42,25,52,['随身','4～20 格'],true],
+        [43,42,27,52,['仓库','48～128 格'],true],
+        [73,42,25,52,['单件详情','取放按钮']]
+      ],
+      after:[
+        [2,2,96,10,['页标题＋容量／负重']],
+        [2,15,10,79,['导','航']],
+        [15,15,83,10,['物品分类与显示方式']],
+        [15,28,30,48,['随身容器'],true],
+        [48,28,50,48,['仓库／当前位置'],true],
+        [15,79,83,15,['所选物品＋取放后状态＋操作'],true]
+      ]
+    },
+    battle: {
+      detail:'战斗：把资源、读牌与回合操作靠近手牌，保持敌方意图的完整可见。',
+      before:[
+        [2,2,96,9,['生命／地点／七个菜单']],
+        [2,14,25,14,['行动／魔法','护盾／总攻击'],true],
+        [32,14,48,14,['完整卡牌说明'],true],
+        [18,34,64,30,['敌人与意图']],
+        [36,67,30,7,['牌堆']],
+        [2,77,76,17,['手牌'],true],
+        [82,77,16,17,['结束','／撤退']]
+      ],
+      after:[
+        [2,2,96,9,['地点与低频菜单']],
+        [15,16,70,36,['敌人与公开意图']],
+        [25,55,50,15,['就近展开的卡牌说明'],true],
+        [2,74,17,20,['行动','魔法','护盾'],true],
+        [22,74,55,20,['手牌与牌堆'],true],
+        [80,74,18,20,['预计承伤','结束回合','撤退'],true]
+      ]
+    }
+  };
+  function element(name, attrs, text) {
+    const node = document.createElementNS(ns,name);
+    for(const [key,value] of Object.entries(attrs)) node.setAttribute(key,String(value));
+    if(text !== undefined) node.textContent = text;
+    return node;
+  }
+  function draw(svg, blocks, caption) {
+    const width = Math.max(280, Math.round(svg.getBoundingClientRect().width));
+    const height = Math.max(300, Math.min(390,width*.72));
+    svg.setAttribute('viewBox',`0 0 ${width} ${height}`);
+    svg.setAttribute('height',height);
+    svg.setAttribute('aria-label',caption);
+    svg.replaceChildren();
+    svg.appendChild(element('title',{},caption));
+    svg.appendChild(element('rect',{x:1,y:1,width:width-2,height:height-2,class:'la-frame'}));
+    for(const [x,y,w,h,labels,focus] of blocks) {
+      const rx=x*width/100, ry=y*height/100, rw=w*width/100, rh=h*height/100;
+      svg.appendChild(element('rect',{x:rx,y:ry,width:rw,height:rh,class:focus?'la-focus':'la-zone'}));
+      const text=element('text',{'text-anchor':'middle'});
+      const start=ry+rh/2-(labels.length-1)*8+4;
+      labels.forEach((label,i) => text.appendChild(element('tspan',{x:rx+rw/2,y:start+i*16},label)));
+      svg.appendChild(text);
+    }
+  }
+  function render() {
+    const value=sets[picker.value];
+    draw(current,value.before,'现有排版，'+value.detail);
+    draw(proposed,value.after,'建议排版，'+value.detail);
+    detail.textContent=value.detail;
+  }
+  picker.addEventListener('change',render);
+  new ResizeObserver(render).observe(root);
+  render();
+})();
+</script>

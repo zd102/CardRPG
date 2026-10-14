@@ -28,7 +28,7 @@ public sealed partial class ChapterSession
     public int SafeMaterialCount(string kind) => State.Stock.Where(i => i.Kind == kind && i.Container is "carry" or "warehouse").Sum(i => i.Quantity);
 
     private static int Capacity(IEnumerable<ChapterItem> stock) => 4 + ChapterContent.BagCapacity(stock.FirstOrDefault(i => i.Container == "backpack")?.Kind ?? "");
-    private static int Slots(IEnumerable<ChapterItem> items) => items.GroupBy(i => (i.Kind, i.FreeSupply, i.Calibrated))
+    public static int Slots(IEnumerable<ChapterItem> items) => items.GroupBy(i => (i.Kind, i.FreeSupply, i.Calibrated))
         .Sum(g => ((g.Sum(i => i.Quantity) + ChapterContent.Items[g.Key.Kind].Stack - 1) / ChapterContent.Items[g.Key.Kind].Stack) * ChapterContent.Items[g.Key.Kind].Slots);
     private int ReservedSlots(IEnumerable<ChapterItem> stock) => AtBase ? 0 : stock
         .Where(i => State.DepartureInventory.ContainsKey(i.Id)).Sum(i => ChapterContent.Items[i.Kind].Slots);

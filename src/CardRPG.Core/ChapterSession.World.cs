@@ -7,7 +7,7 @@ public sealed partial class ChapterSession
     public bool Depart()
     {
         if (!CanDepart) return Reject("行囊或仓库空间不足：为出征补给及装备返还留出格位。");
-        BeginInventoryRun();
+        BeginReport(); BeginInventoryRun();
         State.Phase = ChapterPhase.Exploring; State.Runs++; State.Health = MaxHealth;
         State.Location = State.Previous = State.Start; State.Pressure = 0;
         State.Run.Clear(); State.Paused.Clear(); State.Battle = null;
@@ -190,6 +190,8 @@ public sealed partial class ChapterSession
     }
     private void Extract()
     {
+        var previouslyRegistered = State.Owned.ToHashSet();
+        BeginReturnReport(true);
         var materialCount = State.Cargo.Sum();
         var left = State.Stock.Count(i => State.Ground.ContainsKey(i.Container) && !i.Registered);
         State.Phase = ChapterPhase.Extracted;
@@ -201,11 +203,13 @@ public sealed partial class ChapterSession
             if (Fits(stock)) CommitStock(stock);
         }
         State.Extractions++;
+        State.LastReport!.NewGear = State.Owned.Except(previouslyRegistered).ToList();
         State.Summary = $"安全带回 {materialCount} 份材料。\n{left} 批未带走物资留在区域，下一趟重置。\n仓库 {WarehouseUsed}/{WarehouseCapacity} 格；随身 {CarryUsed}/{CarryCapacity} 格。仓满余物仍安全随身。";
         FinishRun(ChapterPhase.Extracted); Note(State.Summary);
     }
     private void Defeat()
     {
+        BeginReturnReport(false);
         FinishInventory(false);
         State.Summary = "随身材料、补给、任务物与未登记装备已丢失。\n已登记出发装备按原位置恢复；仓库、救援和永久修复保留。";
         FinishRun(ChapterPhase.Defeated); Note(State.Summary);
@@ -214,6 +218,7 @@ public sealed partial class ChapterSession
     {
         State.Phase = phase; State.DepartureGear.Clear();
         State.Resonance = ""; State.Battle = null; State.Paused.Clear(); State.CrateSupplyHeld = false; State.Warned = false;
+        if (State.LastReport is { BaselineKnown: true } report) report.Changes = State.World.Except(State.DepartureWorld).ToList();
         SyncInventory();
     }
     public bool ReturnToCamp()

@@ -19,15 +19,15 @@ public partial class ChapterGame
     }
     private static Label Text(string value, int size, Color color)
     {
-        size = size <= 14 ? 14 : size <= 17 ? 16 : size <= 21 ? 20 : 28;
+        size = size <= 14 ? 14 : size <= 18 ? (int)Math.Round(size * ReadingScale) : size <= 21 ? 20 : size <= 28 ? 28 : 32;
         var label = new Label { Text = value, AutowrapMode = TextServer.AutowrapMode.WordSmart, MouseFilter = MouseFilterEnum.Ignore };
         label.AddThemeFontSizeOverride("font_size", size); label.AddThemeColorOverride("font_color", color);
-        label.AddThemeFontOverride("font", size >= 20 ? ChapterSkin.TitleFont : ChapterSkin.BodyFont);
+        label.AddThemeFontOverride("font", size >= 28 ? ChapterSkin.TitleFont : ChapterSkin.BodyFont);
         label.AddThemeConstantOverride("line_spacing", 4); return label;
     }
     private static Label Inline(string value, int size, Color color)
     {
-        var label = Text(value, size, color); label.AutowrapMode = TextServer.AutowrapMode.Off; return label;
+        var label = Text(value, size, color); label.AddThemeFontSizeOverride("font_size", Math.Max(14, size)); label.AutowrapMode = TextServer.AutowrapMode.Off; return label;
     }
     private static StyleBoxFlat Style(Color background, Color border, int padding = 12)
     {
@@ -45,6 +45,23 @@ public partial class ChapterGame
         if (border.HasValue) panel.AddThemeStyleboxOverride("panel", Style(background ?? Surface, border.Value));
         return panel;
     }
+    private static PanelContainer FlatPanel(Node parent, int padding = 12)
+    {
+        var panel = new PanelContainer();
+        panel.AddThemeStyleboxOverride("panel", Style(new Color("eee9db"), Outline, padding));
+        parent.AddChild(panel); return panel;
+    }
+    private Button NavigationButton(string id, string caption, bool selected, Action action)
+    {
+        var button = Button(id, caption, action);
+        button.CustomMinimumSize = new Vector2(0, 40);
+        var normal = Style(selected ? new Color("dce2d3") : Colors.Transparent, selected ? Ink : Colors.Transparent, 12);
+        normal.BorderWidthLeft = normal.BorderWidthRight = normal.BorderWidthTop = 0;
+        normal.BorderWidthBottom = selected ? 3 : 0;
+        normal.ContentMarginTop = normal.ContentMarginBottom = 6;
+        button.AddThemeStyleboxOverride("normal", normal);
+        return button;
+    }
     private static VBoxContainer CardBox(Node parent, Color? background = null, int gap = 10)
     {
         var panel = Panel(parent, background); var box = Column(gap); panel.AddChild(box); return box;
@@ -57,7 +74,8 @@ public partial class ChapterGame
     }
     private static VBoxContainer Section(Node parent, float ratio = 1)
     {
-        var panel = ChapterSkin.Panel(parent, "ledger-paper", 12);
+        var panel = new PanelContainer(); parent.AddChild(panel);
+        panel.AddThemeStyleboxOverride("panel", Style(new Color("e7e3d5"), new Color("c1c5b6"), 12));
         panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         panel.SizeFlagsVertical = SizeFlags.ExpandFill;
         panel.SizeFlagsStretchRatio = ratio;
@@ -114,19 +132,15 @@ public partial class ChapterGame
         button.AddThemeColorOverride("font_focus_color", primary ? new Color("f1e7ce") : Ink);
         button.AddThemeColorOverride("font_pressed_color", Ink);
         button.AddThemeColorOverride("font_disabled_color", primary ? new Color("e7dcc2") : new Color("56665b"));
-        StyleBoxTexture Skin(Color? tint = null)
-        {
-            var skin = ChapterSkin.Box(primary ? "brass-button" : "button", 14, tint);
-            skin.ContentMarginTop = skin.ContentMarginBottom = 9; return skin;
-        }
-        button.AddThemeStyleboxOverride("normal", Skin());
-        button.AddThemeStyleboxOverride("hover", Skin(new Color(1.22f, 1.18f, 1.08f)));
-        button.AddThemeStyleboxOverride("pressed", Skin(new Color(.78f, .85f, .8f)));
-        button.AddThemeStyleboxOverride("disabled", Skin(new Color(.55f, .62f, .59f)));
+        button.AddThemeStyleboxOverride("normal", Style(primary ? Accent : new Color("e9e5d8"), primary ? Accent : Outline, 12));
+        button.AddThemeStyleboxOverride("hover", Style(primary ? new Color("aa4935") : new Color("f3f0e5"), Ink, 12));
+        button.AddThemeStyleboxOverride("pressed", Style(primary ? new Color("743222") : new Color("d8dfc7"), Ink, 12));
+        button.AddThemeStyleboxOverride("disabled", Style(new Color("d8d4c4"), new Color("a1a28f"), 12));
+        button.AddThemeColorOverride("font_disabled_color", Muted);
         button.AddThemeColorOverride("font_pressed_color", primary ? new Color("f1e7ce") : Ink);
         var focus = Style(Colors.Transparent, Accent); focus.BorderWidthBottom = focus.BorderWidthLeft = focus.BorderWidthRight = focus.BorderWidthTop = 3;
         button.AddThemeStyleboxOverride("focus", focus);
-        button.Pressed += () => { if (!button.Disabled) action(); };
+        button.Pressed += () => { if (!button.Disabled && !FeedbackBusy) { Cue(primary ? "select" : "click"); action(); } };
         Inspect(button, () => button.TooltipText);
         Buttons[id] = button; return button;
     }

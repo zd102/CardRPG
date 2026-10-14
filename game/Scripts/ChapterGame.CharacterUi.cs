@@ -7,13 +7,43 @@ namespace CardRPG;
 
 public partial class ChapterGame
 {
+    private Button EquipmentTile(string id, string kind, string caption, Action select, bool selected, bool compact = false)
+    {
+        var tile = Button(id, "", select); tile.CustomMinimumSize = new Vector2(0, compact ? 68 : 88); tile.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+        tile.AddThemeStyleboxOverride("normal", Style(selected ? new Color("dce4d1") : new Color("eeeadf"), selected ? Ink : Outline, 8));
+        Control art = kind == "" ? Glyph("bag", Outline, 0) : new ChapterIllustration { Art = ItemArt(kind), Mounted = false, MouseFilter = MouseFilterEnum.Ignore };
+        tile.AddChild(art); Dock(art, 8, 10, compact ? 52 : 64, compact ? 58 : 76);
+        var slot = Inline(caption, 14, Muted); tile.AddChild(slot); Dock(slot, compact ? 60 : 74, compact ? 5 : 10, -8, compact ? 27 : 34, ar: 1);
+        var title = Text(kind == "" ? "未穿戴" : ChapterContent.ItemName(kind), 16, Ink);
+        title.AddThemeFontSizeOverride("font_size", 16); tile.AddChild(title); Dock(title, compact ? 60 : 74, compact ? 29 : 36, -8, compact ? 65 : 78, ar: 1);
+        return tile;
+    }
+
+    private void LoadoutColumn(Node parent)
+    {
+        var panel = FlatPanel(parent, 10); panel.Name = "LoadoutColumn";
+        panel.CustomMinimumSize = new Vector2(Size.X < 1200 ? 208 : 232, 0);
+        var column = Column(8); panel.AddChild(column);
+        column.AddChild(Text("当前穿戴", 20, Ink));
+        var list = Scroll(column);
+        var grid = new GridContainer { Name = "LoadoutSummary", Columns = 1, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        grid.AddThemeConstantOverride("v_separation", 8); list.AddChild(grid);
+        foreach (var slot in new[] { "weapon", "body", "hands", "backpack" })
+        {
+            var kind = Session.Equipped.FirstOrDefault(g => ChapterContent.Gear[g].Slot == slot) ?? "";
+            grid.AddChild(EquipmentTile("wear_" + slot, kind, SlotName(slot), () => { _gearFilter = slot; _selectedGear = kind; if (_panel == "gear") Render(); else OpenNested("gear"); }, _panel == "gear" && _gearFilter == slot, true));
+        }
+        column.AddChild(Inline($"卡组 {Session.Deck().Count} 张", 16, Ink));
+        column.AddChild(Inline($"负重 {Session.CarriedGrams / 1000m:0.##} / 20 kg", 16, Session.Overweight ? Danger : Ink));
+        HealthBar(column, Math.Min(Session.CarriedGrams, ChapterSession.WeightLimitGrams), ChapterSession.WeightLimitGrams, Session.Overweight ? Danger : Success);
+    }
+
     // Children ignore pointer input so the complete tile remains a keyboard-accessible button.
     private Button ItemTile(string id, string kind, string title, string caption, Action select, bool selected, float height = 126)
     {
         var tile = Button(id, "", select);
         tile.CustomMinimumSize = new Vector2(96, height);
-        tile.AddThemeStyleboxOverride("normal", ChapterSkin.Box(selected ? "field-panel" : "ledger-paper", 4));
-        if (selected) tile.AddThemeStyleboxOverride("normal", ChapterSkin.Box("field-panel", 4, new Color("e1edcd")));
+        tile.AddThemeStyleboxOverride("normal", Style(selected ? new Color("dbe5cb") : new Color("ede5cf"), selected ? Ink : Outline, 8));
         tile.TooltipText = title + "\n" + caption;
         if (kind != "")
         {
@@ -24,7 +54,7 @@ public partial class ChapterGame
         {
             var empty = Glyph("lock", Outline, 0); tile.AddChild(empty); Dock(empty, -14, 14, 14, 42, .5f, 0, .5f, 0);
         }
-        var label = Inline(title, 14, Ink); label.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
+        var label = Inline(title, 16, Ink); label.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
         label.HorizontalAlignment = HorizontalAlignment.Center; tile.AddChild(label); Dock(label, 5, -46, -5, -24, ar: 1, at: 1, ab: 1);
         var note = Inline(caption, 14, selected ? Accent : Muted); note.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
         note.HorizontalAlignment = HorizontalAlignment.Center; tile.AddChild(note); Dock(note, 5, -25, -5, -4, ar: 1, at: 1, ab: 1);
@@ -50,63 +80,4 @@ public partial class ChapterGame
         }
     }
 
-    private void CharacterOverview(VBoxContainer box)
-    {
-        var s = Session.State; var battle = s.Battle;
-        var equipment = (battle?.Equipment ?? Session.Equipped.ToList()).ToArray();
-        var cards = battle == null ? Session.Deck() : battle.Hand.Concat(battle.Draw).Concat(battle.Discard).ToList();
-        var context = battle == null ? "当前穿戴构筑" : battle.Id == "trial" ? "台架试用 · 借用构筑" : $"战斗中 · 第 {battle.Round} 回合";
-        box.AddChild(Text(context + "  /  " + (Session.AtBase ? "余火站" : ChapterContent.Places[s.Location].Name), 16, Muted));
-        var columns = Row(16); columns.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(columns);
-        var profileColumn = Section(columns, .88f); var profile = Scroll(profileColumn); profile.AddThemeConstantOverride("separation", 8);
-        var vitals = CardBox(profile, new Color("d4d7bd"), 4);
-        var identity = Row(10); vitals.AddChild(identity); identity.AddChild(Glyph("character", Ink, 28)); identity.AddChild(Inline("远征者", 20, Ink));
-        var health = Row(8); vitals.AddChild(health);
-        var hp = Inline($"{s.Health} / {ChapterSession.MaxHealth}", 28, s.Health <= 14 ? Danger : Ink); hp.Name = "OverviewHealth"; health.AddChild(hp);
-        hp.AddThemeFontOverride("font", ChapterSkin.NumberFont);
-        var healthLabel = Inline("生命", 14, Muted); healthLabel.SizeFlagsVertical = SizeFlags.ShrinkCenter; health.AddChild(healthLabel);
-        HealthBar(vitals, s.Health, ChapterSession.MaxHealth, Success);
-        var resources = new GridContainer { Columns = 2 }; resources.AddThemeConstantOverride("h_separation", 12); resources.AddThemeConstantOverride("v_separation", 12); profile.AddChild(resources);
-        Metric(resources, battle == null ? "每回合行动" : "剩余行动", (battle?.Action ?? 3).ToString(), Ink, "action");
-        Metric(resources, battle == null ? "魔法上限" : "当前魔法", battle == null ? "3" : $"{battle.Mana}/3", Ink, "mana");
-        Metric(resources, "当前护盾", (battle?.Shield ?? 0).ToString(), Ink, "guard");
-        Metric(resources, "随身补给", s.Supplies.ToString(), Ink, "supply");
-        Rule(profile);
-        profile.AddChild(Text("携带状态", 20, Ink)); InventoryStatus(profile);
-        profile.AddChild(Text(battle == null ? "每回合抽 5 张 · 魔法恢复 1" : $"手牌 {battle.Hand.Count} · 抽牌堆 {battle.Draw.Count} · 弃牌堆 {battle.Discard.Count}", 14, Muted));
-        profile.AddChild(Text(s.Resonance switch
-        {
-            "R01" when battle?.Id != "trial" => "余烬护层：每场首回合获得 5 护盾。",
-            "R07" when battle?.Id != "trial" => "厚壁余温：每回合首次单次获得至少 7 护盾，额外获得 2。",
-            _ => "当前无生效共鸣"
-        }, 14, Muted));
-
-        var wearing = Section(columns, .95f); wearing.AddChild(Text(battle == null ? "穿戴装备" : "本场装备", 20, Ink));
-        var board = Scroll(wearing); EquipmentBoard(board, battle?.Id == "trial" && s.Backpack != "" ? equipment.Append(s.Backpack).ToArray() : equipment, "overview", true);
-        board.AddChild(Text(battle?.Id == "trial" ? "试用借装不改变真实穿戴与负重。" : Session.CanEquip ? "点击部位可调整装备。" : "可查看装备；换装需到据点或台架。", 14, Muted));
-        board.AddChild(Button("overview_inventory", "管理随身与仓库 →", () => { _gearFilter = "cargo"; OpenNested("gear"); }));
-
-        var deckColumn = Section(columns, 1.45f);
-        var heading = Text($"完整卡组 · {cards.Count} 张", 20, Ink); heading.Name = "OverviewDeckCount"; deckColumn.AddChild(heading);
-        var deck = Scroll(deckColumn);
-        deck.AddChild(Text(battle == null ? "按卡牌合并副本 · 标注装备来源" : "本场实际副本 · 手牌、抽牌堆与弃牌堆合计", 14, Muted));
-        var grid = new GridContainer { Name = "OverviewDeck", Columns = 2, SizeFlagsHorizontal = SizeFlags.ExpandFill };
-        grid.AddThemeConstantOverride("h_separation", 8); grid.AddThemeConstantOverride("v_separation", 8); deck.AddChild(grid);
-        foreach (var group in cards.GroupBy(id => id).OrderBy(g => g.Key))
-        {
-            var card = ChapterContent.Cards[group.Key];
-            var sources = string.Join("、", equipment.Where(id => (battle?.Id == "trial" ? ChapterContent.Gear[id].Cards : Session.GearCards(id)).Contains(card.Id)).Select(ChapterContent.ItemName));
-            var tile = Button("overview_card_" + card.Id, "", () => { });
-            tile.CustomMinimumSize = new Vector2(130, 244); tile.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-            tile.AddThemeStyleboxOverride("normal", ChapterSkin.Box("ledger-paper", 6));
-            tile.SetMeta("copies", group.Count()); grid.AddChild(tile);
-            var costs = Inline($"{card.Action} 行动 / {card.Mana} 魔法", 14, Muted); tile.AddChild(costs); Dock(costs, 8, 6, -8, 27, ar: 1);
-            var art = new ChapterIllustration { Art = CardArt(card), Mounted = false }; tile.AddChild(art); Dock(art, 15, 31, -15, 85, ar: 1);
-            var title = Inline(card.Name + " ×" + group.Count(), 16, Ink); tile.AddChild(title); Dock(title, 8, 88, -8, 114, ar: 1);
-            var effect = Text(card.Text, 14, Ink); tile.AddChild(effect); Dock(effect, 8, 117, -8, -36, ar: 1, ab: 1);
-            var source = Inline(sources, 14, Accent); source.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
-            tile.AddChild(source); Dock(source, 8, -29, -8, -6, ar: 1, at: 1, ab: 1);
-            tile.TooltipText = card.Name + $" ×{group.Count()} · {card.Action} 行动 / {card.Mana} 魔法\n" + card.Text + "\n来源：" + sources;
-        }
-    }
 }

@@ -6,7 +6,7 @@ namespace CardRPG;
 /// <summary>Generated print surfaces, nine-sliced without stretching their engraved edges.</summary>
 public static class ChapterSkin
 {
-    public static readonly Color PaperInk = new("253d3a"), PaperMuted = new("56665b");
+    public static readonly Color PaperInk = new("253d3a"), PaperMuted = new("4b5b50");
     private static Texture2D? _surfaces, _symbols;
     private static readonly Dictionary<int, Texture2D> Tiles = new();
     private static readonly Dictionary<string, Texture2D> Icons = new();

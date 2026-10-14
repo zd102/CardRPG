@@ -13,16 +13,16 @@ public partial class ChapterGame
         var s = Session.State;
         _hud = new Control { Name = "Hud", MouseFilter = MouseFilterEnum.Ignore };
         _root.AddChild(_hud); _hud.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var plate = ChapterSkin.Panel(_hud, "ledger-paper", 12); plate.Name = "Vitals";
-        Dock(plate, 20, 18, 310, 96);
+        var plate = FlatPanel(_hud, 12); plate.Name = "Vitals";
+        Dock(plate, 20, 18, 310, 82);
         var status = Column(6); plate.AddChild(status);
         var vitals = Row(18); status.AddChild(vitals);
         SymbolValue(vitals, "heart", $"{s.Health}/42", s.Health <= 14 ? Danger : Success, "生命；低于三分之一时需要补给。");
         SymbolValue(vitals, "supply", s.Supplies.ToString(), Ink, "补给；探索中可消耗一份恢复生命。");
         SymbolValue(vitals, "bag", $"{Session.CarryUsed}/{Session.CarryCapacity}", Accent, Session.LoadDescription);
         HealthBar(status, s.Health, 42, s.Health <= 14 ? Danger : Success);
-        var locationPlate = ChapterSkin.Panel(_hud, "ledger-paper", 8); locationPlate.Name = "LocationPlate";
-        Dock(locationPlate, -130, 18, 130, 94, .5f, 0, .5f, 0);
+        var locationPlate = FlatPanel(_hud, 8); locationPlate.Name = "LocationPlate";
+        Dock(locationPlate, -110, 18, 110, 82, .5f, 0, .5f, 0);
         var title = Column(3); locationPlate.AddChild(title);
         var name = Text(s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated ? "余火站" : s.Battle?.Id == "trial" ? "工坊台架" : ChapterContent.Places[s.Location].Name, 20, Ink);
         name.HorizontalAlignment = HorizontalAlignment.Center; title.AddChild(name);
@@ -31,29 +31,27 @@ public partial class ChapterGame
             SymbolValue(location, "home", "安全", Muted, "安全据点；整备、阅读与制作不推进区域压力。", 14);
         else
             SymbolValue(location, "eye", s.Pressure.ToString(), s.Warned ? Danger : Muted, Session.PressureText + "\n" + Session.PatrolText, 14);
-        var menu = Row(6); _hud.AddChild(menu); Dock(menu, -378, 18, -20, 90, al: 1, ar: 1);
+        var menu = Row(6); _hud.AddChild(menu); Dock(menu, -378, 18, -20, 64, al: 1, ar: 1);
         foreach (var item in new[] { ("character", "character", "角色全览 · C", "character"), ("map", "map", "地图 · M", "map"), ("inventory", "bag", "装备与背包 · I", "gear"),
                      ("journal", "journal", "任务与发现 · J", "journal"), ("craft", "craft", "制作与改装", "craft"),
                      ("help", "help", "图标与操作指引 · F1", "help"), ("quit", "close", "保存并退出", "quit") })
         {
             var id = item.Item1; var panel = item.Item4;
-            var button = IconButton(id, item.Item2, item.Item3, () => { if (panel == "quit") RequestQuit(); else Toggle(panel); });
-            button.CustomMinimumSize = new Vector2(46, 72);
-            Dock(button.GetChild<Control>(0), -12, 10, 12, 34, .5f, 0, .5f, 0);
-            var caption = Inline(id switch { "character" => "角色", "map" => "地图", "inventory" => "装备", "journal" => "任务", "craft" => "工坊", "help" => "指引", _ => "退出" }, 14, Ink);
-            caption.HorizontalAlignment = HorizontalAlignment.Center;
-            button.AddChild(caption); Dock(caption, 0, 39, 0, 63, ar: 1);
+            var button = IconButton(id, item.Item2, panel == "quit" ? "暂停与设置 · Esc" : item.Item3, () => Toggle(panel == "quit" ? "system" : panel));
+            button.CustomMinimumSize = new Vector2(46, 46);
+            var ready = ChapterContent.Quests.Count(q => Session.CanTurnIn(q.Id));
+            if (id == "journal" && ready > 0)
+            {
+                var count = Inline(ready.ToString(), 14, Accent); button.AddChild(count); Dock(count, -16, 0, -2, 20, al: 1, ar: 1);
+            }
             menu.AddChild(button);
         }
         if (_panel == "" && s.Phase is ChapterPhase.Camp or ChapterPhase.Exploring)
         {
             var objective = Button("objective", "", () => Toggle("journal")); objective.TooltipText = "当前目标\n" + Session.Objective;
-            _hud.AddChild(objective); Dock(objective, 20, 106, 310, 158);
-            var (place, symbol, step, stages) = ObjectiveState();
+            _hud.AddChild(objective); Dock(objective, 20, 96, 370, 164);
             var strip = Row(9); strip.MouseFilter = MouseFilterEnum.Ignore; objective.AddChild(strip); Dock(strip,12,8,-12,-8,ar:1,ab:1);
-            strip.AddChild(Glyph(symbol, Accent, 24)); strip.AddChild(Inline(place,16,Ink));
-            strip.AddChild(new Control { SizeFlagsHorizontal = SizeFlags.ExpandFill, MouseFilter = MouseFilterEnum.Ignore });
-            for (var i = 0; i < stages.Length; i++) strip.AddChild(Glyph(i < step ? "check" : stages[i], i <= step ? Accent : new Color("768980"), 20));
+            strip.AddChild(Glyph("journal", Accent, 24)); var objectiveCopy = Text(Session.NextObjective,16,Ink); objectiveCopy.AddThemeFontSizeOverride("font_size",16); objectiveCopy.SizeFlagsHorizontal=SizeFlags.ExpandFill; strip.AddChild(objectiveCopy);
         }
     }
 
@@ -69,12 +67,12 @@ public partial class ChapterGame
     {
         var button = new ChapterHotspot
         {
-            Name = id, Caption = label.Split(" · ")[0], TooltipText = label + "\n" + tooltip, Disabled = !enabled, Exit = exit,
+            Name = id, Caption = label, TooltipText = label + "\n" + tooltip, Disabled = !enabled, Exit = exit, ShowLabel = _labels,
             Symbol = PinSymbol(id, exit), Important = id is "act_relay" or "act_clamp" or "act_calibrate" || id == "camp_quests" && Session.CanTurnIn("Q01"),
             Tint = tint ?? (exit ? Success : Accent), FocusMode = FocusModeEnum.All,
             MouseDefaultCursorShape = CursorShape.PointingHand
         };
-        button.Pressed += () => { if (!button.Disabled) action(); };
+        button.Pressed += () => { if (!button.Disabled && !FeedbackBusy) { Cue("click"); action(); } };
         Inspect(button, () => button.TooltipText);
         _root.AddChild(button);
         var world = _root.GetNode<ChapterScene>("World");
@@ -83,20 +81,22 @@ public partial class ChapterGame
             if (world.Size.X <= 0 || world.Size.Y <= 0) return;
             var p = world.ScenePoint(point);
             p.X = Mathf.Clamp(p.X, 90, world.Size.X - 90);
-            p.Y = Mathf.Clamp(p.Y, 210, world.Size.Y - 150);
+            p.Y = Mathf.Clamp(p.Y, 250, world.Size.Y - 150);
             // Keep labels legible at native pixel size when the scene is cropped by a narrow window.
-            var occupied = Buttons.Values.OfType<ChapterHotspot>().Where(other => other != button).Select(other => other.GetRect().Grow(3)).ToArray();
+            var occupied = Buttons.Values.OfType<ChapterHotspot>().Where(other => other != button).Select(other => other.LabelRect().Grow(4)).ToArray();
             var position = p;
-            foreach (var offset in new[] { Vector2.Zero, new Vector2(0, -80), new Vector2(0, 80), new Vector2(-100, 0), new Vector2(100, 0), new Vector2(0, -160), new Vector2(0, 160) })
+            foreach (var offset in new[] { Vector2.Zero, new Vector2(0,-100),new Vector2(0,100),new Vector2(-220,0),new Vector2(220,0),new Vector2(-220,-100),new Vector2(220,-100),new Vector2(-220,100),new Vector2(220,100),new Vector2(0,-200),new Vector2(0,200),new Vector2(-440,0),new Vector2(440,0),new Vector2(-440,-100),new Vector2(440,-100),new Vector2(-440,100),new Vector2(440,100) })
             {
                 var candidate = p + offset;
-                candidate.X = Mathf.Clamp(candidate.X, 90, world.Size.X - 90);
-                candidate.Y = Mathf.Clamp(candidate.Y, 210, world.Size.Y - 150);
-                var rect = new Rect2(candidate - new Vector2(30, 30), new Vector2(60, 84));
+                var half = Math.Max(90, button.Caption.Length * 7 + 14);
+                candidate.X = Mathf.Clamp(candidate.X, half, world.Size.X - half);
+                candidate.Y = Mathf.Clamp(candidate.Y, 250, world.Size.Y - 150);
+                var rect = new Rect2(candidate - new Vector2(half, 30), new Vector2(half*2, 88));
                 if (occupied.Any(other => rect.Intersects(other))) continue;
                 position = candidate; break;
             }
             Dock(button, position.X - 26, position.Y - 26, position.X + 26, position.Y + 26);
+            button.SceneAnchor = p - position + new Vector2(26,26); button.QueueRedraw();
         }
         world.Resized += PositionPin; PositionPin();
         Buttons[id] = button; return button;
@@ -122,64 +122,11 @@ public partial class ChapterGame
         Pin("camp_preparation", "行前整备", new(.89f, .78f), () => Toggle("prepare"),
             "选择装备、背包、带入物与出发地点；检查格位、负重和补给预留。");
         Pin("depart", "出发 · " + ChapterContent.Places[s.Start].Name, new(.79f, .43f),
-            () => Change(Session.Depart), "从" + ChapterContent.Places[s.Start].Name + "出征。" + Session.LoadDescription, enabled: Session.CanDepart, exit: true);
+            () => Toggle("prepare"), "查看最终出发状态，从" + ChapterContent.Places[s.Start].Name + "出征。" + Session.LoadDescription, exit: true);
         if (s.Done.Contains("Q02"))
             Pin("camp_trial", "台架 · 免费试用", new(.35f, .76f), () => Change(Session.StartTrial), "借用检修手套，在不会还击的台架上试牌。可以随时退出。");
         if (s.Done.Contains("S07"))
             Pin("home_robot", "维修偶", new(.52f, .75f), () => { _toast = "小维修偶挥了挥扳手，指向工坊墙后那一抹荧光。"; _toastUntil = Time.GetTicksMsec() + 5000; Render(); }, "它已经在余火站安了家。");
-    }
-
-    private void Preparation(VBoxContainer box)
-    {
-        var s = Session.State;
-        var camp = s.Phase == ChapterPhase.Camp;
-        if (!camp) box.AddChild(Text("回到据点后可调整。", 16, Muted));
-        var page = Scroll(box);
-        var split = Row(18); page.AddChild(split);
-        var loadout = Section(split, 1.1f);
-        loadout.AddChild(Text("随身装备",20,Ink));
-        if (s.Extractions == 0)
-        {
-            var starters = Column(8); loadout.AddChild(starters);
-            foreach (var id in new[] { "G01", "G02" })
-            {
-                var gear = id;
-                starters.AddChild(Button("starter_" + id, (s.Weapon == id ? "已选 · " : "选择 · ") + ChapterContent.Gear[id].Name, () => Change(() => Session.SelectStarter(gear)), camp, s.Weapon == id));
-            }
-        }
-        var equipped = CardBox(loadout);
-        EquipmentBoard(equipped, Session.Equipped.ToArray(), "prepare_slot", true);
-        var counts = Row(20); equipped.AddChild(counts);
-        SymbolValue(counts,"draw",Session.Deck().Count.ToString(),Accent,"卡组");
-        SymbolValue(counts,"bag",$"{Session.CarryUsed}/{Session.CarryCapacity}",Accent,"随身格位；备用没有件数上限");
-        InventoryStatus(loadout);
-        loadout.AddChild(Button("prepare_equipment", "调整装备与备用  →", () => OpenNested("gear")));
-        if (s.StoredItems.Contains("T02") && !s.StoredCalibration)
-            loadout.AddChild(Button("carry_T02", s.CarryItems.Contains("T02") ? "✓ 已携带待校准夹具" : "携带仓库夹具，出征校准", () => Change(() => Session.ToggleCarryItem("T02")), camp));
-        var manifest = Paper(split);
-        var satchel=Illustration(manifest,"satchel",150,130); satchel.SizeFlagsHorizontal=SizeFlags.ExpandFill;
-        manifest.AddChild(Text("出征清单", 24, ChapterSkin.PaperInk));
-        var ready=Row(16); manifest.AddChild(ready);
-        SymbolValue(ready,"heart","42",ChapterSkin.PaperInk,"出发时恢复全部生命");
-        SymbolValue(ready,"supply",s.FreeSupplyAllowance.ToString(),ChapterSkin.PaperInk,"出发时配发，合占一格，剩余本趟结束清除");
-        SymbolValue(ready,"bag",$"{Session.CarryUsed}/{Session.CarryCapacity}",ChapterSkin.PaperInk,"随身格位");
-        manifest.AddChild(Button("free_supplies", s.FreeSupplyAllowance == 2 ? "本趟领两份补给 · 点击不领" : "本趟不领补给 · 点击领两份", () => Change(() => Session.SetFreeSupplies(s.FreeSupplyAllowance == 2 ? 0 : 2)), camp));
-        if (!Session.CanDepart && camp) manifest.AddChild(Text("请整理格位：需容纳出征补给，并为装备返还预留仓库空间。", 16, Danger));
-        Rule(manifest);
-        SymbolValue(manifest,"exit","撤离后入库",ChapterSkin.PaperMuted,"拿到任务物后，随时可以回家。",16);
-        IllustratedMaterials(manifest,s.Bank,ChapterSkin.PaperMuted);
-        Rule(page);
-        page.AddChild(Text("出发地点",20,Ink));
-        var routes = Row(12); page.AddChild(routes);
-        foreach (var id in new[] { "A01", "A05" })
-        {
-            var place = id;
-            routes.AddChild(Button("start_" + id, (s.Start == id ? "● " : "") + ChapterContent.Places[id].Name,
-                () => Change(() => Session.SetStart(place)), camp && (id == "A01" || s.Done.Contains("S01")), s.Start == id));
-        }
-        box.AddChild(Button("prepare_depart", camp ? "从" + ChapterContent.Places[s.Start].Name + "出发  →" : "返回据点后出发",
-            () => { _panel = ""; _panelHistory.Clear(); Change(Session.Depart); }, camp && Session.CanDepart, true));
-        if (Session.SliceComplete) page.AddChild(Text("外环主线已完成。仍可回访、试装和发现支线；水务区尚未开放。", 15, Success));
     }
 
     private static readonly Dictionary<string, (Vector2 Point, string Label)> ActionPins = new()
@@ -230,7 +177,10 @@ public partial class ChapterGame
             // The square's workshop exit occupies the patrol's usual position.
             if (action.Id == "K09" && s.Location == "A02") point = new Vector2(.70f, .25f);
             if (action.Id == "crate" && s.Run.Contains("crate-start")) label = "继续开箱 · 2/2";
-            Pin("act_" + action.Id, label, point, () => Change(() => Session.Act(action.Id)),
+            if (action.Id is "relay" or "clamp") label = "拿取" + label;
+            if (action.Id is "K01" or "K02" or "E13") label = "迎战" + label;
+            if (action.Id != "extract") label += " · +" + Session.SceneActionCost(action.Id == "crate" ? 2 : 1);
+            Pin("act_" + action.Id, label, point, () => ExploreAction(action.Id),
                 action.Name + "\n" + action.Description, action.Enabled, action.Id == "extract",
                 action.Id is "K01" or "K02" or "K09" or "E13" ? Danger : null);
         }
@@ -244,7 +194,7 @@ public partial class ChapterGame
         }
         if (Session.GroundHere.Any())
             Pin("field_loot", "查看遗留物", new(.66f,.85f), () => { _gearFilter = "cargo"; Toggle("gear"); }, "本地点已发现的物品仍在原位。打开行囊选择拾取。");
-        var load = ChapterSkin.Panel(_hud!, padding: 8); Dock(load, 20, 166, 360, 206);
+        var load = ChapterSkin.Panel(_hud!, padding: 8); Dock(load, 20, 188, 416, 232);
         load.AddChild(Text($"{Session.CarriedGrams / 1000m:0.##}/20 kg" + (Session.Overweight ? " · 超重，行动值 ×2" : " · 负重正常"), 16, Session.Overweight ? Danger : Ink));
         var nearest = Session.NearestExit();
         var escape = ChapterSkin.Panel(_hud!, padding: 10); Dock(escape,20,-66,285,-20,at:1,ab:1);
@@ -259,7 +209,8 @@ public partial class ChapterGame
     private void Toast()
     {
         var toast = ChapterSkin.Panel(_root, padding: 14); toast.Name = "TransientNotice"; toast.MouseFilter = MouseFilterEnum.Ignore;
-        Dock(toast, -260, -120, 260, -16, .5f, 1, .5f, 1);
+        var left = Mathf.Max(304,(Size.X-620)/2);
+        Dock(toast,left,-94,Mathf.Min(Size.X-24,left+620),-16,at:1,ab:1);
         var label = Text(_toast.Replace("\n", "  "), 14, Ink); label.MaxLinesVisible = 2; label.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
         toast.AddChild(label);
         var remaining = Math.Max(.1, (_toastUntil - Time.GetTicksMsec()) / 1000.0);
@@ -267,19 +218,4 @@ public partial class ChapterGame
         tween.TweenProperty(toast, "modulate:a", 0f, .2); tween.TweenCallback(Callable.From(toast.QueueFree));
     }
 
-    private void Debrief()
-    {
-        var s = Session.State; var ok = s.Phase == ChapterPhase.Extracted;
-        var body = Overlay(ok ? "撤离成功" : "紧急回收");
-        Buttons["close_panel"].Visible = false;
-        var box = Scroll(body);
-        Eyebrow(box, ok ? "WELCOME HOME / 余火未熄" : "ANOTHER DAWN / 下一程", ok ? Success : Danger);
-        box.AddChild(Text(ok ? "带着收获，归来。" : "灯还亮着。", 36, Ink));
-        var report = Paper(box); report.AddChild(Text(s.Summary, 20, ChapterSkin.PaperInk));
-        var souvenirs=Row(20); report.AddChild(souvenirs); Illustration(souvenirs,ok?"satchel":"repair-robot",130,130);
-        var cargo=FlexibleColumn(souvenirs); cargo.AddChild(Text("仓库结余",20,Ink)); IllustratedMaterials(cargo,s.Bank);
-        report.AddChild(Text($"已登记装备 {s.Owned.Count} 件 · 成功撤离 {s.Extractions} 次", 16, ChapterSkin.PaperMuted));
-        var home = Button("camp", "回到余火站  →", () => Change(Session.ReturnToCamp), true, true); body.AddChild(home);
-        FocusLater(home);
-    }
 }

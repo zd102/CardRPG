@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace CardRPG;
 
@@ -10,6 +11,13 @@ public partial class ChapterHotspot : Button
     public string Symbol { get; set; } = "loot";
     public string Caption { get; set; } = "";
     public bool Important { get; set; }
+    public bool ShowLabel { get; set; }
+    public Vector2 SceneAnchor { get; set; } = new(26,26);
+    public Rect2 LabelRect()
+    {
+        var width = Math.Max(60, GetThemeDefaultFont().GetStringSize(Caption, fontSize:14).X + 16);
+        return new Rect2(Position + new Vector2((Size.X-width)/2,-3), new Vector2(width,88));
+    }
     public override string _GetTooltip(Vector2 atPosition) => "";
     public override void _Ready()
     {
@@ -25,6 +33,7 @@ public partial class ChapterHotspot : Button
     {
         var active = IsHovered() || HasFocus(); var color = Disabled ? new Color("89958d") : Tint;
         var center = Size / 2;
+        if (SceneAnchor.DistanceTo(center) > 12) { DrawLine(center,SceneAnchor,new Color("f1e7ce"),3,true); DrawCircle(SceneAnchor,3,color); }
         if (Exit)
         {
             Vector2[] points = [center+new Vector2(0,-26), center+new Vector2(26,0), center+new Vector2(0,26), center+new Vector2(-26,0), center+new Vector2(0,-26)];
@@ -33,7 +42,7 @@ public partial class ChapterHotspot : Button
         else { DrawCircle(center,24,new Color("f1e7ce")); DrawArc(center,24,0,Mathf.Tau,32,color,active ? 3 : 2); }
         if (Important) DrawCircle(new Vector2(Size.X-3,3),5,new Color("ead3a0"));
         if (Disabled) DrawLine(center+new Vector2(-13,13),center+new Vector2(13,-13),color,2);
-        if (!active && !Important && !Exit) return;
+        if (!active && !Important && !Exit && !ShowLabel) return;
         var font = GetThemeDefaultFont(); var width = font.GetStringSize(Caption,fontSize:14).X;
         DrawRect(new Rect2((Size.X-width)/2-8,Size.Y+5,width+16,26),new Color("f1e7ce"));
         DrawString(font,new Vector2((Size.X-width)/2,Size.Y+24),Caption,fontSize:14,modulate:color);
