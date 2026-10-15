@@ -1,0 +1,14 @@
+{
+  "status": "blocked_by_automatic_approval_review",
+  "reason": "blocked by policy",
+  "retained_temporary_directories": [
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\artifacts\\ui-implementation-20261015-headless",
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\artifacts\\ui-implementation-20261015-captures",
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\artifacts\\ui-implementation-20261015-management",
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\artifacts\\ui-implementation-20261015-package-headless",
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\artifacts\\ui-implementation-20261015-package-captures"
+  ],
+  "retained_capture_and_log_bytes": 81975458,
+  "previous_audit_artifacts_untouched": true,
+  "deliverable": "artifacts/Expedition-UI-20261015/CardRPG-Expedition.exe"
+}

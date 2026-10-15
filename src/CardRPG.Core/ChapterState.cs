@@ -1,6 +1,16 @@
 namespace CardRPG.Core;
 
 public enum ChapterPhase { Camp, Exploring, Battle, Extracted, Defeated }
+public sealed class ChapterPreparationPreset
+{
+    public string Name { get; set; } = "";
+    public Dictionary<string, string> Equipment { get; set; } = [];
+    public Dictionary<string, string> Mods { get; set; } = [];
+    public Dictionary<string, int> Carry { get; set; } = [];
+    public int FreeSupplies { get; set; }
+}
+public sealed record ChapterLogEntry(long Id, string Type, string Text, string Place, int Run, int Pressure, int Round);
+public sealed record ChapterQuestReceipt(Dictionary<string, int> Gained, Dictionary<string, int> Consumed);
 public sealed class ChapterItem
 {
     public long Id { get; set; }
@@ -11,6 +21,7 @@ public sealed class ChapterItem
     public bool Registered { get; set; }
     public bool Calibrated { get; set; }
     public bool FreeSupply { get; set; }
+    public bool KeepOnPerson { get; set; }
     public ChapterItem Copy() => (ChapterItem)MemberwiseClone();
 }
 public sealed class ChapterGround
@@ -51,6 +62,16 @@ public sealed class ChapterBattle
 }
 public sealed class ChapterState
 {
+    public Dictionary<string, int> CarryQuotas { get; set; } = [];
+    public HashSet<string> RecipePlan { get; set; } = [];
+    public bool ReservePlanMaterials { get; set; }
+    public string TrackedQuest { get; set; } = "";
+    public List<ChapterPreparationPreset> PreparationPresets { get; set; } = [];
+    public ChapterPreparationPreset? LastPreparation { get; set; }
+    public List<ChapterLogEntry> Events { get; set; } = [];
+    public long NextLogId { get; set; } = 1;
+    public List<ChapterRunReport> ReportHistory { get; set; } = [];
+    public Dictionary<string, ChapterQuestReceipt> QuestReceipts { get; set; } = [];
     public ChapterRunReport? LastReport { get; set; }
     public Dictionary<string, int> DepartureQuantities { get; set; } = [];
     public HashSet<string> DepartureWorld { get; set; } = [];

@@ -1,0 +1,677 @@
+[
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/01-camp.png",
+    "sha256": "50438831647593103f64332dc4afe2d4333a8247099b71da139a4ff34ad51656",
+    "bytes": 1673755
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/01-help.png",
+    "sha256": "1ca2b0bcadc27beba671a6e50a1656d019770b8a8064eac88abbecb35018ef22",
+    "bytes": 492514
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/01-preparation.png",
+    "sha256": "d8b26a20475c7575a96e8edab5ae88ae0c7f99fce729ef3cd350ad53ee88396e",
+    "bytes": 393912
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/02-gate.png",
+    "sha256": "3a0ef9b0689a1e0972ad0e4797854d4500c4684427a914b177e4238d17d940b0",
+    "bytes": 1656893
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/02-map.png",
+    "sha256": "9723066904f6c931f34b6e8139c438a929ed3890c598eeedfbeec659f3d75b60",
+    "bytes": 505592
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/03-scrap-rescued.png",
+    "sha256": "cb5750203527571fe4cd5e3863d923a556eb5ad13f1048dfcd34f96261664469",
+    "bytes": 617128
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/03-scrap.png",
+    "sha256": "0995227bfd4f2c0199f093a6810e2daa7d97ef920b5adcf85fdd452f411eb949",
+    "bytes": 1595854
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/04-battle.png",
+    "sha256": "c12191be0187bb4f274d94a0d00e42bedaff5342255ec51c191ade6927a37bc2",
+    "bytes": 1253976
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/04-card-inspection.png",
+    "sha256": "6f6fc95609c5c6b78ec1d9a2f1d832430fb37498a1efc9a888e89bce8d082ceb",
+    "bytes": 1091809
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/04-workshop-dark.png",
+    "sha256": "5fbb93ad9f628d93ace593419fead27affacb2d74422933db99e9e090de12994",
+    "bytes": 1470343
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/04-workshop.png",
+    "sha256": "6d83af3af175c9a66b20bb2cae91c8f0e9ada4c2285f5800d6c280edb3265617",
+    "bytes": 1563610
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/05-hidden-room.png",
+    "sha256": "a6b2e6b7d27d9c0b73dc8de81310f8cec5364e5e7799877e2bf87bce81f77370",
+    "bytes": 1397977
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/05-square.png",
+    "sha256": "977a3548df85c0eb2992393eb23589b9f6a60bb01d3bde853f4e9be17c9efa87",
+    "bytes": 1546059
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/06-extraction.png",
+    "sha256": "2b65e38f1425016cc353c22e9620c8f66ef7313e2e3e6f86fe2dab22bbf2f7c3",
+    "bytes": 491362
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/07-lit-home.png",
+    "sha256": "170074b37b580a01ae58c6e16bef1c0125345e897ce8b6e6ef4ac7401eb1694c",
+    "bytes": 1463742
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/07-station-powered.png",
+    "sha256": "8b9ff0e9c8bca4f784f0653d3c0651da832c520315dd477e4df3bc4957a61899",
+    "bytes": 648920
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/07-station.png",
+    "sha256": "c5426290b8869500995a9ae607f7209853c5598d363a1d46a99e49475a3bb6fa",
+    "bytes": 1651633
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/08-trial.png",
+    "sha256": "37f8d523c19ea153a17e92a40f4e06f4c746698a378aeee9f205497ce8232df7",
+    "bytes": 1179171
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/09-crafting.png",
+    "sha256": "fa7f74fbc5edb31944cd1a93a429ea685c66794cd4613624c49cae1e4d7f8c92",
+    "bytes": 176814
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/10-equipment.png",
+    "sha256": "82d7f02efe2061e6c66bc604b0e91d6168c308b441a0b34b3406db127db777cc",
+    "bytes": 207118
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/11-lived-in-home.png",
+    "sha256": "bd48232a363ff6162a8e558b75373a113e0cffacf481f726bcbb7110c8ea87c5",
+    "bytes": 1473177
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/11-train-choices.png",
+    "sha256": "6e59df92f10e9a83a7e5c617f009582bdfc320515c0febd1337f365157c71a3f",
+    "bytes": 1625752
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/11-train.png",
+    "sha256": "e3edb85432b5c7cf7f2e749c2cd0fb3d8e53a2b41ba83fa18f951b2b65c354ad",
+    "bytes": 1625131
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-camp.png",
+    "sha256": "3d9049c0dd5a52538bec00d1877a94bdc9300683d3c33d77fd6919d50077ef34",
+    "bytes": 1191712
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-cargo.png",
+    "sha256": "438c0ecee1c5c86077def16b5f4008258b25506bb1cc54be4eda04c0bf1da178",
+    "bytes": 189751
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-character.png",
+    "sha256": "a6cf78303cbf0af78f0867258c2a503304b01cfa511ae1cd4ec37a4ae3d0d56b",
+    "bytes": 194195
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-crafting.png",
+    "sha256": "661004afa563161bbbbacfac8569055259531e1ac83cf0400bfde575aa25dd50",
+    "bytes": 168474
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-equipment-detail.png",
+    "sha256": "dcc4641fe58238d5a2e9985a7facffc5f1d4ac77902e44e6667b6ec0ede46f76",
+    "bytes": 183990
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-exploration.png",
+    "sha256": "b6649d297a3e63a58a7c016d764e26aa1b01273d4e22b8bfb8acb469fcfbcfc6",
+    "bytes": 1250375
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-extra-cards.png",
+    "sha256": "76113db5a51273ae8ef8d024ddbdb76d5c43aa126c7f621ae34d88b5c3445933",
+    "bytes": 702294
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-journal.png",
+    "sha256": "3a77d3ba410042f5155dad4a98483f8ae8b63991977e56d0512f8255e8bf0d65",
+    "bytes": 135812
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-map.png",
+    "sha256": "10cb6090c0f8f7f2031efbe6217191a9cf81099fa06b34e5d2f9c7593b4c475c",
+    "bytes": 476117
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-mods.png",
+    "sha256": "984ee6d8ce663cffdd1c0bcd902ff8913321482964d9da104ecdb4864ee31bee",
+    "bytes": 178344
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-patrol-warning.png",
+    "sha256": "99cef42e279bdbe9f9d7a50905fdf14e4a9130a6edac0af9c0feeb8d10852894",
+    "bytes": 1273071
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-preparation.png",
+    "sha256": "b802a9f6a74ed7f9404532f00ba286ec6fe7715f5c9df56bd832384fcb6808d9",
+    "bytes": 335694
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-route-map.png",
+    "sha256": "ea54d4c13b8cd2163a0827f72bcc8b4c4e8f0a026accb357c13979b6a52e53e8",
+    "bytes": 481452
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1100-three-enemies.png",
+    "sha256": "2287d76152e9d056d9e6b7565a93c033e0b18aab3e39644205a047c9d36147e6",
+    "bytes": 904654
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/12-journal.png",
+    "sha256": "07b99d112a0a22ee9c0249cc7c500b1281e5226bad17d3b426c039db068de528",
+    "bytes": 143313
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-cargo.png",
+    "sha256": "6e2010174fcc4525253b0684e7467b724eab6c1c339a46484448d3f9a6f47160",
+    "bytes": 204801
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-character.png",
+    "sha256": "6cc3c86c9cb21c3961423972d237ecf26ddf3f5cd19a974d1c92f9008f2e947e",
+    "bytes": 202163
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-crafting.png",
+    "sha256": "64714e0220dcca65ebfad2dccea4a0c4a50db49d46e0d7d9edbb593bb9442518",
+    "bytes": 179033
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-equipment-detail.png",
+    "sha256": "847e8f807b5180fe339ba9173ace4cf520ec155defe11a19a6bb00cbfb1b5204",
+    "bytes": 200956
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-journal.png",
+    "sha256": "281a78f78ec55cc72fd52ab6c6724aaacf3848814e99fbea6ccd46b04b180f3f",
+    "bytes": 139203
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-mods.png",
+    "sha256": "fbf03d44d206d78deb19f66669bf40d3d833be99433dbfbd23c4d9095c074e2a",
+    "bytes": 190260
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-patrol-warning.png",
+    "sha256": "3fd78a9e11701abfe32aa43c84e927b6e787a07fff91c61cf7bc3f7ee4e72e50",
+    "bytes": 1563139
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-preparation.png",
+    "sha256": "747a89964dc480f3f16e58847fffc98d075d856573b0865ca9ef65c2f1b9f010",
+    "bytes": 370789
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-route-map.png",
+    "sha256": "8d311325b701d57ec1088d32e94457b31ee57a9fbab01aaac9eb08b44f651b23",
+    "bytes": 535370
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1280-three-enemies.png",
+    "sha256": "23a0e8bf05e4b7fa123749099930fe6cca094b16b1871a46a6672578efe79e03",
+    "bytes": 1176781
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/13-patrol.png",
+    "sha256": "7e58f3114025a92cdb76dc0f4d784449703ff8cc6c8701f611d2913dac4bf6b2",
+    "bytes": 1227684
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/14-defeated.png",
+    "sha256": "032043b9d03a20a183ae5e67d1ac3fdf64a57237acc11bec905a7a2f9f498099",
+    "bytes": 503405
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/15-unavailable-card.png",
+    "sha256": "f38e67f7be39e7865e26d62b30cbd182b8262f6e048a5a5cc7637de85b9fc990",
+    "bytes": 781886
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-camp.png",
+    "sha256": "9d73a4374e71711f1e5289c1cc4018b1fdc200ba8aab06546084cfd3220bee57",
+    "bytes": 2148681
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-cargo.png",
+    "sha256": "2b79031cb657fbf3069ac63255242e7c1c418df58c0969d32e1db88d19121a57",
+    "bytes": 237895
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-character.png",
+    "sha256": "269d22f018ede9670669e47a84cd86becada510e9d7d1bd3215aef36be40d96e",
+    "bytes": 224945
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-crafting.png",
+    "sha256": "6319bc55a47f8d4aaec421f9ffc47e43f8d1f1e0cea53cc5d70dc82913d1c29f",
+    "bytes": 199984
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-equipment-detail.png",
+    "sha256": "01b164e83ff5330f9545171601420dfa856f5554ebdedcbeb016d65c547585c2",
+    "bytes": 217831
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-exploration.png",
+    "sha256": "49586d60b66e687e7160f437a933e21304e808518b342505be953c1f245899df",
+    "bytes": 2080460
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-extra-cards.png",
+    "sha256": "9fe4562eb9b0c37af4782fe2aa4989fdaac1bacb65d412e17e903552dff3e3ed",
+    "bytes": 1472323
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-journal.png",
+    "sha256": "b42738c85992d96ae72439c8903ff1d54c53bd0ae8045686443b42d5af00b32d",
+    "bytes": 150070
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-map.png",
+    "sha256": "6ef258b638adb28c3135be87a771711ddc33525809d016f469822375d91d6cbf",
+    "bytes": 659234
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-mods.png",
+    "sha256": "c82cf89aa1379e97554fbaad281fd706d99c4fea24858b8fcc6bdfcc296c5e0d",
+    "bytes": 207752
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-patrol-warning.png",
+    "sha256": "e617ea4facd14bb3bd0b62e2225bf92611f6fde88a47fba559d635a6e7f64b45",
+    "bytes": 2108669
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-preparation.png",
+    "sha256": "2ee8d3c877661571f624e155d28d88a57a1b4287e9085ad8bb179dcf0876563b",
+    "bytes": 487782
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-route-map.png",
+    "sha256": "d1008b8fe981c3e0861871046c5cb94626f31ba309d90b94a88af921712c0204",
+    "bytes": 661290
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/1600-three-enemies.png",
+    "sha256": "dce68aa258b88097c7df31ba1c73c9d1f1128f036f0f408599443af488b0dce6",
+    "bytes": 1719400
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/chapter-cover.png",
+    "sha256": "9d73a4374e71711f1e5289c1cc4018b1fdc200ba8aab06546084cfd3220bee57",
+    "bytes": 2148681
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/character-battle.png",
+    "sha256": "b8a723c146af2d9e15261702e34d049a5cd6e4f653dd5936a6a30b76152abd8c",
+    "bytes": 198522
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/inventory-backpack-crafting.png",
+    "sha256": "f4c6592b00c4270c82b8f98de450d1a02f5c25cd583d62b823e8c425c2d93246",
+    "bytes": 169983
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/inventory-full-pockets.png",
+    "sha256": "554121aa4cc81fec35cdfda4248794bdd1faae7605b7628b95e5f80c106a1854",
+    "bytes": 192152
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/inventory-ground-return.png",
+    "sha256": "1ab1d81ed1ee72d8b86b5989e3d474aa12cb7849b5f335f6f40c8a14858c9a55",
+    "bytes": 196092
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/inventory-overweight.png",
+    "sha256": "76df53dbe263880c4f1b859885785a67f1316b39101fe80dda809d1acb5c3185",
+    "bytes": 1221080
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/inventory-three-backups.png",
+    "sha256": "ef18587ace58a89032aa1a6973e89c60007cdc572f8e967b9b68f3a038c2d1bb",
+    "bytes": 201058
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/inventory-warehouse.png",
+    "sha256": "dd35b940973e7337e4e3d12c46627d7ca0fa69d2f488eba47f99d082e255a45d",
+    "bytes": 199481
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-bag-comparison.png",
+    "sha256": "b29f457ffc2d4fa0c0ffd7dd49a2dc9156bfcda96005225f4075023b0f7e7805",
+    "bytes": 171463
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-context-menu.png",
+    "sha256": "9996e333a430fa672e981d619323e390cc4fe10b1b4d8da345a168813e0c3605",
+    "bytes": 198644
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-drag-result.png",
+    "sha256": "be7254d9f1cb360b20a73d2cbb64c5be6634580d2043cede33228e1195ecd09c",
+    "bytes": 201942
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-material-plan.png",
+    "sha256": "1123038874f0f6163808bf8c1e6f0e0f6bc6a41e887f60a2adb35cbceebe981e",
+    "bytes": 145609
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-modifications.png",
+    "sha256": "8808c649889fda618b7e70b87bef9640dae90f09b766b295937edf7143d1e8c0",
+    "bytes": 192755
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-preset-preview.png",
+    "sha256": "5e47d9577fdf394802106556c3990cfcff2a4554a98513726262ff56f6d05f09",
+    "bytes": 612053
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-storage.png",
+    "sha256": "a8bceac65cfb71c94be5ca6145ad70a4f7be33469d5ad8ac93ede8553ecd0ea5",
+    "bytes": 207847
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-structured-log.png",
+    "sha256": "9f019aa253b580011fbd11ef3200c6cb37f385f68fc7f69b493e8f1283604523",
+    "bytes": 149028
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/management-supply-quantity.png",
+    "sha256": "2888af25190a5fe70251e5f3c3bff999445a6a0e7e44c8561b327c5748739ea8",
+    "bytes": 152261
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-100-comparison.png",
+    "sha256": "0942d75e55bcb39dd274da0141ee3aae3b6d246a808dc8241205ad66c39b7e39",
+    "bytes": 202097
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-100-prepare.png",
+    "sha256": "e26c5e53e468a06a409380c19f64ef29403cf7fdb2def496f47b14d634e6bbb4",
+    "bytes": 335652
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-100-recipe.png",
+    "sha256": "46b4f161bcd38b3ee4fb52269aa4a844f6e7ce6200d976713cee9ac41da808f2",
+    "bytes": 168446
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-100-storage.png",
+    "sha256": "438c0ecee1c5c86077def16b5f4008258b25506bb1cc54be4eda04c0bf1da178",
+    "bytes": 189751
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-125-comparison.png",
+    "sha256": "4c70be7a0b6b983af9b051ef19e8479c7c8e4f525a8f8754df7cbe621936d141",
+    "bytes": 212125
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-125-prepare.png",
+    "sha256": "b81b428521a579c170e16fa87e9fce25d03eb3d169e153700d95409b5fefeb4d",
+    "bytes": 343233
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-125-recipe.png",
+    "sha256": "eba24e30981170fc87b747400c2d56365ea6fd64190377756f03c2770a3e9932",
+    "bytes": 173486
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-125-storage.png",
+    "sha256": "5485ae3247212830701e09cc90aad2b404dd5fbbbff9e319c776ea0309dcc5aa",
+    "bytes": 201841
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-150-comparison.png",
+    "sha256": "b1568c00a0a0159274b2b6be4bae8b08cdf03493f18db7d85fa0333469990b48",
+    "bytes": 219666
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-150-prepare.png",
+    "sha256": "3ffbde57ced250a3eb8a4df14f69e1ab65ea02c234709868d1ed2975ddb7580d",
+    "bytes": 349465
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-150-recipe.png",
+    "sha256": "17e13a9ac766a2f776d4af5744506a11ac647aae09337adf39bf29a0f7b49c8e",
+    "bytes": 174937
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-150-storage.png",
+    "sha256": "67411a5ac6d7ca715eebfea096f19c7786653d97a37a5b55ed943c1afcbc58ab",
+    "bytes": 216861
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1100-labels.png",
+    "sha256": "cf74203449753b617ee35c7bce8eb56817c18d3a9e4940600c685b610b977090",
+    "bytes": 1311039
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-100-comparison.png",
+    "sha256": "1d3ba2bfe29aef2f98555882755eec1dfaeb5b713e48f136f2929aea56f816f4",
+    "bytes": 211772
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-100-prepare.png",
+    "sha256": "628ca5358c3360c9f3e5fa8bb3a50534a02d36e8b2644652f34a1ad4f10d84e8",
+    "bytes": 370740
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-100-recipe.png",
+    "sha256": "cf91dd25f84ad71f1a8e47f249bf88af41ff1f6808dbc45687035820feac6482",
+    "bytes": 179013
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-100-storage.png",
+    "sha256": "6e2010174fcc4525253b0684e7467b724eab6c1c339a46484448d3f9a6f47160",
+    "bytes": 204801
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-125-comparison.png",
+    "sha256": "f48ea6593868104d28d4cd79e6ff5ed2a83a9ab1636cf39283240cd95401ae50",
+    "bytes": 220252
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-125-prepare.png",
+    "sha256": "7a9580289c638b2a81572482d8c4cd75685c2c9a2aad59ce6e94168c6774dbf6",
+    "bytes": 379775
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-125-recipe.png",
+    "sha256": "e575658e455b4f533f3d50ef17786ed6b10479d408fc7874f3f6396f7b9b7e65",
+    "bytes": 183746
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-125-storage.png",
+    "sha256": "4e876d2ddfe5463aacad7a0a1539de824c44789279067a85433659f1aed003ef",
+    "bytes": 208551
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-150-comparison.png",
+    "sha256": "7dc7c55bfa82a308c7d49e356a228b43d043df28c33829d9c90c6b9dbaa95b8b",
+    "bytes": 232202
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-150-prepare.png",
+    "sha256": "572bc3d83d249775ddafa938699be4c6885d6c237d285521fb43784397aee77a",
+    "bytes": 386596
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-150-recipe.png",
+    "sha256": "195d10fe1ef7488f69a1894382cd9a6f0a8de3bc82afb42c3f6f406b7c7dde41",
+    "bytes": 184458
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-150-storage.png",
+    "sha256": "102ba7c41a1a10a06511151887c60d456c7ce64c90e0cae8085bfff741a1b4ca",
+    "bytes": 227432
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1280-labels.png",
+    "sha256": "a9e0710f7221e06d963bea974a41e9624d7e46c80061336b749c51205bebc887",
+    "bytes": 1617874
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-100-comparison.png",
+    "sha256": "8b74df64eb995e738d65a2fa2746f8637a53d85cf05447479a6073bfd1d9c30b",
+    "bytes": 239863
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-100-prepare.png",
+    "sha256": "59731a9346c7ef2b526d37aa536de5e424096cbad6bd6c883c4c3cab238f8e2a",
+    "bytes": 487720
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-100-recipe.png",
+    "sha256": "ca9439083eb5a3f26198dfd3436ec4d5c56591c6b3d80d7f0bfbb6252554e1f5",
+    "bytes": 199964
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-100-storage.png",
+    "sha256": "2b79031cb657fbf3069ac63255242e7c1c418df58c0969d32e1db88d19121a57",
+    "bytes": 237895
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-125-comparison.png",
+    "sha256": "cff816fbf421dc52ea10f3d3fbd21752cfb3fda9bb85870228da71473707fc3b",
+    "bytes": 249212
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-125-prepare.png",
+    "sha256": "65776ebec409c152db6d72a8d8a1f93e3f46c305d1ee09973b95efae808b26c0",
+    "bytes": 495455
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-125-recipe.png",
+    "sha256": "fcd083877762783f15d04782598e5a7fb06fbdfc950d7704ea85631465f3d5bc",
+    "bytes": 211672
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-125-storage.png",
+    "sha256": "bbba48ffd8d8ba3383d9265ffbcb1d1df2620ac684ff915c737c21443b47f40a",
+    "bytes": 251266
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-150-comparison.png",
+    "sha256": "fbd7fc4ea8361d8b170d222bb78e5556c8bc6127074e0c251cc8709dbd4a39bb",
+    "bytes": 257714
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-150-prepare.png",
+    "sha256": "a020c551b3a5376a9450d720178eae6c5d63683068a7edf6f1ba65468c50b6bd",
+    "bytes": 503537
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-150-recipe.png",
+    "sha256": "676b657a9f4615ae5c5793521e9b95fbc7735c0e8aa7598168629c63a7add6d1",
+    "bytes": 219507
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-150-storage.png",
+    "sha256": "1746dafc5a14bf82f417d6611edbcf1462bf2310601764e84c49a9adaf4f753f",
+    "bytes": 259473
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-1600-labels.png",
+    "sha256": "f205aaf825c9b7aaccd38f737eaf59610dafa5505cc11fb36f60c56f54fe0661",
+    "bytes": 2194629
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-card-preview.png",
+    "sha256": "d870debdc8922126ca5972a39e1249f6d0c50cebd8c2ddeeac86861688730e38",
+    "bytes": 1059539
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-lethal-retreat.png",
+    "sha256": "1dfe8dacf5c61937dda1fc10ab319c8aca020834458620d3c1c938df678d9c77",
+    "bytes": 812879
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-save-failure.png",
+    "sha256": "ae022ad479ffa00974b8f10a6f9bfa6a2ee9ebf9cda04844d4ec80e04e261746",
+    "bytes": 368411
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-captures/rework-train-choice.png",
+    "sha256": "8e8bfe4850c1c1685294467543931c332537607d69088a09be64afef599daae8",
+    "bytes": 683972
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-bag-comparison.png",
+    "sha256": "23bc913e2a061b575eee5ad9b721220dd83e300e95a1b74a48204efc277c34db",
+    "bytes": 169085
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-context-menu.png",
+    "sha256": "86c6b6fd0452b6470c16baa0040eccb14c61ae5be9247e336de1bbd27e3b3e87",
+    "bytes": 214817
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-drag-result.png",
+    "sha256": "e732caf6880760ee719fd7a5ea3e75969d6a5ebdc0f9246c6d7cc16d858ddd81",
+    "bytes": 217308
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-large-type.png",
+    "sha256": "da09f6dee34c3fe65c22eeabfee9cfdc43ca485586ae870b4aad5b5d7d9d980b",
+    "bytes": 202111
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-material-plan.png",
+    "sha256": "829bdb72d6651f73da4c9c831de5ce130af2cb12158023d826b806793b784ae2",
+    "bytes": 146140
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-modifications.png",
+    "sha256": "871f06c46de72f16d43171cf71aefc138ef2a09b2c0386a77c5c94f6f3e18e74",
+    "bytes": 199949
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-preset-preview.png",
+    "sha256": "f9c181bbdf44829282d3f695f230ca48ea4d230cea975091ccb3841daaf71b44",
+    "bytes": 609593
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-storage.png",
+    "sha256": "e7ef06648763908ac24ab50cead9134c988a807034d6f2d73ef2fbf881c03385",
+    "bytes": 223607
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-structured-log.png",
+    "sha256": "740193c55a5f6ef148c4f55e90c5a0850ffb7fdf8b8a22308af322dfb65e388c",
+    "bytes": 126051
+  },
+  {
+    "path": "artifacts/ui-implementation-20261015-package-captures/management-supply-quantity.png",
+    "sha256": "fb59ab4de2b98910b6e568e47b6b93e79351d437d047ff1156439074fb5a009f",
+    "bytes": 152089
+  }
+]

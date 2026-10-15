@@ -1,0 +1,282 @@
+[
+  {
+    "Text": "\u4F59\u706B\u7AD9 / \u88C5\u5907\u4ED3\u5E93",
+    "Pixels": 297,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 71,
+    "Y": 37,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u5F53\u524D\u7A7F\u6234",
+    "Pixels": 165,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 65,
+    "Y": 219,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u6298\u9875\u6E05\u969C\u94F2",
+    "Pixels": 75,
+    "MinimumRatio": 9.379825281374119,
+    "Target": 4.5,
+    "X": 106,
+    "Y": 282,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eeeadfff"
+  },
+  {
+    "Text": "\u8EAB\u4F53",
+    "Pixels": 9,
+    "MinimumRatio": 5.8172857415787105,
+    "Target": 4.5,
+    "X": 108,
+    "Y": 344,
+    "Foreground": "4d5d52ff",
+    "ActualBackground": "eeeadfff"
+  },
+  {
+    "Text": "\u4FEE\u8865\u5DE5\u88C5",
+    "Pixels": 22,
+    "MinimumRatio": 9.379825281374119,
+    "Target": 4.5,
+    "X": 156,
+    "Y": 359,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eeeadfff"
+  },
+  {
+    "Text": "\u624B\u90E8",
+    "Pixels": 14,
+    "MinimumRatio": 5.801090267857176,
+    "Target": 4.5,
+    "X": 105,
+    "Y": 416,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "eeeadfff"
+  },
+  {
+    "Text": "\u68C0\u4FEE\u5DE5\u5177\u624B\u5957",
+    "Pixels": 56,
+    "MinimumRatio": 9.379825281374119,
+    "Target": 4.5,
+    "X": 172,
+    "Y": 434,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eeeadfff"
+  },
+  {
+    "Text": "\u80CC\u5305",
+    "Pixels": 17,
+    "MinimumRatio": 5.8172857415787105,
+    "Target": 4.5,
+    "X": 116,
+    "Y": 486,
+    "Foreground": "4d5d52ff",
+    "ActualBackground": "eeeadfff"
+  },
+  {
+    "Text": "\u5361\u7EC4 10 \u5F20",
+    "Pixels": 69,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 67,
+    "Y": 522,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u8D1F\u91CD 9.5 / 20\u00A0kg",
+    "Pixels": 98,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 43,
+    "Y": 547,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u968F\u8EAB 0 \u2192 2/12 \u683C \u00B7 9.5\u00A0kg",
+    "Pixels": 296,
+    "MinimumRatio": 8.776416286275328,
+    "Target": 4.5,
+    "X": 392,
+    "Y": 220,
+    "Foreground": "273f3cff",
+    "ActualBackground": "e7e3d5ff"
+  },
+  {
+    "Text": "\u7A7A\u4F59 12 \u683C \u00B7 \u663E\u793A 0/0 \u6279\n\u6BCF\u5757\u662F\u4E00\u6279\u5B9E\u7269\uFF1B\u5360\u683C\u6309\u540C\u7C7B\u5408\u5806\u8BA1\u7B97\u3002",
+    "Pixels": 139,
+    "MinimumRatio": 5.427903140805246,
+    "Target": 4.5,
+    "X": 286,
+    "Y": 445,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "e7e3d5ff"
+  },
+  {
+    "Text": "\u4ED3\u5E93 13 \u2192 11/48 \u683C",
+    "Pixels": 266,
+    "MinimumRatio": 8.776416286275328,
+    "Target": 4.5,
+    "X": 714,
+    "Y": 220,
+    "Foreground": "273f3cff",
+    "ActualBackground": "e7e3d5ff"
+  },
+  {
+    "Text": "\u94C6\u9489\u62A4\u7532",
+    "Pixels": 77,
+    "MinimumRatio": 8.514314934600748,
+    "Target": 4.5,
+    "X": 1059,
+    "Y": 363,
+    "Foreground": "28403cff",
+    "ActualBackground": "dbe5cbff"
+  },
+  {
+    "Text": "\u6574\u6279 \u00D71",
+    "Pixels": 7,
+    "MinimumRatio": 5.453147161316403,
+    "Target": 4.5,
+    "X": 1018,
+    "Y": 381,
+    "Foreground": "923e2dff",
+    "ActualBackground": "dbe5cbff"
+  },
+  {
+    "Text": "\u56DE\u54CD\u62A4\u8155",
+    "Pixels": 48,
+    "MinimumRatio": 8.846547257468734,
+    "Target": 4.5,
+    "X": 1163,
+    "Y": 363,
+    "Foreground": "28403cff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u6574\u6279 \u00D71",
+    "Pixels": 7,
+    "MinimumRatio": 5.717481688312049,
+    "Target": 4.5,
+    "X": 1150,
+    "Y": 381,
+    "Foreground": "4c5b51ff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u5E9F\u94A2",
+    "Pixels": 38,
+    "MinimumRatio": 8.846547257468734,
+    "Target": 4.5,
+    "X": 1038,
+    "Y": 482,
+    "Foreground": "28403cff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u6574\u6279 \u00D71",
+    "Pixels": 7,
+    "MinimumRatio": 5.717481688312049,
+    "Target": 4.5,
+    "X": 1018,
+    "Y": 505,
+    "Foreground": "4c5b51ff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u5E9F\u94A2",
+    "Pixels": 38,
+    "MinimumRatio": 8.846547257468734,
+    "Target": 4.5,
+    "X": 1170,
+    "Y": 482,
+    "Foreground": "28403cff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u6574\u6279 \u00D72",
+    "Pixels": 13,
+    "MinimumRatio": 5.717481688312049,
+    "Target": 4.5,
+    "X": 1190,
+    "Y": 504,
+    "Foreground": "4c5b51ff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u94C6\u9489\u62A4\u7532 \u00D71",
+    "Pixels": 88,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 92,
+    "Y": 627,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u4ED3\u5E93 \u00B7 6\u00A0kg",
+    "Pixels": 31,
+    "MinimumRatio": 5.7492194309327695,
+    "Target": 4.5,
+    "X": 112,
+    "Y": 670,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u4ED3\u5E93 \u2192 \u968F\u8EAB \u00B7 1 \u4EF6\n\u63A8\u8FDB 0 \u6B65",
+    "Pixels": 111,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 412,
+    "Y": 632,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u8D1F\u91CD 9.5 \u2192 15.5\u00A0kg \u00B7 \u9608\u503C 20\u00A0kg \u00B7 \u540E\u7EED\u884C\u52A8 \u00D71",
+    "Pixels": 89,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 257,
+    "Y": 687,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u5B89\u5168\u636E\u70B9   \u751F\u547D 42/42   \u8D1F\u91CD 9.5/20\u00A0kg",
+    "Pixels": 103,
+    "MinimumRatio": 5.7492194309327695,
+    "Target": 4.5,
+    "X": 218,
+    "Y": 766,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "Tab / \u65B9\u5411\u952E\u9009\u62E9 \u00B7 F6 \u8DE8\u533A \u00B7 Esc \u8FD4\u56DE",
+    "Pixels": 137,
+    "MinimumRatio": 5.7492194309327695,
+    "Target": 4.5,
+    "X": 1052,
+    "Y": 763,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u94C6\u9489\u62A4\u7532 \u00B7 \u6574\u6279 \u00D71\n\u521D\u59CB\u9632\u5177\uFF1B\u9AD8\u76FE\u4F46\u6CA1\u6709\u8FC7\u724C\u3002\n\u53F3\u952E / \u66F4\u591A\uFF1A\u6570\u91CF\u3001\u4FDD\u7559\u548C\u5B8C\u6574\u8BE6\u60C5",
+    "Pixels": 418,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 435,
+    "Y": 367,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  }
+]

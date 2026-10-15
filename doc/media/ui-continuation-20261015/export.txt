@@ -1,0 +1,216 @@
+  正在确定要还原的项目…
+  所有项目均是最新的，无法还原。
+  CardRPG.Core -> C:\Users\uid15658\Documents\CardRPG\src\CardRPG.Core\bin\Debug\net10.0\CardRPG.Core.dll
+  CardRPG -> C:\Users\uid15658\Documents\CardRPG\game\.godot\mono\temp\bin\Debug\CardRPG.dll
+
+已成功生成。
+    0 个警告
+    0 个错误
+
+已用时间 00:00:05.12
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started 项目初始化 (5 steps)
+[   0% ] first_scan_filesystem | 正在扫描文件结构……
+[  16% ] first_scan_filesystem | 正在加载全局类名……
+[  33% ] first_scan_filesystem | 正在校验 GDExtension……
+[  50% ] first_scan_filesystem | 正在创建自动加载脚本……
+[  66% ] first_scan_filesystem | 正在初始化插件……
+[  83% ] first_scan_filesystem | 正在启动文件扫描……
+[ DONE ] first_scan_filesystem
+
+[   0% ] update_scripts_classes | Started 正在注册全局类…… (18 steps)
+[   0% ] update_scripts_classes | 
+[   5% ] update_scripts_classes | 
+[  10% ] update_scripts_classes | 
+[  15% ] update_scripts_classes | 
+[  21% ] update_scripts_classes | 
+[  26% ] update_scripts_classes | 
+[  31% ] update_scripts_classes | 
+[  36% ] update_scripts_classes | 
+[  42% ] update_scripts_classes | 
+[  47% ] update_scripts_classes | 
+[  52% ] update_scripts_classes | 
+[  57% ] update_scripts_classes | 
+[  63% ] update_scripts_classes | 
+[  68% ] update_scripts_classes | 
+[  73% ] update_scripts_classes | 
+[  78% ] update_scripts_classes | 
+[  84% ] update_scripts_classes | 
+[  89% ] update_scripts_classes | 
+[ DONE ] update_scripts_classes
+
+[   0% ] loading_editor_layout | Started 正在加载编辑器 (5 steps)
+[   0% ] loading_editor_layout | 正在加载编辑器布局……
+[  16% ] loading_editor_layout | 正在加载停靠面板……
+[ DONE ] loading_editor_layout
+
+
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+[   0% ] first_scan_filesystem | Started 项目初始化 (5 steps)
+[   0% ] first_scan_filesystem | 正在扫描文件结构……
+[  16% ] first_scan_filesystem | 正在加载全局类名……
+[  33% ] first_scan_filesystem | 正在校验 GDExtension……
+[  50% ] first_scan_filesystem | 正在创建自动加载脚本……
+[  66% ] first_scan_filesystem | 正在初始化插件……
+[  83% ] first_scan_filesystem | 正在启动文件扫描……
+[ DONE ] first_scan_filesystem
+
+[   0% ] dotnet_publish_project | Started Publishing .NET project... (1 steps)
+[   0% ] dotnet_publish_project | Running dotnet publish
+[ DONE ] dotnet_publish_project
+
+[   0% ] savepack | Started 打包中 (102 steps)
+[   1% ] savepack | 正在保存文件：res://.godot/imported/A01.png-e062a873df4706042b20d8c872b9a7b1.ctex
+[   1% ] savepack | 正在保存文件：res://Art/Generated/chapter/A01.png.import
+[   2% ] savepack | 正在保存文件：res://.godot/imported/A02.png-f184f6f1cf9c80d842e0c22b4a654098.ctex
+[   2% ] savepack | 正在保存文件：res://Art/Generated/chapter/A02.png.import
+[   3% ] savepack | 正在保存文件：res://.godot/imported/A03-rescued.png-7b863b746feda4e97ed5d654d3d739cd.ctex
+[   3% ] savepack | 正在保存文件：res://Art/Generated/chapter/A03-rescued.png.import
+[   4% ] savepack | 正在保存文件：res://.godot/imported/A03.png-ccab6b9a75b0314e52bcedf7d163e1c8.ctex
+[   4% ] savepack | 正在保存文件：res://Art/Generated/chapter/A03.png.import
+[   5% ] savepack | 正在保存文件：res://.godot/imported/A04-dark.png-994989851bc6c297b167446817fe1ab2.ctex
+[   5% ] savepack | 正在保存文件：res://Art/Generated/chapter/A04-dark.png.import
+[   6% ] savepack | 正在保存文件：res://.godot/imported/A04.png-25d4f0f8c813f090fc47fa2b0abb912f.ctex
+[   6% ] savepack | 正在保存文件：res://Art/Generated/chapter/A04.png.import
+[   7% ] savepack | 正在保存文件：res://.godot/imported/A05-powered.png-d1e2c2c3871b88cae51bd1a6ee49be9a.ctex
+[   7% ] savepack | 正在保存文件：res://Art/Generated/chapter/A05-powered.png.import
+[   8% ] savepack | 正在保存文件：res://.godot/imported/A05.png-d253b3b02936bfd5bafdb2dc90225563.ctex
+[   8% ] savepack | 正在保存文件：res://Art/Generated/chapter/A05.png.import
+[   9% ] savepack | 正在保存文件：res://.godot/imported/A06.png-f2b481f063de111fb8fba0ae91e639b4.ctex
+[   9% ] savepack | 正在保存文件：res://Art/Generated/chapter/A06.png.import
+[  10% ] savepack | 正在保存文件：res://.godot/imported/A07.png-6059870dffbcee0589af3bf07f40dcb6.ctex
+[  10% ] savepack | 正在保存文件：res://Art/Generated/chapter/A07.png.import
+[  11% ] savepack | 正在保存文件：res://.godot/imported/camp-lit.png-331576687606545cf5d9cdf740593579.ctex
+[  11% ] savepack | 正在保存文件：res://Art/Generated/chapter/camp-lit.png.import
+[  12% ] savepack | 正在保存文件：res://.godot/imported/camp.png-1670c48d6a1a391ee49f76fed2f5e871.ctex
+[  12% ] savepack | 正在保存文件：res://Art/Generated/chapter/camp.png.import
+[  13% ] savepack | 正在保存文件：res://.godot/imported/card-arc.png-f3469569f718aefd5c46d9ad9b7ef370.ctex
+[  13% ] savepack | 正在保存文件：res://Art/Generated/chapter/card-arc.png.import
+[  14% ] savepack | 正在保存文件：res://.godot/imported/card-strike.png-ea8122e2118876ced3c4ea4caa91eeb3.ctex
+[  14% ] savepack | 正在保存文件：res://Art/Generated/chapter/card-strike.png.import
+[  15% ] savepack | 正在保存文件：res://.godot/imported/card-ward.png-2b4a16fb5672b22e32f4ceb2906ac61e.ctex
+[  15% ] savepack | 正在保存文件：res://Art/Generated/chapter/card-ward.png.import
+[  16% ] savepack | 正在保存文件：res://Art/Generated/chapter/character-ui-prompts.json
+[  17% ] savepack | 正在保存文件：res://.godot/imported/clothes-rack.png-a326599615d114ef229db0365e194d20.ctex
+[  17% ] savepack | 正在保存文件：res://Art/Generated/chapter/clothes-rack.png.import
+[  18% ] savepack | 正在保存文件：res://.godot/imported/crest.png-2f3b1c10eca3cd8f25548523d8047f44.ctex
+[  18% ] savepack | 正在保存文件：res://Art/Generated/chapter/crest.png.import
+[  19% ] savepack | 正在保存文件：res://.godot/imported/enemy-dummy.png-45e92cbd4d65ec8c6651b5408e8b2779.ctex
+[  19% ] savepack | 正在保存文件：res://Art/Generated/chapter/enemy-dummy.png.import
+[  20% ] savepack | 正在保存文件：res://.godot/imported/enemy-E01.png-b40b44a2159eada253cad469fc7d5457.ctex
+[  20% ] savepack | 正在保存文件：res://Art/Generated/chapter/enemy-E01.png.import
+[  21% ] savepack | 正在保存文件：res://.godot/imported/enemy-E02.png-65645a7710cedf881662a28a44d5b049.ctex
+[  21% ] savepack | 正在保存文件：res://Art/Generated/chapter/enemy-E02.png.import
+[  22% ] savepack | 正在保存文件：res://.godot/imported/enemy-E03.png-9280b3c9e6cabddff71b8cabfacd150e.ctex
+[  22% ] savepack | 正在保存文件：res://Art/Generated/chapter/enemy-E03.png.import
+[  23% ] savepack | 正在保存文件：res://.godot/imported/enemy-E13.png-285986a1df30ff96ea04e75caed30ba7.ctex
+[  23% ] savepack | 正在保存文件：res://Art/Generated/chapter/enemy-E13.png.import
+[  24% ] savepack | 正在保存文件：res://Art/Generated/chapter/home-props-prompts.json
+[  25% ] savepack | 正在保存文件：res://Art/Generated/chapter/pixel-prompts.json
+[  26% ] savepack | 正在保存文件：res://Art/Generated/chapter/prompts.json
+[  27% ] savepack | 正在保存文件：res://.godot/imported/repair-robot.png-46056b6f63efe04bafa8ae96a71f2cab.ctex
+[  27% ] savepack | 正在保存文件：res://Art/Generated/chapter/repair-robot.png.import
+[  28% ] savepack | 正在保存文件：res://Art/Generated/chapter/state-prompts.json
+[  29% ] savepack | 正在保存文件：res://.godot/imported/brass-button.png-0d9a1580a883f36e05f3d8a643c7cb27.ctex
+[  29% ] savepack | 正在保存文件：res://Art/Generated/ui/brass-button.png.import
+[  30% ] savepack | 正在保存文件：res://.godot/imported/field-panel.png-25662539cc4508e1fcbc936dc8a94903.ctex
+[  30% ] savepack | 正在保存文件：res://Art/Generated/ui/field-panel.png.import
+[  31% ] savepack | 正在保存文件：res://.godot/imported/ledger-paper.png-3c6b6c0c471e3b7b216e611fb286382e.ctex
+[  31% ] savepack | 正在保存文件：res://Art/Generated/ui/ledger-paper.png.import
+[  32% ] savepack | 正在保存文件：res://Art/Generated/ui/prompts.json
+[  33% ] savepack | 正在保存文件：res://Art/Print/Interface/prompts.json
+[  33% ] savepack | 正在保存文件：res://.godot/imported/surfaces.png-c4e508568d3581f0406c872db31db4a7.ctex
+[  33% ] savepack | 正在保存文件：res://Art/Print/Interface/surfaces.png.import
+[  34% ] savepack | 正在保存文件：res://.godot/imported/symbols.png-8aa3e74b4ef34753358c7589d6eac492.ctex
+[  34% ] savepack | 正在保存文件：res://Art/Print/Interface/symbols.png.import
+[  35% ] savepack | 正在保存文件：res://.godot/imported/A01.png-93d6360142ca58eeda5c26b00b38d959.ctex
+[  35% ] savepack | 正在保存文件：res://Art/Print/A01.png.import
+[  36% ] savepack | 正在保存文件：res://.godot/imported/A02.png-3475b6608bce7fb1461fa6cdcda78063.ctex
+[  36% ] savepack | 正在保存文件：res://Art/Print/A02.png.import
+[  37% ] savepack | 正在保存文件：res://.godot/imported/A03-rescued.png-f9569fc2c265b233f6acb016fe181433.ctex
+[  37% ] savepack | 正在保存文件：res://Art/Print/A03-rescued.png.import
+[  38% ] savepack | 正在保存文件：res://.godot/imported/A03.png-e327e712157d37e67cc25476d2ef9807.ctex
+[  38% ] savepack | 正在保存文件：res://Art/Print/A03.png.import
+[  39% ] savepack | 正在保存文件：res://.godot/imported/A04-dark.png-3210bd2dc0759b819d40e0b9f3e9a3ec.ctex
+[  39% ] savepack | 正在保存文件：res://Art/Print/A04-dark.png.import
+[  40% ] savepack | 正在保存文件：res://.godot/imported/A04.png-69157c94cae749a9d2b7a8fe4dbc52a2.ctex
+[  40% ] savepack | 正在保存文件：res://Art/Print/A04.png.import
+[  41% ] savepack | 正在保存文件：res://.godot/imported/A05-powered.png-a44577b6618758ea0dc42069bf5ed23f.ctex
+[  41% ] savepack | 正在保存文件：res://Art/Print/A05-powered.png.import
+[  42% ] savepack | 正在保存文件：res://.godot/imported/A05.png-1fadbb5f092cd9a40d4d8daac57ad142.ctex
+[  42% ] savepack | 正在保存文件：res://Art/Print/A05.png.import
+[  43% ] savepack | 正在保存文件：res://.godot/imported/A06.png-a8c3ca3fcfd8d5619fee83e688fa17a0.ctex
+[  43% ] savepack | 正在保存文件：res://Art/Print/A06.png.import
+[  44% ] savepack | 正在保存文件：res://.godot/imported/A07.png-b6373d22e569ec5ea79f281ce3cc5818.ctex
+[  44% ] savepack | 正在保存文件：res://Art/Print/A07.png.import
+[  45% ] savepack | 正在保存文件：res://.godot/imported/actors.png-977b0df07277399a7bcd7161d2fe3943.ctex
+[  45% ] savepack | 正在保存文件：res://Art/Print/actors.png.import
+[  46% ] savepack | 正在保存文件：res://.godot/imported/camp-lit.png-f9a894ced14d6c539df4526aa44e28e0.ctex
+[  46% ] savepack | 正在保存文件：res://Art/Print/camp-lit.png.import
+[  47% ] savepack | 正在保存文件：res://.godot/imported/camp.png-e1aee08efc677f2fe69cfcfefd718f15.ctex
+[  47% ] savepack | 正在保存文件：res://Art/Print/camp.png.import
+[  48% ] savepack | 正在保存文件：res://.godot/imported/equipment.png-b5b4cde7109c8a3dd439953f1b9b9ee1.ctex
+[  48% ] savepack | 正在保存文件：res://Art/Print/equipment.png.import
+[  49% ] savepack | 正在保存文件：res://.godot/imported/items.png-15760a8c9db575677bc588babb148227.ctex
+[  49% ] savepack | 正在保存文件：res://Art/Print/items.png.import
+[  50% ] savepack | 正在保存文件：res://Art/Print/prompts.json
+[  51% ] savepack | 正在保存文件：res://.godot/exported/133200997/export-aab77a5d8173cc44bff2daee162b7c25-Chapter.scn
+[  52% ] savepack | 正在保存文件：res://.godot/exported/133200997/export-cac0f7cd464cdb6c5924e3f75e932cca-Expedition.scn
+[  53% ] savepack | 正在保存文件：res://Scripts/ChapterActor.cs
+[  54% ] savepack | 正在保存文件：res://Scripts/ChapterArt.cs
+[  55% ] savepack | 正在保存文件：res://Scripts/ChapterButton.cs
+[  56% ] savepack | 正在保存文件：res://Scripts/ChapterGame.BattleUi.cs
+[  57% ] savepack | 正在保存文件：res://Scripts/ChapterGame.CharacterUi.cs
+[  58% ] savepack | 正在保存文件：res://Scripts/ChapterGame.cs
+[  59% ] savepack | 正在保存文件：res://Scripts/ChapterGame.DeckAnalysis.cs
+[  60% ] savepack | 正在保存文件：res://Scripts/ChapterGame.FocusNavigation.cs
+[  61% ] savepack | 正在保存文件：res://Scripts/ChapterGame.GraphicUi.cs
+[  62% ] savepack | 正在保存文件：res://Scripts/ChapterGame.IllustratedUi.cs
+[  63% ] savepack | 正在保存文件：res://Scripts/ChapterGame.Interactions.cs
+[  64% ] savepack | 正在保存文件：res://Scripts/ChapterGame.InventoryUi.cs
+[  65% ] savepack | 正在保存文件：res://Scripts/ChapterGame.LogUi.cs
+[  66% ] savepack | 正在保存文件：res://Scripts/ChapterGame.ModsUi.cs
+[  66% ] savepack | 正在保存文件：res://Scripts/ChapterGame.OverviewUi.cs
+[  67% ] savepack | 正在保存文件：res://Scripts/ChapterGame.Panels.cs
+[  68% ] savepack | 正在保存文件：res://Scripts/ChapterGame.PlanningUi.cs
+[  69% ] savepack | 正在保存文件：res://Scripts/ChapterGame.PresetsUi.cs
+[  70% ] savepack | 正在保存文件：res://Scripts/ChapterGame.Shortcuts.cs
+[  71% ] savepack | 正在保存文件：res://Scripts/ChapterGame.StockCommands.cs
+[  72% ] savepack | 正在保存文件：res://Scripts/ChapterGame.StockVisualization.cs
+[  73% ] savepack | 正在保存文件：res://Scripts/ChapterGame.StorageCraftingUi.cs
+[  74% ] savepack | 正在保存文件：res://Scripts/ChapterGame.StorageUi.cs
+[  75% ] savepack | 正在保存文件：res://Scripts/ChapterGame.Ui.cs
+[  76% ] savepack | 正在保存文件：res://Scripts/ChapterGame.WorkspaceUi.cs
+[  77% ] savepack | 正在保存文件：res://Scripts/ChapterGame.World.cs
+[  78% ] savepack | 正在保存文件：res://Scripts/ChapterHotspot.cs
+[  79% ] savepack | 正在保存文件：res://Scripts/ChapterIllustration.cs
+[  80% ] savepack | 正在保存文件：res://Scripts/ChapterLoadMeter.cs
+[  81% ] savepack | 正在保存文件：res://Scripts/ChapterPaperBinding.cs
+[  82% ] savepack | 正在保存文件：res://Scripts/ChapterRouteMap.cs
+[  83% ] savepack | 正在保存文件：res://Scripts/ChapterScene.cs
+[  84% ] savepack | 正在保存文件：res://Scripts/ChapterSkin.cs
+[  85% ] savepack | 正在保存文件：res://Scripts/ChapterSlotGrid.cs
+[  86% ] savepack | 正在保存文件：res://Scripts/ChapterVerification.cs
+[  87% ] savepack | 正在保存文件：res://Scripts/ChapterVerification.Management.cs
+[  88% ] savepack | 正在保存文件：res://Scripts/ChapterVerification.Rework.cs
+[  89% ] savepack | 正在保存文件：res://Scripts/ExpeditionActor.cs
+[  90% ] savepack | 正在保存文件：res://Scripts/ExpeditionDemo.cs
+[  91% ] savepack | 正在保存文件：res://Scripts/ExpeditionDemo.Exploration.cs
+[  92% ] savepack | 正在保存文件：res://Scripts/ExpeditionDemo.Hud.cs
+[  93% ] savepack | 正在保存文件：res://Scripts/ExpeditionDemo.Ui.cs
+[  94% ] savepack | 正在保存文件：res://Scripts/ExpeditionGlyph.cs
+[  95% ] savepack | 正在保存文件：res://Scripts/ExpeditionLocalScene.cs
+[  96% ] savepack | 正在保存文件：res://Scripts/ExpeditionRegion.cs
+[  97% ] savepack | 正在保存文件：res://Scripts/ExpeditionVerification.cs
+[  98% ] savepack | 正在保存文件：res://Scripts/IndustrialBackdrop.cs
+[  98% ] savepack | 正在保存文件：res://Scenes/Chapter.tscn.remap
+[  98% ] savepack | 正在保存文件：res://Scenes/Expedition.tscn.remap
+[  98% ] savepack | 正在保存文件：res://.godot/global_script_class_cache.cfg
+[  98% ] savepack | 正在保存文件：res://.godot/uid_cache.bin
+[  98% ] savepack | 正在保存文件：res://project.binary
+[ DONE ] savepack
+
+
+Demo exported to C:\Users\uid15658\Documents\CardRPG\artifacts\Expedition-UI-20261015-R2

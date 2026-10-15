@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-15",
+  "scope": "management information disclosure design; documentation and review board only",
+  "proposals": 204,
+  "groups": 32,
+  "refined_ids": [
+    "A011",
+    "A064",
+    "A079",
+    "A099",
+    "A143",
+    "A184",
+    "A191"
+  ],
+  "other_entries_unchanged": 197,
+  "other_entries_check": "compared with prior board before regeneration",
+  "markdown_board_match": "passed",
+  "refined_rows_search_expansion_and_keyboard": "passed",
+  "board_widths_without_horizontal_overflow": [
+    1280,
+    820,
+    390
+  ],
+  "javascript_errors": [],
+  "broken_local_links": [],
+  "source_hashes_unchanged": 53,
+  "new_game_runtime_or_usability_tests": false,
+  "layout_prototype_changed": false,
+  "review_board_screenshot": "disclosure-design-board.png",
+  "temporary_scripts_created": 0,
+  "old_temporary_directories_modified": false
+}

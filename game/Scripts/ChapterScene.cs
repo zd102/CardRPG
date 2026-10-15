@@ -1,4 +1,5 @@
 ﻿using Godot;
+using System;
 using System.Collections.Generic;
 using CardRPG.Core;
 
@@ -17,6 +18,9 @@ public partial class ChapterScene : Control
     public bool Map { get; set; }
     public bool ShowDoor { get; set; }
     public bool ShowTrain { get; set; }
+    public float RobotGesture { get; set; }
+    public ulong RescueAt { get; set; }
+    public override void _Process(double delta) { if (RescueAt > 0 && Time.GetTicksMsec()-RescueAt < 6000) QueueRedraw(); }
     public string ArtName => Location switch
     {
         "camp" when Lit => "camp-lit", "A03" when Rescued => "A03-rescued",
@@ -56,8 +60,10 @@ public partial class ChapterScene : Control
         if (Location == "camp")
         {
             if (Clothes) DrawProp("clothes-rack", new(.36f, .66f), .23f);
-            if (Robot) DrawProp("repair-robot", new(.53f, .745f), .15f);
+            if (Robot) DrawProp("repair-robot", new(.53f+Mathf.Sin(RobotGesture*16)*.008f, .745f-Mathf.Abs(Mathf.Sin(RobotGesture*12))*.012f), .15f);
         }
+        if (Location == "A03" && RescueAt > 0 && Time.GetTicksMsec()-RescueAt < 6000)
+        { var progress=Math.Clamp((Time.GetTicksMsec()-RescueAt)/6000f,0,1); DrawProp("repair-robot",new Vector2(.27f,.54f).Lerp(new(.08f,.75f),progress),.12f); }
     }
     private void DrawProp(string name, Vector2 feet, float heightRatio)
     {

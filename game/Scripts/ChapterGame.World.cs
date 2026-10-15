@@ -24,7 +24,7 @@ public partial class ChapterGame
         var locationPlate = FlatPanel(_hud, 8); locationPlate.Name = "LocationPlate";
         Dock(locationPlate, -110, 18, 110, 82, .5f, 0, .5f, 0);
         var title = Column(3); locationPlate.AddChild(title);
-        var name = Text(s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated ? "余火站" : s.Battle?.Id == "trial" ? "工坊台架" : ChapterContent.Places[s.Location].Name, 20, Ink);
+        var name = Text(s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated ? UiCopy.Text("UI_916C57AF9A41") : s.Battle?.Id == "trial" ? UiCopy.Text("UI_825C6624EABB") : ChapterContent.Places[s.Location].Name, 20, Ink);
         name.HorizontalAlignment = HorizontalAlignment.Center; title.AddChild(name);
         var location = Row(6); location.Alignment = BoxContainer.AlignmentMode.Center; title.AddChild(location);
         if (s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated)
@@ -32,9 +32,9 @@ public partial class ChapterGame
         else
             SymbolValue(location, "eye", s.Pressure.ToString(), s.Warned ? Danger : Muted, Session.PressureText + "\n" + Session.PatrolText, 14);
         var menu = Row(6); _hud.AddChild(menu); Dock(menu, -378, 18, -20, 64, al: 1, ar: 1);
-        foreach (var item in new[] { ("character", "character", "角色全览 · C", "character"), ("map", "map", "地图 · M", "map"), ("inventory", "bag", "装备与背包 · I", "gear"),
-                     ("journal", "journal", "任务与发现 · J", "journal"), ("craft", "craft", "制作与改装", "craft"),
-                     ("help", "help", "图标与操作指引 · F1", "help"), ("quit", "close", "保存并退出", "quit") })
+        foreach (var item in new[] { ("character", "character", "角色与卡组 · " + KeyLabel("character"), "character"), ("map", "map", "地图 · " + KeyLabel("map"), "map"), ("inventory", "bag", "装备与背包 · " + KeyLabel("gear"), "gear"),
+                     ("journal", "journal", "任务与发现 · " + KeyLabel("journal"), "journal"), ("craft", "craft", "制作与改装", "craft"),
+                     ("help", "help", "图标与操作指引 · " + KeyLabel("help"), "help"), ("quit", "settings", "暂停与设置", "quit") })
         {
             var id = item.Item1; var panel = item.Item4;
             var button = IconButton(id, item.Item2, panel == "quit" ? "暂停与设置 · Esc" : item.Item3, () => Toggle(panel == "quit" ? "system" : panel));
@@ -45,34 +45,49 @@ public partial class ChapterGame
                 var count = Inline(ready.ToString(), 14, Accent); button.AddChild(count); Dock(count, -16, 0, -2, 20, al: 1, ar: 1);
             }
             menu.AddChild(button);
+            if (_navigationLabels)
+            {
+                var caption = Inline(id switch { "character" => "角色", "map" => "地图", "inventory" => "仓库", "journal" => "任务", "craft" => "工坊", "help" => "指引", _ => "设置" }, 14, Ink);
+                caption.HorizontalAlignment = HorizontalAlignment.Center; button.AddChild(caption); Dock(caption, 0, 48, 46, 70);
+                caption.AddThemeStyleboxOverride("normal", Style(new Color("eee9db"), Colors.Transparent, 0));
+            }
         }
         if (_panel == "" && s.Phase is ChapterPhase.Camp or ChapterPhase.Exploring)
         {
-            var objective = Button("objective", "", () => Toggle("journal")); objective.TooltipText = "当前目标\n" + Session.Objective;
+            var objective = Button("objective", "", () => Toggle("journal")); objective.TooltipText = UiCopy.Text("UI_37D27238A76A") + Session.Objective;
             _hud.AddChild(objective); Dock(objective, 20, 96, 370, 164);
             var strip = Row(9); strip.MouseFilter = MouseFilterEnum.Ignore; objective.AddChild(strip); Dock(strip,12,8,-12,-8,ar:1,ab:1);
             strip.AddChild(Glyph("journal", Accent, 24)); var objectiveCopy = Text(Session.NextObjective,16,Ink); objectiveCopy.AddThemeFontSizeOverride("font_size",16); objectiveCopy.SizeFlagsHorizontal=SizeFlags.ExpandFill; strip.AddChild(objectiveCopy);
         }
     }
 
-    private VBoxContainer Scroll(Node parent)
+    private VBoxContainer Scroll(Node parent, string role = "", string objectId = "")
     {
-        var scroll = new ScrollContainer { FollowFocus = true, HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };
+        var scroll = new ScrollContainer { Name = "FocusRegion_" + _pageScrolls.Count, FocusMode = FocusModeEnum.All, FollowFocus = true, HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill };
+        if (role != "") scroll.SetMeta("reading_key", _panel + ":" + role + ":" + objectId);
         _scroll ??= scroll;
         _pageScrolls.Add(scroll);
-        parent.AddChild(scroll); var box = Column(12); box.SizeFlagsHorizontal = SizeFlags.ExpandFill; scroll.AddChild(box); return box;
+        parent.AddChild(scroll); var box = Column(12); box.SizeFlagsHorizontal = SizeFlags.ExpandFill; scroll.AddChild(box);
+        if(_panel is "detail" or "recipe-preview" or "receipts")
+        {
+            box.SizeFlagsHorizontal=SizeFlags.ShrinkCenter;
+            void BoundReading() { if(GodotObject.IsInstanceValid(box)&&scroll.Size.X>20)box.CustomMinimumSize=new Vector2(Math.Min(720,scroll.Size.X-18),0); }
+            scroll.Resized+=BoundReading;Callable.From(BoundReading).CallDeferred();
+        }
+        return box;
     }
 
     private Button Pin(string id, string label, Vector2 point, Action action, string tooltip, bool enabled = true, bool exit = false, Color? tint = null)
     {
         var button = new ChapterHotspot
         {
-            Name = id, Caption = label, TooltipText = label + "\n" + tooltip, Disabled = !enabled, Exit = exit, ShowLabel = _labels,
-            Symbol = PinSymbol(id, exit), Important = id is "act_relay" or "act_clamp" or "act_calibrate" || id == "camp_quests" && Session.CanTurnIn("Q01"),
-            Tint = tint ?? (exit ? Success : Accent), FocusMode = FocusModeEnum.All,
+            Name = id, Caption = UiCopy.Present(label), TooltipText = label + "\n" + tooltip, Disabled = !enabled, Exit = exit, ShowLabel = _labels || _holdLabels,
+            Symbol = PinSymbol(id, exit), Important = id is "act_relay" or "act_clamp" or "act_calibrate" || id == "camp_quests" && ChapterContent.Quests.Any(q => Session.CanTurnIn(q.Id)),
+            Tint = tint ?? (exit ? Success : Accent), FocusMode = FocusModeEnum.All, LabelSize = (int)Math.Round(14 * ReadingScale),
             MouseDefaultCursorShape = CursorShape.PointingHand
         };
-        button.Pressed += () => { if (!button.Disabled && !FeedbackBusy) { Cue("click"); action(); } };
+        var generation = _renderGeneration;
+        button.Pressed += () => { if (generation == _renderGeneration && button.IsInsideTree() && !button.Disabled && !FeedbackBusy) { RecordActivation(); _commandCaption = label; Cue("click"); action(); } };
         Inspect(button, () => button.TooltipText);
         _root.AddChild(button);
         var world = _root.GetNode<ChapterScene>("World");
@@ -84,19 +99,21 @@ public partial class ChapterGame
             p.Y = Mathf.Clamp(p.Y, 250, world.Size.Y - 150);
             // Keep labels legible at native pixel size when the scene is cropped by a narrow window.
             var occupied = Buttons.Values.OfType<ChapterHotspot>().Where(other => other != button).Select(other => other.LabelRect().Grow(4)).ToArray();
-            var position = p;
-            foreach (var offset in new[] { Vector2.Zero, new Vector2(0,-100),new Vector2(0,100),new Vector2(-220,0),new Vector2(220,0),new Vector2(-220,-100),new Vector2(220,-100),new Vector2(-220,100),new Vector2(220,100),new Vector2(0,-200),new Vector2(0,200),new Vector2(-440,0),new Vector2(440,0),new Vector2(-440,-100),new Vector2(440,-100),new Vector2(-440,100),new Vector2(440,100) })
+            Dock(button, p.X - 26, p.Y - 26, p.X + 26, p.Y + 26);
+            var half = Math.Max(40, button.GetThemeDefaultFont().GetStringSize(button.Caption,fontSize:button.LabelSize).X / 2 + 8);
+            var offsets = new List<Vector2> { Vector2.Zero };
+            for (var y = 0; y < world.Size.Y - 320; y += button.LabelSize + 20)
+                for (var x = 0f; x < world.Size.X; x += half * 2 + 12) offsets.Add(new Vector2(half + 12 + x, 258 + y) - p);
+            foreach (var offset in offsets)
             {
                 var candidate = p + offset;
-                var half = Math.Max(90, button.Caption.Length * 7 + 14);
                 candidate.X = Mathf.Clamp(candidate.X, half, world.Size.X - half);
-                candidate.Y = Mathf.Clamp(candidate.Y, 250, world.Size.Y - 150);
-                var rect = new Rect2(candidate - new Vector2(half, 30), new Vector2(half*2, 88));
+                candidate.Y = Mathf.Clamp(candidate.Y, 250, world.Size.Y - 130);
+                var rect = new Rect2(candidate + new Vector2(-half,31), new Vector2(half*2,button.LabelSize+12));
                 if (occupied.Any(other => rect.Intersects(other))) continue;
-                position = candidate; break;
+                button.LabelOffset = candidate-p; break;
             }
-            Dock(button, position.X - 26, position.Y - 26, position.X + 26, position.Y + 26);
-            button.SceneAnchor = p - position + new Vector2(26,26); button.QueueRedraw();
+            button.SceneAnchor = world.ScenePoint(point) - p + new Vector2(26,26); button.QueueRedraw();
         }
         world.Resized += PositionPin; PositionPin();
         Buttons[id] = button; return button;
@@ -114,19 +131,29 @@ public partial class ChapterGame
     private void Camp()
     {
         var s = Session.State;
-        Pin("camp_equipment", "工作台 · 调整装备", new(.23f, .65f), () => Toggle("gear"),
-            string.Join(" / ", Session.Equipped.Select(g => ChapterContent.Gear[g].Name)) + $"\n卡组 {Session.Deck().Count} 张。点击调整穿戴、备用和携带物。");
+        Pin("camp_equipment", UiCopy.Text("UI_7C1F4445897C"), new(.23f, .65f), () => Toggle("gear"),
+            string.Join(" / ", Session.Equipped.Select(g => ChapterContent.Gear[g].Name)) + UiCopy.Format("UI_1611C35801F7", Session.Deck().Count));
         var turnIns = ChapterContent.Quests.Count(q => Session.CanTurnIn(q.Id));
-        Pin("camp_quests", turnIns > 0 ? $"岑砧 · {turnIns} 项可交付" : "岑砧 · 任务与发现", new(.48f, .52f), () => Toggle("journal"),
-            s.Done.Contains("Q01") ? "工作灯亮了。暖黄的旧日投影里，城市还有晴天。\n点击查看任务或交付带回的物品。" : "岑砧在工作灯下等着那只封装继电器。\n取得任务物后安全撤离，在这里交付。");
-        Pin("camp_preparation", "行前整备", new(.89f, .78f), () => Toggle("prepare"),
-            "选择装备、背包、带入物与出发地点；检查格位、负重和补给预留。");
-        Pin("depart", "出发 · " + ChapterContent.Places[s.Start].Name, new(.79f, .43f),
-            () => Toggle("prepare"), "查看最终出发状态，从" + ChapterContent.Places[s.Start].Name + "出征。" + Session.LoadDescription, exit: true);
+        Pin("camp_quests", turnIns > 0 ? UiCopy.Format("UI_740A65622953", turnIns) : UiCopy.Text("UI_6D189FC4960A"), new(.48f, .52f), () => Toggle("journal"),
+            s.Done.Contains("Q01") ? UiCopy.Text("UI_EB4A5ED00CA9") : UiCopy.Text("UI_F67515FE7E8B"));
+        Pin("camp_preparation", UiCopy.Text("UI_A5CD1B892CC4"), new(.89f, .78f), () => { _gearFilter = "cargo"; Toggle("gear"); },
+            UiCopy.Text("UI_AF9FD0F63A22"));
+        if (_pinnedTasks.Count > 0)
+        {
+            var pinned = Button("camp_pinned", UiCopy.Text("UI_0FF70CB19B6C") + _pinnedTasks.Count, () => Toggle("pinned")); _hud!.AddChild(pinned); Dock(pinned, -260, 104, -20, 150, al: 1, ar: 1);
+        }
+        if (_trackedMaterial != "")
+        {
+            var needed = Math.Max(0, Session.PlannedMaterialCost(s.RecipePlan).GetValueOrDefault(_trackedMaterial) - Session.SafeMaterialCount(_trackedMaterial));
+            var material = Button("tracked_material", ChapterContent.ItemName(_trackedMaterial) + UiCopy.Text("UI_9919DF4B053B") + needed, () => { _materialInfoKind = _trackedMaterial; Toggle("material-info"); }); _hud!.AddChild(material); Dock(material, 20, 174, 370, 220);
+        }
+        Pin("depart", UiCopy.Text("UI_E46C23BF59B2") + ChapterContent.Places[s.Start].Name, new(.79f, .43f),
+            () => Toggle("prepare"), UiCopy.Text("UI_6B7F002CF386") + ChapterContent.Places[s.Start].Name + UiCopy.Text("UI_DD4781161FAA") + Session.LoadDescription, exit: true);
         if (s.Done.Contains("Q02"))
-            Pin("camp_trial", "台架 · 免费试用", new(.35f, .76f), () => Change(Session.StartTrial), "借用检修手套，在不会还击的台架上试牌。可以随时退出。");
+            Pin("camp_trial", UiCopy.Text("UI_1D8E4CC34B64"), new(.35f, .76f), () => Change(Session.StartTrial), UiCopy.Text("UI_01C0CB0F0184"));
         if (s.Done.Contains("S07"))
-            Pin("home_robot", "维修偶", new(.52f, .75f), () => { _toast = "小维修偶挥了挥扳手，指向工坊墙后那一抹荧光。"; _toastUntil = Time.GetTicksMsec() + 5000; Render(); }, "它已经在余火站安了家。");
+            Pin("home_robot", UiCopy.Text("UI_58A87C521FFE"), new(.52f, .75f), RobotGesture, UiCopy.Text("UI_2B99904112CF"));
+        OpportunityEntry();
     }
 
     private static readonly Dictionary<string, (Vector2 Point, string Label)> ActionPins = new()
@@ -167,7 +194,7 @@ public partial class ChapterGame
         {
             if (action.Id == "heal")
             {
-                var heal = IconButton("act_heal", "supply", action.Name + "\n" + action.Description, () => Change(() => Session.Act("heal")));
+                var heal = IconButton("act_heal", "supply", action.Name + $"\n生命 {s.Health} → {Math.Min(ChapterSession.MaxHealth, s.Health + 14)} · 实际恢复 {Math.Min(14, ChapterSession.MaxHealth - s.Health)}\n优先消耗配发份 · 推进 {Session.SceneActionCost()} 步" + (s.Warned ? "\n⚠ 巡逻先拦截，本次补给不会消耗。" : ""), () => Change(() => Session.Act("heal")));
                 heal.Disabled = !action.Enabled; _hud!.AddChild(heal); Dock(heal, 320, 18, 366, 64);
                 continue;
             }
@@ -179,23 +206,30 @@ public partial class ChapterGame
             if (action.Id == "crate" && s.Run.Contains("crate-start")) label = "继续开箱 · 2/2";
             if (action.Id is "relay" or "clamp") label = "拿取" + label;
             if (action.Id is "K01" or "K02" or "E13") label = "迎战" + label;
-            if (action.Id != "extract") label += " · +" + Session.SceneActionCost(action.Id == "crate" ? 2 : 1);
+            if (action.Id != "extract") label += s.Warned && action.Id != "K09" ? " · 将被拦截" : " · 推进 " + Session.SceneActionCost(action.Id == "crate" ? 2 : 1) + " 步";
             Pin("act_" + action.Id, label, point, () => ExploreAction(action.Id),
-                action.Name + "\n" + action.Description, action.Enabled, action.Id == "extract",
+                action.Name + "\n" + action.Description + "\n" + PressureForecast(action.Id == "extract" ? 0 : Session.SceneActionCost(action.Id == "crate" ? 2 : 1)), action.Enabled, action.Id == "extract",
                 action.Id is "K01" or "K02" or "K09" or "E13" ? Danger : null);
         }
         if (Session.CanEquip)
-            Pin("field_equipment", "台架 · 调整装备", new(.37f,.58f), () => Toggle("gear"), "免费调整本次携带的装备与战利品。");
+            Pin("field_equipment", UiCopy.Text("UI_686F2D40EAF7"), new(.37f,.58f), () => Toggle("gear"), UiCopy.Text("UI_B8EFBE9212A3"));
         for (var i = 0; i < place.Neighbors.Length; i++)
         {
             var id = place.Neighbors[i]; if (!Session.IsRevealed(id)) continue;
-            Pin("move_" + id, ChapterContent.Places[id].Name, ExitPins[s.Location][i],
-                () => Change(() => Session.Move(id)), "前往" + ChapterContent.Places[id].Name + $"\n行动值 +{Session.SceneActionCost()}。离开当前地点可以避开已抵达的巡逻。", exit: true);
+            var path = Session.KnownRoute(NavigationTarget); var guided = path.Count > 1 && path[1] == id;
+            Pin("move_" + id, (guided ? UiCopy.Text("UI_60293F8F85AA") : "") + ChapterContent.Places[id].Name, ExitPins[s.Location][i],
+                () => Change(() => Session.Move(id)), UiCopy.Text("UI_FA96079C3B2F") + ChapterContent.Places[id].Name + UiCopy.Format("UI_B6DE1D18BA58", Session.SceneActionCost()), exit: true);
+            if ((guided || s.Warned) && Buttons["move_" + id] is ChapterHotspot marker) { marker.ShowLabel = true; marker.Important = s.Warned; marker.QueueRedraw(); }
         }
         if (Session.GroundHere.Any())
-            Pin("field_loot", "查看遗留物", new(.66f,.85f), () => { _gearFilter = "cargo"; Toggle("gear"); }, "本地点已发现的物品仍在原位。打开行囊选择拾取。");
-        var load = ChapterSkin.Panel(_hud!, padding: 8); Dock(load, 20, 188, 416, 232);
-        load.AddChild(Text($"{Session.CarriedGrams / 1000m:0.##}/20 kg" + (Session.Overweight ? " · 超重，行动值 ×2" : " · 负重正常"), 16, Session.Overweight ? Danger : Ink));
+        {
+            var loot=Button("field_loot",UiCopy.Text("UI_687A3D26F2BF"),()=>{_gearFilter="cargo";Toggle("gear");});_hud!.AddChild(loot);Dock(loot,-244,-72,-20,-26,1,1,1,1);
+        }
+        SceneTraces(); OpportunityEntry();
+        var load = ChapterSkin.Panel(_hud!, padding: 8); Dock(load, 20, 176, 450, 242);
+        var loadCopy=Column(2);load.AddChild(loadCopy);
+        loadCopy.AddChild(Text(UiCopy.Format("UI_F9EE26CC5BB8", Math.Max(0, Session.CarryCapacity - Session.CarryUsed), Session.CarriedGrams / 1000m) + (Session.Overweight ? UiCopy.Text("UI_13E5575CB6B0") : UiCopy.Text("UI_706C0D37535C")), 16, Session.Overweight ? Danger : Ink));
+        loadCopy.AddChild(Inline(PressureForecast(0).Split('\n')[1],14,Muted));
         var nearest = Session.NearestExit();
         var escape = ChapterSkin.Panel(_hud!, padding: 10); Dock(escape,20,-66,285,-20,at:1,ab:1);
         SymbolValue(escape,"exit",ChapterContent.Places[nearest.Place].Name + $"  ·  {nearest.Distance}",Success,"最近撤离点；还需移动 " + nearest.Distance + " 步。",16);
@@ -210,7 +244,7 @@ public partial class ChapterGame
     {
         var toast = ChapterSkin.Panel(_root, padding: 14); toast.Name = "TransientNotice"; toast.MouseFilter = MouseFilterEnum.Ignore;
         var left = Mathf.Max(304,(Size.X-620)/2);
-        Dock(toast,left,-94,Mathf.Min(Size.X-24,left+620),-16,at:1,ab:1);
+        Dock(toast,left,-94,Mathf.Min(Size.X-270,left+620),-16,at:1,ab:1);
         var label = Text(_toast.Replace("\n", "  "), 14, Ink); label.MaxLinesVisible = 2; label.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
         toast.AddChild(label);
         var remaining = Math.Max(.1, (_toastUntil - Time.GetTicksMsec()) / 1000.0);

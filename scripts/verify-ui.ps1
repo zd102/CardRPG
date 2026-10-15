@@ -1,7 +1,8 @@
 ﻿param(
     [string]$OutputDirectory = (Join-Path $PSScriptRoot '../artifacts/ui-rework-captures'),
     [string]$Executable,
-    [switch]$Headless
+    [switch]$Headless,
+    [ValidateSet('Chapter','Management','Completion','Layout')][string]$Suite = 'Chapter'
 )
 $ErrorActionPreference = 'Stop'
 . "$PSScriptRoot\common.ps1"
@@ -49,10 +50,15 @@ $auditProject = if ($Executable) { '' } else { '--path "' + $GameRoot + '" ' }
 $auditMode = if ($Headless) { '--headless ' } else { '--disable-vsync --max-fps 60 ' }
 $auditCaptureArgument = if ($Headless) { '' } else { ' "--capture-dir=' + $auditCapture + '"' }
 $auditArguments = $auditProject + $auditMode + '--log-file "' + $auditLog + '" -- --verify-chapter' + $auditCaptureArgument
+if ($Suite -eq 'Management') { $auditArguments += ' --verify-management-only' }
+if ($Suite -eq 'Completion') { $auditArguments += ' --verify-completion-only' }
+if ($Suite -eq 'Layout') { $auditArguments += ' --verify-layout-only' }
 $auditWorkingDirectory = if ($Executable) { Split-Path -Parent $auditExecutable } else { $GameRoot }
 $auditExit = [BackgroundVerificationDesktop]::Run($auditExecutable, $auditArguments, $auditWorkingDirectory)
 $captureOutput = Get-Content -LiteralPath $auditLog -Encoding UTF8 -Raw
 Write-Output $captureOutput
-if ($auditExit -ne 0 -or $captureOutput -match '(?m)^ERROR:' -or $captureOutput -notmatch 'CHAPTER_VERIFIED' -or $captureOutput -notmatch 'UI_REWORK_VERIFIED') {
+$suitePassed = if ($Suite -eq 'Management') { $captureOutput -match 'UI_MANAGEMENT_VERIFIED' } elseif ($Suite -eq 'Completion') { $captureOutput -match 'UI_COMPLETION_VERIFIED' } else { $captureOutput -match 'CHAPTER_VERIFIED' -and $captureOutput -match 'UI_REWORK_VERIFIED' -and $captureOutput -match 'UI_MANAGEMENT_VERIFIED' -and $captureOutput -match 'UI_COMPLETION_VERIFIED' }
+if($Suite -eq 'Layout') { $suitePassed = $captureOutput -match 'UI_LAYOUT_VERIFIED' }
+if ($auditExit -ne 0 -or $captureOutput -match '(?m)^ERROR:' -or -not $suitePassed) {
     throw "Background verification failed or did not finish: $auditExit"
 }

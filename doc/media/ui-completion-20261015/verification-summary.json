@@ -1,0 +1,135 @@
+{
+  "date": "2026-10-15",
+  "completed_utc": "2026-10-15T08:55:50.918432+00:00",
+  "baseline": "cda7b29",
+  "implementation_counts": {
+    "pending": 0,
+    "in_progress": 0,
+    "implemented": 204,
+    "verified": 0
+  },
+  "status_note": "All 204 items have code implementations. No item is blanket-certified as meeting every acceptance criterion.",
+  "core_tests": {
+    "total": 102,
+    "passed": 102,
+    "failed": 0,
+    "skipped": 0,
+    "evidence": "core-tests/core-tests.trx"
+  },
+  "build": {
+    "result": "passed",
+    "warnings": 0,
+    "errors": 0,
+    "export_log": "export.log",
+    "source_manifest": "source-hashes.json",
+    "source_files": 98
+  },
+  "package": {
+    "executable": "artifacts/Expedition-UI-20261015-R3/CardRPG-Expedition.exe",
+    "manifest": "package-hashes.json",
+    "files": 196,
+    "bytes": 265789411,
+    "keep_adjacent_pck_and_data_directory": true
+  },
+  "runs": [
+    {
+      "kind": "package-headless",
+      "result": "passed",
+      "exit_code": 0,
+      "markers": [
+        "CHAPTER_VERIFIED",
+        "UI_REWORK_VERIFIED",
+        "UI_CONVENIENCE_VERIFIED",
+        "UI_PLANNING_VERIFIED",
+        "UI_MANAGEMENT_VERIFIED",
+        "UI_COMPLETION_VERIFIED"
+      ],
+      "log": "package-headless/render.log",
+      "background": "never-activated isolated Windows desktop",
+      "uses_actual_gpu_rendering": false
+    },
+    {
+      "kind": "package-render",
+      "result": "passed",
+      "exit_code": 0,
+      "markers": [
+        "CHAPTER_VERIFIED",
+        "UI_REWORK_VERIFIED",
+        "UI_CONVENIENCE_VERIFIED",
+        "UI_PLANNING_VERIFIED",
+        "UI_MANAGEMENT_VERIFIED",
+        "UI_COMPLETION_VERIFIED"
+      ],
+      "log": "package-render/render.log",
+      "background": "never-activated isolated Windows desktop",
+      "uses_actual_gpu_rendering": true
+    }
+  ],
+  "screenshots": {
+    "directory": "package-render",
+    "count": 147,
+    "gallery": "index.html",
+    "actual_render_sizes": [
+      [
+        1100,
+        760
+      ],
+      [
+        1280,
+        800
+      ],
+      [
+        1600,
+        900
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "reading_scales": [
+      1,
+      1.25,
+      1.5
+    ],
+    "expanded_copy_factor": 1.3,
+    "no_foreground_windows": true
+  },
+  "contrast": {
+    "scope": "Actual visible management-page label text on captured backgrounds; disabled parents excluded. Not a whole-application contrast certification.",
+    "samples": 28,
+    "minimum_ratio": 5.427903140805246,
+    "targets": {
+      "normal": 4.5,
+      "font_size_24_or_above": 3
+    },
+    "all_samples_pass": true,
+    "evidence": "package-render/contrast-samples.json"
+  },
+  "copy_catalog": {
+    "templates": 734,
+    "full_translation_coverage": false
+  },
+  "navigation_methods": {
+    "chapter": "Functional flow with helper-assisted focus and scroll for some button targets.",
+    "completion": "Raw clicks, Tab, keys and pointer drags; checks clipping; no forced focus or auto-scroll. Fixtures are set before interaction segments.",
+    "controller": "Synthetic Godot input events only."
+  },
+  "unverified_acceptance": {
+    "A140": [
+      "Physical controller input",
+      "Real mixed-DPI and multi-monitor transitions"
+    ],
+    "A188": [
+      "Human usability study",
+      "Novice understanding",
+      "Experienced-user efficiency and satisfaction"
+    ],
+    "other": [
+      "Subjective tooltip-delay and sound-volume comfort",
+      "Contrast outside the recorded samples"
+    ]
+  },
+  "human_efficiency_results": null,
+  "cleanup": "cleanup.json"
+}

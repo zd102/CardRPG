@@ -123,7 +123,7 @@ public sealed partial class ChapterSession
     public bool Craft(string id)
     {
         if (!CanCraft(id)) return false;
-        Produce(id, 1, Cost(id)); Note("制作完成：" + ChapterContent.Gear[id].Name); return true;
+        Produce(id, 1, Cost(id)); NoteStock("制作完成：" + ChapterContent.Gear[id].Name); return true;
     }
     public static bool CompatibleMod(string gear, string mod) => mod switch
     { "D01" => gear is "G01" or "G03", "D08" => gear is "G09" or "G10", _ => false };
@@ -132,7 +132,7 @@ public sealed partial class ChapterSession
         if (State.Phase != ChapterPhase.Camp || !State.Done.Contains("Q02") || !State.Owned.Contains(gear)
             || !CompatibleMod(gear, mod) || State.BoughtMods.Contains(gear + ":" + mod) || !Affordable([2, 0, 1])) return false;
         Pay([2, 0, 1]); State.BoughtMods.Add(gear + ":" + mod); State.Mods[gear] = mod;
-        Note("改装完成：" + ChapterContent.Gear[gear].Name + "。替换一张牌，牌数不变。"); return true;
+        NoteStock("改装完成：" + ChapterContent.Gear[gear].Name + "。替换一张牌，牌数不变。"); return true;
     }
     public bool SetMod(string gear, string mod)
     {
@@ -142,7 +142,14 @@ public sealed partial class ChapterSession
     }
     private bool Affordable(int[] cost) => cost.Select((x, i) => SafeMaterialCount(ChapterContent.MaterialIds[i]) >= x).All(x => x);
     private void Pay(int[] cost) { var stock = CopyStock(); ConsumeMaterials(stock, cost); CommitStock(stock); }
-    private void Note(string text) { State.Log.Add(text); if (State.Log.Count > 100) State.Log.RemoveAt(0); }
+    private void Note(string text, string type = "world")
+    {
+        State.Log.Add(text); if (State.Log.Count > 100) State.Log.RemoveAt(0);
+        State.Events.Add(new(State.NextLogId++, type, text, AtBase ? "camp" : State.Location, State.Runs, State.Pressure, State.Battle?.Round ?? 0));
+        if (State.Events.Count > 200) State.Events.RemoveAt(0);
+    }
+    private void NoteStock(string text) => Note(text, "stock");
+    private void NoteBattle(string text) => Note(text, "battle");
     private int Next(int max)
     {
         var n = State.RandomState; n ^= n << 13; n ^= n >> 17; n ^= n << 5; State.RandomState = n;

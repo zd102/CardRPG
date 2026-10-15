@@ -1,0 +1,77 @@
+{
+  "date": "2026-10-15",
+  "scope": "management design documents, offline layout prototype, review board; no game behavior changes or new game runtime tests",
+  "proposals": 204,
+  "groups": 32,
+  "added": 16,
+  "original_188_preserved": "verified against previous board before regeneration",
+  "priorities": {
+    "P1": 103,
+    "P2": 95,
+    "P3": 4,
+    "P0": 2
+  },
+  "kinds": {
+    "修正": 12,
+    "深化": 143,
+    "新增": 49
+  },
+  "markdown_board_match": "passed",
+  "board_filters_all_groups_priorities_kinds": "passed",
+  "new_id_search_and_keyboard_details": "passed",
+  "board_gallery_escape": "passed",
+  "board_widths_without_overflow": [
+    1280,
+    820,
+    390
+  ],
+  "prototype_pages": 8,
+  "prototype_matrix": [
+    {
+      "width": 1280,
+      "height": 900,
+      "font_percent": 100
+    },
+    {
+      "width": 1100,
+      "height": 760,
+      "font_percent": 150
+    },
+    {
+      "width": 1600,
+      "height": 900,
+      "font_percent": 100
+    },
+    {
+      "width": 820,
+      "height": 900,
+      "font_percent": 125
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font_percent": 100
+    }
+  ],
+  "prototype_density_modes": [
+    "comfortable",
+    "compact"
+  ],
+  "prototype_search_empty_reset_page_memory_keyboard_selection_details": "passed",
+  "prototype_density_does_not_reduce_font": "passed",
+  "prototype_horizontal_overflow": false,
+  "prototype_desktop_action_context_in_viewport": "passed",
+  "prototype_screenshots_visually_reviewed": [
+    "management-stock.png",
+    "management-deck.png",
+    "management-large.png"
+  ],
+  "same_version_game_screenshots_reinspected": 8,
+  "original_game_screenshot_hashes_unchanged": 26,
+  "source_hashes_unchanged": 53,
+  "broken_local_links": [],
+  "javascript_errors": [],
+  "new_game_screenshots": 0,
+  "temporary_scripts_created": 0,
+  "old_temporary_directories_modified": false
+}

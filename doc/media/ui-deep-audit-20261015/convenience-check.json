@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-15",
+  "scope": "documentation and review board; no game runtime or human usability retest",
+  "headless_browser": "Microsoft Edge",
+  "proposals": 188,
+  "groups": 28,
+  "new_proposals": 48,
+  "original_140_preserved": "checked against previous board before regeneration",
+  "priorities": {
+    "P1": 93,
+    "P2": 89,
+    "P3": 4,
+    "P0": 2
+  },
+  "kinds": {
+    "修正": 11,
+    "深化": 132,
+    "新增": 45
+  },
+  "markdown_board_consistency": "passed",
+  "all_filters_and_combined_filter": "passed",
+  "all_48_new_ids_search_including_cross_references": "passed",
+  "empty_search_reset": "passed",
+  "keyboard_details_and_tabs": "passed",
+  "gallery_decode_and_escape": "passed",
+  "game_screenshots": 26,
+  "retained_game_screenshot_hashes": "passed",
+  "source_hashes_unchanged": 53,
+  "widths_without_horizontal_overflow": [
+    1280,
+    820,
+    390
+  ],
+  "javascript_errors": [],
+  "broken_local_links": [],
+  "board_screenshot": "convenience-board.png",
+  "board_screenshot_visually_reviewed": true,
+  "temporary_scripts_created": 0,
+  "historical_artifacts_modified": false
+}

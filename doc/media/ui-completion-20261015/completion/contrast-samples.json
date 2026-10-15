@@ -1,0 +1,192 @@
+[
+  {
+    "Text": "\u4F59\u706B\u7AD9 / \u88C5\u5907\u4ED3\u5E93",
+    "Pixels": 297,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 71,
+    "Y": 37,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u968F\u8EAB 0 \u2192 2/12 \u683C \u00B7 11\u00A0kg",
+    "Pixels": 267,
+    "MinimumRatio": 8.776416286275328,
+    "Target": 4.5,
+    "X": 148,
+    "Y": 220,
+    "Foreground": "273f3cff",
+    "ActualBackground": "e7e3d5ff"
+  },
+  {
+    "Text": "\u7A7A\u4F59 12 \u683C \u00B7 \u663E\u793A 0/0 \u6279\n\u6BCF\u5757\u662F\u4E00\u6279\u5B9E\u7269\uFF1B\u5360\u683C\u6309\u540C\u7C7B\u5408\u5806\u8BA1\u7B97\u3002",
+    "Pixels": 183,
+    "MinimumRatio": 5.427903140805246,
+    "Target": 4.5,
+    "X": 215,
+    "Y": 442,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "e7e3d5ff"
+  },
+  {
+    "Text": "\u4ED3\u5E93 20 \u2192 18/128 \u683C",
+    "Pixels": 277,
+    "MinimumRatio": 8.776416286275328,
+    "Target": 4.5,
+    "X": 574,
+    "Y": 220,
+    "Foreground": "273f3cff",
+    "ActualBackground": "e7e3d5ff"
+  },
+  {
+    "Text": "\u52A0\u56FA\u884C\u56CA",
+    "Pixels": 57,
+    "MinimumRatio": 8.514314934600748,
+    "Target": 4.5,
+    "X": 620,
+    "Y": 311,
+    "Foreground": "28403cff",
+    "ActualBackground": "dbe5cbff"
+  },
+  {
+    "Text": "\u6574\u6279 \u00D71",
+    "Pixels": 7,
+    "MinimumRatio": 5.453147161316403,
+    "Target": 4.5,
+    "X": 613,
+    "Y": 327,
+    "Foreground": "923e2dff",
+    "ActualBackground": "dbe5cbff"
+  },
+  {
+    "Text": "\u56DE\u54CD\u62A4\u8155",
+    "Pixels": 48,
+    "MinimumRatio": 8.846547257468734,
+    "Target": 4.5,
+    "X": 626,
+    "Y": 433,
+    "Foreground": "28403cff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u6574\u6279 \u00D71",
+    "Pixels": 7,
+    "MinimumRatio": 5.717481688312049,
+    "Target": 4.5,
+    "X": 613,
+    "Y": 451,
+    "Foreground": "4c5b51ff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u6298\u9875\u6E05\u969C\u94F2",
+    "Pixels": 40,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 775,
+    "Y": 424,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u68C0\u4FEE\u5DE5\u5177\u624B\u5957",
+    "Pixels": 64,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 876,
+    "Y": 424,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u7CBE\u5BC6\u5F39\u7C27",
+    "Pixels": 31,
+    "MinimumRatio": 8.97152318636616,
+    "Target": 4.5,
+    "X": 642,
+    "Y": 554,
+    "Foreground": "273f3cff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u6574\u6279 \u00D720",
+    "Pixels": 20,
+    "MinimumRatio": 5.717481688312049,
+    "Target": 4.5,
+    "X": 649,
+    "Y": 574,
+    "Foreground": "4c5b51ff",
+    "ActualBackground": "ede5cfff"
+  },
+  {
+    "Text": "\u52A0\u56FA\u884C\u56CA \u00D71",
+    "Pixels": 65,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 151,
+    "Y": 629,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u4ED3\u5E93 \u00B7 1.5\u00A0kg",
+    "Pixels": 35,
+    "MinimumRatio": 5.7492194309327695,
+    "Target": 4.5,
+    "X": 144,
+    "Y": 665,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u4ED3\u5E93 \u2192 \u968F\u8EAB \u00B7 1 \u4EF6\n\u63A8\u8FDB 0 \u6B65",
+    "Pixels": 111,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 412,
+    "Y": 632,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u8D1F\u91CD 11 \u2192 12.5\u00A0kg \u00B7 \u9608\u503C 20\u00A0kg \u00B7 \u540E\u7EED\u884C\u52A8 \u00D71",
+    "Pixels": 99,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 229,
+    "Y": 689,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u5B89\u5168\u636E\u70B9   \u751F\u547D 42/42   \u8D1F\u91CD 11/20\u00A0kg",
+    "Pixels": 102,
+    "MinimumRatio": 5.7492194309327695,
+    "Target": 4.5,
+    "X": 233,
+    "Y": 763,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "Tab / \u65B9\u5411\u952E\u9009\u62E9 \u00B7 F6 \u8DE8\u533A \u00B7 Esc \u8FD4\u56DE",
+    "Pixels": 137,
+    "MinimumRatio": 5.7492194309327695,
+    "Target": 4.5,
+    "X": 1052,
+    "Y": 763,
+    "Foreground": "4e5d52ff",
+    "ActualBackground": "eee9dbff"
+  },
+  {
+    "Text": "\u52A0\u56FA\u884C\u56CA \u00B7 \u6574\u6279 \u00D71\n\u589E\u52A0 12 \u683C\uFF0C\u603B\u5BB9\u91CF 16 \u683C\uFF1B\u5B8C\u6210\u5939\u5177\u4EFB\u52A1\u540E\u53EF\u5236\u4F5C\u3002\n\u53F3\u952E / \u66F4\u591A\uFF1A\u6570\u91CF\u3001\u4FDD\u7559\u548C\u5B8C\u6574\u8BE6\u60C5",
+    "Pixels": 501,
+    "MinimumRatio": 9.295954945784718,
+    "Target": 4.5,
+    "X": 800,
+    "Y": 368,
+    "Foreground": "273f3cff",
+    "ActualBackground": "eee9dbff"
+  }
+]

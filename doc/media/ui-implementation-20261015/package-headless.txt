@@ -1,0 +1,10 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+
+CHAPTER_READY | first chapter, outer ring, versioned saves
+UI_REWORK_VERIFIED | preview/cancel, Space conflict, lethal retreat, choices, nested focus, discard, save rollback, 3 sizes x 3 reading scales
+MANAGEMENT_DRAG id=12 target=(8, 8) cancelled=False success=False items=12:carry:2
+MANAGEMENT_DRAG id=12 target=(903.5, 404) cancelled=True success=False items=12:carry:2
+MANAGEMENT_DRAG id=12 target=(903.5, 404) cancelled=False success=True items=12:carry:1
+UI_PLANNING_VERIFIED | named preset preview/cancel, combined material plan, modification deck preview, bag specification table, supply quantity, structured log
+UI_MANAGEMENT_VERIFIED | real right click, quantity input scope, pinned details, natural drag/drop/cancel, protected stock, named undo, text input scope
+CHAPTER_VERIFIED | real input, 7 places, print palette, graphic HUD, focus inspection, modal focus, nested return, filters, three window sizes, rescue, hidden room, combat, calibration, exits, quests, trial, crafting, parcel, save restore, three enemies, defeat recovery, physical inventory, full pockets, ground pickup, backpack crafting

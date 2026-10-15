@@ -1,0 +1,36 @@
+{
+  "result": "retained_after_automatic_approval_rejection",
+  "reason": "blocked by policy",
+  "removed": [],
+  "reviewed_and_retained": [
+    {
+      "path": "tools/UiCopyExtractor/bin",
+      "exists": true
+    },
+    {
+      "path": "tools/UiCopyExtractor/obj",
+      "exists": true
+    },
+    {
+      "path": "artifacts/ui-completion-20261015-headless",
+      "exists": true
+    },
+    {
+      "path": "artifacts/ui-completion-20261015-render",
+      "exists": true
+    },
+    {
+      "path": "artifacts/ui-completion-20261015-layout",
+      "exists": true
+    },
+    {
+      "path": "doc/media/ui-completion-20261015/management",
+      "exists": true
+    },
+    {
+      "path": "doc/media/ui-completion-20261015/completion",
+      "exists": true
+    }
+  ],
+  "notes": "No alternative deletion attempted. Existing user artifacts and earlier rejected paths were not touched. Latest package-render is final evidence; source completion/management directories may contain superseded debug and failure images."
+}

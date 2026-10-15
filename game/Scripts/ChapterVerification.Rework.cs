@@ -23,7 +23,7 @@ public partial class ChapterVerification
         Require(Game.Buttons.ContainsKey("confirm_action") && Game.Session.ToJson() == before, "Space on a focused card requests ending the turn, never plays it");
         await Click("cancel_action"); Require(Game.Session.ToJson() == before, "End-turn reminder can be cancelled");
         await Click("card_0"); await Click("card_0"); await Click("end_trial");
-        Require(Game.Buttons.ContainsKey("make_G26"), "Completed trial leads directly to its recipe");
+        Require(Game.Buttons.TryGetValue("recipe_G26",out var selectedRecipe)&&selectedRecipe.Text.StartsWith("◆")&&(Game.Buttons.ContainsKey("make_G26")||Game.Buttons.ContainsKey("crafted_view")), "Completed trial returns to the recipe or existing physical product, according to ownership");
         await Click("close_panel");
 
         var danger = new ChapterSession(); danger.Depart(); danger.Move("A03"); danger.Act("K02"); danger.State.Health = 2;
@@ -45,7 +45,7 @@ public partial class ChapterVerification
         Require(Game.Session.State.CrateSelection == "wire" && !Game.Session.Actions().Any(a => a.Id == "train-parcel"), "Only the confirmed reward is generated");
 
         Game.ReplaceSession(ChapterSession.FromJson(completed)); await Frames();
-        await Click("camp_preparation"); Game.Buttons["prepare_equipment"].GrabFocus(); await Click("prepare_equipment"); await PressKey(Key.Escape);
+        await Click("depart", false); Game.Buttons["prepare_equipment"].GrabFocus(); await Click("prepare_equipment"); await PressKey(Key.Escape);
         Require(GetViewport().GuiGetFocusOwner()?.Name == "prepare_equipment", "Nested return restores the invoking control"); await Click("close_panel");
         await Click("inventory"); await Click("gear_tab_cargo"); var discarded = Game.Session.StoredStock.First(i => !i.Kind.StartsWith('T'));
         before = Game.Session.ToJson(); await Click("discard_" + discarded.Id, false); await Click("cancel_action");
@@ -53,7 +53,7 @@ public partial class ChapterVerification
         await Click("discard_" + discarded.Id,false); await Click("confirm_action");
         Require(!Game.Session.State.Stock.Any(i => i.Id == discarded.Id), "Confirmed discard removes only the selected batch");
 
-        Game.ReplaceSession(new ChapterSession()); await Frames(); await Click("camp_preparation");
+        Game.ReplaceSession(new ChapterSession()); await Frames(); await Click("depart", false);
         before = Game.Session.ToJson(); Game.SimulateSaveFailure = true; await Click("starter_G02");
         Require(Game.Session.ToJson() == before, "Save failure rolls back equipment and inventory atomically"); await Capture("rework-save-failure.png");
         Game.SimulateSaveFailure = false; await Click("starter_G02"); Require(Game.Session.State.Weapon == "G02", "Retry succeeds after save failure");
@@ -80,7 +80,7 @@ public partial class ChapterVerification
             AssertManualLayout(); AssertVisible("equip_G01"); await Capture($"rework-{size.X}-{scale}-comparison.png");
             await Click("gear_tab_cargo"); AssertManualLayout(); AssertStorageGrid(); await Capture($"rework-{size.X}-{scale}-storage.png");
             await Click("nav_prepare"); AssertManualLayout(); AssertVisible("prepare_depart"); await Capture($"rework-{size.X}-{scale}-prepare.png");
-            await Click("nav_craft"); await Click("craft_tab_recipes"); await Click("recipe_G26"); AssertManualLayout(); AssertVisible("make_G26");
+            await Click("nav_craft"); await Click("craft_tab_recipes"); await Click("recipe_G26"); AssertManualLayout(); AssertVisible(Game.Session.HasPhysical("G26")?"crafted_view":"make_G26");
             await Capture($"rework-{size.X}-{scale}-recipe.png");
         }
         Game.ReplaceSession(ChapterSession.FromJson(completed)); await Frames(); await PressKey(Key.Escape); await Click("font_100"); await Click("resume");

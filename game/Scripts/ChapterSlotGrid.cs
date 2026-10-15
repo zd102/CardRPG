@@ -11,9 +11,12 @@ public partial class ChapterSlotGrid : Container
     public int Capacity { get; set; }
     public bool ShowEmpty { get; set; } = true;
     public bool ListMode { get; set; }
+    public float ReadingScale { get; set; } = 1;
     public int Columns { get; private set; } = 1;
     private float _height;
-    private const float Gap = 6, Cell = 92, RowHeight = 106;
+    private const float Gap = 6;
+    private float Cell => 118 * ReadingScale;
+    private float RowHeight => ListMode ? 72 * ReadingScale : 118 + (ReadingScale - 1) * 80;
 
     public override Vector2 _GetMinimumSize() => new(0, _height);
 

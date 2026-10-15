@@ -1,0 +1,3431 @@
+{
+  "baseline": "cda7b29",
+  "started": "2026-10-15",
+  "items": [
+    {
+      "id": "A001",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "统一名称、系统图标、来源返回、模态键位范围、可关闭导航标签、独立页面上下文和战斗只读标识。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A002",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "统一名称、系统图标、来源返回、模态键位范围、可关闭导航标签、独立页面上下文和战斗只读标识。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A003",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "统一名称、系统图标、来源返回、模态键位范围、可关闭导航标签、独立页面上下文和战斗只读标识。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A004",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "统一名称、系统图标、来源返回、模态键位范围、可关闭导航标签、独立页面上下文和战斗只读标识。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A005",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "统一名称、系统图标、来源返回、模态键位范围、可关闭导航标签、独立页面上下文和战斗只读标识。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A006",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "统一名称、系统图标、来源返回、模态键位范围、可关闭导航标签、独立页面上下文和战斗只读标识。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A007",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "统一名称、系统图标、来源返回、模态键位范围、可关闭导航标签、独立页面上下文和战斗只读标识。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A008",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A009",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A010",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A011",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A012",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A013",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A014",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A015",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A016",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A017",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A018",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按任务组织布局；固定操作区、最大阅读宽度、紧凑完成卡、独立字号与界面缩放、说明重排、不拆单位、焦点和危险分离。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A019",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ExpeditionGlyph.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "空槽、锁定、容量和卡牌动作采用不同标记；背包容量徽记、绑带和轮廓有区分。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A020",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Readability.cs",
+        "game/Scripts/ChapterVerification.Completion.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "实际文字渲染与隐藏文字后的同位置背景成对采样；保存坐标和比值，排除禁用态。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A021",
+      "priority": "P3",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/UiCopy.cs",
+        "tools/UiCopyExtractor/Program.cs",
+        "game/Data/ui-copy.zh.json",
+        "game/Scripts/ChapterVerification.Completion.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "显示模板提取及约三成长文本压力开关；未承诺完整多语言版本。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A022",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterScene.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "携行整理与最终出发入口分开；物件聚焦、任务热点、新机会直达、救援小动作、独立发现提示和上次整备缺件摘要。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A023",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterScene.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "携行整理与最终出发入口分开；物件聚焦、任务热点、新机会直达、救援小动作、独立发现提示和上次整备缺件摘要。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A024",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterScene.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "携行整理与最终出发入口分开；物件聚焦、任务热点、新机会直达、救援小动作、独立发现提示和上次整备缺件摘要。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A025",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterScene.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "携行整理与最终出发入口分开；物件聚焦、任务热点、新机会直达、救援小动作、独立发现提示和上次整备缺件摘要。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A026",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterScene.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "携行整理与最终出发入口分开；物件聚焦、任务热点、新机会直达、救援小动作、独立发现提示和上次整备缺件摘要。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A027",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterScene.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "携行整理与最终出发入口分开；物件聚焦、任务热点、新机会直达、救援小动作、独立发现提示和上次整备缺件摘要。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A028",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterScene.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "携行整理与最终出发入口分开；物件聚焦、任务热点、新机会直达、救援小动作、独立发现提示和上次整备缺件摘要。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A029",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterRouteMap.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "拟部署点、工具供牌比较、出发余量与任务占格、当前与出发负重、配发勾选和任务物位置。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A030",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterRouteMap.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "拟部署点、工具供牌比较、出发余量与任务占格、当前与出发负重、配发勾选和任务物位置。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A031",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterRouteMap.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "拟部署点、工具供牌比较、出发余量与任务占格、当前与出发负重、配发勾选和任务物位置。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A032",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterRouteMap.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "拟部署点、工具供牌比较、出发余量与任务占格、当前与出发负重、配发勾选和任务物位置。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A033",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterRouteMap.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "拟部署点、工具供牌比较、出发余量与任务占格、当前与出发负重、配发勾选和任务物位置。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A034",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterRouteMap.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "拟部署点、工具供牌比较、出发余量与任务占格、当前与出发负重、配发勾选和任务物位置。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A035",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.PresetsUi.cs",
+        "src/CardRPG.Core/ChapterSession.Preparation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "命名预设、装备与携行范围分开、目标数量差量补齐、缺件定位、手动替代及改装比较；来源和空间在执行前重检。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A036",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterHotspot.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "完整推进步数语义、阶段阈值和拦截预告、稳定物件锚点及标签避让、临时标签、完成痕迹、免费装包退出确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A037",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterHotspot.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "完整推进步数语义、阶段阈值和拦截预告、稳定物件锚点及标签避让、临时标签、完成痕迹、免费装包退出确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A038",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterHotspot.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "完整推进步数语义、阶段阈值和拦截预告、稳定物件锚点及标签避让、临时标签、完成痕迹、免费装包退出确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A039",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterHotspot.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "完整推进步数语义、阶段阈值和拦截预告、稳定物件锚点及标签避让、临时标签、完成痕迹、免费装包退出确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A040",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterHotspot.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "完整推进步数语义、阶段阈值和拦截预告、稳定物件锚点及标签避让、临时标签、完成痕迹、免费装包退出确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A041",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterHotspot.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "完整推进步数语义、阶段阈值和拦截预告、稳定物件锚点及标签避让、临时标签、完成痕迹、免费装包退出确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A042",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.SceneInformation.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterHotspot.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "完整推进步数语义、阶段阈值和拦截预告、稳定物件锚点及标签避让、临时标签、完成痕迹、免费装包退出确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A043",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A044",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A045",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A046",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A047",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A048",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A049",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A050",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A051",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A052",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A053",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A054",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A055",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A056",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A057",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A058",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "可选拖牌与取消；按手牌实例保存显示顺序，不改真实牌堆或 RNG；目标失效需重新确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A059",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A060",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A061",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A062",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A063",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A064",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A065",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A066",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A067",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A068",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ExpeditionGlyph.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "空槽、锁定、容量和卡牌动作采用不同标记；背包容量徽记、绑带和轮廓有区分。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A069",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A070",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "src/CardRPG.Core/ChapterSession.Battle.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "手牌旁预览、结束回合生命后果、带编号敌人和辅助目标、局部背景、费用格点、奖励期限、选牌确认、实际试用进度和可跳回放。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A071",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.CharacterUi.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "当前与候选同列比较、构筑差异、实物来源、具体阻塞、备用说明、固定候选、穿戴及供牌变化回执。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A072",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.CharacterUi.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "当前与候选同列比较、构筑差异、实物来源、具体阻塞、备用说明、固定候选、穿戴及供牌变化回执。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A073",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.CharacterUi.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "当前与候选同列比较、构筑差异、实物来源、具体阻塞、备用说明、固定候选、穿戴及供牌变化回执。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A074",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.CharacterUi.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "当前与候选同列比较、构筑差异、实物来源、具体阻塞、备用说明、固定候选、穿戴及供牌变化回执。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A075",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.CharacterUi.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "当前与候选同列比较、构筑差异、实物来源、具体阻塞、备用说明、固定候选、穿戴及供牌变化回执。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A076",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.CharacterUi.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "当前与候选同列比较、构筑差异、实物来源、具体阻塞、备用说明、固定候选、穿戴及供牌变化回执。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A077",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.CharacterUi.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "当前与候选同列比较、构筑差异、实物来源、具体阻塞、备用说明、固定候选、穿戴及供牌变化回执。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A078",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A079",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A080",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A081",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A082",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A083",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A084",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A085",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A086",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A087",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A088",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A089",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.InventoryUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "真实批次、可展开容量空位、用途与搜索、类型名称数量重量排序、格位与重量、指定数量、快移、跨容器拖动及到达标记。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A090",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "src/CardRPG.Core/ChapterSession.Presentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "精确腾格计划、放下与永久丢弃区分；装入和留下两列，自定数量及优先顺序，费用分开、固定清单提交。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A091",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "src/CardRPG.Core/ChapterSession.Presentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "精确腾格计划、放下与永久丢弃区分；装入和留下两列，自定数量及优先顺序，费用分开、固定清单提交。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A092",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A093",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A094",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A095",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A096",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A097",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A098",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A099",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ModsUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按装备选方案；副本替换、前后卡面、拥有与生效状态、真实上限规则、单装备购买范围、只读整套卡组预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A100",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ModsUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按装备选方案；副本替换、前后卡面、拥有与生效状态、真实上限规则、单装备购买范围、只读整套卡组预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A101",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ModsUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按装备选方案；副本替换、前后卡面、拥有与生效状态、真实上限规则、单装备购买范围、只读整套卡组预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A102",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ModsUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按装备选方案；副本替换、前后卡面、拥有与生效状态、真实上限规则、单装备购买范围、只读整套卡组预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A103",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ModsUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按装备选方案；副本替换、前后卡面、拥有与生效状态、真实上限规则、单装备购买范围、只读整套卡组预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A104",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ModsUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按装备选方案；副本替换、前后卡面、拥有与生效状态、真实上限规则、单装备购买范围、只读整套卡组预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A105",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ModsUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按装备选方案；副本替换、前后卡面、拥有与生效状态、真实上限规则、单装备购买范围、只读整套卡组预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A106",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "背包补给扩仓分类；总容量与自重规格表、成品换装、容量前后值、配发来源标签、旧档超容无损整理入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A107",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "背包补给扩仓分类；总容量与自重规格表、成品换装、容量前后值、配发来源标签、旧档超容无损整理入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A108",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ExpeditionGlyph.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "空槽、锁定、容量和卡牌动作采用不同标记；背包容量徽记、绑带和轮廓有区分。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A109",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "背包补给扩仓分类；总容量与自重规格表、成品换装、容量前后值、配发来源标签、旧档超容无损整理入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A110",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "背包补给扩仓分类；总容量与自重规格表、成品换装、容量前后值、配发来源标签、旧档超容无损整理入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A111",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "背包补给扩仓分类；总容量与自重规格表、成品换装、容量前后值、配发来源标签、旧档超容无损整理入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A112",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "背包补给扩仓分类；总容量与自重规格表、成品换装、容量前后值、配发来源标签、旧档超容无损整理入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A113",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "任务阶段统一、主动追踪、物品步骤与位置、相关地图物品直达、交付后回执、带类型事件、真实交付奖励空间预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A114",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "任务阶段统一、主动追踪、物品步骤与位置、相关地图物品直达、交付后回执、带类型事件、真实交付奖励空间预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A115",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "任务阶段统一、主动追踪、物品步骤与位置、相关地图物品直达、交付后回执、带类型事件、真实交付奖励空间预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A116",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "任务阶段统一、主动追踪、物品步骤与位置、相关地图物品直达、交付后回执、带类型事件、真实交付奖励空间预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A117",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "任务阶段统一、主动追踪、物品步骤与位置、相关地图物品直达、交付后回执、带类型事件、真实交付奖励空间预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A118",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "任务阶段统一、主动追踪、物品步骤与位置、相关地图物品直达、交付后回执、带类型事件、真实交付奖励空间预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A119",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.SceneInformation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "已发现故事缩略图、观测顺序、未读标记、排序和无奖励重复的回顾入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A120",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Panels.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "本次战利品与旧遗留区分、明确全部装包、宽窄选择布局、确认包含选项名、当前构筑共鸣条件比较。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A121",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Panels.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "本次战利品与旧遗留区分、明确全部装包、宽窄选择布局、确认包含选项名、当前构筑共鸣条件比较。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A122",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Panels.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "本次战利品与旧遗留区分、明确全部装包、宽窄选择布局、确认包含选项名、当前构筑共鸣条件比较。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A123",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Panels.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "本次战利品与旧遗留区分、明确全部装包、宽窄选择布局、确认包含选项名、当前构筑共鸣条件比较。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A124",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Panels.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "本次战利品与旧遗留区分、明确全部装包、宽窄选择布局、确认包含选项名、当前构筑共鸣条件比较。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A125",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "src/CardRPG.Core/ChapterSession.Presentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "精确腾格计划、放下与永久丢弃区分；装入和留下两列，自定数量及优先顺序，费用分开、固定清单提交。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A126",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A127",
+      "priority": "P0",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A128",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A129",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A130",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A131",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A132",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A133",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.LogUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "致死撤退危险确认、结算反馈隔离、净收获优先、损失保留分组、回营任务入口、故事身份和场景留白、历史报告。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A134",
+      "priority": "P0",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Startup.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "保存状态及正常布局中的失败提示；失败回滚、保留输入、显式重试。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A135",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Panels.cs",
+        "game/Scripts/ChapterGame.Startup.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "保存状态及正常布局中的失败提示；失败回滚、保留输入、显式重试。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A136",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.Shortcuts.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "阅读操作声音分组、键位速查及冲突重绑定、普通与危险音量和样音。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A137",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.Shortcuts.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "阅读操作声音分组、键位速查及冲突重绑定、普通与危险音量和样音。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A138",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.Shortcuts.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "阅读操作声音分组、键位速查及冲突重绑定、普通与危险音量和样音。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A139",
+      "priority": "P3",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Startup.cs",
+        "src/CardRPG.Core/ChapterSaveStore.cs",
+        "tests/CardRPG.Core.Tests/SaveStoreTests.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "继续摘要、归档新建、保留坏档、验证备份恢复；临时写入后替换。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A140",
+      "priority": "P3",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.PlatformUi.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterVerification.Completion.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "720 高度、UI 缩放、Windows 窗口 DPI 与跨屏轮询、手柄映射及漂移阈值代码完成。模拟输入及逻辑缩放通过不等于真实设备验收。",
+      "acceptance_status": "hardware_pending"
+    },
+    {
+      "id": "A141",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.FocusNavigation.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "上下文初始焦点、F6 分区、空间方向、统一更多右键菜单、文本输入隔离、重建手势归属及同帧命令去重。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A142",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.FocusNavigation.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "上下文初始焦点、F6 分区、空间方向、统一更多右键菜单、文本输入隔离、重建手势归属及同帧命令去重。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A143",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.FocusNavigation.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "上下文初始焦点、F6 分区、空间方向、统一更多右键菜单、文本输入隔离、重建手势归属及同帧命令去重。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A144",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.FocusNavigation.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "上下文初始焦点、F6 分区、空间方向、统一更多右键菜单、文本输入隔离、重建手势归属及同帧命令去重。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A145",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.FocusNavigation.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "上下文初始焦点、F6 分区、空间方向、统一更多右键菜单、文本输入隔离、重建手势归属及同帧命令去重。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A146",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.FocusNavigation.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "上下文初始焦点、F6 分区、空间方向、统一更多右键菜单、文本输入隔离、重建手势归属及同帧命令去重。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A147",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "多选、保护标记、定额和类型归仓、显式部分移动及逐项原因、隐藏选择查看清除、原子执行。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A148",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "多选、保护标记、定额和类型归仓、显式部分移动及逐项原因、隐藏选择查看清除、原子执行。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A149",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "多选、保护标记、定额和类型归仓、显式部分移动及逐项原因、隐藏选择查看清除、原子执行。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A150",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "多选、保护标记、定额和类型归仓、显式部分移动及逐项原因、隐藏选择查看清除、原子执行。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A151",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "src/CardRPG.Core/ChapterSession.Management.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "多选、保护标记、定额和类型归仓、显式部分移动及逐项原因、隐藏选择查看清除、原子执行。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A152",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "src/CardRPG.Core/ChapterSession.Presentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "精确腾格计划、放下与永久丢弃区分；装入和留下两列，自定数量及优先顺序，费用分开、固定清单提交。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A153",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.PresetsUi.cs",
+        "src/CardRPG.Core/ChapterSession.Preparation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "命名预设、装备与携行范围分开、目标数量差量补齐、缺件定位、手动替代及改装比较；来源和空间在执行前重检。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A154",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.PresetsUi.cs",
+        "src/CardRPG.Core/ChapterSession.Preparation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "命名预设、装备与携行范围分开、目标数量差量补齐、缺件定位、手动替代及改装比较；来源和空间在执行前重检。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A155",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.PresetsUi.cs",
+        "src/CardRPG.Core/ChapterSession.Preparation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "命名预设、装备与携行范围分开、目标数量差量补齐、缺件定位、手动替代及改装比较；来源和空间在执行前重检。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A156",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.PresetsUi.cs",
+        "src/CardRPG.Core/ChapterSession.Preparation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "命名预设、装备与携行范围分开、目标数量差量补齐、缺件定位、手动替代及改装比较；来源和空间在执行前重检。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A157",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "整备阻塞定位具体物品和容器、解决后返回检查；少量固定对象入口及恢复默认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A158",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "整备阻塞定位具体物品和容器、解决后返回检查；少量固定对象入口及恢复默认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A159",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "src/CardRPG.Core/ChapterSession.Planning.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "已知配方反查、消耗来源、合并材料计划、按已知来源整理缺口、保留冲突三种选择、补给批量次数与产出数量。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A160",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "src/CardRPG.Core/ChapterSession.Planning.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "已知配方反查、消耗来源、合并材料计划、按已知来源整理缺口、保留冲突三种选择、补给批量次数与产出数量。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A161",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "src/CardRPG.Core/ChapterSession.Planning.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "已知配方反查、消耗来源、合并材料计划、按已知来源整理缺口、保留冲突三种选择、补给批量次数与产出数量。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A162",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "src/CardRPG.Core/ChapterSession.Planning.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "已知配方反查、消耗来源、合并材料计划、按已知来源整理缺口、保留冲突三种选择、补给批量次数与产出数量。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A163",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "src/CardRPG.Core/ChapterSession.Planning.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "已知配方反查、消耗来源、合并材料计划、按已知来源整理缺口、保留冲突三种选择、补给批量次数与产出数量。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A164",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.PlanningUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "src/CardRPG.Core/ChapterSession.Planning.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "已知配方反查、消耗来源、合并材料计划、按已知来源整理缺口、保留冲突三种选择、补给批量次数与产出数量。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A165",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "可选拖牌与取消；按手牌实例保存显示顺序，不改真实牌堆或 RNG；目标失效需重新确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A166",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "可选拖牌与取消；按手牌实例保存显示顺序，不改真实牌堆或 RNG；目标失效需重新确认。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A167",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Preferences.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "回放中只读查看与业务锁分离、主动输入决定说明所有者、按真实规则提示无合法牌且不自动结束。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A168",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Preferences.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "回放中只读查看与业务锁分离、主动输入决定说明所有者、按真实规则提示无合法牌且不自动结束。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A169",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.BattleUi.cs",
+        "game/Scripts/ChapterGame.HandInteraction.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.Preferences.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "回放中只读查看与业务锁分离、主动输入决定说明所有者、按真实规则提示无合法牌且不自动结束。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A170",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.ReferenceReading.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterVerification.Completion.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "持久只读对照快照与本次查看并列；悬浮也可读取对照；关键词只展开一层，清除对照不改变选择或业务状态。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A171",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterHotspot.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "标签与物件共用命中和焦点、按实际标签避让、场景空间导航。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A172",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterHotspot.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "标签与物件共用命中和焦点、按实际标签避让、场景空间导航。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A173",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A174",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterRouteMap.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "src/CardRPG.Core/ChapterSession.Navigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "地图节点与列表同步；已知目标、遗留、巡逻、确定路线成本、节点层级、回到当前地点和第一步出口指引。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A175",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "阶段物件焦点与新拾取入口、实际补给恢复、旧确认键释放后才接受新层输入。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A176",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "阶段物件焦点与新拾取入口、实际补给恢复、旧确认键释放后才接受新层输入。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A177",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.World.cs",
+        "game/Scripts/ChapterGame.FocusNavigation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "阶段物件焦点与新拾取入口、实际补给恢复、旧确认键释放后才接受新层输入。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A178",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.QuestBatch.cs",
+        "game/Scripts/ChapterVerification.Completion.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "逐项重新校验和保存的任务队列；剧情暂停、停止、继续，保存失败仅回滚当前项。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A179",
+      "priority": "P3",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "最近营地取放命名撤销、失败保留原意图、明确整个拾取会话边界。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A180",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "最近营地取放命名撤销、失败保留原意图、明确整个拾取会话边界。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A181",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "最近营地取放命名撤销、失败保留原意图、明确整个拾取会话边界。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A182",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Receipts.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "有限回执、独立便利偏好、可进入和关闭的完整说明、选物再点目标的替代路径、明确意图切换输入提示。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A183",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Receipts.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "有限回执、独立便利偏好、可进入和关闭的完整说明、选物再点目标的替代路径、明确意图切换输入提示。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A184",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Receipts.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "有限回执、独立便利偏好、可进入和关闭的完整说明、选物再点目标的替代路径、明确意图切换输入提示。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A185",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Receipts.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "有限回执、独立便利偏好、可进入和关闭的完整说明、选物再点目标的替代路径、明确意图切换输入提示。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A186",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Receipts.cs",
+        "game/Scripts/ChapterGame.Preferences.cs",
+        "game/Scripts/ChapterGame.InventoryFlows.cs",
+        "game/Scripts/ChapterGame.GraphicUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "有限回执、独立便利偏好、可进入和关闭的完整说明、选物再点目标的替代路径、明确意图切换输入提示。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A187",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Usability.cs",
+        "game/Scripts/ChapterVerification.Completion.cs",
+        "game/Scripts/ChapterVerification.Management.cs",
+        "scripts/verify-ui.ps1"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "本地匿名流程记录、激活和翻页滚动指针等待错误恢复统计；原始输入专项与辅助功能流程分开。尚无真人效率或满意度数据。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A188",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.Usability.cs",
+        "game/Scripts/ChapterVerification.Completion.cs",
+        "game/Scripts/ChapterVerification.Management.cs",
+        "scripts/verify-ui.ps1"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "本地匿名流程记录、激活和翻页滚动指针等待错误恢复统计；原始输入专项与辅助功能流程分开。尚无真人效率或满意度数据。",
+      "acceptance_status": "human_trial_pending"
+    },
+    {
+      "id": "A189",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Usability.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "工作模式与筛选分层、可折叠穿戴、独立密度与字号、首屏完整对象和详情展开计数、目录及逐对象阅读位置分开。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A190",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Usability.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "工作模式与筛选分层、可折叠穿戴、独立密度与字号、首屏完整对象和详情展开计数、目录及逐对象阅读位置分开。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A191",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Usability.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "工作模式与筛选分层、可折叠穿戴、独立密度与字号、首屏完整对象和详情展开计数、目录及逐对象阅读位置分开。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A192",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageUi.cs",
+        "game/Scripts/ChapterGame.Ui.cs",
+        "game/Scripts/ChapterGame.Interactions.cs",
+        "game/Scripts/ChapterGame.cs",
+        "game/Scripts/ChapterGame.Usability.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "工作模式与筛选分层、可折叠穿戴、独立密度与字号、首屏完整对象和详情展开计数、目录及逐对象阅读位置分开。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A193",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockVisualization.cs",
+        "game/Scripts/ChapterLoadMeter.cs",
+        "game/Scripts/ChapterGame.StorageUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按规则身份的成对数量表，明确来源批次；真实堆叠容量、20 kg 阈值、预测与超出段。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A194",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockVisualization.cs",
+        "game/Scripts/ChapterLoadMeter.cs",
+        "game/Scripts/ChapterGame.StorageUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按规则身份的成对数量表，明确来源批次；真实堆叠容量、20 kg 阈值、预测与超出段。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A195",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StockVisualization.cs",
+        "game/Scripts/ChapterLoadMeter.cs",
+        "game/Scripts/ChapterGame.StorageUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按规则身份的成对数量表，明确来源批次；真实堆叠容量、20 kg 阈值、预测与超出段。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A196",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A197",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A198",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs",
+        "game/Scripts/ChapterGame.DeckAnalysis.cs",
+        "game/Scripts/ChapterGame.ObjectMenus.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑卡表、费用分布、费用功能来源排序筛选、只读牌堆、效果来源、主动打开详情、来源矩阵联动与未知来源列、明确统计范围。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A199",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A200",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.StockCommands.cs",
+        "game/Scripts/ChapterGame.Interactions.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "配方状态和条件、拥有消耗余量、材料来源追踪、成品空间、已有成品主入口、制作后比较、相关借装试用与原配方返回。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A201",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.StorageCraftingUi.cs",
+        "game/Scripts/ChapterGame.ManagementLinks.cs",
+        "game/Scripts/ChapterGame.CharacterUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "背包补给扩仓分类；总容量与自重规格表、成品换装、容量前后值、配发来源标签、旧档超容无损整理入口。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A202",
+      "priority": "P1",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.WorkspaceUi.cs",
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "任务阶段统一、主动追踪、物品步骤与位置、相关地图物品直达、交付后回执、带类型事件、真实交付奖励空间预览。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A203",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.LogUi.cs",
+        "src/CardRPG.Core/ChapterSession.QuestPresentation.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "按远征地点类型折叠结构化事件；不合并消费，不伪造旧日志结构。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    },
+    {
+      "id": "A204",
+      "priority": "P2",
+      "status": "implemented",
+      "implementation": [
+        "game/Scripts/ChapterGame.OverviewUi.cs"
+      ],
+      "evidence": [
+        "doc/media/ui-completion-20261015/implementation-map.json",
+        "doc/media/ui-completion-20261015/verification-summary.json"
+      ],
+      "implementation_note": "紧凑部署地点与目标摘要、可展开路线、保留选择并重新检查出发条件。",
+      "acceptance_status": "scoped_automated_checks_and_source_review"
+    }
+  ],
+  "counts": {
+    "pending": 0,
+    "in_progress": 0,
+    "implemented": 204,
+    "verified": 0
+  },
+  "updated": "2026-10-15",
+  "status_semantics": {
+    "implemented": "Code implemented; the evidence summary defines the actual tested scope. This is not certification of every acceptance criterion.",
+    "verified": "Reserved for an item whose entire acceptance criteria have matching evidence."
+  },
+  "acceptance_limits": {
+    "A140": "No physical gamepad, mixed-DPI multi-monitor device checks. Synthetic input and scaling-policy checks only; 720 rendering is tested.",
+    "A188": "Raw-input automated paths are tested. No human usability study or claimed efficiency improvement."
+  }
+}

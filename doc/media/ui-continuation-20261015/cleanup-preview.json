@@ -1,0 +1,32 @@
+﻿[
+    {
+        "Path":  "C:\\Users\\uid15658\\Documents\\CardRPG\\artifacts\\ui-continuation-20261015-captures",
+        "Files":  135,
+        "Bytes":  76818719,
+        "Examples":  [
+                         "01-camp.png",
+                         "01-help.png",
+                         "01-preparation.png",
+                         "02-gate.png"
+                     ]
+    },
+    {
+        "Path":  "C:\\Users\\uid15658\\Documents\\CardRPG\\doc\\media\\ui-continuation-20261015\\management",
+        "Files":  19,
+        "Bytes":  4831666,
+        "Examples":  [
+                         "failure-map_place_A06.png",
+                         "management-bag-comparison.png",
+                         "management-context-menu.png",
+                         "management-drag-result.png"
+                     ]
+    },
+    {
+        "Path":  "C:\\Users\\uid15658\\Documents\\CardRPG\\game\\.godot\\mono\\temp\\obj\\ExportRelease\\win-x64\\PublishOutputs.0f51089d83.txt",
+        "Files":  1,
+        "Bytes":  22368,
+        "Examples":  [
+                         "PublishOutputs.0f51089d83.txt"
+                     ]
+    }
+]

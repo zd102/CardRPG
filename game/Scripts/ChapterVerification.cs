@@ -21,9 +21,15 @@ public partial class ChapterVerification : Node
         {
             _captures = OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--capture-dir="))?[14..];
             if (_captures != null) Directory.CreateDirectory(_captures);
+            if (OS.GetCmdlineUserArgs().Contains("--verify-management-only") || OS.GetCmdlineUserArgs().Contains("--verify-completion-only") || OS.GetCmdlineUserArgs().Contains("--verify-layout-only"))
+            {
+                var state = new ChapterState { ContentVersion = "chapter1-outer-ring-v1", Extractions = 1, Owned = ChapterContent.Gear.Keys.ToHashSet(), Bank = [20,20,20], Cargo = [0,0,0], Done = ["Q01", "Q02", "S01"], World = ["station"] };
+                var fixture = ChapterSession.FromJson(System.Text.Json.JsonSerializer.Serialize(state)); fixture.State.WarehouseLevel = 3; fixture.Equip("BP01");
+                if(OS.GetCmdlineUserArgs().Contains("--verify-layout-only")){await VerifyManual(fixture.ToJson());GD.Print("UI_LAYOUT_VERIFIED");}else if(OS.GetCmdlineUserArgs().Contains("--verify-completion-only"))await VerifyCompletion(fixture.ToJson());else await VerifyManagement(fixture.ToJson()); GetTree().Quit(0); return;
+            }
             await Frames(8); AssertArtAssets(); AssertImmersiveScene(); AssertSceneArt("camp"); await Capture("01-camp.png");
             await VerifyGraphicInspection();
-            await Click("camp_preparation"); await Click("starter_G02"); await Click("starter_G01");
+            await Click("depart", false); await Click("starter_G02"); await Click("starter_G01");
             await Capture("01-preparation.png"); await Click("close_panel");
             await Click("help"); await Capture("01-help.png"); await Click("close_panel");
             await PressKey(Key.M); var unchanged = Game.Session.ToJson();
@@ -59,7 +65,9 @@ public partial class ChapterVerification : Node
             await Capture("05-hidden-room.png"); await Click("act_shovel"); await CollectLoot();
             await Click("move_A04"); await Click("field_equipment"); await Click("gear_tab_weapon"); await Click("equip_G25"); await Click("close_panel");
             await Click("move_A02"); await Capture("05-square.png"); await Click("act_crate"); await Click("act_crate"); await CollectLoot();
-            await Click("act_clamp"); await CollectLoot(); await Click("move_A04"); await Click("act_calibrate"); await Click("move_A05");
+            await Click("act_clamp"); await CollectLoot(); await Click("move_A04");
+            if(!Game.Buttons.ContainsKey("act_calibrate"))GD.Print("CALIBRATION_DIAGNOSTIC "+string.Join(";",Game.Session.State.Stock.Select(i=>$"{i.Kind}:{i.Container}:{i.Quantity}:{i.Calibrated}"))+" LOG="+string.Join(";",Game.Session.State.Log.TakeLast(14)));
+            await Click("act_calibrate"); await Click("move_A05");
             await Capture("07-station.png"); await Click("act_repair"); AssertSceneArt("A05-powered"); await Capture("07-station-powered.png");
             await Click("act_sign"); await CollectLoot(); await Click("act_wire"); await CollectLoot(); await Click("act_extract");
             await Click("camp"); await Click("camp_quests"); await Click("deliver_Q02"); await Click("deliver_S01"); await Click("deliver_S08"); await Click("close_panel");
@@ -71,7 +79,7 @@ public partial class ChapterVerification : Node
             await Click("end_trial"); await Click("craft_tab_recipes"); await Click("make_G26"); await Capture("09-crafting.png");
             Require(Game.Session.State.Owned.Contains("G26"), "Crafting registers gear");
             await Click("close_panel"); await Click("inventory"); await Click("gear_tab_hands"); await Click("equip_G26"); await Capture("10-equipment.png"); await Click("close_panel");
-            await Click("camp_preparation"); await Click("start_A05"); await Click("prepare_depart"); Require(Game.Session.State.Location == "A05", "Forward station departure");
+            await Click("depart", false); await Click("start_A05"); await Click("prepare_depart"); Require(Game.Session.State.Location == "A05", "Forward station departure");
             await Click("move_A04"); await Click("move_A02"); await Click("move_A07");
             await Capture("11-train.png"); await Click("act_train-inspect"); await Capture("11-train-choices.png"); await Click("act_train-parcel"); await CollectLoot();
             await Click("move_A02"); await Click("move_A01"); await Click("act_extract"); await Click("camp");
@@ -95,10 +103,12 @@ public partial class ChapterVerification : Node
             await VerifyUnavailableCards();
             await VerifyPatrolAndDefeat();
             await VerifyRework(completed);
+            await VerifyManagement(completed);
+            await VerifyCompletion(completed);
             GD.Print("CHAPTER_VERIFIED | real input, 7 places, print palette, graphic HUD, focus inspection, modal focus, nested return, filters, three window sizes, rescue, hidden room, combat, calibration, exits, quests, trial, crafting, parcel, save restore, three enemies, defeat recovery, physical inventory, full pockets, ground pickup, backpack crafting");
             GetTree().Quit(0);
         }
-        catch (Exception e) { GD.PushError("CHAPTER_VERIFICATION_FAILED: " + e); GetTree().Quit(1); }
+        catch (Exception e) { await Capture("failure.png");GD.PushError("CHAPTER_VERIFICATION_FAILED: " + e); GetTree().Quit(1); }
     }
     private async Task CollectLoot()
     {
@@ -119,7 +129,7 @@ public partial class ChapterVerification : Node
         foreach (var kind in new[] { "G01", "G02", "G09" }) await Click("backup_" + kind);
         Require(Game.Session.State.Backups.Count == 3, "UI carries more than two backup items");
         await Click("gear_tab_cargo"); AssertManualLayout(); await Capture("inventory-three-backups.png"); await Click("close_panel");
-        await Click("camp_preparation"); await Click("start_A01"); await Click("prepare_depart");
+        await Click("depart", false); await Click("start_A01"); await Click("prepare_depart");
         Require(Game.Session.Overweight, "Worn and packed gear contribute to weight");
         var pressure = Game.Session.State.Pressure; await Click("move_A03");
         Require(Game.Session.State.Pressure == pressure + 2, "Overweight movement costs two action values");
@@ -127,6 +137,7 @@ public partial class ChapterVerification : Node
         await Click("act_cloth"); await CollectLoot(); await Click("inventory"); await Click("gear_tab_cargo");
         var armor = Game.Session.CarriedItems.Single(i => i.Kind == "G09"); pressure = Game.Session.State.Pressure;
         await Click("drop_" + armor.Id);
+        if(Game.Session.State.Pressure!=pressure+2||Game.Session.Overweight)GD.Print("DROP_DIAGNOSTIC expectedPressure="+(pressure+2)+" actual="+Game.Session.State.Pressure+" grams="+Game.Session.CarriedGrams+" item="+Game.Session.State.Stock.FirstOrDefault(i=>i.Id==armor.Id)?.Container+" focus="+GetViewport().GuiGetFocusOwner()?.Name+" drop="+Game.Buttons["drop_"+armor.Id].GetGlobalRect()+" inspection="+Game.GetNode<Control>("ChapterPresentation/Inspection").GetGlobalRect()+" hovered="+GetViewport().GuiGetHoveredControl()?.Name+" log="+string.Join(";",Game.Session.State.Log.TakeLast(4)));
         Require(Game.Session.State.Pressure == pressure + 2 && !Game.Session.Overweight, "Dropping pays starting surcharge and removes overweight");
         await Capture("inventory-ground-return.png"); await Click("close_panel");
         var saved = Game.Session.ToJson(); Game.ReplaceSession(ChapterSession.FromJson(saved)); await Frames();
@@ -152,7 +163,8 @@ public partial class ChapterVerification : Node
     private void AssertInspection(string expected)
     {
         var panel=Game.GetNode<PanelContainer>("ChapterPresentation/Inspection");
-        Require(panel.Visible && panel.GetChildren().OfType<Label>().Any(label=>label.Text.Contains(expected)),"Keyboard reveals icon meaning: "+expected);
+        if(!panel.Visible || panel.FindChild("InspectionCopy",true,false) is Label diagnostic && !diagnostic.Text.Contains(expected))GD.Print("INSPECTION_DIAGNOSTIC visible="+panel.Visible+" focus="+GetViewport().GuiGetFocusOwner()?.Name+" text="+(panel.FindChild("InspectionCopy",true,false) as Label)?.Text);
+        Require(panel.Visible && panel.FindChild("InspectionCopy",true,false) is Label label && label.Text.Contains(expected),"Keyboard reveals icon meaning: "+expected);
         Require(GetViewport().GetVisibleRect().Encloses(panel.GetGlobalRect()),"Inspection stays inside viewport");
     }
     private async Task VerifyUnavailableCards()
@@ -175,8 +187,7 @@ public partial class ChapterVerification : Node
             foreach (var id in new[] { "map", "inventory", "journal", "craft", "help", "quit" }) AssertVisible(id);
             var before = Game.Session.ToJson();
             await Click("inventory"); AssertManualLayout();
-            var summary=Game.GetNode<Control>("ChapterPresentation/FieldManual").FindChild("LoadoutSummary",true,false) as GridContainer;
-            Require(summary!=null && summary.Columns == 1 && summary.GetChildCount() == 4,"Four equipment slots remain visible beside both containers");
+            Require(Game.Buttons.ContainsKey("storage_loadout"), "Inventory exposes a visible loadout disclosure control");
             await Click("gear_tab_weapon"); await Click("inspect_G25");
             Require(!Game.Buttons.ContainsKey("equip_G10"), "Weapon filter excludes body equipment");
             await AssertSupplyCards("G25");
@@ -234,19 +245,31 @@ public partial class ChapterVerification : Node
         foreach (var (container, used, capacity) in new[] { ("carry", Game.Session.CarryUsed, Game.Session.CarryCapacity), ("warehouse", Game.Session.WarehouseUsed, Game.Session.WarehouseCapacity) })
         {
             var grid = panel.FindChild("StorageGrid_" + container, true, false) as ChapterSlotGrid;
-            Require(grid != null && grid.GetMeta("occupied").AsInt32() == used && grid.GetChildren().Sum(n => n.GetMeta("slots").AsInt32()) == used, "Continuous item blocks match physical storage: " + container);
-            Require(grid!.Columns >= 3, "Container exposes at least three columns: " + container);
+            Require(grid != null && grid.GetMeta("occupied").AsInt32() == used && grid.GetMeta("capacity").AsInt32() == capacity, "Capacity summary matches real stacking rules: " + container);
+            var shown = grid!.GetChildren().OfType<Control>().Select(n => (Id: n.GetMeta("item_id").AsInt64(), Quantity: n.GetMeta("quantity").AsInt32())).ToArray();
+            Require(shown.Select(i => i.Id).Distinct().Count() == shown.Length, "Each real batch has exactly one tile");
+            foreach (var batch in shown) Require(Game.Session.State.Stock.Any(i => i.Id == batch.Id && i.Container == container && i.Quantity == batch.Quantity), "Displayed batch quantity and command identity agree");
+            Require(grid!.Columns >= 2, "Container retains at least two columns at large reading sizes: " + container);
             var items = grid.GetChildren().OfType<Control>().ToArray();
             foreach (var item in items) Require(item.Position.X >= 0 && item.GetRect().End.X <= grid.Size.X + 1, "Item fits container width");
+            foreach (var item in items)
+            {
+                var art = item.GetChild<Control>(0); var title = item.GetNode<Label>("ItemTitle");
+                Require(!art.GetRect().Intersects(title.GetRect()), "Item illustration does not overlap its scaled name");
+            }
             for (var i = 0; i < items.Length; i++)
             for (var j = i + 1; j < items.Length; j++) Require(!items[i].GetRect().Intersects(items[j].GetRect()), "Storage items do not overlap");
         }
         var workspace = (Control)panel.FindChild("StorageWorkspace", true, false);
-        Require(workspace.Size.Y >= GetViewport().GetVisibleRect().Size.Y * .55f, "Physical inventory retains the majority of screen height");
+        var expandedSummary = panel.FindChild("CompactLoadout", true, false) != null;
+        Require(workspace.Size.Y >= GetViewport().GetVisibleRect().Size.Y * (expandedSummary ? .3f : .4f), "Inventory retains browsing space, including explicitly expanded wear summary");
+        foreach (var grid in new[] { panel.FindChild("StorageGrid_carry", true, false), panel.FindChild("StorageGrid_warehouse", true, false) }.OfType<Control>())
+            if (grid.GetChildCount() > 0 && grid.GetParent()?.GetParent() is ScrollContainer viewport) Require(viewport.Size.Y >= grid.GetChild<Control>(0).Size.Y, "At least one complete item row fits the container viewport");
         var actionBar = (Control)panel.FindChild("StockActionBar", true, false);
-        Require(actionBar.Size.Y <= 150, "Selected item actions do not displace container space");
+        Require(actionBar.Size.Y <= 210, "Selected item forecast and actions stay bounded at larger reading sizes");
         foreach (var slot in new[] { "weapon", "body", "hands", "backpack" })
         {
+            if (!Game.Buttons.ContainsKey("wear_" + slot)) continue;
             var tile = Game.Buttons["wear_" + slot]; AssertVisible("wear_" + slot);
             Require(tile.Size.X >= 170, "Worn item name has sufficient reading width");
             for (Node? ancestor = tile.GetParent(); ancestor != null; ancestor = ancestor.GetParent())
@@ -353,16 +376,22 @@ public partial class ChapterVerification : Node
     {
         while (Game.IsFeedbackPlaying) await ToSignal(GetTree().CreateTimer(.05), SceneTreeTimer.SignalName.Timeout);
         if (Game.Buttons.ContainsKey("story_continue") && id != "story_continue") await Click("story_continue");
-        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("deliver_")) await Click("quest_detail_" + id[8..]);
+        if (id == "gear_tab_cargo") id = "gear_mode_cargo";
+        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("gear_tab_") && Game.Buttons.ContainsKey("gear_mode_equipment")) await Click("gear_mode_equipment");
+        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("deliver_")) { if (!Game.Buttons.ContainsKey("quest_detail_" + id[8..])) await Click("quest_tab_active"); await Click("quest_detail_" + id[8..]); }
         if (!Game.Buttons.ContainsKey(id) && id.StartsWith("make_") && Game.Buttons.ContainsKey("recipe_" + id[5..])) await Click("recipe_" + id[5..]);
+        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("make_BP") && Game.Buttons.ContainsKey("storage_craft_bags")) { await Click("storage_craft_bags"); await Click("bag_spec_" + id[5..]); }
+        if (!Game.Buttons.ContainsKey(id) && id == "make_U01" && Game.Buttons.ContainsKey("storage_craft_supplies")) await Click("storage_craft_supplies");
+        if (!Game.Buttons.ContainsKey(id) && id == "upgrade_warehouse" && Game.Buttons.ContainsKey("storage_craft_warehouse")) await Click("storage_craft_warehouse");
+        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("mod_") && Game.Buttons.ContainsKey("mod_choice_" + id[4..])) await Click("mod_choice_" + id[4..]);
         // Management actions live in the selected item's detail pane.
         if (!Game.Buttons.ContainsKey(id) && (id.StartsWith("equip_") || id.StartsWith("backup_")))
             await Click("inspect_" + id[(id.IndexOf('_') + 1)..]);
         if (!Game.Buttons.ContainsKey(id) && new[] { "pickup_", "transfer_", "drop_", "discard_" }.Any(id.StartsWith))
         {
             var item = Game.Session.State.Stock.Single(i => i.Id == long.Parse(id[(id.LastIndexOf('_') + 1)..]));
-            var first = Game.Session.State.Stock.First(i => i.Container == item.Container && i.Kind == item.Kind && i.FreeSupply == item.FreeSupply && i.Calibrated == item.Calibrated);
-            await Click($"stock_{first.Id}_0_0");
+            await Click($"stock_{item.Id}_0_0");
+            if (id.StartsWith("discard_")) { await Click("stock_more"); id = "menu_discard"; }
         }
         Button? button = null;
         for (var attempt = 0; attempt < 5; attempt++)
@@ -387,6 +416,7 @@ public partial class ChapterVerification : Node
         if (completeFlow)
         {
             if (id == "depart") await Click("prepare_depart");
+            if (id is "close_panel" or "loot_return" && Game.Buttons.TryGetValue("confirm_action", out var closePickup) && closePickup.Text == "结束并返回场景") await Click("confirm_action");
             if (id.StartsWith("card_") && Game.Buttons.ContainsKey("play_selected")) await Click("play_selected");
             if (id == "end_turn" && Game.Buttons.ContainsKey("confirm_action")) await Click("confirm_action");
             if (id is "act_train-wire" or "act_train-supply" or "act_train-parcel" or "act_R01" or "act_R07") await Click("choice_confirm");

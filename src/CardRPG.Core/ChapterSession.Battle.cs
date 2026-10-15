@@ -3,6 +3,7 @@ namespace CardRPG.Core;
 public sealed partial class ChapterSession
 {
     public List<string> BattleFeedback { get; } = [];
+    private void BattleReceipt(string text) { BattleFeedback.Add(text); NoteBattle(text); }
     public ChapterBattle? LastResolvedBattle { get; private set; }
     public static string EnemyName(string id) => id switch
     { "E01" => "搬运傀儡", "E02" => "铆盾守卫", "E03" => "警铃巡视者", "E13" => "军需领班", "dummy" => "台架练习靶", _ => id };
@@ -31,7 +32,7 @@ public sealed partial class ChapterSession
         if (State.Paused.Remove(id, out var paused))
         {
             State.Battle = paused; State.Phase = ChapterPhase.Battle; paused.ReturnPlace = State.Previous;
-            BeginRound(paused); Note("恢复先前遭遇，敌人、牌区与魔法保持，不重抽开场。"); return;
+            BeginRound(paused); NoteBattle("恢复先前遭遇，敌人、牌区与魔法保持，不重抽开场。"); return;
         }
         var b = new ChapterBattle { Id = id, ReturnPlace = State.Previous, Equipment = Equipped.ToList(), Draw = Deck() };
         string[] enemies = id switch
@@ -42,7 +43,7 @@ public sealed partial class ChapterSession
         b.Enemies = enemies.Select(Enemy).ToList();
         if (id == "E13" && State.Pressure >= 26) b.Enemies[0].Shield += 4;
         Shuffle(b.Draw); State.Battle = b; State.Phase = ChapterPhase.Battle; BeginRound(b);
-        Note("进入战斗。敌人意图公开，战斗思考不推进区域压力。");
+        NoteBattle("进入战斗。敌人意图公开，战斗思考不推进区域压力。");
     }
     public bool StartTrial()
     {
@@ -53,13 +54,13 @@ public sealed partial class ChapterSession
         // Fixed legal hand from actual copies. Trial uses neither real equipment nor real health.
         b.Round = 1; b.Action = 3; b.Mana = 2;
         foreach (var card in new[] { "C36", "C01", "C03", "C35", "C02" }) { b.Draw.Remove(card); b.Hand.Add(card); }
-        Note("岑砧：先用预备工具看看下一张牌，再做一次攻击。借用手套只在台架里有效。"); return true;
+        NoteBattle("岑砧：先用预备工具看看下一张牌，再做一次攻击。借用手套只在台架里有效。"); return true;
     }
     public bool EndTrial()
     {
         if (State.Phase != ChapterPhase.Battle || State.Battle?.Id != "trial") return false;
         State.RandomState = State.Battle.TrialRandomState; State.Battle = null; State.Phase = ChapterPhase.Camp;
-        Note(State.World.Contains("trial-complete") ? "试用完成，检修工具手套配方已开放。借用品已归还。" : "暂时结束试用，借用品已归还；随时可以重试。"); return true;
+        NoteBattle(State.World.Contains("trial-complete") ? "试用完成，检修工具手套配方已开放。借用品已归还。" : "暂时结束试用，借用品已归还；随时可以重试。"); return true;
     }
     private void BeginRound(ChapterBattle b)
     {
@@ -92,10 +93,10 @@ public sealed partial class ChapterSession
         BattleFeedback.Clear();
         var b = State.Battle!; var c = ChapterContent.Cards[b.Hand[index]];
         LastResolvedBattle = b;
-        BattleFeedback.Add($"打出 {c.Name} · 行动 −{c.Action} / 魔法 −{c.Mana}");
+        BattleReceipt($"打出 {c.Name} · 行动 −{c.Action} / 魔法 −{c.Mana}");
         b.Action -= c.Action; b.Mana -= c.Mana; b.Hand.RemoveAt(index);
         var damage = c.Damage;
-        if (c.Id == "C07") { var used = Math.Min(8, b.Shield); b.Shield -= used; damage += used; BattleFeedback.Add($"盾压消耗护盾 {used}，剩余 {b.Shield}"); }
+        if (c.Id == "C07") { var used = Math.Min(8, b.Shield); b.Shield -= used; damage += used; BattleReceipt($"盾压消耗护盾 {used}，剩余 {b.Shield}"); }
         if (damage > 0)
         {
             var targets = c.Id == "C18" ? b.Enemies.Where(e => e.Health > 0).ToArray() : [b.Enemies[target]];
@@ -103,10 +104,10 @@ public sealed partial class ChapterSession
             {
                 var absorbed = c.Id == "C06" ? 0 : Math.Min(enemy.Shield, damage);
                 enemy.Shield -= absorbed; enemy.Health = Math.Max(0, enemy.Health - damage + absorbed);
-                BattleFeedback.Add($"{EnemyName(enemy.Id)}：护盾 −{absorbed}，生命伤害 {damage - absorbed}" + (enemy.Health == 0 ? " · 击败" : ""));
+                BattleReceipt($"{b.Enemies.IndexOf(enemy) + 1}号 · {EnemyName(enemy.Id)}：护盾 −{absorbed}，生命伤害 {damage - absorbed}" + (enemy.Health == 0 ? " · 击败" : ""));
                 if (enemy.Id == "E13" && enemy.Health == 0 && b.Round <= 3) b.BonusSecured = true;
             }
-            if (b.Id == "trial" && b.TrialToolUsed && State.World.Add("trial-complete")) Note("岑砧笑了：抽牌让你多一种选择，也会占用行动。检修工具手套配方已解锁。");
+            if (b.Id == "trial" && b.TrialToolUsed && State.World.Add("trial-complete")) NoteBattle("岑砧笑了：抽牌让你多一种选择，也会占用行动。检修工具手套配方已解锁。");
         }
         if (c.Shield > 0)
         {
@@ -114,19 +115,19 @@ public sealed partial class ChapterSession
             b.Shield += c.Shield;
             if (State.Resonance == "R07" && b.Id != "trial" && c.Shield >= 7 && !b.ShieldResonated)
             { b.Shield += 2; b.ShieldResonated = true; }
-            BattleFeedback.Add($"护盾 +{b.Shield - beforeShield} → {b.Shield}");
+            BattleReceipt($"护盾 +{b.Shield - beforeShield} → {b.Shield}");
         }
-        if (c.Id == "C05") { var previous = b.Mana; b.Mana = Math.Min(3, b.Mana + 1); BattleFeedback.Add($"导能恢复魔法 {b.Mana - previous} → {b.Mana}/3"); }
+        if (c.Id == "C05") { var previous = b.Mana; b.Mana = Math.Min(3, b.Mana + 1); BattleReceipt($"导能恢复魔法 {b.Mana - previous} → {b.Mana}/3"); }
         if (c.Id == "C25") b.KeepShield = true;
         var drawnBefore = b.ExtraDraw;
         if (c.Id == "C26") DrawCards(b, 1, true);
         if (c.Id == "C36") { DrawCards(b, 2, true); b.TrialToolUsed = true; }
-        if (c.Id is "C26" or "C36") BattleFeedback.Add($"额外抽取 {b.ExtraDraw - drawnBefore} 张 · 本回合 {b.ExtraDraw}/2");
+        if (c.Id is "C26" or "C36") BattleReceipt($"额外抽取 {b.ExtraDraw - drawnBefore} 张 · 本回合 {b.ExtraDraw}/2");
         b.Discard.Add(c.Id);
-        BattleFeedback.Add(c.Name + "进入弃牌堆");
+        BattleReceipt(c.Name + "进入弃牌堆");
         if (b.Enemies.All(e => e.Health == 0))
         {
-            if (b.Id == "trial") { b.Enemies[0].Health = b.Enemies[0].MaxHealth; Note("练习靶复位，试用无战利品。"); }
+            if (b.Id == "trial") { b.Enemies[0].Health = b.Enemies[0].MaxHealth; NoteBattle("练习靶复位，试用无战利品。"); }
             else WinBattle(b);
         }
         return true;
@@ -142,7 +143,7 @@ public sealed partial class ChapterSession
         {
             if (enemy.Health == 0) continue;
             var hit = EnemyDamage(enemy); var absorb = Math.Min(b.Shield, hit);
-            BattleFeedback.Add(EnemyName(enemy.Id) + "：" + EnemyIntent(enemy, b.Enemies.Count)
+            BattleReceipt($"{b.Enemies.IndexOf(enemy) + 1}号 · " + EnemyName(enemy.Id) + "：" + EnemyIntent(enemy, b.Enemies.Count)
                 + (hit > 0 ? $" · 护盾抵挡 {absorb} / 生命伤害 {(b.Id == "trial" ? 0 : hit - absorb)}" : ""));
             b.Shield -= absorb; if (b.Id != "trial") State.Health = Math.Max(0, State.Health - hit + absorb);
             var shieldsBefore = b.Enemies.Select(e => e.Shield).ToArray();
@@ -155,24 +156,24 @@ public sealed partial class ChapterSession
                     ally.Shield = Math.Min(20, ally.Shield + 4); break;
                 case "E03" when enemy.Cycle % 3 == 2 && !enemy.Signaled:
                     enemy.Signaled = true;
-                    if (b.Enemies.Count < 3) { b.Enemies.Add(Enemy("E01")); Note("支援傀儡抵达，下个敌方阶段才会行动。"); BattleFeedback.Add("支援抵达 · 下个敌方阶段才行动"); }
+                    if (b.Enemies.Count < 3) { b.Enemies.Add(Enemy("E01")); NoteBattle("支援傀儡抵达，下个敌方阶段才会行动。"); BattleReceipt("支援抵达 · 下个敌方阶段才行动"); }
                     else foreach (var e in b.Enemies.Where(e => e.Health > 0)) e.Shield = Math.Min(20, e.Shield + 3);
                     break;
             }
             var changedShields = b.Enemies.Take(shieldsBefore.Length).Select((e,i) => (e,i)).Where(p => p.e.Shield != shieldsBefore[p.i])
-                .Select(p => EnemyName(p.e.Id) + $" 护盾 {shieldsBefore[p.i]} → {p.e.Shield}").ToArray();
-            if (changedShields.Length > 0) BattleFeedback.Add(string.Join(" · ",changedShields));
+                .Select(p => $"{p.i + 1}号 · " + EnemyName(p.e.Id) + $" 护盾 {shieldsBefore[p.i]} → {p.e.Shield}").ToArray();
+            if (changedShields.Length > 0) BattleReceipt(string.Join(" · ",changedShields));
             enemy.Cycle = (enemy.Cycle + 1) % (enemy.Id == "E02" ? 2 : 3);
             if (State.Health == 0) { Defeat(); return true; }
         }
-        if (b.Id == "E13" && b.Round == 3 && !b.BonusSecured) Note("额外弹簧包被运走了。破甲锤仍然可以取得。");
+        if (b.Id == "E13" && b.Round == 3 && !b.BonusSecured) NoteBattle("额外弹簧包被运走了。破甲锤仍然可以取得。");
         if (retreat)
         {
             b.BeginPending = true; State.Paused[b.Id] = b; State.Battle = null;
             State.Location = b.ReturnPlace; State.Phase = ChapterPhase.Exploring; State.Warned = false;
-            Note("承受本轮意图后退回" + ChapterContent.Places[State.Location].Name + "。敌人与牌区暂停保存；仍需自行撤离。");
+            NoteBattle("承受本轮意图后退回" + ChapterContent.Places[State.Location].Name + "。敌人与牌区暂停保存；仍需自行撤离。");
         }
-        else { var oldShield = b.Shield; BeginRound(b); BattleFeedback.Add($"第 {b.Round} 回合 · 护盾 {oldShield} → {b.Shield} · 行动 {b.Action} / 魔法 {b.Mana} · 抽牌 5"); }
+        else { var oldShield = b.Shield; BeginRound(b); BattleReceipt($"第 {b.Round} 回合 · 护盾 {oldShield} → {b.Shield} · 行动 {b.Action} / 魔法 {b.Mana} · 抽牌 5"); }
         return true;
     }
     private void WinBattle(ChapterBattle b)
@@ -187,6 +188,6 @@ public sealed partial class ChapterSession
                 State.World.Add("leader-won"); SpawnGround("battle-E13", "领班战利品", ("G03", 1), ("M01", 2), ("M03", b.BonusSecured ? 3 : 1)); break;
         }
         State.Battle = null; State.Phase = ChapterPhase.Exploring;
-        Note("战斗结束，战利品留在战场，装入行囊后再撤离。" + (b.Id == "E13" ? "领班首胜已记录，若装备遗失可回广场取回。" : ""));
+        NoteBattle("战斗结束，战利品留在战场，装入行囊后再撤离。" + (b.Id == "E13" ? "领班首胜已记录，若装备遗失可回广场取回。" : ""));
     }
 }

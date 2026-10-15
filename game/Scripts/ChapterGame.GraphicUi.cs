@@ -10,6 +10,10 @@ public partial class ChapterGame
     private PanelContainer? _inspection;
     private Label? _inspectionCopy;
     private Control? _inspected;
+    private string _inspectionFullText = "";
+    private int _inspectionTicket;
+    private Action? _resumePointerInspection;
+    private Control? _pointerInspected;
 
     private static ExpeditionGlyph Glyph(string symbol, Color? color = null, float size = 26) => new()
     { Symbol = symbol, Tint = color ?? Accent, CustomMinimumSize = new Vector2(size, size), MouseFilter = MouseFilterEnum.Ignore };
@@ -24,43 +28,107 @@ public partial class ChapterGame
         void Show()
         {
             if (_inspection == null || !GodotObject.IsInstanceValid(_inspection)) return;
-            if (control.Name == "close_panel" || control.Name.ToString().StartsWith("target_")) return;
+            if (!_hoverTips || !GodotObject.IsInstanceValid(control) || !control.IsInsideTree()) return;
+            if (_stockMenu != null || GetViewport().GuiIsDragging() || _panel == "detail") return;
+            if (control.Name == "close_panel" || control.Name.ToString().StartsWith("target_") || control.Name.ToString().StartsWith("inspection_")) return;
             var text = description();
             if (string.IsNullOrWhiteSpace(text)) return;
             if (_selectedCard >= 0 && _panel == "" && Session.State.Phase == ChapterPhase.Battle) return;
-            _inspected = control; _inspectionCopy!.Text = text; _inspection.Visible = true;
+            _inspected = control; _inspectionFullText = text;
+            _inspectionCopy!.Text = UiCopy.Present(_referenceText == "" || _referenceText == text ? text : "【已固定 · 只读快照，不代表当前结果】\n" + _referenceText + "\n\n【本次查看】\n" + text); _inspection.Visible = true;
             if (_panel != "")
             {
                 var rect = control.GetGlobalRect(); var shortCopy = !text.Contains('\n') && text.Length <= 28;
-                var width = Math.Min(shortCopy ? Math.Max(180, text.Length * 16 + 32) : 540, Size.X - 64);
-                var height = shortCopy ? 52 : Math.Min(210, Math.Max(80, text.Length / 28 * 24 + 56));
+                var width = Math.Min(shortCopy ? Math.Max(220, text.Length * 16 * ReadingScale + 32) : 540, Size.X - 64);
+                var height = Math.Min(Size.Y - 160, shortCopy ? 150 : 300);
                 var x = Mathf.Clamp(rect.Position.X, 32, Size.X - width - 32);
                 var y = rect.End.Y + height + 12 < Size.Y - 32 ? rect.End.Y + 8 : Math.Max(90, rect.Position.Y - height - 8);
+                var freeLeft=rect.Position.X-44;var freeRight=Size.X-rect.End.X-44;
+                if(freeLeft>=200||freeRight>=200)
+                {var onLeft=freeLeft>=freeRight;width=Math.Min(width,onLeft?freeLeft:freeRight);x=onLeft?rect.Position.X-width-12:rect.End.X+12;y=Math.Clamp(rect.Position.Y,190,Math.Max(190,Size.Y-height-240));}
+                if(_root.FindChild("StockActionBar",true,false) is Control actionBar)
+                {
+                    var left=rect.Position.X-44;var right=Size.X-rect.End.X-44;
+                    if(left>=300||right>=300)
+                    {var onLeft=left>=right;width=Math.Min(width,onLeft?left:right);x=onLeft?rect.Position.X-width-12:rect.End.X+12;}
+                    height=Math.Min(height,Math.Max(150,actionBar.GetGlobalRect().Position.Y-110));
+                    y=Math.Clamp(rect.Position.Y,90,Math.Max(90,actionBar.GetGlobalRect().Position.Y-height-12));
+                }
+                y = Math.Clamp(y, 16, Math.Max(16, Size.Y - height - 32));
                 Dock(_inspection, x, y, x + width, y + height);
             }
+            else if(Session.State.Phase==ChapterPhase.Battle)
+                Dock(_inspection,24,-362,-320,-202,0,1,1,1);
+            else
+            {
+                var width=Math.Min(480,Size.X*.38f);var height=220f;
+                var keepouts=Buttons.Where(p=>!p.Key.StartsWith("inspection_")&&p.Value.IsVisibleInTree()).Select(p=>p.Value.GetGlobalRect().Grow(6)).ToArray();
+                var points=new System.Collections.Generic.List<Vector2>();
+                for(var y=100f;y+height<Size.Y-24;y+=32)for(var x=24f;x+width<Size.X-24;x+=32)points.Add(new(x,y));
+                var origin=control.GetGlobalRect().GetCenter();
+                var free=points.OrderBy(p=>(p+new Vector2(width,height)/2).DistanceSquaredTo(origin)).FirstOrDefault(p=>!keepouts.Any(r=>r.Intersects(new Rect2(p,new(width,height)))));
+                if(free==Vector2.Zero){free=new Vector2(380,104);width=Math.Max(320,Size.X-420);height=134;}
+                Dock(_inspection,free.X,free.Y,free.X+width,free.Y+height);
+            }
+        }
+        async void PointerShow()
+        {
+            var ticket = ++_inspectionTicket;
+            if (_inputModality != "mouse") return;
+            if (_hoverDelayMs > 0) await ToSignal(GetTree().CreateTimer(_hoverDelayMs / 1000.0), SceneTreeTimer.SignalName.Timeout);
+            if (ticket == _inspectionTicket && GodotObject.IsInstanceValid(control) && control.IsInsideTree() && control.GetGlobalRect().HasPoint(GetGlobalMousePosition())) Show();
         }
         void Hide()
         {
             if (_inspected != control || _inspection == null || !GodotObject.IsInstanceValid(_inspection)) return;
             _inspection.Visible = false; _inspected = null;
         }
-        control.MouseEntered += Show; control.FocusEntered += Show;
-        control.MouseExited += () => { if (!control.HasFocus()) Hide(); };
+        async void PointerHide()
+        {
+            ++_inspectionTicket;
+            await ToSignal(GetTree().CreateTimer(.18), SceneTreeTimer.SignalName.Timeout);
+            if (_inspection != null && GodotObject.IsInstanceValid(_inspection) && _inspection.Visible && _inspection.GetGlobalRect().HasPoint(GetGlobalMousePosition())) return;
+            if (GodotObject.IsInstanceValid(control) && control.IsInsideTree() && !control.HasFocus()) Hide();
+        }
+        control.MouseEntered += ()=>{_pointerInspected=control;_resumePointerInspection=PointerShow;PointerShow();}; control.FocusEntered += Show;
+        control.MouseExited += ()=>{if(_pointerInspected==control){_pointerInspected=null;_resumePointerInspection=null;}PointerHide();};
         control.FocusExited += Hide;
     }
 
     private void InspectionLayer()
     {
         _inspected = null;
+        ++_inspectionTicket;
         _inspection = FlatPanel(_root, 12); _inspection.Name = "Inspection";
-        _inspection.ZIndex = 20; _inspection.MouseFilter = MouseFilterEnum.Ignore; _inspection.Visible = false;
+        _inspection.ZIndex = 20; _inspection.MouseFilter = MouseFilterEnum.Stop; _inspection.Visible = false;
+        var panel = _inspection;
+        // Dock writes several anchors/offsets. Clamp only after that transaction and container layout settle.
+        panel.Resized += () => Callable.From(()=>ClampInspectionBounds(panel)).CallDeferred();
         if (_panel != "") Dock(_inspection, 340, 120, -24, 260, ar:1);
         else if (Session.State.Phase == ChapterPhase.Battle)
         {
             Dock(_inspection,-300,-442,300,-266,.5f,1,.5f,1);
         }
         else Dock(_inspection, -300, -238, 300, -108, .5f, 1, .5f, 1);
-        _inspectionCopy = Text("", 16, Ink); _inspectionCopy.AddThemeFontSizeOverride("font_size",16); _inspection.AddChild(_inspectionCopy);
+        var body = Column(6); _inspection.AddChild(body);
+        var head = new HFlowContainer(); head.AddThemeConstantOverride("h_separation",8);head.AddThemeConstantOverride("v_separation",6);body.AddChild(head);
+        if (_pinEntry) head.AddChild(Button("inspection_pin", KeyLabel("inspect") + UiCopy.Text("UI_3CAE3B130D83"), () => { _detailItemId = 0; _detailTitle = UiCopy.Text("UI_17B00C8B46A9"); _detailText = _inspectionFullText; OpenNested("detail"); }));
+        if (_pinEntry) head.AddChild(Button("inspection_reference", _referenceText == "" ? UiCopy.Text("UI_461BAC02935B") : UiCopy.Text("UI_40B0EF6D99C5"), () => PinReference(_inspectionFullText)));
+        if (_referenceText != "") head.AddChild(Button("inspection_clear_reference", UiCopy.Text("UI_ED51208197F8"), () => { _referenceText = ""; Render(); }));
+        head.AddChild(Button("inspection_close", UiCopy.Text("UI_D301BC125833"), () => { _inspection?.Hide(); _inspected = null; }));
+        var scroll = new ScrollContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill, HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; body.AddChild(scroll);
+        _inspectionCopy = Text("", 16, Ink); _inspectionCopy.Name="InspectionCopy"; _inspectionCopy.SizeFlagsHorizontal = SizeFlags.ExpandFill; scroll.AddChild(_inspectionCopy);
+        panel.MouseExited += () => { if (_inspected == null || !GodotObject.IsInstanceValid(_inspected) || !_inspected.HasFocus() && !_inspected.GetGlobalRect().HasPoint(GetGlobalMousePosition())) panel.Hide(); };
+    }
+    private void ClampInspectionBounds(PanelContainer panel)
+    {
+        if(!GodotObject.IsInstanceValid(panel)||!panel.IsInsideTree()||_inspection!=panel)return;
+        var position=panel.GlobalPosition;
+        position.X=Math.Clamp(position.X,16,Math.Max(16,Size.X-panel.Size.X-16));
+        position.Y=Math.Clamp(position.Y,16,Math.Max(16,Size.Y-panel.Size.Y-16));
+        if(_panel!=""&&_root.FindChild("StockActionBar",true,false) is Control actions)
+            position.Y=Math.Min(position.Y,Math.Max(16,actions.GetGlobalRect().Position.Y-panel.Size.Y-12));
+        panel.GlobalPosition=position;
     }
 
     private Button IconButton(string id, string symbol, string description, Action action, bool primary = false)
@@ -87,16 +155,17 @@ public partial class ChapterGame
         return row;
     }
 
-    private void Pips(Node parent, string symbol, int value, int max, Color color, string description)
+    private void Pips(Node parent, string symbol, int value, int max, Color color, string description, int spend = 0)
     {
         var row = Row(7); parent.AddChild(row); row.AddChild(Glyph(symbol, color));
         for (var i = 0; i < max; i++)
         {
             var cell = new Panel { CustomMinimumSize = new Vector2(14, 18), SizeFlagsVertical = SizeFlags.ShrinkCenter, MouseFilter = MouseFilterEnum.Ignore };
-            cell.AddThemeStyleboxOverride("panel", Style(i < value ? color : new Color("d3ccb3"), i < value ? color : Muted, 0)); row.AddChild(cell);
+            var consumed = i < value && i >= value - spend;
+            cell.AddThemeStyleboxOverride("panel", Style(consumed ? new Color("f0cf9b") : i < value ? color : new Color("d3ccb3"), consumed ? Accent : i < value ? color : Muted, 0)); row.AddChild(cell);
         }
         row.FocusMode = FocusModeEnum.All;
-        Inspect(row, () => description + $"  {value}/{max}");
+        Inspect(row, () => description + $"  {value}/{max}" + (spend > 0 ? $" · 将消耗 {spend}，剩余 {value - spend}" : ""));
     }
 
     private void MaterialStrip(Node parent, int[] materials, Color? color = null)
@@ -106,7 +175,7 @@ public partial class ChapterGame
     }
 
     private static string CardSymbol(ChapterCard card) => card.Id switch
-    { "C04" or "C05" => "bolt", "C02" or "C19" or "C35" => "bash", "C06" => "breaker", "C18" => "all", "C36" => "draw", _ => card.Damage == 0 ? "guard" : "hammer" };
+    { "C04" or "C05" => "bolt", "C02" or "C19" or "C35" => "bash", "C06" => "breaker", "C18" => "all", "C26" or "C36" => "draw", _ => card.Damage > 0 && card.Shield > 0 ? "bash" : card.Damage == 0 ? "guard" : "hammer" };
 
     private void CardEffects(Node parent, ChapterCard card, Color ink, bool live = false, int size = 20)
     {

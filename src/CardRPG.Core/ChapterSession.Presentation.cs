@@ -35,7 +35,9 @@ public sealed partial class ChapterSession
             stock.Where(i => IsCarried(i) && i.Registered && ChapterContent.Gear.ContainsKey(i.Kind)).Sum(i => ChapterContent.Items[i.Kind].Slots));
     }
 
-    public string NextObjective => !State.Done.Contains("Q01")
+    public string NextObjective => State.TrackedQuest != "" && QuestOpen(State.TrackedQuest) && !State.Done.Contains(State.TrackedQuest)
+        ? "追踪：" + ChapterContent.Quests.Single(q => q.Id == State.TrackedQuest).Name + " · " + NextQuestStep(State.TrackedQuest) : MainObjective;
+    public string MainObjective => !State.Done.Contains("Q01")
         ? State.StoredItems.Contains("T01") ? "回到岑砧处交付继电器"
             : State.Items.Contains("T01") ? "继电器已装包，回入口安全撤离" : "去废料场取继电器，再回入口撤离"
         : !State.Done.Contains("Q02")
@@ -59,17 +61,20 @@ public sealed partial class ChapterSession
     }
 
     // A batch has one explicit cost and one patrol interruption, just like PickupAll.
-    public Dictionary<long, int> FittingPickup(string container)
+    public Dictionary<long, int> FittingPickup(string container, IReadOnlyList<long>? priority = null)
     {
         var stock = CopyStock(); var result = new Dictionary<long, int>();
-        foreach (var item in State.Stock.Where(i => i.Container == container).OrderByDescending(i => i.Kind.StartsWith('T')).ThenBy(i => i.Id))
+        var rank = (priority ?? Array.Empty<long>()).Distinct().Select((id, index) => (id, index)).ToDictionary(p => p.id, p => p.index);
+        foreach (var item in State.Stock.Where(i => i.Container == container).OrderBy(i => rank.GetValueOrDefault(i.Id, int.MaxValue)).ThenByDescending(i => i.Kind.StartsWith('T')).ThenByDescending(i => i.KeepOnPerson).ThenBy(i => i.Id))
         {
-            for (var count = item.Quantity; count > 0; count--)
+            var low = 0; var high = item.Quantity;
+            while (low < high)
             {
+                var count = low + (high - low + 1) / 2;
                 var candidate = stock.Select(i => i.Copy()).ToList(); MoveUnits(candidate, item.Id, "carry", count);
-                if (!Fits(candidate)) continue;
-                result[item.Id] = count; stock = candidate; break;
+                if (Fits(candidate)) low = count; else high = count - 1;
             }
+            if (low > 0) { result[item.Id] = low; MoveUnits(stock, item.Id, "carry", low); }
         }
         return result;
     }
@@ -89,25 +94,21 @@ public sealed partial class ChapterSession
         var cost = ground.FreePickup ? 0 : SceneActionCost();
         if (cost > 0 && InterruptInventoryAction(cost)) return true;
         CommitStock(stock); ground.FreePickup = false;
-        Note("已按确认清单装包，余物保留原位。" + LoadDescription);
+        NoteStock("已按确认清单装包，余物保留原位。" + LoadDescription);
         if (cost > 0) { EndFreePickup(); Advance(cost: cost); }
         return true;
     }
 
     public bool StoreCarriedMaterials()
     {
-        if (State.Phase != ChapterPhase.Camp) return false;
-        var stock = CopyStock(); var materials = stock.Where(i => i.Container == "carry" && ChapterContent.MaterialIds.Contains(i.Kind)).ToArray();
-        if (materials.Length == 0) return false;
-        foreach (var item in materials) item.Container = "warehouse";
-        if (!Fits(stock)) return Reject("仓库空间不足；请按物品选择存入。");
-        CommitStock(stock); Note("随身材料已全部存入仓库。"); return true;
+        return TransferBatch(MaterialDepositPlan(), "carry", "warehouse");
     }
 
     private static Dictionary<string, int> Quantities(IEnumerable<ChapterItem> items) => items.GroupBy(i => i.Kind).ToDictionary(g => g.Key, g => g.Sum(i => i.Quantity));
 
     private void BeginReport()
     {
+        if (State.LastReport != null) { State.ReportHistory.Add(State.LastReport); if (State.ReportHistory.Count > 10) State.ReportHistory.RemoveAt(0); }
         State.LastReport = null;
         State.HasDepartureReportBaseline = true;
         State.DepartureQuantities = Quantities(State.Stock.Where(i => IsCarried(i) && !i.FreeSupply));
@@ -120,6 +121,7 @@ public sealed partial class ChapterSession
         var total = Quantities(carried);
         State.LastReport = new ChapterRunReport
         {
+            Run = State.Runs,
             Success = success,
             BaselineKnown = State.HasDepartureReportBaseline,
             Brought = success ? total : [],
@@ -135,10 +137,17 @@ public sealed partial class ChapterSession
 
     private bool ValidPresentation()
     {
+        if (State.Events == null || State.Events.Count > 200 || State.NextLogId < 1 || State.Events.Any(e => e == null || e.Id < 1 || e.Id >= State.NextLogId || e.Type is not ("world" or "stock" or "battle" or "quest") || e.Text == null || e.Place == null || e.Place != "camp" && !ChapterContent.Places.ContainsKey(e.Place) || e.Run < 0 || e.Pressure < 0 || e.Round < 0)
+            || State.Events.Select(e => e.Id).Distinct().Count() != State.Events.Count || State.ReportHistory == null || State.ReportHistory.Count > 10
+            || State.QuestReceipts == null || State.QuestReceipts.Any(p => !ChapterContent.Quests.Any(q => q.Id == p.Key) || p.Value == null || p.Value.Gained == null || p.Value.Consumed == null || p.Value.Gained.Concat(p.Value.Consumed).Any(i => !ChapterContent.Items.ContainsKey(i.Key) || i.Value < 0))) return false;
         if (State.DepartureQuantities == null || State.DepartureWorld == null
             || State.DepartureQuantities.Any(p => !ChapterContent.Items.ContainsKey(p.Key) || p.Value < 0)) return false;
-        var report = State.LastReport;
-        if (report == null) return true;
+        if (State.ReportHistory.Any(r => !ValidReport(r))) return false;
+        return State.LastReport == null || ValidReport(State.LastReport);
+    }
+    private static bool ValidReport(ChapterRunReport report)
+    {
+        if (report == null || report.Run < 0) return false;
         return report.Brought != null && report.Gained != null && report.Lost != null && report.Left != null
             && report.Preserved != null && report.Changes != null && report.NewGear != null
             && report.Brought.Concat(report.Gained).Concat(report.Lost).All(p => ChapterContent.Items.ContainsKey(p.Key) && p.Value >= 0)
@@ -148,6 +157,7 @@ public sealed partial class ChapterSession
 
 public sealed class ChapterRunReport
 {
+    public int Run { get; set; }
     public bool Success { get; set; }
     public bool BaselineKnown { get; set; }
     public List<string> NewGear { get; set; } = [];

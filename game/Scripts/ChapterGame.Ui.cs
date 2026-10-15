@@ -5,13 +5,14 @@ namespace CardRPG;
 
 public partial class ChapterGame
 {
+    private static bool CompactDensity;
     private static VBoxContainer Column(int gap = 10)
     {
-        var v = new VBoxContainer(); v.AddThemeConstantOverride("separation", gap); return v;
+        var v = new VBoxContainer(); v.AddThemeConstantOverride("separation", CompactDensity ? Math.Max(3, gap * 3 / 4) : gap); return v;
     }
     private static HBoxContainer Row(int gap = 18)
     {
-        var h = new HBoxContainer(); h.AddThemeConstantOverride("separation", gap); return h;
+        var h = new HBoxContainer(); h.AddThemeConstantOverride("separation", CompactDensity ? Math.Max(3, gap * 3 / 4) : gap); return h;
     }
     private static VBoxContainer FlexibleColumn(Node parent, float ratio = 1)
     {
@@ -20,7 +21,7 @@ public partial class ChapterGame
     private static Label Text(string value, int size, Color color)
     {
         size = size <= 14 ? 14 : size <= 18 ? (int)Math.Round(size * ReadingScale) : size <= 21 ? 20 : size <= 28 ? 28 : 32;
-        var label = new Label { Text = value, AutowrapMode = TextServer.AutowrapMode.WordSmart, MouseFilter = MouseFilterEnum.Ignore };
+        var label = new Label { Text = UiCopy.Present(value), AutowrapMode = TextServer.AutowrapMode.WordSmart, MouseFilter = MouseFilterEnum.Ignore };
         label.AddThemeFontSizeOverride("font_size", size); label.AddThemeColorOverride("font_color", color);
         label.AddThemeFontOverride("font", size >= 28 ? ChapterSkin.TitleFont : ChapterSkin.BodyFont);
         label.AddThemeConstantOverride("line_spacing", 4); return label;
@@ -36,7 +37,7 @@ public partial class ChapterGame
             BgColor = background, BorderColor = border,
             BorderWidthLeft = 1, BorderWidthRight = 1, BorderWidthTop = 1, BorderWidthBottom = 1,
             CornerRadiusTopLeft = 0, CornerRadiusTopRight = 0, CornerRadiusBottomLeft = 0, CornerRadiusBottomRight = 0,
-            ContentMarginLeft = padding, ContentMarginRight = padding, ContentMarginTop = 10, ContentMarginBottom = 10
+            ContentMarginLeft = padding, ContentMarginRight = padding, ContentMarginTop = CompactDensity ? 6 : 10, ContentMarginBottom = CompactDensity ? 6 : 10
         };
     }
     private static PanelContainer Panel(Node parent, Color? background = null, Color? border = null)
@@ -64,7 +65,7 @@ public partial class ChapterGame
     }
     private static VBoxContainer CardBox(Node parent, Color? background = null, int gap = 10)
     {
-        var panel = Panel(parent, background); var box = Column(gap); panel.AddChild(box); return box;
+        var panel = FlatPanel(parent); if(background.HasValue)panel.AddThemeStyleboxOverride("panel",Style(background.Value,Outline)); var box = Column(gap); panel.AddChild(box); return box;
     }
     private static VBoxContainer Paper(Node parent, int padding = 20)
     {
@@ -122,25 +123,26 @@ public partial class ChapterGame
     {
         var button = new ChapterButton
         {
-            Name = id, Text = label, Disabled = !enabled, CustomMinimumSize = new Vector2(0, 46),
+            Name = id, Text = UiCopy.Present(label), Disabled = !enabled, CustomMinimumSize = new Vector2(0, 46),
             FocusMode = FocusModeEnum.All, MouseDefaultCursorShape = CursorShape.PointingHand,
             TextureFilter = TextureFilterEnum.Linear
         };
-        button.AddThemeFontSizeOverride("font_size", 16);
+        button.AddThemeFontSizeOverride("font_size", primary ? (int)Math.Min(20,16*ReadingScale) : 16);
         button.AddThemeColorOverride("font_color", primary ? new Color("f1e7ce") : Ink);
         button.AddThemeColorOverride("font_hover_color", primary ? new Color("f1e7ce") : Ink);
         button.AddThemeColorOverride("font_focus_color", primary ? new Color("f1e7ce") : Ink);
         button.AddThemeColorOverride("font_pressed_color", Ink);
         button.AddThemeColorOverride("font_disabled_color", primary ? new Color("e7dcc2") : new Color("56665b"));
-        button.AddThemeStyleboxOverride("normal", Style(primary ? Accent : new Color("e9e5d8"), primary ? Accent : Outline, 12));
+        button.AddThemeStyleboxOverride("normal", Style(primary ? Accent : new Color("e9e5d8"), primary ? Accent : ControlEdge, 12));
         button.AddThemeStyleboxOverride("hover", Style(primary ? new Color("aa4935") : new Color("f3f0e5"), Ink, 12));
         button.AddThemeStyleboxOverride("pressed", Style(primary ? new Color("743222") : new Color("d8dfc7"), Ink, 12));
         button.AddThemeStyleboxOverride("disabled", Style(new Color("d8d4c4"), new Color("a1a28f"), 12));
         button.AddThemeColorOverride("font_disabled_color", Muted);
         button.AddThemeColorOverride("font_pressed_color", primary ? new Color("f1e7ce") : Ink);
-        var focus = Style(Colors.Transparent, Accent); focus.BorderWidthBottom = focus.BorderWidthLeft = focus.BorderWidthRight = focus.BorderWidthTop = 3;
+        var focus = Style(Colors.Transparent, new Color("285f7b")); focus.BorderWidthBottom = focus.BorderWidthLeft = focus.BorderWidthRight = focus.BorderWidthTop = 3;
         button.AddThemeStyleboxOverride("focus", focus);
-        button.Pressed += () => { if (!button.Disabled && !FeedbackBusy) { Cue(primary ? "select" : "click"); action(); } };
+        var generation = _renderGeneration;
+        button.Pressed += () => { if (generation == _renderGeneration && !button.Disabled && button.IsInsideTree()) { _commandCaption = button.Text == "" ? button.TooltipText.Split('\n')[0] : button.Text; RecordActivation(); Cue(primary ? "select" : "click"); action(); } };
         Inspect(button, () => button.TooltipText);
         Buttons[id] = button; return button;
     }

@@ -1,0 +1,67 @@
+ M README.md
+ M game/Scripts/ChapterGame.BattleUi.cs
+ M game/Scripts/ChapterGame.CharacterUi.cs
+ M game/Scripts/ChapterGame.GraphicUi.cs
+ M game/Scripts/ChapterGame.Interactions.cs
+ M game/Scripts/ChapterGame.InventoryUi.cs
+ M game/Scripts/ChapterGame.OverviewUi.cs
+ M game/Scripts/ChapterGame.Panels.cs
+ M game/Scripts/ChapterGame.StorageUi.cs
+ M game/Scripts/ChapterGame.Ui.cs
+ M game/Scripts/ChapterGame.WorkspaceUi.cs
+ M game/Scripts/ChapterGame.World.cs
+ M game/Scripts/ChapterGame.cs
+ M game/Scripts/ChapterHotspot.cs
+ M game/Scripts/ChapterRouteMap.cs
+ M game/Scripts/ChapterSlotGrid.cs
+ M game/Scripts/ChapterVerification.cs
+ M game/Scripts/ExpeditionGlyph.cs
+ M scripts/export.ps1
+ M scripts/verify-ui.ps1
+ M src/CardRPG.Core/ChapterSession.Battle.cs
+ M src/CardRPG.Core/ChapterSession.Inventory.cs
+ M src/CardRPG.Core/ChapterSession.InventorySave.cs
+ M src/CardRPG.Core/ChapterSession.Presentation.cs
+ M src/CardRPG.Core/ChapterSession.World.cs
+ M src/CardRPG.Core/ChapterSession.cs
+ M src/CardRPG.Core/ChapterState.cs
+?? "doc/08_\347\225\214\351\235\242\344\270\216\344\272\244\344\272\222/06_\345\205\250\347\225\214\351\235\242\346\267\261\345\272\246\345\244\215\346\237\245\344\270\216\347\253\236\345\223\201\345\257\271\347\205\247.md"
+?? "doc/08_\347\225\214\351\235\242\344\270\216\344\272\244\344\272\222/07_UI\344\274\230\345\214\226\346\226\271\346\241\210\346\270\205\345\215\225.md"
+?? "doc/08_\347\225\214\351\235\242\344\270\216\344\272\244\344\272\222/08_\347\256\241\347\220\206\351\241\265\346\223\215\344\275\234\344\270\216\344\277\241\346\201\257\345\257\206\345\272\246\344\270\223\351\241\271.md"
+?? "doc/08_\347\225\214\351\235\242\344\270\216\344\272\244\344\272\222/09_UI\344\274\230\345\214\226\345\256\236\346\226\275\350\256\260\345\275\225.md"
+?? doc/media/ui-continuation-20261015/
+?? doc/media/ui-deep-audit-20261015/
+?? doc/media/ui-implementation-20261015/
+?? doc/ui-implementation.json
+?? game/Scripts/ChapterGame.DeckAnalysis.cs
+?? game/Scripts/ChapterGame.DeckAnalysis.cs.uid
+?? game/Scripts/ChapterGame.FocusNavigation.cs
+?? game/Scripts/ChapterGame.FocusNavigation.cs.uid
+?? game/Scripts/ChapterGame.LogUi.cs
+?? game/Scripts/ChapterGame.LogUi.cs.uid
+?? game/Scripts/ChapterGame.ModsUi.cs
+?? game/Scripts/ChapterGame.ModsUi.cs.uid
+?? game/Scripts/ChapterGame.PlanningUi.cs
+?? game/Scripts/ChapterGame.PlanningUi.cs.uid
+?? game/Scripts/ChapterGame.PresetsUi.cs
+?? game/Scripts/ChapterGame.PresetsUi.cs.uid
+?? game/Scripts/ChapterGame.Shortcuts.cs
+?? game/Scripts/ChapterGame.Shortcuts.cs.uid
+?? game/Scripts/ChapterGame.StockCommands.cs
+?? game/Scripts/ChapterGame.StockCommands.cs.uid
+?? game/Scripts/ChapterGame.StockVisualization.cs
+?? game/Scripts/ChapterGame.StockVisualization.cs.uid
+?? game/Scripts/ChapterGame.StorageCraftingUi.cs
+?? game/Scripts/ChapterGame.StorageCraftingUi.cs.uid
+?? game/Scripts/ChapterLoadMeter.cs
+?? game/Scripts/ChapterLoadMeter.cs.uid
+?? game/Scripts/ChapterVerification.Management.cs
+?? game/Scripts/ChapterVerification.Management.cs.uid
+?? src/CardRPG.Core/ChapterSession.Management.cs
+?? src/CardRPG.Core/ChapterSession.Navigation.cs
+?? src/CardRPG.Core/ChapterSession.Planning.cs
+?? src/CardRPG.Core/ChapterSession.Preparation.cs
+?? src/CardRPG.Core/ChapterSession.QuestPresentation.cs
+?? tests/CardRPG.Core.Tests/ManagementTests.cs
+?? tests/CardRPG.Core.Tests/NavigationTests.cs
+?? tests/CardRPG.Core.Tests/PlanningTests.cs

@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-15",
+  "status_counts": {
+    "implemented": 92,
+    "pending": 45,
+    "in_progress": 67
+  },
+  "core_tests": {
+    "passed": 96,
+    "failed": 0,
+    "report": "core-tests.trx"
+  },
+  "checks": {
+    "source_render": {
+      "log": "chapter-render.txt",
+      "passed": true,
+      "markers": [
+        "CHAPTER_VERIFIED",
+        "UI_REWORK_VERIFIED",
+        "UI_MANAGEMENT_VERIFIED",
+        "UI_CONVENIENCE_VERIFIED"
+      ]
+    },
+    "package_headless": {
+      "log": "package-headless/render.log",
+      "passed": true,
+      "markers": [
+        "CHAPTER_VERIFIED",
+        "UI_REWORK_VERIFIED",
+        "UI_MANAGEMENT_VERIFIED",
+        "UI_CONVENIENCE_VERIFIED"
+      ]
+    },
+    "package_render": {
+      "log": "package-management/render.log",
+      "passed": true,
+      "markers": [
+        "UI_MANAGEMENT_VERIFIED",
+        "UI_CONVENIENCE_VERIFIED"
+      ]
+    }
+  },
+  "screenshot_count": 134,
+  "rendering": "Actual Godot rendering on a never-activated isolated Windows desktop",
+  "package": "artifacts/Expedition-UI-20261015-R2/CardRPG-Expedition.exe",
+  "source_hashes_match": true,
+  "cleanup": "blocked_by_automatic_approval_review",
+  "limitations": [
+    "Implementation status is not individual acceptance certification",
+    "Natural pointer tests use setup scrolling; no human efficiency measurements",
+    "No controller, 720-height, system-DPI or multi-monitor acceptance",
+    "Source full-render precedes the final recipe-preview title; final package render checks the title"
+  ],
+  "newly_implemented": [
+    "A033",
+    "A044",
+    "A045",
+    "A046",
+    "A048",
+    "A049",
+    "A065",
+    "A071",
+    "A072",
+    "A073",
+    "A074",
+    "A075",
+    "A085",
+    "A159",
+    "A173",
+    "A174",
+    "A177",
+    "A193",
+    "A194",
+    "A195",
+    "A204"
+  ],
+  "git_diff_check": "passed with repository line-ending settings",
+  "documentation_links": "passed"
+}

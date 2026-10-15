@@ -13,12 +13,16 @@ public partial class ChapterHotspot : Button
     public bool Important { get; set; }
     public bool ShowLabel { get; set; }
     public Vector2 SceneAnchor { get; set; } = new(26,26);
+    public Vector2 LabelOffset { get; set; }
+    public int LabelSize { get; set; } = 14;
     public Rect2 LabelRect()
     {
-        var width = Math.Max(60, GetThemeDefaultFont().GetStringSize(Caption, fontSize:14).X + 16);
-        return new Rect2(Position + new Vector2((Size.X-width)/2,-3), new Vector2(width,88));
+        var width = Math.Max(60, GetThemeDefaultFont().GetStringSize(Caption, fontSize:LabelSize).X + 16);
+        return new Rect2(Position + new Vector2((Size.X-width)/2,Size.Y+5) + LabelOffset, new Vector2(width,LabelSize+12));
     }
     public override string _GetTooltip(Vector2 atPosition) => "";
+    public override bool _HasPoint(Vector2 point) => new Rect2(Vector2.Zero, Size).HasPoint(point)
+        || (ShowLabel || Important || Exit || IsHovered() || HasFocus()) && new Rect2(LabelRect().Position - Position, LabelRect().Size).HasPoint(point);
     public override void _Ready()
     {
         foreach (var state in new[] { "normal", "hover", "pressed", "disabled", "focus" })
@@ -33,6 +37,12 @@ public partial class ChapterHotspot : Button
     {
         var active = IsHovered() || HasFocus(); var color = Disabled ? new Color("89958d") : Tint;
         var center = Size / 2;
+        if (active && !Disabled)
+        {
+            DrawRect(new Rect2(SceneAnchor-new Vector2(48,64),new Vector2(96,100)),new Color(color,.10f));
+            DrawRect(new Rect2(SceneAnchor-new Vector2(48,64),new Vector2(96,100)),new Color(color,.65f),false,2);
+            DrawArc(SceneAnchor, 34, 0, Mathf.Tau, 40, new Color(color, .55f), 2, true);
+        }
         if (SceneAnchor.DistanceTo(center) > 12) { DrawLine(center,SceneAnchor,new Color("f1e7ce"),3,true); DrawCircle(SceneAnchor,3,color); }
         if (Exit)
         {
@@ -43,8 +53,9 @@ public partial class ChapterHotspot : Button
         if (Important) DrawCircle(new Vector2(Size.X-3,3),5,new Color("ead3a0"));
         if (Disabled) DrawLine(center+new Vector2(-13,13),center+new Vector2(13,-13),color,2);
         if (!active && !Important && !Exit && !ShowLabel) return;
-        var font = GetThemeDefaultFont(); var width = font.GetStringSize(Caption,fontSize:14).X;
-        DrawRect(new Rect2((Size.X-width)/2-8,Size.Y+5,width+16,26),new Color("f1e7ce"));
-        DrawString(font,new Vector2((Size.X-width)/2,Size.Y+24),Caption,fontSize:14,modulate:color);
+        var font = GetThemeDefaultFont(); var rect = LabelRect(); rect.Position -= Position;
+        if (LabelOffset.LengthSquared() > 16) DrawLine(center, rect.GetCenter(), new Color("f1e7ce"), 2, true);
+        DrawRect(rect,new Color("f1e7ce"));
+        DrawString(font,rect.Position+new Vector2(8,LabelSize+5),Caption,fontSize:LabelSize,modulate:color);
     }
 }

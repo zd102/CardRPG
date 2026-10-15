@@ -1,0 +1,11 @@
+{
+  "status": "blocked_by_automatic_approval_review",
+  "reason": "blocked by policy",
+  "removed": [],
+  "retained": [
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\artifacts\\ui-continuation-20261015-captures",
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\doc\\media\\ui-continuation-20261015\\management",
+    "C:\\Users\\uid15658\\Documents\\CardRPG\\game\\.godot\\mono\\temp\\obj\\ExportRelease\\win-x64\\PublishOutputs.0f51089d83.txt"
+  ],
+  "bytes": 81672753
+}

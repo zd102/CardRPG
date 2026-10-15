@@ -77,16 +77,21 @@ public sealed partial class ChapterSession
             && (AtBase || Slots(restored.Where(i => i.Container == "carry")) <= Capacity(restored))) State.LegacyOverCapacity = false;
     }
 
-    public bool CanEquipItem(string kind)
+    public bool CanEquipItem(string kind) => EquipmentChange(kind, out _, out _);
+    public string EquipBlocker(string kind) { EquipmentChange(kind, out _, out var reason); return reason; }
+    private bool EquipmentChange(string kind, out List<ChapterItem> stock, out string reason)
     {
-        if (!CanEquip || !ChapterContent.Gear.TryGetValue(kind, out var gear) || gear.Slot == "hands" && !State.Done.Contains("Q02")) return false;
+        stock = CopyStock(); reason = "";
+        if (!ChapterContent.Gear.TryGetValue(kind, out var gear)) { reason = "这不是可穿戴装备。"; return false; }
+        if (!CanEquip) { reason = State.Phase == ChapterPhase.Exploring ? "需前往维修工坊，启用换装台架。" : "当前阶段只能查看，回营后可换装。"; return false; }
+        if (gear.Slot == "hands" && !State.Done.Contains("Q02")) { reason = "完成夹具任务后解锁手部穿戴。"; return false; }
         var item = State.Stock.FirstOrDefault(i => i.Kind == kind && (IsCarried(i) || AtBase && i.Container == "warehouse"));
-        if (item == null) return false;
-        var stock = CopyStock(); var next = stock.Single(i => i.Id == item.Id);
+        if (item == null) { reason = HasPhysical(kind) ? "实物不在可用容器内，请先拾取或回营取出。" : "尚未持有此装备实物。"; return false; }
+        var next = stock.Single(i => i.Id == item.Id);
         var old = stock.FirstOrDefault(i => i.Container == gear.Slot);
         if (old == next)
         {
-            if (gear.Slot is not ("hands" or "backpack")) return false;
+            if (gear.Slot is not ("hands" or "backpack")) { reason = "当前已穿戴；该部位需用其他装备替换。"; return false; }
             next.Container = AtBase ? "warehouse" : "carry";
         }
         else
@@ -94,17 +99,18 @@ public sealed partial class ChapterSession
             if (old != null) old.Container = AtBase && next.Container == "warehouse" ? "warehouse" : "carry";
             next.Container = gear.Slot;
         }
-        return Fits(stock);
+        if (Fits(stock)) return true;
+        var used = Slots(stock.Where(i => i.Container == "carry")); var capacity = Capacity(stock);
+        var stored = Slots(stock.Where(i => i.Container == "warehouse")) + ReservedSlots(stock);
+        reason = used > capacity ? $"换装后随身需 {used}/{capacity} 格，请腾出 {used - capacity} 格。"
+            : stored > WarehouseCapacity ? $"旧装备入仓后需 {stored}/{WarehouseCapacity} 格，请腾出 {stored - WarehouseCapacity} 格。" : "当前库存不满足换装条件，请先整理物品。";
+        return false;
     }
     private bool EquipInventory(string kind)
     {
-        if (!CanEquipItem(kind)) return Reject("无法换装：需在据点或已启用台架，并给旧装备和包内物品留足格位。");
-        var stock = CopyStock(); var gear = ChapterContent.Gear[kind];
-        var item = stock.First(i => i.Kind == kind && (IsCarried(i) || AtBase && i.Container == "warehouse"));
-        var old = stock.FirstOrDefault(i => i.Container == gear.Slot);
-        if (old == item) item.Container = AtBase ? "warehouse" : "carry";
-        else { if (old != null) old.Container = AtBase && item.Container == "warehouse" ? "warehouse" : "carry"; item.Container = gear.Slot; }
-        CommitStock(stock); Note("调整装备：" + gear.Name + "。" + LoadDescription); return true;
+        if (!EquipmentChange(kind, out var stock, out var reason)) return Reject(reason);
+        var gear = ChapterContent.Gear[kind];
+        CommitStock(stock); NoteStock("调整装备：" + gear.Name + "。" + LoadDescription); return true;
     }
     public bool CanTransfer(long itemId, string destination, int quantity)
     {
@@ -128,7 +134,7 @@ public sealed partial class ChapterSession
     {
         if (!CanTransfer(itemId, destination, quantity)) return Reject("无法转移：检查格位、物品数量与当前所在位置。");
         var stock = CopyStock(); MoveUnits(stock, itemId, destination, quantity); CommitStock(stock);
-        Note("物品已" + (destination == "carry" ? "装入行囊。" : "存入仓库。") + LoadDescription); return true;
+        NoteStock("物品已" + (destination == "carry" ? "装入行囊。" : "存入仓库。") + LoadDescription); return true;
     }
     public bool SetFreeSupplies(int amount)
     {
@@ -168,7 +174,7 @@ public sealed partial class ChapterSession
             if (quantity <= 0 || (ChapterContent.Gear.ContainsKey(kind) || kind.StartsWith('T')) && HasPhysical(kind)) continue;
             AddStock(State.Stock, kind, quantity, container, source);
         }
-        CommitStock(State.Stock); Note(name + "已打开，物品留在原位。打开行囊选择拾取。"); return container;
+        CommitStock(State.Stock); NoteStock(name + "已打开，物品留在原位。打开行囊选择拾取。"); return container;
     }
     public bool CanPickup(long itemId, int quantity)
     {
@@ -184,7 +190,7 @@ public sealed partial class ChapterSession
         var cost = ground.FreePickup ? 0 : SceneActionCost();
         if (cost > 0 && InterruptInventoryAction(cost)) return true;
         var stock = CopyStock(); MoveUnits(stock, itemId, "carry", quantity); CommitStock(stock);
-        Note($"拾取 {ChapterContent.ItemName(item.Kind)} ×{quantity}。" + LoadDescription);
+        NoteStock($"拾取 {ChapterContent.ItemName(item.Kind)} ×{quantity}。" + LoadDescription);
         if (cost > 0) { EndFreePickup(); Advance(cost: cost); }
         return true;
     }
@@ -198,7 +204,7 @@ public sealed partial class ChapterSession
         var cost = ground.FreePickup ? 0 : SceneActionCost();
         if (cost > 0 && InterruptInventoryAction(cost)) return true;
         CommitStock(stock); ground.FreePickup = false;
-        Note("已收好这处物品。" + LoadDescription);
+        NoteStock("已收好这处物品。" + LoadDescription);
         if (cost > 0) { EndFreePickup(); Advance(cost: cost); }
         return true;
     }
@@ -212,13 +218,13 @@ public sealed partial class ChapterSession
         var container = "ground:" + State.Location + ":left";
         State.Ground.TryAdd(container, new() { Place = State.Location, Name = "留下的物品" });
         var stock = CopyStock(); MoveUnits(stock, itemId, container, quantity); CommitStock(stock);
-        Note("物品留在脚边，本次远征可返回拾取。" + LoadDescription); Advance(cost: cost); return true;
+        NoteStock("物品留在脚边，本次远征可返回拾取。" + LoadDescription); Advance(cost: cost); return true;
     }
     private bool InterruptInventoryAction(int cost)
     {
         if (!State.Warned) return false;
         EndFreePickup(); Advance(false, cost: cost); StartBattle("K09");
-        Note("巡逻打断取放，物品位置与数量保持不变。"); return true;
+        NoteStock("巡逻打断取放，物品位置与数量保持不变。"); return true;
     }
     public bool DiscardAtBase(long itemId, int quantity)
     {
@@ -228,7 +234,7 @@ public sealed partial class ChapterSession
         var stock = CopyStock(); var discarded = stock.Single(i => i.Id == itemId);
         discarded.Quantity -= quantity; if (discarded.Quantity == 0) stock.Remove(discarded);
         CommitStock(stock); State.Mods.Remove(item.Kind);
-        Note("已放弃 " + ChapterContent.ItemName(item.Kind) + " ×" + quantity + "。"); return true;
+        NoteStock("已放弃 " + ChapterContent.ItemName(item.Kind) + " ×" + quantity + "。"); return true;
     }
     public bool ClaimStarter(string kind)
     {
@@ -251,13 +257,13 @@ public sealed partial class ChapterSession
     public bool CraftBackpack(string kind)
     {
         if (!CanCraftBackpack(kind)) return Reject("背包配方未开放、材料不足或仓库无成品空间。");
-        Produce(kind, 1, BackpackCost(kind)); Note("制作完成：" + ChapterContent.ItemName(kind)); return true;
+        Produce(kind, 1, BackpackCost(kind)); NoteStock("制作完成：" + ChapterContent.ItemName(kind)); return true;
     }
     public bool CanCraftSupplies => State.Phase == ChapterPhase.Camp && CanProduce("U01", 2, [0, 0, 0, 1, 1, 0, 0]);
     public bool CraftSupplies()
     {
         if (!CanCraftSupplies) return Reject("需要织物 1、药剂 1，以及成品空间。");
-        Produce("U01", 2, [0, 0, 0, 1, 1, 0, 0]); Note("制成两份普通密封补给，可存仓或带入。"); return true;
+        Produce("U01", 2, [0, 0, 0, 1, 1, 0, 0]); NoteStock("制成两份普通密封补给，可存仓或带入。"); return true;
     }
     public int[] WarehouseCost => State.WarehouseLevel switch
     { 0 => [4, 0, 0, 2, 0, 0, 2], 1 => [5, 0, 2, 0, 0, 3, 3], 2 => [6, 0, 2, 3, 0, 3, 4], _ => [] };
@@ -267,7 +273,7 @@ public sealed partial class ChapterSession
     {
         if (!CanUpgradeWarehouse) return Reject("扩仓需要完成整备任务并备齐材料。");
         var stock = CopyStock(); ConsumeMaterials(stock, WarehouseCost); State.WarehouseLevel++;
-        CommitStock(stock); Note($"仓库扩建完成：{WarehouseCapacity} 格。"); return true;
+        CommitStock(stock); NoteStock($"仓库扩建完成：{WarehouseCapacity} 格。"); return true;
     }
     private bool ConsumeMaterials(List<ChapterItem> stock, int[] cost)
     {
@@ -304,7 +310,8 @@ public sealed partial class ChapterSession
     {
         var item = State.Stock.Where(i => i.Kind == "U01" && i.Container == "carry").OrderByDescending(i => i.FreeSupply).ThenBy(i => i.Id).First();
         Secure(item, 1); if (--item.Quantity == 0) State.Stock.Remove(item);
-        State.Health = Math.Min(MaxHealth, State.Health + 14); SyncInventory(); Note("补给恢复 14 生命。");
+        var restored = Math.Min(14, MaxHealth - State.Health);
+        State.Health += restored; SyncInventory(); NoteStock($"补给实际恢复 {restored} 生命。" + (item.FreeSupply ? "消耗本趟配发份。" : "消耗普通补给。"));
     }
     private void FinishInventory(bool success)
     {

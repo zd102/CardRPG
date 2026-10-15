@@ -10,108 +10,184 @@ public partial class ChapterGame
 {
     private string _stockFilter = "all";
     private bool _stockList;
+    private bool _showStockEmpty;
+    private bool _showStockLoadout;
+    private string _stockSearch = "", _stockSort = "kind";
 
     private void PhysicalInventory(VBoxContainer box)
     {
         var s = Session.State;
-        var bar = box.GetChild<HBoxContainer>(0);
-        Tabs(bar, "stock_filter_", [("all", "全部"), ("materials", "材料"), ("gear", "装备"), ("quest", "任务物"), ("supply", "补给")], _stockFilter, key => _stockFilter = key);
-        bar.AddChild(Button("storage_view", _stockList ? "网格" : "列表", () => { _stockList = !_stockList; Render(); }));
-        var visible = s.Stock.Where(i => i.Container == "carry" || Session.AtBase && i.Container == "warehouse" || !Session.AtBase && Session.GroundHere.Any(g => g.Key == i.Container)).Where(StockMatches).ToArray();
+        LegacyCapacityRecovery(box);
+        var bar = Row(6); box.AddChild(bar);
+        var local = s.Stock.Where(i => i.Container == "carry" || Session.AtBase && i.Container == "warehouse" || !Session.AtBase && Session.GroundHere.Any(g => g.Key == i.Container)).ToArray();
+        var categories = new[] { ("all", "全部"), ("materials", "材料"), ("gear", "装备"), ("quest", "任务物"), ("supply", "补给") };
+        var category = new OptionButton { Name = "StockCategory", CustomMinimumSize = new Vector2(120, 40) };
+        foreach (var (key, caption) in categories) category.AddItem(caption + " " + local.Count(i => StockCategory(i, key)));
+        category.Selected = Array.FindIndex(categories, t => t.Item1 == _stockFilter); category.ItemSelected += index => { _stockFilter = categories[index].Item1; Render(); }; bar.AddChild(category);
+        bar.AddChild(Button("storage_view", _stockList ? UiCopy.Text("UI_E41ECC67CA28") : UiCopy.Text("UI_AEDD6814FF8C"), () => { _stockList = !_stockList; Render(); }));
+        if (Session.AtBase) bar.AddChild(Button("storage_paired", _stockPaired ? UiCopy.Text("UI_B38AC9937C6C") : UiCopy.Text("UI_9D856267C7BB"), () => { _stockPaired = !_stockPaired; _pairedAwaitBatch = false; Render(); }));
+        bar.AddChild(Button("storage_loadout", _showStockLoadout ? UiCopy.Text("UI_97FCCC4EBD9B") : UiCopy.Text("UI_57F68D9E3597"), () => { _showStockLoadout = !_showStockLoadout; Render(); }));
+        var find = bar;
+        var search = new LineEdit { Name = "StockSearch", PlaceholderText = UiCopy.Text("UI_13E3E9C861F4"), Text = _stockSearch, ClearButtonEnabled = true, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        find.AddChild(search); search.TextSubmitted += value => { _stockSearch = value; Render(); };
+        find.AddChild(Button("stock_search", UiCopy.Text("UI_B5F15473FDC0"), () => { _stockSearch = search.Text; Render(); }));
+        if (_stockSearch != "" || _stockFilter != "all") find.AddChild(Button("stock_clear", UiCopy.Text("UI_CB5D682BAC3D"), () => { _stockSearch = ""; _stockFilter = "all"; Render(); }));
+        find.AddChild(Button("stock_sort", UiCopy.Text("UI_DE3C35C2A69A") + (_stockSort switch { "name" => "名称", "quantity" => "数量", "weight" => "重量", _ => "类型" }), () => { _stockSort = _stockSort switch { "kind" => "name", "name" => "quantity", "quantity" => "weight", _ => "kind" }; Render(); }));
+        var visible = local.Where(StockMatches).ToArray();
+        _stockSelection.RemoveWhere(id => !local.Any(i => i.Id == id));
+        if (s.Phase == ChapterPhase.Camp)
+        {
+            var batch = new HFlowContainer(); if (_stockSelection.Count > 0) box.AddChild(batch); else find.AddChild(batch);
+            batch.AddChild(Button("stock_select_visible", UiCopy.Text("UI_BB7193F0D0B8"), () => { foreach (var i in visible) _stockSelection.Add(i.Id); Render(); }));
+            if (_stockSelection.Count > 0) batch.AddChild(Button("stock_clear_selection", UiCopy.Format("UI_3233147FA505", _stockSelection.Count, _stockSelection.Count(id => !visible.Any(i => i.Id == id))), () => { _stockSelection.Clear(); Render(); }));
+            if (_stockSelection.Count > 0)
+            {
+                batch.AddChild(Button("stock_review_selection", UiCopy.Text("UI_DC037F1BDF80"), () => { _detailItemId = 0; _detailTitle = UiCopy.Text("UI_6F948960E5AD"); _detailText = string.Join("\n", local.Where(i => _stockSelection.Contains(i.Id)).Select(i => ChapterContent.ItemName(i.Kind) + $" ×{ChosenQuantity(i)} · {ContainerName(i.Container)}" + (visible.Any(v => v.Id == i.Id) ? "" : " · 筛选外"))); OpenNested("detail"); }));
+                batch.AddChild(Button("stock_clear_hidden", UiCopy.Text("UI_126CEAD279D9"), () => { _stockSelection.RemoveWhere(id => visible.All(i => i.Id != id)); Render(); }));
+                var chosenItems = local.Where(i => _stockSelection.Contains(i.Id)).ToArray();
+                batch.AddChild(Button("stock_discard_batch", UiCopy.Text("UI_D1BCD8DC4ABC"), () => PreviewBatchDiscard(chosenItems), chosenItems.Any(i => !i.KeepOnPerson && !i.FreeSupply && !i.Kind.StartsWith('T'))));
+            }
+            var protectedBatches = local.Count(i => i.Container == "carry" && i.KeepOnPerson && _stockSelection.Contains(i.Id));
+            if (protectedBatches > 0) batch.AddChild(Inline(UiCopy.Format("UI_7E033240C2D0", protectedBatches), 14, Muted));
+            foreach (var source in _stockSelection.Count > 0 ? new[] { "carry", "warehouse" } : Array.Empty<string>())
+            {
+                var chosen = local.Where(i => i.Container == source && _stockSelection.Contains(i.Id) && !(source == "carry" && i.KeepOnPerson)).ToDictionary(i => i.Id, ChosenQuantity);
+                batch.AddChild(Button("stock_batch_" + source, source == "carry" ? UiCopy.Text("UI_C828D9BCB2AB") : UiCopy.Text("UI_17B0D5957164"), () => RequestBatchMove(chosen, source, source == "carry" ? "warehouse" : "carry"), chosen.Count > 0));
+            }
+            if (_stockUndoBefore != null && Session.ToJson() == _stockUndoAfter) batch.AddChild(Button("stock_undo", UiCopy.Text("UI_FFC43852CE29") + _stockUndoLabel, UndoStock));
+        }
         var selected = visible.FirstOrDefault(i => i.Id == _selectedStock) ?? visible.FirstOrDefault(i => i.Container.StartsWith("ground:")) ?? visible.FirstOrDefault();
+        if (_stockPaired && _pairedAwaitBatch) selected = null;
         _selectedStock = selected?.Id ?? 0;
+        if (_clickMoveId != 0) box.AddChild(Button("stock_cancel_target", UiCopy.Text("UI_B8632A0B2CF9"), () => { _clickMoveId = 0; Render(); }));
+        if (_showStockLoadout && Size.X < 1200)
+        {
+            var wear = Row(6); wear.Name = "CompactLoadout"; box.AddChild(wear);
+            foreach (var slot in new[] { "weapon", "body", "hands", "backpack" })
+            {
+                var kind = Session.Equipped.FirstOrDefault(k => ChapterContent.Gear[k].Slot == slot) ?? "";
+                wear.AddChild(Button("compact_wear_" + slot, SlotName(slot) + " · " + (kind == "" ? UiCopy.Text("UI_DFEF18791728") : ChapterContent.ItemName(kind)), () => { if (kind != "") OpenGearComparison(kind); }));
+            }
+        }
         var columns = Row(12); columns.Name = "StorageWorkspace"; columns.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(columns);
-        LoadoutColumn(columns);
+        var next = selected == null ? null : Session.Preview(copy => StockCommand(copy, selected.Id, selected.Container, ChosenQuantity(selected), true));
+        if (_stockPaired && Session.AtBase) PairedStockTable(columns, local);
+        else
+        {
+        if (_showStockLoadout && Size.X >= 1200) LoadoutColumn(columns);
         var carry = Section(columns, .85f); carry.Name = "CarryContainer";
-        carry.AddChild(Text($"随身背包   {Session.CarryUsed} / {Session.CarryCapacity}", 20, Session.Overweight ? Danger : Ink));
-        carry.AddChild(Inline("带入区域 · 撤离后保留", 14, Muted));
+        var carryHeading = Text(UiCopy.Format("UI_45EF4D017440", Session.CarryUsed, next?.CarryUsed ?? Session.CarryUsed, Session.CarryCapacity, Session.CarriedGrams / 1000m), 20, Session.Overweight ? Danger : Ink);
+        carryHeading.TooltipText = UiCopy.Text("UI_9AEEE992067D") + (Session.Overweight ? UiCopy.Text("UI_13E5575CB6B0") : UiCopy.Text("UI_706C0D37535C"));
+        carry.AddChild(carryHeading);
+        AddLoadMeter(carry, "CarryCapacityMeter", Session.CarryUsed, next?.CarryUsed ?? Session.CarryUsed, Session.CarryCapacity);
+        StockTarget(carry, "carry");
         var carryBody = Scroll(carry); StorageGrid(carryBody, Session.CarriedItems, Session.CarryCapacity, "carry");
+        BindStockDrop(carry.GetParent<Control>(), "carry");
         var other = Section(columns, 1.15f); other.Name = "ExternalContainer";
         if (Session.AtBase)
         {
-            other.AddChild(Text($"仓库   {Session.WarehouseUsed} / {Session.WarehouseCapacity}", 20, Ink));
-            other.AddChild(Inline("安全储存 · 本趟不会丢失", 14, Muted));
+            var warehouseHeading = Text(UiCopy.Format("UI_5DFEDBE684F6", Session.WarehouseUsed, next?.WarehouseUsed ?? Session.WarehouseUsed, Session.WarehouseCapacity), 20, Ink);
+            warehouseHeading.TooltipText = UiCopy.Text("UI_3BAB0CF9D3DB"); other.AddChild(warehouseHeading);
+            AddLoadMeter(other, "WarehouseCapacityMeter", Session.WarehouseUsed, next?.WarehouseUsed ?? Session.WarehouseUsed, Session.WarehouseCapacity);
+            StockTarget(other, "warehouse");
             StorageGrid(Scroll(other), Session.StoredStock, Session.WarehouseCapacity, "warehouse");
-            var canStore = Session.Preview(x => x.StoreCarriedMaterials()) != null;
-            if (Session.CarriedItems.Any(i => ChapterContent.MaterialIds.Contains(i.Kind))) other.AddChild(Button("store_materials", "存入随身全部材料", () => Change(Session.StoreCarriedMaterials), canStore));
-            if (!canStore && Session.CarriedItems.Any(i => ChapterContent.MaterialIds.Contains(i.Kind))) other.AddChild(Text("仓库装不下全部材料，请逐项存入。", 16, Danger));
+            BindStockDrop(other.GetParent<Control>(), "warehouse");
+            var deposit = Session.MaterialDepositPlan(Session.CarriedItems.Where(StockMatches).Select(i => i.Kind));
+            if (Session.CarriedItems.Any(i => ChapterContent.MaterialIds.Contains(i.Kind))) other.AddChild(Button("store_materials", UiCopy.Text("UI_30E438D1EE19"), () => RequestBatchMove(deposit, "carry", "warehouse"), deposit.Count > 0));
         }
         else
         {
-            other.AddChild(Text("当前位置 · 地面物品", 20, Ink)); var ground = Scroll(other);
+            other.AddChild(Text(UiCopy.Text("UI_7EB4223497E3"), 20, Ink)); StockTarget(other, "ground"); var ground = Scroll(other);
             foreach (var pair in Session.GroundHere.ToArray())
             {
                 var key = pair.Key; var items = s.Stock.Where(i => i.Container == key).ToArray();
                 if (items.Length == 0) continue;
-                ground.AddChild(Text(pair.Value.Name + (pair.Value.FreePickup ? " · 首次装包免费" : $" · 行动值 +{Session.SceneActionCost()}"), 16, Ink));
+                ground.AddChild(Text(pair.Value.Name + (pair.Value.FreePickup ? UiCopy.Text("UI_7A79030C34BA") : UiCopy.Format("UI_2427A90A37D9", Session.SceneActionCost())), 16, Ink));
                 var fitting = Session.FittingPickup(key); var count = fitting.Values.Sum();
                 var full = count == items.Sum(i => i.Quantity);
-                ground.AddChild(Button("loot_all_" + key.Replace(':', '_'), full ? "全部拾取" : count > 0 ? $"预览可装入 {count} 件…" : "空间不足 · 可先放下物品", () =>
+                ground.AddChild(Button("loot_all_" + key.Replace(':', '_'), full ? UiCopy.Text("UI_E0037BA86CEE") : count > 0 ? UiCopy.Format("UI_E3D2F73CFC69", count) : UiCopy.Text("UI_42E649EED1AF"), () =>
                 {
                     if (full) Change(() => Session.PickupAll(key));
                     else ConfirmPartialPickup(key, fitting);
                 }, count > 0 && s.Phase == ChapterPhase.Exploring));
                 StorageGrid(ground, items, 0, key.Replace(':', '_'));
+                ground.AddChild(Button("loot_plan_" + key.Replace(':', '_'), UiCopy.Text("UI_0A461F49190A"), () => ConfirmPartialPickup(key, fitting)));
             }
-            if (!Session.GroundHere.Any()) ground.AddChild(Text("此地暂无遗留物。", 16, Muted));
+            if (!Session.GroundHere.Any()) ground.AddChild(Text(UiCopy.Text("UI_3BD654AEAB50"), 16, Muted));
+            if (Session.GroundHere.Any(g => g.Value.FreePickup)) other.AddChild(Text(UiCopy.Text("UI_AEB3CCEEFF1E"), 14, Muted));
+            BindStockDrop(other.GetParent<Control>(), "ground");
+        }
+        }
+        if (_stockPaired && Session.AtBase)
+        {
+            var capacities = Row(14); box.AddChild(capacities);
+            CapacityMeter(FlexibleColumn(capacities), "CarryCapacityMeter", "随身", Session.CarryUsed, next?.CarryUsed ?? Session.CarryUsed, Session.CarryCapacity);
+            CapacityMeter(FlexibleColumn(capacities), "WarehouseCapacityMeter", "仓库", Session.WarehouseUsed, next?.WarehouseUsed ?? Session.WarehouseUsed, Session.WarehouseCapacity);
         }
         var actionPanel = FlatPanel(box, 12); actionPanel.Name = "StockActionBar";
         var details = Column(6); actionPanel.AddChild(details);
-        if (selected == null) { details.AddChild(Text("选择物品查看详情与取放操作。Shift+Enter 可整批取放。", 16, Muted)); return; }
-        var batches = visible.Where(i => i.Container == selected.Container && i.Kind == selected.Kind && i.Registered == selected.Registered && i.Calibrated == selected.Calibrated && i.FreeSupply == selected.FreeSupply).ToArray();
-        if (batches.Length > 1)
-        {
-            var batchRow = new HFlowContainer(); details.AddChild(batchRow);
-            for (var index = 0; index < batches.Length; index++)
-            { var batch = batches[index]; batchRow.AddChild(Button("batch_" + batch.Id, $"批次 {index + 1} ×{batch.Quantity}" + (batch.Id == selected.Id ? " ◆" : ""), () => { _selectedStock = batch.Id; Render(); })); }
-        }
+        if (selected == null) { details.AddChild(Text(_pairedAwaitBatch ? UiCopy.Text("UI_C0B48E021697") : UiCopy.Text("UI_B47E43678B1F"), 16, Muted)); return; }
         StockRow(details, selected, selected.Container.StartsWith("ground:"));
+        WeightMeter(details, next?.CarriedGrams ?? Session.CarriedGrams);
     }
 
-    private bool StockMatches(ChapterItem item) => _stockFilter switch
+    private bool StockMatches(ChapterItem item) => StockCategory(item, _stockFilter) && (_stockSearch == "" || (ChapterContent.ItemName(item.Kind) + ItemPurpose(item.Kind)).Contains(_stockSearch, StringComparison.OrdinalIgnoreCase));
+    private static bool StockCategory(ChapterItem item, string category) => category switch
     { "materials" => ChapterContent.MaterialIds.Contains(item.Kind), "gear" => ChapterContent.Gear.ContainsKey(item.Kind), "quest" => item.Kind.StartsWith('T'), "supply" => item.Kind == "U01", _ => true };
 
     private void StorageGrid(Node parent, IEnumerable<ChapterItem> stock, int capacity, string name)
     {
         var all = stock.ToArray();
-        var grid = new ChapterSlotGrid { Name = "StorageGrid_" + name, SizeFlagsHorizontal = SizeFlags.ExpandFill, Capacity = capacity, ShowEmpty = _stockFilter == "all", ListMode = _stockList };
+        var grid = new ChapterSlotGrid { Name = "StorageGrid_" + name, ReadingScale = ReadingScale, SizeFlagsHorizontal = SizeFlags.ExpandFill, Capacity = capacity, ShowEmpty = false, ListMode = _stockList };
         parent.AddChild(grid);
         var used = ChapterSession.Slots(all);
         grid.SetMeta("occupied", used); grid.SetMeta("capacity", capacity);
-        foreach (var group in all.Where(StockMatches).GroupBy(i => (i.Kind, i.FreeSupply, i.Calibrated, i.Registered)))
+        foreach (var first in all.Where(StockMatches).OrderBy(i => _stockSort == "weight" ? -ChapterContent.Items[i.Kind].Grams * i.Quantity : _stockSort == "quantity" ? -i.Quantity : 0).ThenBy(i => _stockSort == "name" ? ChapterContent.ItemName(i.Kind) : i.Kind, StringComparer.CurrentCulture).ThenBy(i => i.Id))
         {
-            var first = group.First(); var def = ChapterContent.Items[first.Kind]; var total = group.Sum(i => i.Quantity);
-            for (var offset = 0; offset < total; offset += def.Stack)
-            {
-                var quantity = Math.Min(def.Stack, total - offset);
-                var caption = $"×{quantity}" + (first.FreeSupply ? " 配发" : first.Calibrated ? " 校准" : "") + (def.Slots > 1 ? $" / {def.Slots}格" : "");
-                var tile = ItemTile($"stock_{first.Id}_{offset}_0", first.Kind, def.Name, caption, () => { _selectedStock = first.Id; Render(); }, group.Any(i => i.Id == _selectedStock), 106);
-                tile.SetMeta("slots", def.Slots); tile.CustomMinimumSize = new Vector2(0, 106);
+                var def = ChapterContent.Items[first.Kind];
+                var caption = $"整批 ×{first.Quantity}" + (first.FreeSupply ? " 配发" : first.Calibrated ? " 校准" : "") + (first.KeepOnPerson ? " 保留" : "") + (_stockArrivals.Contains(first.Id) ? " 新入" : "");
+                if (_stockList) caption += $" · {def.Grams * first.Quantity / 1000m:0.##} kg";
+                var tile = ItemTile($"stock_{first.Id}_0_0", first.Kind, def.Name, caption, () =>
+                {
+                    if (_quickMove && Input.IsKeyPressed(Key.Shift) && Session.State.Phase == ChapterPhase.Camp) RequestStockMove(first.Id, first.Container, ChosenQuantity(first));
+                    else { _selectedStock = first.Id; Render(); }
+                }, first.Id == _selectedStock, _stockList ? 72 : 118);
+                tile.SetMeta("slots", 1); tile.SetMeta("item_id", first.Id); tile.SetMeta("quantity", first.Quantity); tile.CustomMinimumSize = new Vector2(0, _stockList ? 72 : 118);
                 if (_stockList)
                 {
                     Dock(tile.GetChild<Control>(0), 10, 10, 65, 70);
-                    var labels = tile.GetChildren().OfType<Label>().ToArray();
+                    var labels = new[]{tile.GetNode<Label>("ItemTitle"),tile.GetNode<Label>("ItemCaption")};
+                    if(tile.GetNodeOrNull<Control>("CapacityBadge") is {} badge) {badge.Hide();tile.GetNode<Control>("BagBadge").Hide();labels[1].Text+=UiCopy.Format("UI_73A7582C28F9", 4 + ChapterContent.BagCapacity(first.Kind));}
                     Dock(labels[0], 78, 10, -10, 38, ar: 1); Dock(labels[1], 78, 42, -10, 68, ar: 1);
                     foreach (var label in labels) label.HorizontalAlignment = HorizontalAlignment.Left;
                 }
-                tile.TooltipText = ""; // Selection discloses details in the action bar without covering neighboring slots.
+                tile.TooltipText = def.Name + " · " + caption + "\n" + ItemPurpose(first.Kind) + UiCopy.Text("UI_67255B6133F5");
+                if (Session.State.Phase == ChapterPhase.Camp)
+                {
+                    var check = new CheckBox { Name = "SelectBatch_" + first.Id, ButtonPressed = _stockSelection.Contains(first.Id), TooltipText = UiCopy.Text("UI_1DE84B390491") };
+                    tile.AddChild(check); Dock(check, 0, 0, 30, 30); check.Toggled += on => { if (on) _stockSelection.Add(first.Id); else _stockSelection.Remove(first.Id); Render(); };
+                }
+                BindStockPointer(tile, first);
                 grid.AddChild(tile);
+        }
+        if (capacity > 0)
+        {
+            parent.AddChild(Text(UiCopy.Format("UI_1DDE781E80DC", Math.Max(0, capacity - used), all.Count(StockMatches), all.Length) + (used > capacity ? UiCopy.Text("UI_04B1A04B0391") : "") + UiCopy.Text("UI_43FFDABA27F0"), 14, Muted));
+            parent.AddChild(Button("storage_empty_" + name, _showStockEmpty ? UiCopy.Text("UI_491AA759B092") : UiCopy.Text("UI_E32F89EE9F41"), () => { _showStockEmpty = !_showStockEmpty; Render(); }));
+            if (_showStockEmpty && capacity > used)
+            {
+                parent.AddChild(Text(UiCopy.Text("UI_268B3A9E15A4"), 14, Muted));
+                parent.AddChild(new ChapterSlotGrid { Name = "EmptyCapacity_" + name, Capacity = capacity - used, ShowEmpty = true, ReadingScale = ReadingScale, SizeFlagsHorizontal = SizeFlags.ExpandFill });
             }
         }
-        if (capacity > 0) parent.AddChild(Text($"空余 {Math.Max(0, capacity - used)} 格" + (used > capacity ? " · 需整理超出部分" : "") + (_stockFilter != "all" ? " · 仅显示筛选结果" : ""), 14, Muted));
     }
 
     private void ConfirmPartialPickup(string key, Dictionary<long, int> fitting)
     {
-        var take = Session.State.Stock.Where(i => i.Container == key).Select(i => (Item: i, Count: fitting.GetValueOrDefault(i.Id))).ToArray();
-        var ground = Session.State.Ground[key];
-        var copy = "将装入：\n" + string.Join("\n", take.Where(x => x.Count > 0).Select(x => ChapterContent.ItemName(x.Item.Kind) + " ×" + x.Count))
-            + "\n\n留在原位：\n" + string.Join("\n", take.Where(x => x.Count < x.Item.Quantity).Select(x => ChapterContent.ItemName(x.Item.Kind) + " ×" + (x.Item.Quantity - x.Count)))
-            + (ground.FreePickup ? "\n本次免费。" : $"\n整批只执行一次取放，行动值 +{Session.SceneActionCost()}。")
-            + (Session.State.Warned && !ground.FreePickup ? "\n巡逻将先拦截，本次物品不会移动。" : "");
-        Confirm("确认部分拾取", copy, () => Change(() => Session.PickupSelected(key, fitting)), "按清单装包");
+        _pickupContainer = key; _pickupCounts = new(fitting); _pickupOrder.Clear();
+        _pickupOrder.AddRange(Session.State.Stock.Where(i => i.Container == key).OrderByDescending(i => i.Kind.StartsWith('T')).ThenByDescending(i => i.KeepOnPerson).ThenBy(i => i.Id).Select(i => i.Id));
+        OpenNested("pickup-plan");
     }
-
     private string StockForecast(ChapterItem item, bool ground)
     {
         if (Session.State.Phase is not (ChapterPhase.Camp or ChapterPhase.Exploring)) return "当前仅可查看物品，回营后可取放。";

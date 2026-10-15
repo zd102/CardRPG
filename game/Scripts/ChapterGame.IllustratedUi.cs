@@ -20,7 +20,7 @@ public partial class ChapterGame
         foreach (var group in Session.GearCards(gear).GroupBy(id => id))
         {
             var card = ChapterContent.Cards[group.Key]; var row = Column(4); list.AddChild(row);
-            var button = Button("supply_" + gear + "_" + card.Id, card.Name + $" ×{group.Count()} · {card.Action} 行动 / {card.Mana} 魔法", () => { });
+            var button = Button("supply_" + gear + "_" + card.Id, card.Name + UiCopy.Format("UI_47A141B9A986", group.Count(), card.Action, card.Mana), () => { });
             button.Alignment = HorizontalAlignment.Left;
             button.TooltipText = card.Name + $" ×{group.Count()}\n" + card.Text; row.AddChild(button);
             var effects = Row(8); row.AddChild(effects); effects.AddChild(Glyph(CardSymbol(card), Ink, 22));

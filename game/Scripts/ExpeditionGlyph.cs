@@ -22,6 +22,11 @@ public partial class ExpeditionGlyph : Control
         var color = Tint;
         switch (Symbol)
         {
+            case "settings":
+                DrawArc(new(24,24),12,0,Mathf.Tau,32,color,3);
+                DrawCircle(new(24,24),4,color);
+                for (var i = 0; i < 8; i++) { var ray = Vector2.FromAngle(i * Mathf.Tau / 8); DrawLine(new Vector2(24,24) + ray * 14, new Vector2(24,24) + ray * 21,color,5); }
+                break;
             case "character":
                 DrawArc(new(24,14),8,0,Mathf.Tau,24,color,3);
                 DrawPolyline([new(8,43),new(8,34),new(15,27),new(33,27),new(40,34),new(40,43),new(8,43)],color,3); break;
@@ -88,6 +93,14 @@ public partial class ExpeditionGlyph : Control
             case "lock":
                 DrawRect(new Rect2(10,22,28,22),color,false,3);
                 DrawPolyline([new(16,22),new(16,7),new(32,7),new(32,22)],color,3); break;
+            case "empty":
+                DrawArc(new(24,24),18,0,Mathf.Tau,32,color,2); DrawLine(new(13,24),new(35,24),color,3); break;
+            case "slots":
+                for(var y=0;y<2;y++) for(var x=0;x<2;x++) DrawRect(new Rect2(5+x*22,5+y*22,16,16),color,false,3); break;
+            case "thread":
+                DrawPolyline([new(5,9),new(42,39),new(5,39),new(42,9)],color,3); break;
+            case "frame":
+                DrawRect(new Rect2(6,5,36,38),color,false,4);DrawLine(new(6,18),new(42,18),color,3);DrawLine(new(6,31),new(42,31),color,3);break;
             case "home":
                 DrawPolyline([new(3,23),new(24,5),new(45,23),new(38,23),new(38,43),new(10,43),new(10,23)],color,3);
                 DrawRect(new Rect2(20,29,9,14),color,false,2); break;

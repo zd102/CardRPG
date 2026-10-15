@@ -5,6 +5,11 @@ public sealed partial class ChapterSession
     private bool ValidInventory()
     {
         var s = State;
+        if (s.PreparationPresets == null || s.PreparationPresets.Count > 5 || s.PreparationPresets.Any(p => !ValidPreparation(p))
+            || s.PreparationPresets.Select(p => p.Name).Distinct().Count() != s.PreparationPresets.Count || s.LastPreparation != null && !ValidPreparation(s.LastPreparation)) return false;
+        if (s.RecipePlan == null || s.RecipePlan.Count > 4 || s.RecipePlan.Any(k => k == null || !ChapterContent.Recipes.ContainsKey(k) && k is not ("BP01" or "BP02" or "BP03" or "U01"))
+            || s.TrackedQuest == null || s.TrackedQuest != "" && !ChapterContent.Quests.Any(q => q.Id == s.TrackedQuest)) return false;
+        if (s.CarryQuotas == null || s.CarryQuotas.Any(p => !ChapterContent.Items.ContainsKey(p.Key) || p.Value is < 0 or > 100000)) return false;
         if (s.Stock == null || s.Ground == null || s.DepartureInventory == null || s.SecuredFirstMaterials == null
             || s.WarehouseLevel is < 0 or > 3 || s.FreeSupplyAllowance is < 0 or > 2 || s.NextItemId < 1
             || s.Stock.Count > 10000 || s.Stock.Any(i => i == null || i.Id <= 0 || i.Id >= s.NextItemId

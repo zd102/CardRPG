@@ -7,6 +7,7 @@ public sealed partial class ChapterSession
     public bool Depart()
     {
         if (!CanDepart) return Reject("行囊或仓库空间不足：为出征补给及装备返还留出格位。");
+        State.LastPreparation = CurrentPreparation("上次整备");
         BeginReport(); BeginInventoryRun();
         State.Phase = ChapterPhase.Exploring; State.Runs++; State.Health = MaxHealth;
         State.Location = State.Previous = State.Start; State.Pressure = 0;
@@ -257,6 +258,7 @@ public sealed partial class ChapterSession
     public bool TurnIn(string id)
     {
         if (!CanTurnIn(id)) return Reject("任务条件未满足或交付后的奖励没有存放空间，请先整理仓库。");
+        var receipt = QuestRewardPreview(id); State.QuestReceipts[id] = new(receipt.Gained, receipt.Consumed);
         var stock = QuestResult(id); State.Done.Add(id); CommitStock(stock);
         Note(id switch
         {
@@ -266,7 +268,7 @@ public sealed partial class ChapterSession
             "S07" => "小维修偶在工作台旁安了家。它朝荧光货单比划着。",
             "S08" => "荧光货单挂在了工坊墙上。",
             "S09" => "余火站的衣架上，多了一件修补过的工作服。", _ => "任务已交付。"
-        });
+        }, "quest");
         if (SliceComplete) Note("外环主线已完成。可以继续探索、制作背包与整理仓库；水务区将在后续开放。");
         return true;
     }

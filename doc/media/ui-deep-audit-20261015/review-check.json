@@ -1,0 +1,18 @@
+{
+  "headless_browser": "Microsoft Edge",
+  "proposals": 140,
+  "groups": 20,
+  "filters": "passed",
+  "search": "passed",
+  "details": "passed",
+  "gallery_dialog_and_escape": "passed",
+  "screenshots": 26,
+  "widths_without_horizontal_overflow": [
+    1280,
+    820,
+    390
+  ],
+  "javascript_errors": [],
+  "broken_local_links": [],
+  "retained_screenshot_hashes": "passed"
+}

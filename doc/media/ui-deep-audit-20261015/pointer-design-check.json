@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-15",
+  "scope": "pointer interaction design refinement; documentation and board only",
+  "proposals": 204,
+  "groups": 32,
+  "refined_ids": [
+    "A086",
+    "A087",
+    "A088",
+    "A143",
+    "A145",
+    "A184",
+    "A185"
+  ],
+  "other_197_entries_unchanged": "verified against prior board before regeneration",
+  "markdown_board_consistency": "passed",
+  "refined_search_details_and_keyboard": "passed",
+  "board_widths_without_overflow": [
+    1280,
+    820,
+    390
+  ],
+  "javascript_errors": [],
+  "broken_local_links": [],
+  "source_hashes_unchanged": 53,
+  "official_references_read": [
+    "Godot Control class documentation",
+    "W3C Understanding Content on Hover or Focus",
+    "W3C Understanding Dragging Movements"
+  ],
+  "game_input_paths_tested": false,
+  "layout_prototype_gestures_implemented": false,
+  "new_game_screenshots": 0,
+  "review_board_screenshot": "pointer-design-board.png",
+  "temporary_scripts_created": 0,
+  "historical_temporary_directories_modified": false
+}
