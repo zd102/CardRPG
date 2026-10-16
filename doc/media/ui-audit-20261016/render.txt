@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+OpenGL API OpenGL ES 3.0 (ANGLE 2.1.1 git hash: aaebda1c5a40) - Compatibility - Using Device: Google Inc. (Intel) - ANGLE (Intel, Intel(R) UHD Graphics 770 (0x00004690) Direct3D11 vs_5_0 ps_5_0, D3D11-32.0.101.6129)
+
+CHAPTER_READY | first chapter, outer ring, versioned saves
+UI_REWORK_VERIFIED | preview/cancel, Space conflict, lethal retreat, choices, nested focus, discard, save rollback, 3 sizes x 3 reading scales
+MANAGEMENT_DRAG id=12 target=(8, 8) cancelled=False success=False items=12:carry:2
+MANAGEMENT_DRAG id=12 target=(903.5, 401.5) cancelled=True success=False items=12:carry:2
+MANAGEMENT_DRAG id=12 target=(903.5, 401.5) cancelled=False success=True items=12:carry:1
+MANAGEMENT_DRAG id=2 target=(140, 282) cancelled=False success=False items=2:warehouse:1
+MANAGEMENT_DRAG id=2 target=(140, 358) cancelled=False success=True items=2:warehouse:1
+UI_CONVENIENCE_VERIFIED | paired quantities and batch selection, reverse recipes, focus region, held-input boundary, equipment slot drop, waypoint, recenter, compact preparation
+UI_PLANNING_VERIFIED | named preset preview/cancel, combined material plan, modification deck preview, bag specification table, supply quantity, structured log
+UI_MANAGEMENT_VERIFIED | real right click, quantity input scope, pinned details, natural drag/drop/cancel, protected stock, named undo, text input scope
+UI_COMPLETION_VERIFIED | raw navigation, input ownership, synthetic controller, pickup boundary, card drag/cancel, hand display order, 720 render, expanded names/rules; real hardware and human efficiency not measured
+CHAPTER_VERIFIED | real input, 7 places, print palette, graphic HUD, focus inspection, modal focus, nested return, filters, three window sizes, rescue, hidden room, combat, calibration, exits, quests, trial, crafting, parcel, save restore, three enemies, defeat recovery, physical inventory, full pockets, ground pickup, backpack crafting

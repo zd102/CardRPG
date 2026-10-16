@@ -1,0 +1,17 @@
+{
+  "local_link_errors": [],
+  "finding_source_links": 26,
+  "headless_gallery_checks": [
+    "26 visible by default",
+    "9 visible in P1",
+    "B01 search isolates one",
+    "1440 and 640 no horizontal overflow",
+    "loaded images available"
+  ],
+  "foreground_activated": false,
+  "browser": "Microsoft Edge, headless",
+  "screenshots_visually_inspected": [
+    "1440x1000",
+    "640x900"
+  ]
+}

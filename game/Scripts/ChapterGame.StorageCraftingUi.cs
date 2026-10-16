@@ -28,22 +28,25 @@ public partial class ChapterGame
             }
             box.AddChild(Button("upgrade_warehouse", UiCopy.Text("UI_1EF4DFCDBDAB"), () => Change(Session.UpgradeWarehouse), Session.CanUpgradeWarehouse, true)); return;
         }
+        var bagChoices = Row(10); box.AddChild(bagChoices);
         foreach (var kind in new[] { "BP01", "BP02", "BP03" })
         {
             var status = Session.HasPhysical(kind) ? "已持有" : Session.BackpackRecipeOpen(kind) ? "配方已解锁" : "尚未解锁";
-            box.AddChild(Button("bag_spec_" + kind, (_selectedBag == kind ? "◆ " : "") + ChapterContent.ItemName(kind) + UiCopy.Format("UI_C2691CAD1A97", 4 + ChapterContent.BagCapacity(kind), ChapterContent.Items[kind].Grams / 1000m, status), () => { _selectedBag = kind; Render(); }));
+            var choice = Button("bag_spec_" + kind, (_selectedBag == kind ? "✓ " : "") + ChapterContent.ItemName(kind) + $"\n{4 + ChapterContent.BagCapacity(kind)} 格 · {status}", () => { _selectedBag = kind; Render(); });
+            choice.SizeFlagsHorizontal = SizeFlags.ExpandFill; choice.CustomMinimumSize = new Vector2(0, 74); bagChoices.AddChild(choice);
         }
-        var body = Scroll(box); body.AddChild(Text(UiCopy.Text("UI_0D0E34AF25B2"), 16, Muted));
+        var body = Scroll(box);
         var selected = _selectedBag;
         EquipmentComparison(body, selected);
         if (!Session.HasPhysical(selected)) Costs(body, Session.BackpackCost(selected),Session.BackpackRecipeOpen(selected));
-        var blockers = Session.CraftBlockers(selected); if (blockers.Length > 0) body.AddChild(Text(string.Join(" · ", blockers), 16, Muted));
+        var blockers = Session.CraftBlockers(selected); if (!Session.HasPhysical(selected) && blockers.Length > 0) body.AddChild(Text(string.Join(" · ", blockers), 16, Muted));
         var actions = Row(12); box.AddChild(actions);
-        if (Session.HasPhysical(selected)) actions.AddChild(Button("bag_equip_view", UiCopy.Text("UI_72DBB0AA9198"), () => { _selectedGear = selected; _gearFilter = "backpack"; OpenNested("gear"); }));
+        if (Session.HasPhysical(selected)) CraftedEquipAction(box, selected);
+        if (Session.HasPhysical(selected) && !Session.Equipped.Contains(selected)) actions.AddChild(QuietButton("bag_equip_view", "比较穿戴", () => { _selectedGear = selected; _gearFilter = "backpack"; OpenNested("gear"); }));
         if (!Session.HasPhysical(selected)) actions.AddChild(Button("make_" + selected, UiCopy.Text("UI_0C775C37A53D") + ChapterContent.ItemName(selected), () => RequestCraft(selected, s => s.CraftBackpack(selected)), Session.CanCraftBackpack(selected), true));
         if (_craftedResult == selected) actions.AddChild(Button("crafted_keep", UiCopy.Text("UI_1A934B955342"), () => { _craftedResult = ""; Render(); }));
-        actions.AddChild(Button("bag_plan_toggle", Session.State.RecipePlan.Contains(selected) ? UiCopy.Text("UI_84036EE2884B") : UiCopy.Text("UI_DEC27655F1F0"), () => ToggleRecipePlan(selected), Session.State.RecipePlan.Contains(selected) || !Session.HasPhysical(selected) && Session.State.RecipePlan.Count < 4));
-        actions.AddChild(Button("bag_plan", UiCopy.Text("UI_95FD3391C334"), () => OpenNested("plan")));
+        if (!Session.HasPhysical(selected) || Session.State.RecipePlan.Contains(selected)) actions.AddChild(QuietButton("bag_plan_toggle", Session.State.RecipePlan.Contains(selected) ? "移出制作计划" : "加入制作计划", () => ToggleRecipePlan(selected)));
+        actions.AddChild(QuietButton("bag_plan", "制作计划", () => OpenNested("plan")));
     }
 
     private void SupplyCrafting(VBoxContainer box)

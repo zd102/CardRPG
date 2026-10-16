@@ -1,0 +1,278 @@
+[
+  {
+    "file": "design-01-camp.png",
+    "title": "余火站",
+    "category": "explore",
+    "sha256": "096bfd1e60395f1a77e30c46d6a1ea0a8f78de164012bf1eda8d77a75c5d9e98",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 1,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-01-camp.png"
+  },
+  {
+    "file": "design-02-departure.png",
+    "title": "准备远征",
+    "category": "explore",
+    "sha256": "540e2fa35bfdac7bb797428de944aba29cfb2bbff32cd7efab425734768ffb6c",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 2,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-02-departure.png"
+  },
+  {
+    "file": "design-03-exploration.png",
+    "title": "探索场景",
+    "category": "explore",
+    "sha256": "73df0e0e45257bcaa200cecef1843e9279d7fb34e56ebe004635a86113cbfc3e",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 3,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-03-exploration.png"
+  },
+  {
+    "file": "design-04-pickup.png",
+    "title": "发现物资",
+    "category": "explore",
+    "sha256": "3868aba4041ed6f7187ce9077d3ffe999b19d4d7458053725589b4e47543ab80",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 4,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-04-pickup.png"
+  },
+  {
+    "file": "design-19-space-choice.png",
+    "title": "背包空间取舍",
+    "category": "explore",
+    "sha256": "aebd1dabddf18a597148196d75331446a61c99e917f14deaf17f313bdb8e4a2c",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 5,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-19-space-choice.png"
+  },
+  {
+    "file": "design-05-return.png",
+    "title": "撤离收获",
+    "category": "explore",
+    "sha256": "1303b26c8604837a4062f2752fd0d394762bb61632761881a9688e76a71b84ff",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 6,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-05-return.png"
+  },
+  {
+    "file": "design-06-story.png",
+    "title": "人物与事件",
+    "category": "explore",
+    "sha256": "b7c88a02923ae00a5b7e24b53a70271e72caffca5accd7157e46605df1c1f983",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 7,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-06-story.png"
+  },
+  {
+    "file": "rework-train-choice.png",
+    "title": "事件选择",
+    "category": "explore",
+    "sha256": "ec0a32cd411b5b49388468e27e2cf7a65c8b3e74b3a368ed925ab9314c8a170d",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 8,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/rework-train-choice.png"
+  },
+  {
+    "file": "design-16-battle-1280.png",
+    "title": "战斗 · 1280 × 800",
+    "category": "battle",
+    "sha256": "e8e51227d737c3753334be1ae2f3aa53c153ac9ecb490981c3e3675d7f055b3f",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 9,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-16-battle-1280.png"
+  },
+  {
+    "file": "design-17-preview-1280.png",
+    "title": "出牌预览",
+    "category": "battle",
+    "sha256": "833b9a672c7c80a306c11702367a698d8532beac602719cf846f966a5bedbc39",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 10,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-17-preview-1280.png"
+  },
+  {
+    "file": "design-16-battle-1024.png",
+    "title": "战斗 · 1024 × 720",
+    "category": "battle",
+    "sha256": "a624bdfb45c692814e4584d261550aa3f7eeb291adc84ca6a856d18f36b465a5",
+    "size": [
+      1024,
+      720
+    ],
+    "review_index": 11,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-16-battle-1024.png"
+  },
+  {
+    "file": "design-16-battle-1600.png",
+    "title": "战斗 · 1600 × 900",
+    "category": "battle",
+    "sha256": "66cbb5cee435a7c3480ebe2a4a76afda417ba993bf202b7cfb2f05e71dc50e52",
+    "size": [
+      1600,
+      900
+    ],
+    "review_index": 12,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-16-battle-1600.png"
+  },
+  {
+    "file": "design-07-inventory.png",
+    "title": "背包与仓库",
+    "category": "advanced",
+    "sha256": "e64d3f053322e2960751c7825c381a9a139d7525c0e8dde7d9ee88d9d1c34b74",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 13,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-07-inventory.png"
+  },
+  {
+    "file": "design-08-inventory-compact.png",
+    "title": "紧凑布局与批量工具",
+    "category": "advanced",
+    "sha256": "fc70b0efad3da8458ca935eebd736fd484a469068ca50489a49878ced216b5a3",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 14,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-08-inventory-compact.png"
+  },
+  {
+    "file": "management-paired-table.png",
+    "title": "同类物品对照",
+    "category": "advanced",
+    "sha256": "17eb917da5c23b86f8d2fc723726559af7bce1f6528eb90c88e9620d24381be3",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 15,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/management-paired-table.png"
+  },
+  {
+    "file": "design-09-character.png",
+    "title": "装备与卡牌来源",
+    "category": "explore",
+    "sha256": "c8a78bcbb35c89e32b95f04ffbd75382528c00fd7ed4f17e78b6e4c60351c3e4",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 16,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-09-character.png"
+  },
+  {
+    "file": "design-10-deck-analysis.png",
+    "title": "卡组分析",
+    "category": "advanced",
+    "sha256": "d6e843d1ccc27857ffe3bd60908cd7cc40b75c5ee7de67df4b67c9091ae76dc3",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 17,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-10-deck-analysis.png"
+  },
+  {
+    "file": "design-12-equipment.png",
+    "title": "换装预览",
+    "category": "advanced",
+    "sha256": "e8a4a80f1e65c2cf1935ba6b3716732843ff0958ff038cce2b85f9b65d741257",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 18,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-12-equipment.png"
+  },
+  {
+    "file": "design-13-mods.png",
+    "title": "供牌改装",
+    "category": "advanced",
+    "sha256": "46e07f71afa27531bec10b1cfc450fbe61cc56a19efbb144279c7c1b87f872e4",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 19,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-13-mods.png"
+  },
+  {
+    "file": "design-11-backpacks.png",
+    "title": "背包制作",
+    "category": "explore",
+    "sha256": "4b4d575ef676d5e772c32c87d5c4c524991d7dd414c5b6a928a53a029ec381bb",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 20,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-11-backpacks.png"
+  },
+  {
+    "file": "design-15-crafted-equipped.png",
+    "title": "制作后立即穿戴",
+    "category": "explore",
+    "sha256": "8ffbdcbae749d383e4786c17833b691202af3c5f2e1402d406f883a6b4eb85c6",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 21,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-15-crafted-equipped.png"
+  },
+  {
+    "file": "design-14-journal.png",
+    "title": "任务",
+    "category": "explore",
+    "sha256": "c957c8b8953697caad1c71654e8723b2c1ad9db8ca9a993c436855ae9d140d48",
+    "size": [
+      1280,
+      800
+    ],
+    "review_index": 22,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-14-journal.png"
+  },
+  {
+    "file": "design-18-map.png",
+    "title": "地图与行动",
+    "category": "explore",
+    "sha256": "7358a4a69ae39cc4cacd2554a36394f61ab71e4f28a99ff29eba3e34ef9f091e",
+    "size": [
+      1600,
+      900
+    ],
+    "review_index": 23,
+    "original": "artifacts/Expedition-UI-20261016-Redesign/preview/design-18-map.png"
+  }
+]

@@ -9,8 +9,8 @@ namespace CardRPG;
 
 public partial class ChapterGame : Control
 {
-    private static readonly Color Ink = new("253d3a"), Muted = new("4b5b50"), Accent = new("923d2c"),
-        Danger = new("a43d2e"), Success = new("446249"), Surface = new("e7dcc2"), Outline = new("8b967e");
+    private static readonly Color Ink = new("253d3a"), Muted = new("526153"), Accent = new("315d4c"),
+        Danger = new("a43d2e"), Success = new("35644e"), Surface = new("f3eddf"), Outline = new("b6bda9");
     private Control _root = null!;
     private string _panel = "", _saveWarning = "", _actionWarning = "";
     private int _target;
@@ -64,8 +64,9 @@ public partial class ChapterGame : Control
         Session = session; _panel = ""; _target = 0; _panelHistory.Clear(); _selectedCard = -1; _feedback.Clear(); _dialogAction = null;
         _mapPlace = ""; _waypoint = ""; _stockPaired = _pairedAwaitBatch = false; _pairedIdentity = _pairedSource = ""; _panelFocus.Clear(); _detailItemId = 0;
         _deckMatrix = false; _lastEquippedKind = _pinnedGear = _deckSource = _matrixGear = _matrixCard = ""; _prepareMapExpanded = false;
-        _handTokens.Clear(); _handDisplayOrder.Clear(); _reorderHand = false; _battleGestureVersion++; _battleDeltas.Clear();
+        _handTokens.Clear(); _handDisplayOrder.Clear(); _handScroll = 0; _reorderHand = false; _battleGestureVersion++; _battleDeltas.Clear();
         _clickMoveId = 0; _stockArrivals.Clear();
+        _stockBatches = _stockBatchMode = false; _stockGearSlot = ""; _quantityGroup = []; _stockSearch = "";
         _receipts.Clear(); _presetDraft = null; _presetDraftName = ""; _presetCompare = "";
         _batchQuestRunning = false; _batchQuestRemaining.Clear(); _batchQuestCompleted.Clear();
         _toast = ""; _toastUntil = 0; _actionWarning = ""; _lastFeedback.Clear();
@@ -88,9 +89,9 @@ public partial class ChapterGame : Control
         if (oldState.Phase == ChapterPhase.Battle && Session.State.Phase == ChapterPhase.Exploring)
         { _recentLoot.Clear(); _recentLoot.UnionWith(Session.State.Stock.Select(i => i.Id).Except(oldState.Stock.Select(i => i.Id))); }
         if (!_stockChanging) _stockUndoBefore = _stockUndoAfter = null;
-        if (Session.State.Phase == ChapterPhase.Exploring && Session.State.Ground.Keys.Except(ground).Any())
+        if (!_stockChanging && Session.State.Phase == ChapterPhase.Exploring && Session.State.Ground.Keys.Except(ground).Any())
         {
-            _panel = oldState.Phase == ChapterPhase.Battle ? "loot" : "gear"; _gearFilter = "cargo"; _panelHistory.Clear();
+            _panel = _panel is "" or "loot" || oldState.Phase == ChapterPhase.Battle ? "loot" : "gear"; _gearFilter = "cargo"; _panelHistory.Clear();
             var arrived=Session.State.Ground.Keys.Except(ground).ToHashSet();_selectedStock=Session.State.Stock.FirstOrDefault(i=>arrived.Contains(i.Container))?.Id??0;
             _requestedFocus="@initial";_sceneFocus="field_loot";Cue("reward");
         }
@@ -111,6 +112,7 @@ public partial class ChapterGame : Control
     private void Toggle(string panel)
     {
         if (_panel == panel) { ClosePanel(); return; }
+        if (panel == "gear") _gearFilter = "cargo";
         if (_panel != "" && GetViewport().GuiGetFocusOwner() is { } owner) _panelFocus[_panel] = owner.Name.ToString();
         if (Session.State.Phase == ChapterPhase.Exploring && (_panel == "loot" || _panel == "gear" && _gearFilter == "cargo" || _panelHistory.Any(p => p.Panel == "loot" || p.Panel == "gear" && p.GearFilter == "cargo")))
         { OpenNested(panel); return; }
@@ -175,11 +177,20 @@ public partial class ChapterGame : Control
         c.AnchorLeft = al; c.AnchorTop = at; c.AnchorRight = ar; c.AnchorBottom = ab;
         c.OffsetLeft = l; c.OffsetTop = t; c.OffsetRight = r; c.OffsetBottom = b;
     }
-    private static void FocusLater(Control target) => Callable.From(() =>
+    private static void FocusLater(Control target) => Callable.From(() => FocusAfterLayout(target)).CallDeferred();
+    private static async void FocusAfterLayout(Control target)
     {
         if (GodotObject.IsInstanceValid(target) && target.IsInsideTree() && target.IsVisibleInTree() && target.FocusMode != FocusModeEnum.None)
+        {
             target.GrabFocus();
-    }).CallDeferred();
+            var tree = target.GetTree();
+            await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+            await tree.ToSignal(tree, SceneTree.SignalName.ProcessFrame);
+            if (!GodotObject.IsInstanceValid(target) || !target.IsInsideTree() || !target.HasFocus()) return;
+            for (Node? parent = target.GetParent(); parent != null; parent = parent.GetParent())
+                if (parent is ScrollContainer scroll) scroll.EnsureControlVisible(target);
+        }
+    }
     public void Render()
     {
         _renderGeneration++; if (_leftHeld) _blockLeftRelease = true;
@@ -197,9 +208,14 @@ public partial class ChapterGame : Control
             _target = NearestLivingTarget(activeBattle);
         var scrolls = _restoreScrolls ?? _pagePositions.GetValueOrDefault(page, []); _restoreScrolls = null;
         _page = page; _scroll = null; _pageScrolls.Clear();
+        CompactDensity = _pageDensity.GetValueOrDefault(DensityPage, _defaultCompact);
         _inspection = null; _inspectionCopy = null; _inspected = null;
         _resumePointerInspection=null;_pointerInspected=null;
-        if (_root != null) { RemoveChild(_root); _root.QueueFree(); }
+        if (_root != null)
+        {
+            if (_root.FindChild("HandViewport", true, false) is ScrollContainer oldHand && _handTokens.Count > 0) _handScroll = oldHand.ScrollHorizontal;
+            RemoveChild(_root); _root.QueueFree();
+        }
         Buttons.Clear(); _root = new Control { Name = "ChapterPresentation", MouseFilter = MouseFilterEnum.Ignore };
         AddChild(_root); _root.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         var scene = new ChapterScene { Name = "World", Location = s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated ? "camp" : s.Battle?.Id == "trial" ? "A04" : s.Location,

@@ -75,17 +75,19 @@ public partial class ChapterGame
         var copy = Session.PreviewCopy();
         if (!StockCommand(copy, item.Id, item.Container, count, true)) return copy.FailureReason == "" ? "当前不可执行，物品保持原位。" : copy.FailureReason;
         if (copy.State.Phase == ChapterPhase.Battle) return "⚠ 巡逻将先拦截，本次物品不会移动。";
-        return $"{ContainerName(item.Container)} → {ContainerName(StockDestination(item))} · 本次 {count} 件\n随身 {Session.CarryUsed} → {copy.CarryUsed}/{copy.CarryCapacity} 格；仓库 {Session.WarehouseUsed} → {copy.WarehouseUsed}/{copy.WarehouseCapacity} 格\n负重 {Session.CarriedGrams / 1000m:0.##} → {copy.CarriedGrams / 1000m:0.##} kg · 推进 {copy.State.Pressure - Session.State.Pressure} 步"
+        return $"{ContainerName(item.Container)} → {ContainerName(StockDestination(item))} · 本次 {count} 件\n随身 {Session.CarryUsed} → {copy.CarryUsed}/{copy.CarryCapacity} 格；仓库 {Session.WarehouseUsed} → {copy.WarehouseUsed}/{copy.WarehouseCapacity} 格\n负重 {Session.CarriedGrams / 1000m:0.##} → {copy.CarriedGrams / 1000m:0.##} kg · 区域压力 +{copy.State.Pressure - Session.State.Pressure}"
             + (copy.Overweight ? " · ⚠ 超重，后续场景行动消耗翻倍" : "");
     }
 
     private void OpenQuantity(ChapterItem item, bool quota = false)
     {
+        _quantityGroup = [];
         _quotaMode = quota; _quantityItem = item.Id; _quantitySource = item.Container; _quantity = ChosenQuantity(item); OpenNested("quantity");
     }
 
     private void QuantityPanel(VBoxContainer box)
     {
+        if (_quantityGroup.Length > 1 && !_quotaMode) { BundleQuantityPanel(box); return; }
         var item = Session.State.Stock.FirstOrDefault(i => i.Id == _quantityItem && i.Container == _quantitySource);
         if (item == null) { box.AddChild(Text(UiCopy.Text("UI_CDDBF87BC76F"), 18, Danger)); return; }
         box.AddChild(Text(UiCopy.Format("UI_972A729AFEA1", ChapterContent.ItemName(item.Kind), ContainerName(item.Container), item.Quantity), 20, Ink));
@@ -240,14 +242,14 @@ public partial class ChapterGame
     {
         tile.GuiInput += e =>
         {
-            if (e is InputEventMouseButton { ButtonIndex: MouseButton.Right, Pressed: true }) { tile.AcceptEvent(); OpenStockMenu(item.Id); }
+            if (e is InputEventMouseButton { ButtonIndex: MouseButton.Right, Pressed: true }) { tile.AcceptEvent(); OpenBundleMenu(item); }
             if (e is InputEventKey { Pressed: true, Echo: false } key && (key.Keycode == Key.Menu || key.Keycode == Key.F10 && key.ShiftPressed))
-            { tile.AcceptEvent(); OpenStockMenu(item.Id, tile.GetGlobalRect().Position); }
+            { tile.AcceptEvent(); OpenBundleMenu(item); }
         };
         tile.SetDragForwarding(Callable.From<Vector2, Variant>(_ =>
         {
             if (!_dragItems || Session.State.Phase is not (ChapterPhase.Camp or ChapterPhase.Exploring) || _stockMenu != null) return default;
-            var count = ChosenQuantity(item); if (_inspection != null) _inspection.Hide();
+            var bundle = StockBundle(item); var count = bundle.Length == 1 ? ChosenQuantity(item) : bundle.Sum(i => i.Quantity); if (_inspection != null) _inspection.Hide();
             var preview = new PanelContainer(); preview.AddThemeStyleboxOverride("panel", Style(Surface, Ink));
             _dragPreviewText = Text(UiCopy.Format("UI_6738F080EE89", ChapterContent.ItemName(item.Kind), count, ContainerName(item.Container)), 16, Ink); _dragPreviewText.CustomMinimumSize = new Vector2(420, 0); preview.AddChild(_dragPreviewText);
                 tile.SetDragPreview(preview);
@@ -272,7 +274,7 @@ public partial class ChapterGame
         if (item == null) return false;
         var key = (id, source, destination, count);
         if (!_dragChecks.TryGetValue(key, out var check))
-        { check = (Session.Preview(s => StockCommand(s, id, source, count, true)) != null, QuantityForecast(item, count)); _dragChecks[key] = check; }
+        { var bundle = StockBundle(item); check = (BundlePreview(bundle, count) != null, bundle.Length == 1 ? QuantityForecast(item, count) : BundleForecast(bundle, count)); _dragChecks[key] = check; }
         if (_dragPreviewText != null && GodotObject.IsInstanceValid(_dragPreviewText)) _dragPreviewText.Text = ChapterContent.ItemName(item.Kind) + " ×" + count + "\n" + check.Forecast + UiCopy.Text("UI_35A32E3B4FC0");
         return check.Allowed;
     }
@@ -280,7 +282,7 @@ public partial class ChapterGame
     {
         if (ReadStockDrop(destination, data, out var id, out var source, out var count))
         {
-            Callable.From(() => RequestStockMove(id, source, count, true)).CallDeferred();
+            Callable.From(() => { var item = Session.State.Stock.FirstOrDefault(i => i.Id == id && i.Container == source); if (item != null) RequestBundleMove(item, count, true); }).CallDeferred();
         }
     }
     private void BindStockDrop(Control target, string destination)
@@ -308,7 +310,16 @@ public partial class ChapterGame
         slotControl.SetDragForwarding(default, Callable.From<Vector2, Variant, bool>((_, data) => Candidate(data) != ""), Callable.From<Vector2, Variant>((_, data) =>
         {
             var kind = Candidate(data);
-            if (kind != "") Callable.From(() => { if (Candidate(data) == kind) OpenGearComparison(kind); }).CallDeferred();
+            if (kind != "") Callable.From(() =>
+            {
+                if (Candidate(data) != kind) return;
+                if (_panel == "gear" && _gearFilter == "cargo")
+                {
+                    _stockGearSlot = slot; _stockFilter = "gear"; _stockSearch = "";
+                    _selectedStock = data.AsGodotDictionary()["id"].AsInt64(); _selectedGear = kind; Render();
+                }
+                else OpenGearComparison(kind);
+            }).CallDeferred();
         }));
     }
 }

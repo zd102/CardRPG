@@ -8,6 +8,7 @@ namespace CardRPG;
 
 public partial class ChapterGame
 {
+
     private VBoxContainer Overlay(string title)
     {
         if (_hud != null)
@@ -17,62 +18,69 @@ public partial class ChapterGame
                 if (node is Control control) control.FocusMode = FocusModeEnum.None;
                 foreach (var child in node.GetChildren()) DisableFocus(child);
             }
-            DisableFocus(_hud);
-            _hud.Visible = false;
+            DisableFocus(_hud); _hud.Visible = false;
         }
-        var shade = new ColorRect { Name = "ModalShade", Color = new Color("030b09b8"), MouseFilter = MouseFilterEnum.Stop };
+        var shade = new ColorRect { Name = "ModalShade", Color = new Color("102720b8"), MouseFilter = MouseFilterEnum.Stop };
         _root.AddChild(shade); shade.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var panel = FlatPanel(_root, 16); panel.Name = "FieldManual";
+        var panel = FlatPanel(_root, CompactDensity ? 18 : 24); panel.Name = "FieldManual";
         var settlement = _panel == "" && Session.State.Phase is ChapterPhase.Extracted or ChapterPhase.Defeated;
-        var focused = _panel is "startup" or "confirm" or "choice" or "story" or "system" or "loot" or "quantity" or "detail" or "recipe-preview" or "keys" or "keybind" || settlement;
-        var edge = focused ? Mathf.Max(24, (Size.X - 900) / 2) : 12;
-        var dialogHeight = _panel switch
+        var focused = _panel is "startup" or "prepare" or "confirm" or "choice" or "story" or "system" or "loot" or "pickup-plan" or "space-plan" or "quantity" or "stock-batches" or "detail" or "recipe-preview" or "keys" or "keybind" || settlement;
+        var edge = focused ? Mathf.Max(24, (Size.X - (_panel is "prepare" or "choice" or "loot" or "space-plan" ? 1080 : 920)) / 2) : 24;
+        var height = _panel switch
         {
-            "confirm" => Mathf.Clamp(240 + (_dialogText.Length / 34 + _dialogText.Count(c => c == '\n')) * 26 * ReadingScale, 320, Size.Y - 48),
-            "story" => Mathf.Min(280 + Stories.GetValueOrDefault(_story).Copy?.Length / 18f * 24 * ReadingScale ?? 480,Size.Y-48),
-            "loot" => Mathf.Min(520,Size.Y-48),
-            "quantity" or "detail" or "recipe-preview" => Mathf.Min(600, Size.Y - 48),
-            _ => 0
+            "confirm" => Mathf.Clamp(240 + (_dialogText.Length / 32 + _dialogText.Count(c => c == '\n')) * 26 * ReadingScale, 340, Size.Y - 64),
+            "story" => Mathf.Min(420 * ReadingScale, Size.Y - 64),
+            "loot" => Mathf.Min(600 * ReadingScale, Size.Y - 64),
+            "quantity" => Mathf.Min(580, Size.Y - 64),
+            "stock-batches" => Mathf.Min(480 * ReadingScale, Size.Y - 64),
+            _ => Size.Y - (focused ? 64 : 48)
         };
-        if (dialogHeight > 0) Dock(panel, edge, (Size.Y-dialogHeight)/2, -edge, (Size.Y+dialogHeight)/2, ar:1);
-        else Dock(panel, edge, focused ? 24 : 12, -edge, focused ? -20 : -12, ar: 1, ab: 1);
-        if (_panel == "story") { Dock(panel,-Mathf.Min(580,Size.X*.53f),Mathf.Max(24,(Size.Y-dialogHeight)/2),-24,Mathf.Min(Size.Y-24,(Size.Y+dialogHeight)/2),1,0,1,0); shade.Color = new Color("030b0930"); }
-        var layout = Column(10); panel.AddChild(layout);
-        var head = Row(14); head.Name = "WorkspaceHeader"; layout.AddChild(head);
-        var heading = Inline(focused ? title : (Session.AtBase ? UiCopy.Text("UI_916C57AF9A41") : ChapterContent.Places[Session.State.Location].Name) + " / " + title, focused ? 28 : 20, Ink);
-        heading.SizeFlagsVertical = SizeFlags.ShrinkCenter; head.AddChild(heading);
+        Dock(panel, edge, (Size.Y - height) / 2, -edge, (Size.Y + height) / 2, ar: 1);
+        if (_panel == "story") shade.Color = new Color("10272070");
+        var layout = Column(8); panel.AddChild(layout);
+        var head = Column(8); head.Name = "WorkspaceHeader"; layout.AddChild(head);
+        var titleRow = Row(14); head.AddChild(titleRow);
+        var heading = Inline(title, 28, Ink); heading.SizeFlagsHorizontal = SizeFlags.ExpandFill; heading.SizeFlagsVertical = SizeFlags.ShrinkCenter; titleRow.AddChild(heading);
         if (!focused)
         {
-            var nav = Row(2); nav.Name = "WorkspaceNavigation"; nav.SizeFlagsHorizontal = SizeFlags.ExpandFill; nav.Alignment = BoxContainer.AlignmentMode.End; head.AddChild(nav);
-            foreach (var (key, caption) in new[] { ("prepare", "整备"), ("gear", "装备仓库"), ("character", "角色与卡组"), ("craft", "工坊"), ("journal", "任务"), ("map", "地图"), ("help", "指引") })
+            titleRow.AddChild(QuietButton("workspace_density", CompactDensity ? "紧凑布局" : "舒展布局", TogglePageDensity));
+        }
+        var close = IconButton("close_panel", "close", _panelHistory.Count > 0 ? "返回上页 · Esc" : "返回场景 · Esc", ClosePanel);
+        close.SizeFlagsVertical = SizeFlags.ShrinkCenter; titleRow.AddChild(close);
+        if (_panel == "startup") { close.Visible = false; close.FocusMode = FocusModeEnum.None; }
+        if (!focused)
+        {
+            var nav = Row(6); nav.Name = "WorkspaceNavigation"; head.AddChild(nav);
+            foreach (var (key, caption) in new[] { ("prepare", "出发"), ("character", "角色与卡组"), ("gear", "背包与装备"), ("craft", "工坊"), ("journal", "任务"), ("map", "地图"), ("help", "指引") })
             {
                 var target = key;
                 nav.AddChild(NavigationButton("nav_" + key, caption, _panel == key, () => { if (_panel != target) Toggle(target); }));
             }
+            if (Size.X >= 1100)
+            {
+                head.RemoveChild(nav); titleRow.AddChild(nav); titleRow.MoveChild(nav, 1);
+                heading.SizeFlagsHorizontal = SizeFlags.Fill;
+                nav.SizeFlagsHorizontal = SizeFlags.ExpandFill; nav.Alignment = BoxContainer.AlignmentMode.End;
+            }
         }
-        else head.AddChild(new Control { SizeFlagsHorizontal = SizeFlags.ExpandFill });
-        var close = IconButton("close_panel", "close", _panelHistory.Count > 0 ? "返回上页 · Esc" : "返回场景 · Esc", ClosePanel);
-        close.SizeFlagsVertical = SizeFlags.ShrinkCenter; head.AddChild(close);
-        if (_panel == "startup") { close.Visible = false; close.FocusMode = FocusModeEnum.None; }
         Rule(layout);
-        if (_panelHistory.TryPeek(out var origin)) layout.AddChild(Text(UiCopy.Text("UI_FA5640E8F543") + PanelTitle(origin.Panel) + UiCopy.Text("UI_19366196CC81"), 14, Muted));
         if (_saveWarning != "") { var warning = FlatPanel(layout); warning.Name = "SaveFailure"; SaveFailureContent(warning); }
-        if (Session.State.Phase == ChapterPhase.Battle && !focused) layout.AddChild(Text(UiCopy.Text("UI_3D8820C78663"), 16, Muted));
-        var content = Row(12); content.SizeFlagsVertical = SizeFlags.ExpandFill; layout.AddChild(content);
-        var body = FlexibleColumn(content); body.Name = "WindowContent";
+        if (Session.State.Phase == ChapterPhase.Battle && !focused) layout.AddChild(Text("战斗暂停 · 查看不会消耗行动", 14, Muted));
+        var body = Column(8); body.Name = "WindowContent"; body.SizeFlagsVertical = SizeFlags.ExpandFill; layout.AddChild(body);
         if (_actionWarning != "" && _saveWarning == "") body.AddChild(Text(_actionWarning, 16, Danger));
-        Rule(layout);
-        var footer = Row(); layout.AddChild(footer);
-        var state = Text(settlement ? UiCopy.Text("UI_8C8DD23CECD1") : (Session.State.Phase == ChapterPhase.Camp ? UiCopy.Text("UI_225F739C6987") : UiCopy.Text("UI_BAB3AAAE4703")) + UiCopy.Format("UI_508BEF3266ED", Session.State.Health, Session.CarriedGrams / 1000m), 13, Muted);
-        state.SizeFlagsHorizontal = SizeFlags.ExpandFill; footer.AddChild(state);
-        _modalityHint = Inline(settlement ? UiCopy.Text("UI_794E3FAE12AB") : InputHelp, 13, Muted); footer.AddChild(_modalityHint);
-        if (_lastSavedAt != "" && _saveWarning == "") state.Text += UiCopy.Text("UI_5EBAF5664C2F") + _lastSavedAt;
+        if (_panel != "story" && _panel != "startup")
+        {
+            var footer = Row(); layout.AddChild(footer);
+            var context = Text(settlement ? "远征记录已保存" : Session.AtBase ? "余火站 · 安全据点" : ChapterContent.Places[Session.State.Location].Name + " · 随时可返回场景", 14, Muted);
+            context.SizeFlagsHorizontal = SizeFlags.ExpandFill; footer.AddChild(context);
+            _modalityHint = Inline(InputHelp, 14, Muted); footer.AddChild(_modalityHint);
+        }
         return body;
     }
 
     private void ShowPanel()
     {
-        var box = Overlay(_panel == "recipe-preview" ? "配方预览" : PanelTitle(_panel));
+        var box = Overlay(_panel == "stock-batches" ? "物品来源" : _panel == "recipe-preview" ? "配方预览" : PanelTitle(_panel));
         switch (_panel)
         {
             case "startup": Startup(box); break;
@@ -90,6 +98,7 @@ public partial class ChapterGame
             case "keys": KeyMap(box); break;
             case "keybind": box.AddChild(Text(UiCopy.Text("UI_09C7636E22A7") + ShortcutName(_bindingAction) + UiCopy.Text("UI_EFE6831AFBC8"), 20, Ink)); break;
             case "quantity": QuantityPanel(box); break;
+            case "stock-batches": StockBatchesPanel(box); break;
             case "detail": ItemDetail(box); break;
             case "recipe-preview": MaterialRecipePreview(box); break;
             case "loot": LootSummary(box); break;
@@ -106,7 +115,7 @@ public partial class ChapterGame
         }
     }
 
-    private string PanelTitle(string panel) => panel switch { "startup" => "开始与存档", "measurements" => "操作流程记录", "pickup-plan" => "自定义装包", "space-plan" => "腾出空间", "quest-batch" => "逐项交付", "opportunities" => "新机会与发现", "pinned" => "常用入口", "receipts" => "最近操作回执", "material-info" => "材料用途与来源", "" => "场景", "keys" => "键位速查与重绑定", "keybind" => "设置新按键", "presets" => "整备预设", "plan" => "材料计划", "detail" => _detailTitle, "loot" => "战斗胜利 · 战利品仍在地面", "confirm" => _dialogTitle, "quantity" => "选择取放数量", "choice" => "比较与选择", "system" => "暂停与设置", "story" => "余火记事", "character" => "角色与卡组", "gear" => "装备仓库", "craft" => "工坊", "journal" => "任务", "prepare" => "行前整备", "map" => "地图", _ => "指引" };
+    private string PanelTitle(string panel) => panel switch { "startup" => "开始与存档", "measurements" => "操作流程记录", "pickup-plan" => "自定义装包", "space-plan" => "腾出空间", "quest-batch" => "逐项交付", "opportunities" => "新机会与发现", "pinned" => "常用入口", "receipts" => "最近操作回执", "material-info" => "材料用途与来源", "" => "场景", "keys" => "键位速查与重绑定", "keybind" => "设置新按键", "presets" => "整备预设", "plan" => "材料计划", "detail" => _detailTitle, "loot" => "发现物资", "confirm" => _dialogTitle, "quantity" => "选择取放数量", "choice" => "比较与选择", "system" => "暂停与设置", "story" => "余火记事", "character" => "角色与卡组", "gear" => Session.AtBase ? "背包与仓库" : "随身物品", "craft" => "工坊", "journal" => "任务", "prepare" => "准备远征", "map" => "地图", _ => "指引" };
 
     private void SaveFailureContent(Node parent)
     {
@@ -142,7 +151,7 @@ public partial class ChapterGame
         page.AddChild(Text(UiCopy.Text("UI_0D8F9AFF586B"),16,Muted));
         foreach (var (number, title, copy) in new[]
         {
-            ("01", "探索与巡逻", "通过场景出口移动，每次 1 步。搜物、设施与补给通常也用 1 步。负重超过 20 kg 时场景行动值翻倍。巡逻先预警，抵达后仍可离开；继续停留才会被拦截。阅读与思考免费。"),
+            ("01", "探索与巡逻", "通过场景出口或地图的前往按钮移动，每次一站。移动、搜物和补给通常增加 1 点区域压力，超过 20 kg 时消耗翻倍。巡逻先预警，抵达后仍可离开；继续停留才会被拦截。阅读与思考免费。"),
             ("02", "装备决定卡组", "据点可换装和制作，备用件数由背包格位决定，穿戴与随身实物都计入负重。启动维修工坊的台架后可换随身装备。新物品需要撤离登记；永久修复与救援立即保存。"),
             ("03", "每回合做出选择", "每回合 3 行动，抽 5 张牌，恢复 1 魔法（上限 3）。选牌查看预览，再选择敌人并确认出牌；Esc 取消。Space 始终表示结束回合，敌人执行公开意图。额外抽牌最多 2 张。"),
             ("04", "护盾与撤退", "护盾下回合清除，稳固最多保留 4。盾压消耗实际护盾，穿盾直接扣生命。战术撤退仍承受本轮意图，存活后退回进入位置，敌人状态保留。")

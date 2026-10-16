@@ -8,56 +8,49 @@ namespace CardRPG;
 
 public partial class ChapterGame
 {
+
     private void Header()
     {
         var s = Session.State;
         _hud = new Control { Name = "Hud", MouseFilter = MouseFilterEnum.Ignore };
         _root.AddChild(_hud); _hud.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var plate = FlatPanel(_hud, 12); plate.Name = "Vitals";
-        Dock(plate, 20, 18, 310, 82);
-        var status = Column(6); plate.AddChild(status);
-        var vitals = Row(18); status.AddChild(vitals);
-        SymbolValue(vitals, "heart", $"{s.Health}/42", s.Health <= 14 ? Danger : Success, "生命；低于三分之一时需要补给。");
-        SymbolValue(vitals, "supply", s.Supplies.ToString(), Ink, "补给；探索中可消耗一份恢复生命。");
-        SymbolValue(vitals, "bag", $"{Session.CarryUsed}/{Session.CarryCapacity}", Accent, Session.LoadDescription);
-        HealthBar(status, s.Health, 42, s.Health <= 14 ? Danger : Success);
-        var locationPlate = FlatPanel(_hud, 8); locationPlate.Name = "LocationPlate";
-        Dock(locationPlate, -110, 18, 110, 82, .5f, 0, .5f, 0);
-        var title = Column(3); locationPlate.AddChild(title);
-        var name = Text(s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated ? UiCopy.Text("UI_916C57AF9A41") : s.Battle?.Id == "trial" ? UiCopy.Text("UI_825C6624EABB") : ChapterContent.Places[s.Location].Name, 20, Ink);
-        name.HorizontalAlignment = HorizontalAlignment.Center; title.AddChild(name);
-        var location = Row(6); location.Alignment = BoxContainer.AlignmentMode.Center; title.AddChild(location);
-        if (s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated)
-            SymbolValue(location, "home", "安全", Muted, "安全据点；整备、阅读与制作不推进区域压力。", 14);
-        else
-            SymbolValue(location, "eye", s.Pressure.ToString(), s.Warned ? Danger : Muted, Session.PressureText + "\n" + Session.PatrolText, 14);
-        var menu = Row(6); _hud.AddChild(menu); Dock(menu, -378, 18, -20, 64, al: 1, ar: 1);
-        foreach (var item in new[] { ("character", "character", "角色与卡组 · " + KeyLabel("character"), "character"), ("map", "map", "地图 · " + KeyLabel("map"), "map"), ("inventory", "bag", "装备与背包 · " + KeyLabel("gear"), "gear"),
-                     ("journal", "journal", "任务与发现 · " + KeyLabel("journal"), "journal"), ("craft", "craft", "制作与改装", "craft"),
-                     ("help", "help", "图标与操作指引 · " + KeyLabel("help"), "help"), ("quit", "settings", "暂停与设置", "quit") })
+        var bar = DarkPanel(_hud, 14); bar.Name = "Vitals"; Dock(bar, 16, 16, -16, 84, ar: 1);
+        var row = Row(18); bar.AddChild(row);
+        var status = Column(4); status.CustomMinimumSize = new Vector2(238, 0); row.AddChild(status);
+        var values = Row(14); status.AddChild(values);
+        SymbolValue(values, "heart", $"{s.Health}/42", s.Health <= 14 ? new Color("ffb29b") : OnNight, "生命；低于三分之一时需要补给。", 18);
+        if (s.Phase != ChapterPhase.Battle)
         {
-            var id = item.Item1; var panel = item.Item4;
-            var button = IconButton(id, item.Item2, panel == "quit" ? "暂停与设置 · Esc" : item.Item3, () => Toggle(panel == "quit" ? "system" : panel));
-            button.CustomMinimumSize = new Vector2(46, 46);
-            var ready = ChapterContent.Quests.Count(q => Session.CanTurnIn(q.Id));
-            if (id == "journal" && ready > 0)
+            SymbolValue(values, "supply", s.Supplies.ToString(), OnNight, "补给；探索中可消耗一份恢复生命。", 18);
+            SymbolValue(values, "bag", $"{Session.CarryUsed}/{Session.CarryCapacity}", Session.CarryUsed >= Session.CarryCapacity ? Brass : OnNight, CapacityText(Session.CarryUsed, Session.CarryCapacity) + " · " + Session.LoadDescription, 18);
+        }
+        HealthBar(status, s.Health, 42, s.Health <= 14 ? new Color("e29978") : new Color("94b599"));
+        var place = Column(1); place.Name = "LocationPlate"; place.SizeFlagsHorizontal = SizeFlags.ExpandFill; row.AddChild(place);
+        var title = Text(s.Phase is ChapterPhase.Camp or ChapterPhase.Extracted or ChapterPhase.Defeated ? "余火站" : s.Battle?.Id == "trial" ? "台架试用" : ChapterContent.Places[s.Location].Name, 20, OnNight);
+        title.HorizontalAlignment = HorizontalAlignment.Center; place.AddChild(title);
+        var note = Text(Session.AtBase ? "安全据点" : s.Phase == ChapterPhase.Battle ? "战斗中" : s.Warned ? "巡逻抵达 · 可离开" : "区域压力 " + s.Pressure, 14, Brass);
+        note.HorizontalAlignment = HorizontalAlignment.Center; place.AddChild(note);
+        var menu = Row(2); row.AddChild(menu);
+        foreach (var item in new[] { ("character", "角色", "character"), ("map", "地图", "map"), ("inventory", "背包", "gear"), ("journal", "任务", "journal"), ("craft", "工坊", "craft"), ("help", "指引", "help"), ("quit", "设置", "system") })
+        {
+            var target = item.Item3;
+            var button = DarkButton(item.Item1, _navigationLabels ? item.Item2 : "", () => Toggle(target));
+            if (!_navigationLabels)
             {
-                var count = Inline(ready.ToString(), 14, Accent); button.AddChild(count); Dock(count, -16, 0, -2, 20, al: 1, ar: 1);
+                button.CustomMinimumSize = new Vector2(40, 40);
+                var glyph = Glyph(item.Item1 switch { "inventory" => "bag", "quit" => "settings", _ => item.Item1 }, OnNight, 22);
+                button.AddChild(glyph); Dock(glyph, -11, -11, 11, 11, .5f, .5f, .5f, .5f);
             }
+            button.TooltipText = item.Item1 == "inventory" ? "装备与背包 · " + KeyLabel("gear") : item.Item2 + (_keys.ContainsKey(target) ? " · " + KeyLabel(target) : "");
+            if (_navigationLabels && item.Item1 == "journal" && ChapterContent.Quests.Any(q => Session.CanTurnIn(q.Id))) button.Text = "任务 •";
             menu.AddChild(button);
-            if (_navigationLabels)
-            {
-                var caption = Inline(id switch { "character" => "角色", "map" => "地图", "inventory" => "仓库", "journal" => "任务", "craft" => "工坊", "help" => "指引", _ => "设置" }, 14, Ink);
-                caption.HorizontalAlignment = HorizontalAlignment.Center; button.AddChild(caption); Dock(caption, 0, 48, 46, 70);
-                caption.AddThemeStyleboxOverride("normal", Style(new Color("eee9db"), Colors.Transparent, 0));
-            }
         }
         if (_panel == "" && s.Phase is ChapterPhase.Camp or ChapterPhase.Exploring)
         {
-            var objective = Button("objective", "", () => Toggle("journal")); objective.TooltipText = UiCopy.Text("UI_37D27238A76A") + Session.Objective;
-            _hud.AddChild(objective); Dock(objective, 20, 96, 370, 164);
-            var strip = Row(9); strip.MouseFilter = MouseFilterEnum.Ignore; objective.AddChild(strip); Dock(strip,12,8,-12,-8,ar:1,ab:1);
-            strip.AddChild(Glyph("journal", Accent, 24)); var objectiveCopy = Text(Session.NextObjective,16,Ink); objectiveCopy.AddThemeFontSizeOverride("font_size",16); objectiveCopy.SizeFlagsHorizontal=SizeFlags.ExpandFill; strip.AddChild(objectiveCopy);
+            var objective = Button("objective", "", () => Toggle("journal")); objective.TooltipText = "当前目标\n" + Session.Objective;
+            _hud.AddChild(objective); Dock(objective, 20, 104, 350, 184);
+            var copy = Column(4); copy.MouseFilter = MouseFilterEnum.Ignore; objective.AddChild(copy); Dock(copy, 14, 10, -14, -10, ar: 1, ab: 1);
+            copy.AddChild(Text("当前目标", 14, Muted)); copy.AddChild(Text(Session.NextObjective, 16, Ink));
         }
     }
 
@@ -195,7 +188,7 @@ public partial class ChapterGame
             if (action.Id == "heal")
             {
                 var heal = IconButton("act_heal", "supply", action.Name + $"\n生命 {s.Health} → {Math.Min(ChapterSession.MaxHealth, s.Health + 14)} · 实际恢复 {Math.Min(14, ChapterSession.MaxHealth - s.Health)}\n优先消耗配发份 · 推进 {Session.SceneActionCost()} 步" + (s.Warned ? "\n⚠ 巡逻先拦截，本次补给不会消耗。" : ""), () => Change(() => Session.Act("heal")));
-                heal.Disabled = !action.Enabled; _hud!.AddChild(heal); Dock(heal, 320, 18, 366, 64);
+                heal.Disabled = !action.Enabled; _hud!.AddChild(heal); Dock(heal, 296, -66, 342, -20, at: 1, ab: 1);
                 continue;
             }
             var (point, label) = action.Id == "extract"
@@ -206,9 +199,10 @@ public partial class ChapterGame
             if (action.Id == "crate" && s.Run.Contains("crate-start")) label = "继续开箱 · 2/2";
             if (action.Id is "relay" or "clamp") label = "拿取" + label;
             if (action.Id is "K01" or "K02" or "E13") label = "迎战" + label;
-            if (action.Id != "extract") label += s.Warned && action.Id != "K09" ? " · 将被拦截" : " · 推进 " + Session.SceneActionCost(action.Id == "crate" ? 2 : 1) + " 步";
+            var result = action.Enabled ? Session.Preview(copy => copy.Act(action.Id)) : null;
+            var pressureCost = result == null ? 0 : result.State.Pressure - s.Pressure;
             Pin("act_" + action.Id, label, point, () => ExploreAction(action.Id),
-                action.Name + "\n" + action.Description + "\n" + PressureForecast(action.Id == "extract" ? 0 : Session.SceneActionCost(action.Id == "crate" ? 2 : 1)), action.Enabled, action.Id == "extract",
+                action.Name + "\n" + action.Description + (result?.State.Phase == ChapterPhase.Battle ? "\n将进入战斗" : "\n区域压力 +" + pressureCost) + "\n" + PressureForecast(pressureCost), action.Enabled, action.Id == "extract",
                 action.Id is "K01" or "K02" or "K09" or "E13" ? Danger : null);
         }
         if (Session.CanEquip)
@@ -223,13 +217,13 @@ public partial class ChapterGame
         }
         if (Session.GroundHere.Any())
         {
-            var loot=Button("field_loot",UiCopy.Text("UI_687A3D26F2BF"),()=>{_gearFilter="cargo";Toggle("gear");});_hud!.AddChild(loot);Dock(loot,-244,-72,-20,-26,1,1,1,1);
+            var loot=Button("field_loot",UiCopy.Text("UI_687A3D26F2BF"),()=>Toggle("loot"));_hud!.AddChild(loot);Dock(loot,-244,-72,-20,-26,1,1,1,1);
         }
         SceneTraces(); OpportunityEntry();
-        var load = ChapterSkin.Panel(_hud!, padding: 8); Dock(load, 20, 176, 450, 242);
+        var load = FlatPanel(_hud!, 8); Dock(load, 20, 194, 350, 252);
         var loadCopy=Column(2);load.AddChild(loadCopy);
-        loadCopy.AddChild(Text(UiCopy.Format("UI_F9EE26CC5BB8", Math.Max(0, Session.CarryCapacity - Session.CarryUsed), Session.CarriedGrams / 1000m) + (Session.Overweight ? UiCopy.Text("UI_13E5575CB6B0") : UiCopy.Text("UI_706C0D37535C")), 16, Session.Overweight ? Danger : Ink));
-        loadCopy.AddChild(Inline(PressureForecast(0).Split('\n')[1],14,Muted));
+        loadCopy.AddChild(Text(CapacityText(Session.CarryUsed, Session.CarryCapacity) + $"\n负重 {Session.CarriedGrams / 1000m:0.##}/20 kg" + (Session.Overweight ? " · 超重" : ""), 14, Session.Overweight ? Danger : Ink));
+        if (s.Warned || Session.Overweight || CompactDensity) loadCopy.AddChild(Text(PressureForecast(0).Split('\n')[1],14,Muted));
         var nearest = Session.NearestExit();
         var escape = ChapterSkin.Panel(_hud!, padding: 10); Dock(escape,20,-66,285,-20,at:1,ab:1);
         SymbolValue(escape,"exit",ChapterContent.Places[nearest.Place].Name + $"  ·  {nearest.Distance}",Success,"最近撤离点；还需移动 " + nearest.Distance + " 步。",16);

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Slay the Spire 2",
+    "page": "https://www.megacrit.com/press-kits/slay-the-spire-2/",
+    "checked": "2026-10-16",
+    "evidence": "Official public screenshots visually inspected; release status checked against official launch post",
+    "images": [
+      "https://www.megacrit.com/images/steam_screenshot1_new.png",
+      "https://www.megacrit.com/images/steam_screenshot2_new.png"
+    ],
+    "used_for": "battle layout and visual priorities; not tested game controls"
+  },
+  {
+    "name": "Hades II",
+    "page": "https://www.supergiantgames.com/games/hades-ii/",
+    "checked": "2026-10-16",
+    "evidence": "Official gallery images visually inspected; gallery can include historical promotional material",
+    "images": [
+      "https://images.ctfassets.net/5owu3y35gz1g/1bjuKMwtSJIFELYT79ceDs/3777d4004f6aaf8d485a90eb28fa01c5/hades2_apr30_01.jpg?w=1920&q=80"
+    ],
+    "used_for": "dialogue foreground, text and background separation; no HUD conclusions from HUD-free action image"
+  },
+  {
+    "name": "Escape From Duckov",
+    "page": "https://store.steampowered.com/app/3167020/Escape_From_Duckov/",
+    "checked": "2026-10-16",
+    "evidence": "Developer-authored store description",
+    "used_for": "exploration, supplies, base and extraction loop; no claim about exact UI gestures"
+  },
+  {
+    "name": "Baldurs Gate 3 Patch 6",
+    "page": "https://baldursgate3.game/news/patch-6-now-live_108",
+    "checked": "2026-10-16",
+    "published": "2024-02-16",
+    "used_for": "unified inventory access, contextual feedback and precise UI naming"
+  },
+  {
+    "name": "Factorio FFF-426",
+    "page": "https://www.factorio.com/blog/post/fff-426",
+    "checked": "2026-10-16",
+    "published": "2024-08-30",
+    "used_for": "recipe versus item information, actual calculation results"
+  }
+]

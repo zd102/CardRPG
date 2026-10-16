@@ -49,6 +49,13 @@ public partial class ChapterHotspot : Button
             Vector2[] points = [center+new Vector2(0,-26), center+new Vector2(26,0), center+new Vector2(0,26), center+new Vector2(-26,0), center+new Vector2(0,-26)];
             DrawColoredPolygon(points, new Color("f1e7ce")); DrawPolyline(points, color, active ? 3 : 2);
         }
+        else if (Symbol == "hammer")
+        {
+            Vector2[] triangle = [center + new Vector2(0,-27), center + new Vector2(27,24), center + new Vector2(-27,24), center + new Vector2(0,-27)];
+            DrawColoredPolygon(triangle, new Color("f1e7ce")); DrawPolyline(triangle, color, active ? 3 : 2);
+        }
+        else if (Symbol is "craft" or "bag" or "loot" or "steel" or "wire" or "supply")
+        { var markerRect = new Rect2(center - new Vector2(23,23), new Vector2(46,46)); DrawRect(markerRect,new Color("f1e7ce")); DrawRect(markerRect,color,false,active ? 3 : 2); }
         else { DrawCircle(center,24,new Color("f1e7ce")); DrawArc(center,24,0,Mathf.Tau,32,color,active ? 3 : 2); }
         if (Important) DrawCircle(new Vector2(Size.X-3,3),5,new Color("ead3a0"));
         if (Disabled) DrawLine(center+new Vector2(-13,13),center+new Vector2(13,-13),color,2);

@@ -30,6 +30,7 @@ public partial class ChapterGame
             if (_inspection == null || !GodotObject.IsInstanceValid(_inspection)) return;
             if (!_hoverTips || !GodotObject.IsInstanceValid(control) || !control.IsInsideTree()) return;
             if (_stockMenu != null || GetViewport().GuiIsDragging() || _panel == "detail") return;
+            if (_panel == "gear" && _gearFilter == "cargo" && control.Name.ToString().StartsWith("stock_")) return;
             if (control.Name == "close_panel" || control.Name.ToString().StartsWith("target_") || control.Name.ToString().StartsWith("inspection_")) return;
             var text = description();
             if (string.IsNullOrWhiteSpace(text)) return;
@@ -39,8 +40,8 @@ public partial class ChapterGame
             if (_panel != "")
             {
                 var rect = control.GetGlobalRect(); var shortCopy = !text.Contains('\n') && text.Length <= 28;
-                var width = Math.Min(shortCopy ? Math.Max(220, text.Length * 16 * ReadingScale + 32) : 540, Size.X - 64);
-                var height = Math.Min(Size.Y - 160, shortCopy ? 150 : 300);
+                var width = Math.Min(shortCopy ? Math.Max(220, text.Length * 16 * ReadingScale + 32) : 380, Size.X - 64);
+                var height = Math.Min(Size.Y - 160, shortCopy ? 108 : Math.Clamp(90 + (text.Length / 22 + text.Count(c => c == '\n')) * 23, 150, 240));
                 var x = Mathf.Clamp(rect.Position.X, 32, Size.X - width - 32);
                 var y = rect.End.Y + height + 12 < Size.Y - 32 ? rect.End.Y + 8 : Math.Max(90, rect.Position.Y - height - 8);
                 var freeLeft=rect.Position.X-44;var freeRight=Size.X-rect.End.X-44;
@@ -51,14 +52,20 @@ public partial class ChapterGame
                     var left=rect.Position.X-44;var right=Size.X-rect.End.X-44;
                     if(left>=300||right>=300)
                     {var onLeft=left>=right;width=Math.Min(width,onLeft?left:right);x=onLeft?rect.Position.X-width-12:rect.End.X+12;}
-                    height=Math.Min(height,Math.Max(150,actionBar.GetGlobalRect().Position.Y-110));
-                    y=Math.Clamp(rect.Position.Y,90,Math.Max(90,actionBar.GetGlobalRect().Position.Y-height-12));
+                    var detailRect = actionBar.GetGlobalRect();
+                    if (detailRect.Size.X > Size.X * .6f)
+                        y = Math.Min(y, Math.Max(16, detailRect.Position.Y - height - 12));
+                    else
+                    {
+                        width = Math.Min(width, Math.Max(220, detailRect.Position.X - 56));
+                        x = Math.Clamp(x, 24, Math.Max(24, detailRect.Position.X - width - 12));
+                    }
                 }
                 y = Math.Clamp(y, 16, Math.Max(16, Size.Y - height - 32));
                 Dock(_inspection, x, y, x + width, y + height);
             }
             else if(Session.State.Phase==ChapterPhase.Battle)
-                Dock(_inspection,24,-362,-320,-202,0,1,1,1);
+                Dock(_inspection, 194, 102, 650, 292);
             else
             {
                 var width=Math.Min(480,Size.X*.38f);var height=220f;
@@ -112,10 +119,11 @@ public partial class ChapterGame
         else Dock(_inspection, -300, -238, 300, -108, .5f, 1, .5f, 1);
         var body = Column(6); _inspection.AddChild(body);
         var head = new HFlowContainer(); head.AddThemeConstantOverride("h_separation",8);head.AddThemeConstantOverride("v_separation",6);body.AddChild(head);
-        if (_pinEntry) head.AddChild(Button("inspection_pin", KeyLabel("inspect") + UiCopy.Text("UI_3CAE3B130D83"), () => { _detailItemId = 0; _detailTitle = UiCopy.Text("UI_17B00C8B46A9"); _detailText = _inspectionFullText; OpenNested("detail"); }));
-        if (_pinEntry) head.AddChild(Button("inspection_reference", _referenceText == "" ? UiCopy.Text("UI_461BAC02935B") : UiCopy.Text("UI_40B0EF6D99C5"), () => PinReference(_inspectionFullText)));
+        if (_pinEntry) head.AddChild(Button("inspection_pin", "详情 " + KeyLabel("inspect"), () => { _detailItemId = 0; _detailTitle = UiCopy.Text("UI_17B00C8B46A9"); _detailText = _inspectionFullText; OpenNested("detail"); }));
+        if (_pinEntry) head.AddChild(Button("inspection_reference", _referenceText == "" ? "对照" : "更新对照", () => PinReference(_inspectionFullText)));
         if (_referenceText != "") head.AddChild(Button("inspection_clear_reference", UiCopy.Text("UI_ED51208197F8"), () => { _referenceText = ""; Render(); }));
-        head.AddChild(Button("inspection_close", UiCopy.Text("UI_D301BC125833"), () => { _inspection?.Hide(); _inspected = null; }));
+        head.AddChild(Button("inspection_close", "关闭", () => { _inspection?.Hide(); _inspected = null; }));
+        foreach (var button in head.GetChildren().OfType<Button>()) button.CustomMinimumSize = new Vector2(0, 30);
         var scroll = new ScrollContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill, SizeFlagsVertical = SizeFlags.ExpandFill, HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled }; body.AddChild(scroll);
         _inspectionCopy = Text("", 16, Ink); _inspectionCopy.Name="InspectionCopy"; _inspectionCopy.SizeFlagsHorizontal = SizeFlags.ExpandFill; scroll.AddChild(_inspectionCopy);
         panel.MouseExited += () => { if (_inspected == null || !GodotObject.IsInstanceValid(_inspected) || !_inspected.HasFocus() && !_inspected.GetGlobalRect().HasPoint(GetGlobalMousePosition())) panel.Hide(); };
@@ -127,7 +135,11 @@ public partial class ChapterGame
         position.X=Math.Clamp(position.X,16,Math.Max(16,Size.X-panel.Size.X-16));
         position.Y=Math.Clamp(position.Y,16,Math.Max(16,Size.Y-panel.Size.Y-16));
         if(_panel!=""&&_root.FindChild("StockActionBar",true,false) is Control actions)
-            position.Y=Math.Min(position.Y,Math.Max(16,actions.GetGlobalRect().Position.Y-panel.Size.Y-12));
+        {
+            var rect = actions.GetGlobalRect();
+            if (rect.Size.X > Size.X * .6f) position.Y = Math.Min(position.Y, Math.Max(16, rect.Position.Y - panel.Size.Y - 12));
+            else position.X = Math.Min(position.X, Math.Max(16, rect.Position.X - panel.Size.X - 12));
+        }
         panel.GlobalPosition=position;
     }
 

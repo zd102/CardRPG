@@ -7,134 +7,158 @@ namespace CardRPG;
 
 public partial class ChapterGame
 {
+
     private void Battle()
     {
         var b = Session.State.Battle!; var trial = b.Id == "trial";
         SynchronizeHand(); _cardZoom = null; _cardZoomText = null;
-        var selectedDefinition = _selectedCard >= 0 && _selectedCard < b.Hand.Count ? ChapterContent.Cards[b.Hand[_selectedCard]] : null;
-        var hasPlayable = Enumerable.Range(0, b.Hand.Count).Any(i => b.Enemies.Select((_, t) => t).Any(t => Session.CanPlay(i, t)));
-        var command = FlatPanel(_hud!, 10); command.Name = "BattleResources";
-        Dock(command,24,104,510,156);
-        if (selectedDefinition?.Damage == 0) command.AddThemeStyleboxOverride("panel", Style(Surface, Accent, 10));
-        var resources = Row(12); command.AddChild(resources);
-        var energy = Row(14); resources.AddChild(energy);
-        energy.AddChild(Inline(UiCopy.Text("UI_253FB75906C6"), 14, Ink));
-        Pips(energy,"action",b.Action,3,Accent,"行动；每回合恢复至 3。", selectedDefinition?.Action ?? 0);
-        energy.AddChild(Inline(UiCopy.Text("UI_F92FD0C0B8C9"), 14, Ink));
-        Pips(energy,"mana",b.Mana,3,new Color("466c65"),"魔法；每回合恢复 1，上限 3。", selectedDefinition?.Mana ?? 0);
-        var defense = Row(12); resources.AddChild(defense);
-        SymbolValue(defense,"guard",b.Shield.ToString(),Success,"护盾；下回合清除，稳固最多保留 4。");
-        SymbolValue(defense,"round",b.Round.ToString(),Ink,"当前回合");
-        BindCardTarget(command, _target, true);
+        var chosen = _selectedCard >= 0 && _selectedCard < b.Hand.Count ? ChapterContent.Cards[b.Hand[_selectedCard]] : null;
+        var playable = Enumerable.Range(0, b.Hand.Count).Any(i => b.Enemies.Select((_, t) => t).Any(t => Session.CanPlay(i, t)));
+        var handHeight = ReadingScale > 1 ? 280 : 226;
+        var railBottom = -handHeight - 26;
+        var railTop = railBottom - (chosen == null ? 62 : 100);
+        var workWidth = Math.Min(Size.X - 40, 1360);
+        var workLeft = (Size.X - workWidth) / 2;
+        var resourceWidth = Size.X < 1100 ? 134 : 154;
+        var turnWidth = ReadingScale > 1 ? 232 : Size.X < 1100 ? 180 : 204;
 
-        var end = Button("end_turn",UiCopy.Text("UI_975778D99095"),RequestEndTurn,primary:!trial || !Session.State.World.Contains("trial-complete"));
-        end.TooltipText = UiCopy.Text("UI_098F1C50510A") + KeyLabel("endturn") + UiCopy.Text("UI_519FA49E9ABF");
-        _root.AddChild(end); Dock(end,-128,-174,-20,-88,al:1,at:1,ar:1,ab:1);
-        var retreat = Button(trial ? "end_trial" : "retreat", trial ? UiCopy.Text("UI_3E50C62FE50B") : UiCopy.Text("UI_C208091F008A"), Retreat, primary:trial && Session.State.World.Contains("trial-complete"));
-        retreat.TooltipText = trial ? UiCopy.Text("UI_B4338FA22BDD") : TurnForecast(true);
-        _root.AddChild(retreat); Dock(retreat,-128,-74,-20,-28,al:1,at:1,ar:1,ab:1);
-        var risk = Panel(_hud!, Surface, Outline); risk.Name = "EndTurnForecast"; Dock(risk,-156,-362,-20,-202,al:1,at:1,ar:1,ab:1);
-        var afterTurn = trial ? null : Session.Preview(s => s.EndTurn());
-        var riskBody = Column(3); risk.AddChild(riskBody); var riskScroll = Scroll(riskBody);
-        riskScroll.AddChild(Text((trial ? UiCopy.Text("UI_35168A5D192A") : UiCopy.Format("UI_E897973AD6D1", Math.Min(b.Shield, b.Enemies.Sum(ChapterSession.EnemyDamage)), Session.State.Health, afterTurn?.State.Health ?? Session.State.Health) + (afterTurn?.State.Phase == ChapterPhase.Defeated ? UiCopy.Text("UI_A7D3A1EF0FDF") : "")) + (!hasPlayable ? UiCopy.Text("UI_416B27EC1792") : ""),16,afterTurn?.State.Phase == ChapterPhase.Defeated ? Danger : Ink));
-        if (!hasPlayable) { end.Text = UiCopy.Text("UI_AC1901DAF75F"); end.AddThemeStyleboxOverride("normal", Style(Surface, Accent, 8)); }
+        // Intent, body, health and the selected card's consequence share one target area.
+        var cardResult = chosen == null ? null : Session.Preview(s => s.PlayCard(_selectedCard, _target));
         for (var i = 0; i < b.Enemies.Count; i++)
         {
-            var index = i; var e = b.Enemies[i]; var selected = e.Health > 0 && (selectedDefinition == null ? _target == i : selectedDefinition.Damage > 0 && (selectedDefinition.Id == "C18" || _target == i));
-            var width = b.Enemies.Count == 1 ? .26f : b.Enemies.Count == 2 ? .25f : .235f;
-            var x = .5f + (i-(b.Enemies.Count-1)/2f)*(width+.035f);
-            var target = Button("target_"+i,"",() => { _target=index; Render(); },e.Health>0);
-            foreach (var state in new[] {"normal","hover","pressed","disabled"}) target.AddThemeStyleboxOverride(state,new StyleBoxEmpty());
-            target.TooltipText = UiCopy.Format("UI_3EC29E9F696C", i + 1) + ChapterSession.EnemyName(e.Id) + $"  {e.Health}/{e.MaxHealth}\n" + EnemyIntentWithTarget(b,i);
-            _root.AddChild(target); Dock(target,0,164,0,-374,x-width/2,0,x+width/2,1);
-            var backdrop = new PanelContainer { MouseFilter = MouseFilterEnum.Ignore }; backdrop.AddThemeStyleboxOverride("panel", Style(new Color("dfd9c090"), selected ? Accent : Outline, 0)); target.AddChild(backdrop); backdrop.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-            var actor = new ChapterActor { Name="Actor_"+i, Art="enemy-"+e.Id, Selected=selected, Defeated=e.Health==0 };
-            target.AddChild(actor); Dock(actor,10,e.Id=="E13"?156:124,-10,0,ar:1,ab:1);
-            var plate = FlatPanel(target,8); plate.MouseFilter=MouseFilterEnum.Ignore;
-            Dock(plate,6,0,-6,e.Id=="E13"?156:124,ar:1);
-            var caption = Column(4); caption.MouseFilter=MouseFilterEnum.Ignore; plate.AddChild(caption);
-            var name = Inline((selected ? "◆ " : "")+UiCopy.Format("UI_3EC29E9F696C", i + 1)+ChapterSession.EnemyName(e.Id),16,selected ? Accent : Ink);
-            name.HorizontalAlignment=HorizontalAlignment.Center; caption.AddChild(name);
-            HealthBar(caption,e.Health,e.MaxHealth,e.Health==0 ? Muted : Danger);
-            var intent = Row(12); intent.Alignment=BoxContainer.AlignmentMode.Center; intent.MouseFilter=MouseFilterEnum.Ignore; caption.AddChild(intent);
-            SymbolValue(intent,"heart",e.Health.ToString(),Ink,"",14);
-            if (e.Shield>0) SymbolValue(intent,"guard",e.Shield.ToString(),Success,"",14);
-            var (symbol,value)=IntentSymbol(e,b.Enemies.Count);
-            SymbolValue(intent,symbol,value,e.Health==0 ? Muted : Danger,"",16);
-            if (e.Health > 0) caption.AddChild(Text(EnemyIntentWithTarget(b,i),14,Ink));
-            if (e.Id == "E13") caption.AddChild(Text(b.BonusSecured ? UiCopy.Text("UI_48A1A3755772") : b.Round <= 3 ? UiCopy.Format("UI_9E23634F73AB", 4 - b.Round) : UiCopy.Text("UI_E074137B7A1E"), 14, Accent));
-            if(e.Id=="E13")caption.AddChild(Text(UiCopy.Text("UI_2B19DEE92A1F"),14,Muted));
+            var index = i; var enemy = b.Enemies[i];
+            var selected = enemy.Health > 0 && (chosen == null ? _target == i : chosen.Damage > 0 && (chosen.Id == "C18" || _target == i));
+            var width = b.Enemies.Count == 1 ? .30f : b.Enemies.Count == 2 ? .29f : .27f;
+            var x = .5f + (i - (b.Enemies.Count - 1) / 2f) * (width + .035f);
+            var target = Button("target_" + i, "", () => { _target = index; Render(); }, enemy.Health > 0);
+            foreach (var state in new[] { "normal", "hover", "pressed", "disabled" }) target.AddThemeStyleboxOverride(state, new StyleBoxEmpty());
+            target.TooltipText = $"{i + 1}号 · {ChapterSession.EnemyName(enemy.Id)}\n{EnemyIntentWithTarget(b, i)}";
+            _root.AddChild(target); Dock(target, 0, 106, 0, railTop - 14, x - width / 2, 0, x + width / 2, 1);
+            var intentHeight = ReadingScale > 1 ? 72 : 52;
+            var statsHeight = enemy.Id == "E13" ? 104 : enemy.Shield > 0 ? 88 : 72;
+            var actor = new ChapterActor { Name = "Actor_" + i, Art = "enemy-" + enemy.Id, Selected = selected, Defeated = enemy.Health == 0 };
+            target.AddChild(actor); Dock(actor, 22, intentHeight, -22, -statsHeight, ar: 1, ab: 1);
+            var intentPlate = DarkPanel(target, 10); intentPlate.MouseFilter = MouseFilterEnum.Ignore;
+            Dock(intentPlate, 8, 0, -8, intentHeight, ar: 1);
+            var intentCopy = enemy.Id == "E03" && enemy.Cycle % 3 == 2 && !enemy.Signaled && b.Enemies.Count >= 3 ? "全体护盾 +3" : EnemyIntentWithTarget(b, i).Split('（')[0];
+            var intent = Text(enemy.Health == 0 ? "已击败" : intentCopy, 16, enemy.Health == 0 ? OnNight : Brass);
+            intent.HorizontalAlignment = HorizontalAlignment.Center; intentPlate.AddChild(intent);
+            var stats = FlatPanel(target, 10); stats.MouseFilter = MouseFilterEnum.Ignore;
+            Dock(stats, 8, -statsHeight, -8, 0, ar: 1, at: 1, ab: 1);
+            var caption = Column(3); stats.AddChild(caption);
+            var names = Row(10); caption.AddChild(names);
+            var name = Text($"{i + 1} · " + ChapterSession.EnemyName(enemy.Id), 16, Ink); name.SizeFlagsHorizontal = SizeFlags.ExpandFill; names.AddChild(name);
+            var after = cardResult?.LastResolvedBattle?.Enemies.ElementAtOrDefault(i);
+            var affected = chosen != null && chosen.Damage > 0 && (chosen.Id == "C18" || _target == i);
+            names.AddChild(Inline(affected ? $"{enemy.Health} → {after?.Health ?? 0}" : $"{enemy.Health}/{enemy.MaxHealth}", 16, affected ? Danger : Ink));
+            var inspectEnemy = QuietButton("enemy_info_" + i, "?", () =>
+            {
+                _detailItemId = 0; _detailTitle = ChapterSession.EnemyName(enemy.Id);
+                _detailText = $"生命 {enemy.Health}/{enemy.MaxHealth} · 护盾 {enemy.Shield}\n\n本轮意图：{EnemyIntentWithTarget(b, index)}";
+                OpenNested("detail");
+            });
+            inspectEnemy.CustomMinimumSize = new Vector2(26, 26); inspectEnemy.TooltipText = "查看完整敌人意图"; names.AddChild(inspectEnemy);
+            HealthBar(caption, enemy.Health, enemy.MaxHealth, enemy.Health == 0 ? Muted : Danger);
+            if (enemy.Shield > 0) caption.AddChild(Text($"护盾 {enemy.Shield}" + (affected ? $" → {after?.Shield ?? 0}" : ""), 14, Success));
+            if (enemy.Id == "E13") caption.AddChild(Text(b.BonusSecured ? "额外奖励已保住" : b.Round <= 3 ? $"{4 - b.Round} 回合内击败可保住额外奖励" : "额外奖励已撤走", 14, Muted));
             if (_battleDeltas.TryGetValue(i, out var delta) && Time.GetTicksMsec() < _battleDeltaUntil)
-            { var receipt = Text(delta,14,Accent); target.AddChild(receipt); Dock(receipt,10,-28,-10,-2,0,1,1,1); }
+            { var receipt = Text(delta, 16, OnNight); target.AddChild(receipt); Dock(receipt, 16, 54, -16, 86, ar: 1); }
             BindCardTarget(target, index);
         }
-        var piles = Row(24); piles.Alignment=BoxContainer.AlignmentMode.Center;
-        var pilesPlate = FlatPanel(_hud!, 5); pilesPlate.Name = "CardPiles";
-        Dock(pilesPlate,522,104,-20,156,ar:1); pilesPlate.AddChild(piles);
-        piles.AddChild(Button("inspect_draw", UiCopy.Text("UI_E3EDC37E7122") + b.Draw.Count, () => ShowPile(b.Draw, "抽牌堆 · 按种类汇总，不表示抽牌顺序")));
-        piles.AddChild(Button("inspect_discard", UiCopy.Text("UI_83B5355F9420") + b.Discard.Count, () => ShowPile(b.Discard, "弃牌堆 · 按种类汇总")));
-        SymbolValue(piles,"draw",$"+{b.ExtraDraw}/2",Muted,"本回合已经额外抽取的牌数；上限 2。",14);
-        var hand = new HBoxContainer { Name="FloatingHand", Alignment=BoxContainer.AlignmentMode.Center, MouseFilter=MouseFilterEnum.Ignore };
-        hand.AddThemeConstantOverride("separation",10); _root.AddChild(hand); Dock(hand,24,-194,-146,-18,at:1,ar:1,ab:1);
-        var cardWidth=Mathf.Min(146,(Size.X-170-Math.Max(0,b.Hand.Count-1)*10)/Math.Max(1,b.Hand.Count));
+
+        // Costs sit beside the hand, and the self-target area is explicitly named.
+        var command = DarkPanel(_hud!, 14); command.Name = "BattleResources";
+        Dock(command, workLeft, -handHeight - 12, workLeft + resourceWidth, -18, at: 1, ab: 1);
+        var resources = Column(10); command.AddChild(resources);
+        resources.AddChild(Inline($"第 {b.Round} 回合", 16, OnNight));
+        var afterCard = cardResult?.State.Battle;
+        SymbolValue(resources, "action", afterCard == null ? $"{b.Action} / 3 行动点" : $"{b.Action} → {afterCard.Action} 行动点", Brass, "战斗行动点每回合恢复至 3。", 16);
+        SymbolValue(resources, "mana", afterCard == null ? $"{b.Mana} / 3 魔法" : $"{b.Mana} → {afterCard.Mana} 魔法", OnNight, "魔法每回合恢复 1，上限 3。", 16);
+        SymbolValue(resources, "guard", afterCard == null ? $"{b.Shield} 护盾" : $"{b.Shield} → {afterCard.Shield} 护盾", OnNight, "护盾在下回合清除；稳固最多保留 4。", 16);
+        if (chosen?.Damage == 0) resources.AddChild(Text("防护牌作用于自身", 14, Brass));
+        else resources.AddChild(Text("防护牌可拖到此处", 14, OnNight));
+        BindCardTarget(command, _target, true);
+
+        var turn = FlatPanel(_hud!, 12); turn.Name = "EndTurnForecast";
+        Dock(turn, workLeft + workWidth - turnWidth, -handHeight - 12, workLeft + workWidth, -18, at: 1, ab: 1);
+        var turnBody = Column(5); turn.AddChild(turnBody);
+        var afterTurn = trial ? null : Session.Preview(s => s.EndTurn());
+        turnBody.AddChild(Text(trial ? "免费试用" : "现在直接结束", 14, Muted));
+        var currentForecast = Text(trial ? "不消耗真实生命" : $"生命 {Session.State.Health} → {afterTurn?.State.Health ?? Session.State.Health}", 16, afterTurn?.State.Phase == ChapterPhase.Defeated ? Danger : Ink);
+        currentForecast.Name = "CurrentEndHealth"; turnBody.AddChild(currentForecast);
+        if (cardResult != null && !trial)
+        {
+            // Run both real commands on the same isolated state, including kills and passives.
+            var thenEnd = cardResult.State.Phase == ChapterPhase.Battle ? cardResult.Preview(s => s.EndTurn()) : cardResult;
+            var projected = Text(cardResult.State.Phase != ChapterPhase.Battle ? "打出此牌后 · 战斗结束" : $"打出此牌再结束\n生命 {Session.State.Health} → {thenEnd?.State.Health ?? cardResult.State.Health}", 16, thenEnd?.State.Phase == ChapterPhase.Defeated ? Danger : Success);
+            projected.Name = "SelectedEndHealth"; turnBody.AddChild(projected);
+        }
+        var end = Button("end_turn", chosen != null ? "按当前状态结束" : playable ? "结束回合" : "无可用牌 · 结束", RequestEndTurn, primary: true);
+        end.TooltipText = TurnForecast() + "\n快捷键 " + KeyLabel("endturn"); turnBody.AddChild(end);
+        turnBody.AddChild(QuietButton(trial ? "end_trial" : "retreat", trial ? "结束试用" : "战术撤退…", Retreat));
+
+        var handViewport = new ScrollContainer { Name = "HandViewport", VerticalScrollMode = ScrollContainer.ScrollMode.Disabled, HorizontalScrollMode = ScrollContainer.ScrollMode.Auto, FollowFocus = true };
+        _root.AddChild(handViewport);
+        handViewport.SetDeferred(ScrollContainer.PropertyName.ScrollHorizontal, _handScroll);
+        Dock(handViewport, workLeft + resourceWidth + 10, -handHeight - 12, workLeft + workWidth - turnWidth - 10, -18, at: 1, ab: 1);
+        var hand = new HBoxContainer { Name = "FloatingHand", Alignment = BoxContainer.AlignmentMode.Center, MouseFilter = MouseFilterEnum.Ignore, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        hand.AddThemeConstantOverride("separation", CompactDensity ? 6 : 9); handViewport.AddChild(hand);
+        var cardWidth = Mathf.Clamp((workWidth - resourceWidth - turnWidth - 20 - Math.Max(0, b.Hand.Count - 1) * (CompactDensity ? 6 : 9)) / Math.Max(1, b.Hand.Count), 118 * ReadingScale, 156 * ReadingScale);
         foreach (var token in _handDisplayOrder)
         {
-            var i = _handTokens.IndexOf(token);
-            var index=i; var cardData=ChapterContent.Cards[b.Hand[i]]; var playable=Session.CanPlay(i,_target);
-            // Unavailable cards remain focusable so keyboard users can inspect the cost and reason.
-            var card=Button("card_"+i,"",() => { if(_reorderHand)_focusedHandToken=token;else SelectCard(index); });
-            card.CustomMinimumSize=new Vector2(cardWidth,176); card.ClipContents=true;
-            var sheet=Style(playable ? Surface : new Color("d5d2c1"),Ink,12);
-            card.AddThemeStyleboxOverride("normal",sheet);
-            if (_selectedCard == index) card.AddThemeStyleboxOverride("normal", Style(new Color("eee6d3"), Ink, 10));
-            card.AddThemeStyleboxOverride("hover",ChapterSkin.Box("ledger-paper",6));
-            card.AddThemeColorOverride("font_color",ChapterSkin.PaperInk); hand.AddChild(card);
-            var ink=ChapterSkin.PaperInk;
-            var cost=Row(10); cost.MouseFilter=MouseFilterEnum.Ignore; card.AddChild(cost); Dock(cost,10,7,-10,31,ar:1);
-            if (cardData.Action>0) SymbolValue(cost,"action",cardData.Action.ToString(),ink,"",14);
-            if (cardData.Mana>0) SymbolValue(cost,"mana",cardData.Mana.ToString(),ink,"",14);
-            var icon=new ChapterIllustration { Art=CardArt(cardData),Mounted=false }; card.AddChild(icon); Dock(icon,10,30,-10,91,ar:1);
-            var badge = Glyph(CardSymbol(cardData), Ink, 20); card.AddChild(badge); Dock(badge,10,37,32,59);
-            if (!playable)
-            {
-                var locked=Glyph("lock",ink,18); card.AddChild(locked); Dock(locked,-28,10,-10,28,al:1,ar:1);
-            }
-            var title=Inline(cardData.Name,16,ink); title.HorizontalAlignment=HorizontalAlignment.Center; card.AddChild(title); Dock(title,5,92,-5,117,ar:1);
-            var effects=Column(1); effects.MouseFilter=MouseFilterEnum.Ignore; card.AddChild(effects); Dock(effects,6,121,-6,150,ar:1);
-            CardEffects(effects,cardData,ink,true);
-            var reason = playable ? CardKeyword(cardData.Id) : b.Action < cardData.Action ? $"缺 {cardData.Action - b.Action} 行动" : b.Mana < cardData.Mana ? $"缺 {cardData.Mana - b.Mana} 魔法" : "无合法目标";
-            var keyword=Inline(reason,14,ChapterSkin.PaperMuted); keyword.HorizontalAlignment=HorizontalAlignment.Center;
-            card.AddChild(keyword); Dock(keyword,5,150,-5,171,ar:1);
-            card.TooltipText=cardData.Name+UiCopy.Format("UI_E91FB92AC35F", cardData.Action, cardData.Mana)+CardRules(cardData.Id)+
-                (playable ? "" : "\n"+(b.Action<cardData.Action ? UiCopy.Text("UI_77406A91D482") : b.Mana<cardData.Mana ? UiCopy.Text("UI_B72B7D458CE9") : UiCopy.Text("UI_224357C5FF56")));
-            BindHandCard(card, token);
-            BindObjectMenu(card,()=>CardMenu(cardData.Id));
+            var index = _handTokens.IndexOf(token); var data = ChapterContent.Cards[b.Hand[index]]; var can = Session.CanPlay(index, _target);
+            var card = Button("card_" + index, "", () => { if (_reorderHand) _focusedHandToken = token; else SelectCard(index); });
+            card.CustomMinimumSize = new Vector2(cardWidth, handHeight - 16); card.ClipContents = true;
+            var sheet = Style(can ? Surface : new Color("d8d7cc"), _selectedCard == index ? Accent : new Color("657262"), 6);
+            sheet.BorderWidthTop = sheet.BorderWidthBottom = sheet.BorderWidthLeft = sheet.BorderWidthRight = _selectedCard == index ? 3 : 1;
+            card.AddThemeStyleboxOverride("normal", sheet); card.AddThemeStyleboxOverride("hover", Style(new Color("fff9eb"), Accent, 6)); hand.AddChild(card);
+            var art = ActionArt(data); card.AddChild(art); Dock(art, 4, 4, -4, 99, ar: 1); if (!can) art.Modulate = new Color(.65f, .65f, .65f);
+            var cost = FlatPanel(card, 4); cost.MouseFilter = MouseFilterEnum.Ignore; Dock(cost, 8, 8, -8, 36, ar: 1);
+            cost.AddChild(Inline(data.Mana > 0 ? (data.Action > 0 ? $"{data.Action} 行动 · {data.Mana} 魔法" : $"{data.Mana} 魔法") : $"{data.Action} 行动点", 14, Ink));
+            var name = Text(data.Name, 16, Ink); name.HorizontalAlignment = HorizontalAlignment.Center; card.AddChild(name); Dock(name, 6, 104, -6, 132, ar: 1);
+            var effect = Text(CardCoreEffect(data), 16, Ink); effect.HorizontalAlignment = HorizontalAlignment.Center;
+            card.AddChild(effect); Dock(effect, 8, 137, -8, handHeight - 40, ar: 1);
+            var note = Inline(can ? CardRole(data) + (CardKeyword(data.Id) == "" ? "" : " · " + CardKeyword(data.Id)) : b.Action < data.Action ? $"缺 {data.Action - b.Action} 行动" : b.Mana < data.Mana ? $"缺 {data.Mana - b.Mana} 魔法" : "无合法目标", 14, can ? Muted : Danger);
+            note.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis; note.HorizontalAlignment = HorizontalAlignment.Center; card.AddChild(note);
+            Dock(note, 6, -30, -6, -6, ar: 1, at: 1, ab: 1);
+            card.TooltipText = data.Name + $"\n{data.Action} 行动 / {data.Mana} 魔法\n" + CardRules(data.Id)
+                + (can ? "" : b.Action < data.Action ? "\n行动不足" : b.Mana < data.Mana ? "\n魔法不足" : "\n没有合法目标");
+            BindHandCard(card, token); BindObjectMenu(card, () => CardMenu(data.Id));
         }
-        var preview = Panel(_root, Surface, Ink); preview.Name = "CardPreview";
-        Dock(preview,24,-362,-172,-202,0,1,1,1);
+
+        // One compact action rail, with a full readable preview available on demand.
+        var preview = FlatPanel(_root, 12); preview.Name = "CardPreview";
+        Dock(preview, workLeft, railTop, workLeft + workWidth, railBottom, at: 1, ab: 1);
         var layout = Row(12); preview.AddChild(layout);
         var information = FlexibleColumn(layout);
         if (_feedback.Count > 0 && Time.GetTicksMsec() - _feedbackStarted <= (ulong)(_feedback.Count * _feedbackStepMs + 1600))
-            information.AddChild(new VBoxContainer { Name = "BattleFeedbackHost", CustomMinimumSize = new Vector2(0, 50) });
+            information.AddChild(new VBoxContainer { Name = "BattleFeedbackHost", CustomMinimumSize = new Vector2(0, 36) });
         var copy = Scroll(information);
-        var actions = Column(4); layout.AddChild(actions);
-        if (_selectedCard >= 0 && _selectedCard < b.Hand.Count)
+        if (chosen != null)
         {
-            copy.AddChild(Text(CardPreview(),16,Ink));
-            actions.AddChild(Button("play_selected", UiCopy.Text("UI_07F0D60BC535"), CommitSelectedCard, Session.CanPlay(_selectedCard,_target),true));
-            actions.AddChild(Button("cancel_card", UiCopy.Text("UI_1DF5225A15AB"), () => { _selectedCard = -1; Render(); }));
-            actions.AddChild(Button("card_more",UiCopy.Text("UI_D4FE35CC9BCA"),()=>CardMenu(b.Hand[_selectedCard])));
+            copy.AddChild(Text(chosen.Name + " · " + (chosen.Damage == 0 ? "作用于自身" : chosen.Id == "C18" ? "全体敌人" : $"目标 { _target + 1} · {ChapterSession.EnemyName(b.Enemies[_target].Id)}"), 20, Ink));
+            copy.AddChild(Text(chosen.Text + $"  消耗 {chosen.Action} 行动 / {chosen.Mana} 魔法", 16, Ink));
+            var actions = Row(8); actions.SizeFlagsVertical = SizeFlags.ShrinkCenter; layout.AddChild(actions);
+            actions.AddChild(QuietButton("card_more", "完整预览", () => { _detailItemId = 0; _detailTitle = chosen.Name; _detailText = CardPreview(); OpenNested("detail"); }));
+            actions.AddChild(Button("cancel_card", "取消", () => { _selectedCard = -1; Render(); }));
+            actions.AddChild(Button("play_selected", "打出此牌 →", CommitSelectedCard, Session.CanPlay(_selectedCard, _target), true));
         }
         else
         {
             _cardZoom = preview;
-            _cardZoomText = Text(trial ? (Session.State.World.Contains("trial-complete") ? UiCopy.Text("UI_7B013B80122C") : (b.TrialToolUsed ? UiCopy.Text("UI_6605955D99F9") : UiCopy.Text("UI_CE4A7F933A75"))) + UiCopy.Format("UI_578CD15FAD9A", b.ExtraDraw) : _battleGuide ? UiCopy.Text("UI_5833AACD774A") : UiCopy.Text("UI_20E3D759C68C"),16,Ink); copy.AddChild(_cardZoomText);
-            actions.AddChild(Button("hand_order", _reorderHand ? UiCopy.Text("UI_BCD102C65B72") : UiCopy.Text("UI_5AA443DCD870"), () => { _reorderHand = !_reorderHand; Render(); }));
+            _cardZoomText = Text(trial ? (Session.State.World.Contains("trial-complete") ? "✓ 试用完成，可以返回制作工具。" : "先预备工具，再打出攻击牌。") : _battleGuide ? "选择手牌 → 选择目标 → 打出；也可直接拖拽。" : "选择手牌查看效果", 16, Ink);
+            copy.AddChild(_cardZoomText);
+            var piles = Row(6); piles.Name = "CardPiles"; piles.SizeFlagsVertical = SizeFlags.ShrinkCenter; layout.AddChild(piles);
+            piles.AddChild(QuietButton("inspect_draw", "抽 " + b.Draw.Count, () => ShowPile(b.Draw, "抽牌堆 · 按种类汇总，不表示顺序")));
+            piles.AddChild(QuietButton("inspect_discard", "弃 " + b.Discard.Count, () => ShowPile(b.Discard, "弃牌堆")));
+            piles.AddChild(QuietButton("hand_order", _reorderHand ? "完成整理" : "理牌", () => { _reorderHand = !_reorderHand; Render(); }));
             if (_reorderHand)
-            { var moves = Row(4); actions.AddChild(moves); moves.AddChild(Button("hand_left", UiCopy.Text("UI_DDBF068D8F93"), () => MoveHandDisplay(-1))); moves.AddChild(Button("hand_right", UiCopy.Text("UI_648D3D189D69"), () => MoveHandDisplay(1))); }
-            else actions.AddChild(Button("battle_log", UiCopy.Text("UI_3B2849CFE47C"), () => ShowBattleReceipts()));
+            {
+                piles.AddChild(QuietButton("hand_left", "←", () => MoveHandDisplay(-1)));
+                piles.AddChild(QuietButton("hand_right", "→", () => MoveHandDisplay(1)));
+            }
+            else piles.AddChild(QuietButton("battle_log", "记录", ShowBattleReceipts));
         }
-        foreach(var action in actions.GetChildren().OfType<Button>()) action.CustomMinimumSize=new Vector2(0,40);
     }
 
     private void ShowPile(System.Collections.Generic.IEnumerable<string> cards, string title)

@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-16",
+  "baseline": "60ffdd7",
+  "scope": "audit-only; game implementation unchanged",
+  "hash_checks": {
+    "source-hashes.json": {
+      "checked_files": 98,
+      "mismatches": []
+    },
+    "package-hashes.json": {
+      "checked_files": 196,
+      "mismatches": []
+    }
+  },
+  "runs": {
+    "headless": {
+      "passed": true,
+      "markers": [
+        "CHAPTER_VERIFIED",
+        "UI_REWORK_VERIFIED",
+        "UI_CONVENIENCE_VERIFIED",
+        "UI_PLANNING_VERIFIED",
+        "UI_MANAGEMENT_VERIFIED",
+        "UI_COMPLETION_VERIFIED"
+      ],
+      "foreground_activated": false
+    },
+    "render": {
+      "passed": true,
+      "markers": [
+        "CHAPTER_VERIFIED",
+        "UI_REWORK_VERIFIED",
+        "UI_CONVENIENCE_VERIFIED",
+        "UI_PLANNING_VERIFIED",
+        "UI_MANAGEMENT_VERIFIED",
+        "UI_COMPLETION_VERIFIED"
+      ],
+      "foreground_activated": false
+    }
+  },
+  "generated_pngs": 147,
+  "visually_reviewed_pngs": 50,
+  "retained_game_pngs": 50,
+  "retained_contrast_pngs": 2,
+  "contrast": {
+    "sample_labels": 28,
+    "minimum_ratio": 5.427903140805246,
+    "failed_samples": 0,
+    "scope": "visible Label samples on one management page; not all controls or screens"
+  },
+  "not_tested": [
+    "human usability",
+    "physical gamepad",
+    "mixed-DPI multi-monitor hardware",
+    "color vision simulation",
+    "screen reader",
+    "audio comfort",
+    "all pages at minimum 1024x720"
+  ],
+  "core_unit_tests_rerun": false,
+  "new_build": false,
+  "cleanup": {
+    "temporary_directory": "artifacts/ui-audit-20261016",
+    "status": "retained; automatic approval review rejected deletion",
+    "reason": "blocked by policy",
+    "recursive_delete_attempted": true,
+    "deleted": false,
+    "entries_in_preview": 167,
+    "bytes_in_preview": 92639305,
+    "evidence_copies_verified_before_attempt": true,
+    "no_alternate_deletion_attempt": true
+  },
+  "report_validation": "report-checks.json"
+}

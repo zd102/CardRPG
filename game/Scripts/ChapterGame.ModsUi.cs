@@ -26,11 +26,20 @@ public partial class ChapterGame
         var fromId = mod == "D01" ? "C01" : "C03"; var toId = mod == "D01" ? "C19" : "C26";
         var original = ChapterContent.Cards[fromId]; var changed = ChapterContent.Cards[toId];
         var copies = ChapterContent.Gear[gear].Cards.Count(id => id == fromId);
-        detail.AddChild(Text(UiCopy.Format("UI_99F65407FA51", copies, original.Name, copies - 1, original.Name, changed.Name, ChapterContent.Gear[gear].Cards.Length), 18, Ink));
+        detail.AddChild(Text($"只替换 1 张 {original.Name} → {changed.Name} · 装备供牌仍为 {ChapterContent.Gear[gear].Cards.Length} 张", 16, Ink));
         var body = Scroll(detail, "mod_detail", gear + ":" + mod);
+        var comparison = Row(18); body.AddChild(comparison);
+        foreach (var card in new[] { original, changed })
+        {
+            var side = FlexibleColumn(comparison); var cardRow = Row(12); side.AddChild(cardRow);
+            var art = ActionArt(card); art.StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered; art.CustomMinimumSize = new Vector2(80, 80); cardRow.AddChild(art);
+            var caption = FlexibleColumn(cardRow); caption.AddChild(Text((card == original ? "原卡 · " : "改装后 · ") + card.Name, 20, Ink));
+            caption.AddChild(Text(CardCoreEffect(card), 16, Ink));
+        }
+        var values = ToolsSection(body, "mod", "完整数值与规则对照");
         foreach (var (label, before, after) in new[] { ("行动", original.Action, changed.Action), ("魔法", original.Mana, changed.Mana), ("伤害", original.Damage, changed.Damage), ("护盾", original.Shield, changed.Shield) })
-            body.AddChild(Text($"{label}   {before} → {after}" + (before == after ? UiCopy.Text("UI_F3969BF4AC3D") : $"（{after - before:+0;-0}）"), 16, Ink));
-        body.AddChild(Text(UiCopy.Text("UI_1F37D70032F1") + original.Text + UiCopy.Text("UI_60398163876F") + changed.Text, 18, Ink));
+            (before == after ? values : body).AddChild(Text($"{label}   {before} → {after}" + (before == after ? UiCopy.Text("UI_F3969BF4AC3D") : $"（{after - before:+0;-0}）"), 16, Ink));
+        values.AddChild(Text(UiCopy.Text("UI_1F37D70032F1") + original.Text + UiCopy.Text("UI_60398163876F") + changed.Text, 18, Ink));
         if (mod == "D08") body.AddChild(Text(UiCopy.Text("UI_3BC84F5009A9"), 16, Muted));
         body.AddChild(Button("mod_deck_preview", UiCopy.Text("UI_C14D23F5DAF6"), () =>
         {
@@ -39,7 +48,7 @@ public partial class ChapterGame
             _detailText = UiCopy.Text("UI_9804F15D9BE8") + ChapterContent.ItemName(gear) + UiCopy.Text("UI_A7910BBABBCA") + (Session.Equipped.Contains(gear) ? "" : UiCopy.Text("UI_04AA3C61F6CF"))
                 + string.Join("\n", preview.Deck().GroupBy(id => id).OrderBy(g => g.Key).Select(g => ChapterContent.Cards[g.Key].Name + " ×" + g.Count())); OpenNested("detail");
         }));
-        if (!bought) {Costs(body, [2, 0, 1],s.Done.Contains("Q02"));detail.AddChild(Text(UiCopy.Text("UI_8CBDAB4690CD")+ChapterContent.ItemName(gear),16,Ink));}
+        if (!bought) Costs(detail, [2, 0, 1],s.Done.Contains("Q02"));
         var available = s.Phase == ChapterPhase.Camp && s.Done.Contains("Q02") && (bought || Session.AvailableMaterial(0) >= 2 && Session.AvailableMaterial(2) >= 1);
         detail.AddChild(Text(UiCopy.Text("UI_E66E1A238C67") + ChapterContent.ItemName(gear) + (bought ? UiCopy.Text("UI_09601B3859B3") : UiCopy.Text("UI_53A55A58148C")), 16, Muted));
         if (!available) detail.AddChild(Text(s.Phase != ChapterPhase.Camp ? UiCopy.Text("UI_251FEEFCD521") : !s.Done.Contains("Q02") ? UiCopy.Text("UI_EB9FFCD6313E") : UiCopy.Text("UI_320CDABE7A7C"), 16, Danger));

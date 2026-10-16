@@ -1,0 +1,14 @@
+{
+  "scope": "Review artifact only; game code and gameplay were not changed or rerun",
+  "browser": "Microsoft Edge, headless",
+  "reviewed_source_captures": 23,
+  "loaded_capture_images": 23,
+  "priority_P0_count": 4,
+  "reference_images_loaded": 4,
+  "filters_and_prototype_toggles": "passed",
+  "page_errors": [],
+  "no_horizontal_overflow_at_widths": [
+    1100,
+    390
+  ]
+}

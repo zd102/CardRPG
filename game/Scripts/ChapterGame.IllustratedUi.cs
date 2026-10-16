@@ -20,7 +20,12 @@ public partial class ChapterGame
         foreach (var group in Session.GearCards(gear).GroupBy(id => id))
         {
             var card = ChapterContent.Cards[group.Key]; var row = Column(4); list.AddChild(row);
-            var button = Button("supply_" + gear + "_" + card.Id, card.Name + UiCopy.Format("UI_47A141B9A986", group.Count(), card.Action, card.Mana), () => { });
+            var button = Button("supply_" + gear + "_" + card.Id, card.Name + UiCopy.Format("UI_47A141B9A986", group.Count(), card.Action, card.Mana), () =>
+            {
+                _detailItemId = 0; _detailTitle = card.Name;
+                _detailText = $"{card.Action} 行动 / {card.Mana} 魔法\n{card.Text}\n\n来自 {ChapterContent.ItemName(gear)} ×{group.Count()}";
+                OpenNested("detail");
+            });
             button.Alignment = HorizontalAlignment.Left;
             button.TooltipText = card.Name + $" ×{group.Count()}\n" + card.Text; row.AddChild(button);
             var effects = Row(8); row.AddChild(effects); effects.AddChild(Glyph(CardSymbol(card), Ink, 22));
@@ -33,7 +38,7 @@ public partial class ChapterGame
         var row=new HFlowContainer(); row.AddThemeConstantOverride("h_separation",16); parent.AddChild(row);
         for(var i=0;i<amounts.Length;i++)
         {
-            var group=Row(5); row.AddChild(group); Illustration(group,ItemArt(ChapterContent.MaterialIds[i]),28,28,false);
+            var group=Row(5); row.AddChild(group); ItemVisual(group, ChapterContent.MaterialIds[i], 28);
             group.AddChild(Inline(amounts[i].ToString(),20,color??Ink));
             var caption=ChapterContent.MaterialName(i); group.FocusMode=FocusModeEnum.All; Inspect(group,()=>caption);
         }

@@ -36,16 +36,18 @@ public partial class ChapterGame
         box.AddChild(Text(ground.Name + UiCopy.Text("UI_B20900D3CE2B"), 18, Ink));
         box.AddChild(Button("pickup_suggest", UiCopy.Text("UI_85AE2CA604DF"), () => { _pickupCounts = Session.FittingPickup(_pickupContainer, _pickupOrder); Render(); }));
         var split = Row(12); split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
-        var take = Section(split); take.AddChild(Text(UiCopy.Text("UI_87E813FCA206"), 20, Ink)); var left = Section(split); left.AddChild(Text(UiCopy.Text("UI_4EBFB013B6A0"), 20, Ink));
+        var take = Section(split, 1.5f); take.AddChild(Text("装入背包", 20, Ink)); var left = Section(split, .7f); left.AddChild(Text("留在原地", 20, Ink));
         var takeList = Scroll(take); var leftList = Scroll(left);
         foreach (var id in _pickupOrder)
         {
             var item = items.Single(i => i.Id == id); var count = Math.Clamp(_pickupCounts.GetValueOrDefault(id), 0, item.Quantity);
             var row = Row(8); takeList.AddChild(row);
-            row.AddChild(Text(ChapterContent.ItemName(item.Kind), 16, Ink));
+            var itemName = Text(ChapterContent.ItemName(item.Kind) + " ×" + item.Quantity, 16, Ink);
+            itemName.SizeFlagsHorizontal = SizeFlags.ExpandFill; itemName.CustomMinimumSize = new Vector2(140, 0); itemName.SizeFlagsVertical = SizeFlags.ShrinkCenter; row.AddChild(itemName);
             var amount = new SpinBox { Name = "PickupCount_" + id, MinValue = 0, MaxValue = item.Quantity, Step = 1, Value = count, CustomMinimumSize = new Vector2(100, 40) }; row.AddChild(amount);
             amount.ValueChanged += v => { if (v == 0) _pickupCounts.Remove(id); else _pickupCounts[id] = (int)v; };
-            row.AddChild(Button("pickup_up_" + id, UiCopy.Text("UI_7657191DAB75"), () => { var index = _pickupOrder.IndexOf(id); if (index > 0) { _pickupOrder.RemoveAt(index); _pickupOrder.Insert(index - 1, id); } Render(); }, _pickupOrder.IndexOf(id) > 0));
+            row.AddChild(Button("pickup_up_" + id, "↑", () => { var index = _pickupOrder.IndexOf(id); if (index > 0) { _pickupOrder.RemoveAt(index); _pickupOrder.Insert(index - 1, id); } Render(); }, _pickupOrder.IndexOf(id) > 0));
+            Buttons["pickup_up_" + id].TooltipText = "提高自动装包时的优先顺序";
             if (count < item.Quantity) leftList.AddChild(Text(ChapterContent.ItemName(item.Kind) + " ×" + (item.Quantity - count), 16, Muted));
         }
         var summary = Text("", 16, Ink); box.AddChild(summary);
@@ -67,19 +69,32 @@ public partial class ChapterGame
     private void SpacePlan(VBoxContainer box)
     {
         var target = Session.State.Stock.FirstOrDefault(i => i.Id == _spacePlanItem && Session.State.Ground.ContainsKey(i.Container));
-        if (target == null) { box.AddChild(Text(UiCopy.Text("UI_01FABC89DC36"), 18, Muted)); return; }
+        if (target == null)
+        {
+            box.AddChild(Text("物品已离开地面，空间取舍已完成。", 20, Success));
+            box.AddChild(Button("space_return", "返回物资", ClosePanel, primary: true)); return;
+        }
         var count = ChosenQuantity(target); var space = Session.PickupSpace(target.Id, count);
-        box.AddChild(Text(UiCopy.Format("UI_3A08AE5A5280", ChapterContent.ItemName(target.Kind), count, space.Required, space.Capacity, Math.Max(0, space.Required - space.Capacity)), 18, Ink));
+        var targetRow = Row(14); box.AddChild(targetRow); ItemVisual(targetRow, target.Kind, 52);
+        var targetCopy = FlexibleColumn(targetRow);
+        targetCopy.AddChild(Text("准备拿取 · " + ChapterContent.ItemName(target.Kind) + " ×" + count, 20, Ink));
+        targetCopy.AddChild(Text(CapacityText(Session.CarryUsed, Session.CarryCapacity) + $" · 还需腾出 {Math.Max(0, space.Required - space.Capacity)} 格", 16, Accent));
+        targetCopy.AddChild(Text(ItemPurpose(target.Kind), 16, Muted));
         var page = Scroll(box);
         foreach (var item in Session.CarriedItems)
         {
             var afterDrop = Session.Preview(s => s.Drop(item.Id, ChosenQuantity(item))); if (afterDrop == null) continue;
             var afterTake = afterDrop.State.Phase == ChapterPhase.Exploring ? afterDrop.Preview(s => s.Pickup(target.Id, count)) : null;
-            page.AddChild(Text(UiCopy.Format("UI_A9CF50EC0F96", ChapterContent.ItemName(item.Kind), ChosenQuantity(item), afterDrop.State.Pressure - Session.State.Pressure) + (afterDrop.State.Phase == ChapterPhase.Battle ? UiCopy.Text("UI_3345ED11D5DA") : afterTake == null ? UiCopy.Text("UI_636A22ADC195") : UiCopy.Format("UI_A8520325B2F4", afterTake.State.Pressure - afterDrop.State.Pressure) + (afterTake.State.Phase == ChapterPhase.Battle ? UiCopy.Text("UI_09F6DD13AD1F") : UiCopy.Format("UI_4F5A172A0874", afterTake.CarryUsed, afterTake.CarryCapacity, afterTake.CarriedGrams / 1000m))), 16, Ink));
-            page.AddChild(Button("space_drop_" + item.Id, UiCopy.Text("UI_8AF784339D06"), () => RequestStockMove(item.Id, item.Container, ChosenQuantity(item), true)));
+            var row = Row(12); page.AddChild(row); ItemVisual(row, item.Kind, 44);
+            var copy = FlexibleColumn(row); var amount = ChosenQuantity(item);
+            copy.AddChild(Text(ChapterContent.ItemName(item.Kind) + " ×" + amount + (item.Kind.StartsWith('T') ? " · 任务物" : "") + (item.KeepOnPerson ? " · 保留随身" : ""), 16, Ink));
+            copy.AddChild(Text(afterDrop.State.Phase == ChapterPhase.Battle ? "巡逻会先拦截，本次不会放下物品" : $"腾出 {Session.CarryUsed - afterDrop.CarryUsed} 格 · 放下后 {afterDrop.CarriedGrams / 1000m:0.##} kg\n" + (afterTake == null ? "仍不能装入目标物品" : afterTake.State.Phase == ChapterPhase.Battle ? "随后拿取会遇到巡逻拦截" : $"再拿取后：{afterTake.CarryUsed}/{afterTake.CarryCapacity} 格 · {afterTake.CarriedGrams / 1000m:0.##} kg · 拿取压力 +{afterTake.State.Pressure - afterDrop.State.Pressure}"), 14, afterTake == null || afterTake.State.Phase == ChapterPhase.Battle ? Muted : Success));
+            row.AddChild(Button("space_drop_" + item.Id, $"放下{ChapterContent.ItemName(item.Kind)} ×{amount}\n压力 +{afterDrop.State.Pressure - Session.State.Pressure}", () => RequestStockMove(item.Id, item.Container, amount, true)));
+            Rule(page);
         }
-        box.AddChild(Text(UiCopy.Text("UI_04109121F0E5"), 16, Muted));
-        box.AddChild(Button("space_pickup", UiCopy.Text("UI_00002E9859FD"), () => RequestStockMove(target.Id, target.Container, count, true), Session.CanPickup(target.Id, count)));
+        box.AddChild(Text("先放下，再拿取；每一步单独结算区域压力和巡逻。放下的物品留在地面。", 16, Muted));
+        var pickup = Session.Preview(s => s.Pickup(target.Id, count));
+        box.AddChild(Button("space_pickup", "拿取 " + ChapterContent.ItemName(target.Kind) + " ×" + count + (pickup == null ? " · 空间不足" : pickup.State.Phase == ChapterPhase.Battle ? " · 将被巡逻拦截" : $" · 压力 +{pickup.State.Pressure - Session.State.Pressure}"), () => RequestStockMove(target.Id, target.Container, count, true), Session.CanPickup(target.Id, count), true));
         box.AddChild(Button("space_return", UiCopy.Text("UI_4315003F98F1"), ClosePanel));
     }
 }

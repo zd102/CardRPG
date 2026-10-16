@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>23 张界面复评 · 鸭科夫与三角洲对照</title>
+<style>
+:root{--ink:#203a35;--muted:#53645c;--line:#ccd3ca;--paper:#fffef9;--base:#edf0e9;--accent:#305e4d;--danger:#a43b2c;--gold:#856219}*{box-sizing:border-box}body{margin:0;background:var(--base);color:var(--ink);font:16px/1.6 "Segoe UI","Microsoft YaHei",sans-serif}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #156695;outline-offset:3px}a{color:#286150;text-underline-offset:3px}header{background:#203a35;color:#f8f3e8;padding:34px max(24px,calc((100vw - 1480px)/2)) 26px}h1{font-size:28px;line-height:1.3;font-weight:600;margin:0 0 14px}header p{margin:8px 0;max-width:1080px;color:#dae3d8}header a{color:#f1d694}.toplinks{display:flex;flex-wrap:wrap;gap:22px;margin-top:18px}.tabs{display:flex;gap:8px;max-width:1528px;padding:18px 24px 0;margin:auto}.tabs button,.filters button,.prototype-controls button{border:1px solid var(--line);border-radius:5px;background:#fffef9;color:var(--ink);padding:8px 16px}.tabs button[aria-selected=true],.prototype-controls button[aria-pressed=true]{background:var(--accent);color:#fff}.tabbody{max-width:1528px;margin:auto;padding:22px 24px 48px}.review-layout{display:grid;grid-template-columns:265px minmax(0,1fr);gap:22px}.sidebar{align-self:start;position:sticky;top:18px;background:var(--paper);border:1px solid var(--line);padding:14px;border-radius:8px}.filters{display:grid;gap:8px}.filters input,.filters select{min-width:0;width:100%;padding:8px;border:1px solid #9daa9e;border-radius:4px;background:#fff}#count{font-size:14px;color:var(--muted);margin:10px 0}#screen-list{display:grid;gap:5px;max-height:65vh;overflow:auto;padding:3px}.screen-button{display:flex;align-items:center;gap:9px;width:100%;padding:9px 8px;text-align:left;border:1px solid transparent;background:transparent;color:var(--ink);border-radius:4px;line-height:1.45}.screen-button[aria-current=true]{background:#e3ecdf;border-color:#75907b}.screen-button .ordinal{font-size:14px;color:var(--muted);width:22px}.screen-button .screen-name{flex:1}.priority{display:inline-block;font-size:13px;font-weight:600;border:1px solid currentColor;border-radius:4px;padding:1px 6px;white-space:nowrap}.P0{color:var(--danger);background:#fff0eb}.P1{color:var(--gold);background:#fff8df}.P2{color:#30624e;background:#edf7ed}.viewer{min-width:0}.viewer-top{display:flex;justify-content:space-between;gap:18px;align-items:center}.viewer h2,.reference h2{font-size:22px;margin:0 0 6px}.meta{color:var(--muted);font-size:14px;margin:0 0 12px}.capture{display:block;background:#1b2c27;border-radius:6px;padding:5px}.capture img{display:block;width:100%;height:auto;max-height:73vh;object-fit:contain}.findings{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.finding{background:var(--paper);border:1px solid var(--line);padding:18px;border-radius:7px}.finding h3{margin:0 0 10px;font-size:18px}.finding p{margin:6px 0}.finding.wide{grid-column:1/-1}.label{font-weight:600;color:#254f42}.reference-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.reference{background:var(--paper);padding:18px;border-radius:7px;border:1px solid var(--line)}.reference img{display:block;width:100%;height:auto;margin:12px 0;border-radius:4px}.reference p{margin:10px 0}.notice{background:#fff8e7;border-left:4px solid #a77d28;padding:12px 18px;margin:0 0 22px}.proposal-intro{max-width:1080px}.prototype-controls{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.prototype{background:#f3eedf;border:1px solid #a8b1a1;border-radius:8px;padding:18px;color:#213d34}.mocknav{display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #b8c1b1;padding:0 0 12px;margin-bottom:14px}.mocknav strong{font-size:22px}.mocknav span{font-size:16px}.mocksub{color:#4e6658;font-size:14px}.mockbox{background:#fffcf3;border:1px solid #c6cdba;border-radius:5px;padding:14px;min-width:0}.mockbox h3{font-size:18px;margin:0 0 12px}.mock-inventory{display:grid;grid-template-columns:220px minmax(320px,1fr) 285px;gap:14px}.slot{padding:10px;margin-bottom:8px;border:1px solid #b8c3ae;border-radius:4px}.slot small{display:block;color:#536655}.statline{display:flex;justify-content:space-between;gap:8px;margin:8px 0}.mocktable{border-collapse:collapse;width:100%;font-size:16px}.mocktable th{position:sticky;top:0;background:#e1e8d8;text-align:left;font-weight:500}.mocktable td,.mocktable th{padding:10px 8px;border-bottom:1px solid #ccd4c2}.dense .mocktable td{padding:5px 8px}.mocktable .chosen{background:#e2ebd5}.mocktable td:nth-child(2),.mocktable th:nth-child(2){text-align:right}.mockscroll{max-height:425px;overflow:auto}.mocktools{padding:9px 10px;background:#edf0e5;border:1px solid #bcc6b2;border-radius:4px;margin:0 0 10px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}.mock-primary{display:block;padding:10px 14px;background:#315e4c;color:white;border-radius:4px;text-align:center;font-weight:500}.mock-secondary{display:block;padding:9px 14px;border:1px solid #7e947b;color:#31513f;border-radius:4px;text-align:center;margin-top:9px}.mock-state{border-left:3px solid #708d65;padding-left:10px;margin:14px 0}.mock-footer{margin-top:14px;padding-top:12px;border-top:1px solid #b8c1b1;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}.prototype-note{font-size:14px;color:#51634f;margin:14px 0 0}.loot-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 300px;gap:14px}.loot-item{padding:13px 8px;border-bottom:1px solid #ced6c5}.loot-item strong{display:block}.badge{display:inline-block;border:1px solid #7e9275;padding:0 6px;font-size:14px;border-radius:4px;margin-left:6px}.risk{color:#9b392a}.battle-stage{height:215px;display:flex;justify-content:center;align-items:center;background:#dae0cc;border-radius:5px}.enemy{display:grid;gap:10px;text-align:center;width:270px}.intent{background:#28483e;color:#f1d183;padding:8px}.enemy-shape{font-size:20px;padding:26px 0;border:2px solid #536d57;background:#bac7ad}.enemy-health{background:#fffdf3;padding:8px}.battle-condition{display:flex;justify-content:space-between;gap:12px;padding:10px 0;margin:8px 0;border-bottom:1px solid #b7c3a9}.battle-work{display:grid;grid-template-columns:155px minmax(0,1fr) 220px;gap:12px;max-width:1180px;margin:auto}.mockcards{display:flex;gap:9px;justify-content:center}.mockcard{background:#fffdf3;border:1px solid #718868;border-radius:4px;flex:1;max-width:170px;padding:12px;min-height:205px}.mockcard.active{border:3px solid #315e4c;padding:10px}.cardrole{background:#dbe4cf;padding:17px 5px;text-align:center;border-radius:3px;margin:12px 0}.prediction{padding:10px;background:#e7eddb;margin:8px 0}.proposal-rules{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:20px 0}.proposal-rules article{background:var(--paper);border:1px solid var(--line);padding:16px;border-radius:6px}.proposal-rules h3{font-size:18px;margin:0 0 8px}.proposal-rules p{margin:0}.hidden,[hidden]{display:none!important}footer.sitefooter{padding:22px;text-align:center;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:1120px){.mock-inventory{grid-template-columns:200px minmax(300px,1fr)}.mock-inventory>.detail{grid-column:1/-1}.loot-layout{grid-template-columns:1fr 1fr}.loot-layout>.detail{grid-column:1/-1}.battle-work{grid-template-columns:1fr}.battle-work>.mockbox{display:flex;align-items:center;flex-wrap:wrap;gap:16px}.battle-work>.mockbox>*{margin:0}.battle-stage{height:190px}}
+@media(max-width:820px){.review-layout{grid-template-columns:1fr}.sidebar{position:static}#screen-list{max-height:210px}.findings,.reference-grid{grid-template-columns:1fr}.finding.wide{grid-column:auto}.tabs,.tabbody{padding-left:14px;padding-right:14px}.proposal-rules{grid-template-columns:1fr}.mock-inventory,.loot-layout{grid-template-columns:1fr}.mocknav{flex-wrap:wrap}.mockcards{overflow:auto;justify-content:flex-start}.mockcard{min-width:140px}.viewer-top{align-items:flex-start}.mocktable{font-size:16px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>23 张界面复评 · 鸭科夫与三角洲对照</h1>
+  <p>下一轮应优先建立稳定的物品操作区，统一当前状态与预测条件，再提升密度和视觉层级。</p>
+  <p>2026-10-16 · 逐张检查上一版原始截图 · 面向首次游玩与熟练操作 · 以下建议尚未实施</p>
+  <div class="toplinks"><a href="../../08_界面与交互/11_热门游戏对照与23张截图优化建议.md">完整建议文档</a><a href="sources.md">资料来源与适用边界</a><a href="capture-manifest.json">23 张原图与哈希记录</a></div>
+</header>
+<nav class="tabs" role="tablist" aria-label="审查内容">
+  <button id="tab-review" role="tab" aria-selected="true" aria-controls="panel-review" data-tab="review">逐图审查</button>
+  <button id="tab-references" role="tab" aria-selected="false" aria-controls="panel-references" data-tab="references">竞品参考</button>
+  <button id="tab-proposals" role="tab" aria-selected="false" aria-controls="panel-proposals" data-tab="proposals">建议布局</button>
+</nav>
+<main>
+<section id="panel-review" class="tabbody" role="tabpanel" aria-labelledby="tab-review">
+ <div class="review-layout">
+  <aside class="sidebar" aria-label="截图目录">
+    <div class="filters">
+      <label for="priority">修改优先级</label><select id="priority"><option value="all">全部优先级</option><option value="P0">P0 · 必须修正</option><option value="P1">P1 · 优先改进</option><option value="P2">P2 · 后续精修</option></select>
+      <label for="group">场景</label><select id="group"><option value="all">全部场景</option></select>
+      <input id="search" type="search" placeholder="搜索页面或问题" aria-label="搜索页面或问题">
+    </div>
+    <p id="count" aria-live="polite"></p><div id="screen-list"></div>
+  </aside>
+  <div id="viewer" class="viewer" aria-live="polite"></div>
+ </div>
+</section>
+<section id="panel-references" class="tabbody" role="tabpanel" aria-labelledby="tab-references" hidden>
+ <p class="notice">参考的是对象分区、信息组织和操作位置。商店素材不保证对应当天最新客户端；三角洲图片含官方教学标注。未将模组或未经核实的键位当作原生功能。</p>
+ <div id="references" class="reference-grid"></div>
+</section>
+<section id="panel-proposals" class="tabbody" role="tabpanel" aria-labelledby="tab-proposals" hidden>
+ <div class="proposal-intro"><h2>信息结构草图</h2><p>这是对区域关系的建议。以下交互只切换布局密度和预览条件，游戏操作按钮以示意块表示；数值用于解释情境，真实结果须由游戏规则预演。</p></div>
+ <nav class="prototype-controls" aria-label="选择布局草图"><button data-prototype="inventory" aria-pressed="true">背包与仓库</button><button data-prototype="loot" aria-pressed="false">拾取与空间取舍</button><button data-prototype="battle" aria-pressed="false">战斗与预演条件</button></nav>
+ <div id="prototype-inventory" class="prototype-panel">
+  <div class="prototype-controls"><button id="density" aria-pressed="false">查看紧凑行距</button><span>工具栏、列标题和动作位置保持一致。</span></div>
+  <div class="prototype" id="inventory-mock">
+   <div class="mocknav"><strong>整备 · 背包与仓库</strong><span>装备　背包/仓库　工坊　任务　地图　返回</span></div>
+   <div class="mock-inventory">
+    <section class="mockbox"><h3>穿戴与随身</h3><div class="slot">守备铁锤<small>武器 · 4 张来源卡</small></div><div class="slot">铆钉护甲<small>身体 · 4 张来源卡</small></div><div class="slot">背包：未装备<small>选择空槽可查看可用背包</small></div><div class="statline"><strong>已用 0/4 格</strong><span>空余 4 格</span></div><div class="statline"><span>当前负重</span><span>10/20 kg</span></div><div class="mock-state">随身物品显示于此。<br><span class="mocksub">空状态不占用整个库存区域。</span></div></section>
+    <section class="mockbox"><h3>仓库 · 当前库存</h3><div class="mocktools"><span>搜索名称 / 用途</span><span>全部 ▾　分类 ▾　排序 ▾　整理</span></div><div class="mockscroll"><table class="mocktable"><thead><tr><th>物品</th><th>数量</th><th>用途 / 状态</th></tr></thead><tbody>
+      <tr class="chosen"><td>拼布挎包</td><td>1</td><td>容量 12 格</td></tr><tr><td>加固行囊</td><td>1</td><td>容量 16 格</td></tr><tr><td>承架背包</td><td>1</td><td>容量 20 格</td></tr><tr><td>导能短杖</td><td>1</td><td>武器 · 魔法</td></tr><tr><td>熔铸破甲锤</td><td>1</td><td>武器 · 攻击</td></tr><tr><td>修补工装</td><td>1</td><td>身体 · 抽牌</td></tr><tr><td>废钢</td><td>20</td><td>制作材料</td></tr><tr><td>导能线</td><td>20</td><td>制作材料</td></tr><tr><td>再生织物</td><td>2</td><td>背包材料</td></tr><tr><td>精密弹簧</td><td>20</td><td>制作材料</td></tr><tr><td>密封树脂</td><td>2</td><td>制作材料</td></tr><tr><td>封装继电器</td><td>1</td><td>任务物</td></tr>
+    </tbody></table></div></section>
+    <section class="mockbox detail"><h3>拼布挎包</h3><p>装备后增加携带容量。</p><div class="statline"><span>总容量</span><strong>4 → 12 格</strong></div><div class="statline"><span>重量变化</span><strong>+1 kg</strong></div><p class="mocksub">不改变卡组。当前位于仓库。</p><div class="mock-state">装备预览<br>当前容量保持不变；提交后再更新。</div><div class="mock-primary">装备拼布挎包</div><div class="mock-secondary">带入随身作为备用</div><p class="mocksub">选择物、变化预览与操作始终相邻。</p></section>
+   </div><div class="mock-footer"><span>批量选择后在固定位置显示转移操作</span><span>快捷转移 · 数量 · 右键菜单 · 安全区撤销</span></div>
+  </div>
+  <div class="proposal-rules"><article><h3>信息密度</h3><p>清单优先显示名称、数量与用途。重复说明和批次详情不占据每一行。</p></article><article><h3>稳定关系</h3><p>穿戴/随身、库存、详情固定分区。空背包不会把库存压成只有四行。</p></article><article><h3>窄屏适配</h3><p>详情可停靠到底部；保留列表阅读空间和当前滚动位置。</p></article></div>
+ </div>
+ <div id="prototype-loot" class="prototype-panel" hidden>
+  <div class="prototype">
+   <div class="mocknav"><strong>废料场 · 工装残片</strong><span>当前目标：带回继电器　｜　返回场景</span></div>
+   <div class="loot-layout">
+    <section class="mockbox"><h3>随身 · 已用 4/4 格</h3><div class="loot-item"><strong>封装继电器 ×1 <span class="badge">任务</span></strong><span>保留：工作灯任务需要</span></div><div class="loot-item"><strong>密封补给 ×2 <span class="badge">恢复</span></strong><span>保留：本趟回复生命</span></div><div class="loot-item chosen"><strong>废钢 ×4</strong><span>选择放下 · 可释放 1 格</span></div><div class="loot-item"><strong>导能线 ×2</strong><span>制作材料 · 可释放 1 格</span></div></section>
+    <section class="mockbox"><h3>当前容器</h3><div class="loot-item"><strong>再生织物 ×2</strong><p>用于背包制作</p><span class="risk">拿取后需 5/4 格，缺 1 格</span></div><div class="mock-state">选择左侧物品查看放下后的结果。<br>需要拿取的目标保持可见。</div><p class="mocksub">具体占用按同类合并规则计算，不把每个目录图块当作一格。</p></section>
+    <section class="mockbox detail"><h3>先腾出空间</h3><p>放下：废钢 ×4</p><div class="statline"><span>操作后占用</span><strong>4/4 → 3/4 格</strong></div><p>本次代价：压力 +1</p><div class="mock-primary">放下废钢 ×4</div><div class="mock-state">下一步：拿取再生织物 ×2<br>再次显示实际代价与风险。</div><p class="mocksub">若本次放下触发巡逻或改变状态，先处理该事件，再重新核算。</p></section>
+   </div><p class="prototype-note">示例采用截图中的物品与一格缺口；不自动执行两次行动。取消选择不会改变库存。</p>
+  </div>
+  <div class="proposal-rules"><article><h3>目标一直可见</h3><p>腾空间时仍看得到要拿取的物品及其用途。</p></article><article><h3>明确取舍</h3><p>任务与补给标记帮助比较，不把所有可丢物品当作等价选项。</p></article><article><h3>行动逐步执行</h3><p>每次提交只执行明确的一步，再展示实际结果和下一步。</p></article></div>
+ </div>
+ <div id="prototype-battle" class="prototype-panel" hidden>
+  <div class="prototype-controls"><button id="preview-condition" aria-pressed="false">查看选中“架盾猛击”后的预览</button><span>可切换检查两种预测条件。</span></div>
+  <div class="prototype">
+   <div class="mocknav"><strong>废料场 · 第 1 回合</strong><span>当前生命 42/42　｜　战斗帮助　记录　菜单</span></div>
+   <div class="battle-stage"><div class="enemy"><div class="intent">敌方下次行动：攻击 6</div><div class="enemy-shape">搬运傀儡</div><div class="enemy-health" id="mock-enemy-health">当前生命 24/24</div></div></div>
+   <div class="battle-condition"><strong id="condition-label">尚未选牌 · 显示当前状态</strong><span>抽牌堆 3　弃牌堆 0　完整规则</span></div>
+   <div class="battle-work">
+    <section class="mockbox"><h3>资源</h3><p id="mock-action">行动点 3/3</p><p>魔法 2/3</p><p id="mock-guard">护盾 0</p></section>
+    <div class="mockcards"><div class="mockcard" id="guard-card"><strong>行动点 1</strong><div class="cardrole">攻防 · 架盾猛击</div><p>伤害 5<br>护盾 +4</p></div><div class="mockcard"><strong>行动点 1</strong><div class="cardrole">攻击 · 锤击</div><p>伤害 8</p></div><div class="mockcard"><strong>行动点 1</strong><div class="cardrole">防御 · 坚守</div><p>护盾 +9</p></div><div class="mockcard"><strong>行动点 1</strong><div class="cardrole">攻击 · 锤击</div><p>伤害 8</p></div></div>
+    <section class="mockbox"><h3>回合预测</h3><div class="prediction">现在结束<br><strong>生命 42 → 36</strong></div><div class="prediction" id="after-card-end" hidden>打出后立即结束<br><strong>生命 42 → 40</strong><br><span class="mocksub">护盾预计抵挡 4</span></div><div class="mock-primary" id="mock-card-submit" hidden>打出架盾猛击</div><div class="mock-secondary">现在结束回合</div></section>
+   </div><p class="prototype-note">此处 42→40 仅解释图中单敌人、4 护盾对 6 攻击的情境。实际界面必须经完整规则模拟，包括击杀、被动与多目标效果。选中牌不自动打出。</p>
+  </div>
+  <div class="proposal-rules"><article><h3>预测条件可辨认</h3><p>同屏明确区分现在结束与出牌后结束，防止玩家把两种状态混在一起。</p></article><article><h3>资源靠近手牌</h3><p>宽屏限制底部工作区宽度，增加场景空间时不拉开操作距离。</p></article><article><h3>新手与熟练共用布局</h3><p>保留预览确认，也支持已有拖放与快捷操作；不会因模式变化搬动关键按钮。</p></article></div>
+ </div>
+</section>
+</main>
+<footer class="sitefooter">本次只提供设计审查与建议。静态图与代码检查不能替代真人首次理解和熟练操作测试。</footer>
+<script src="review-data.js"></script>
+<script>
+const review=window.UI_REVIEW;
+const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const priorityNames={P0:'必须修正',P1:'优先改进',P2:'后续精修'};
+let activeId=1;
+for(const name of [...new Set(review.screens.map(s=>s.group))]){const option=document.createElement('option');option.value=name;option.textContent=name;document.getElementById('group').appendChild(option);}
+function showScreen(id){
+ const s=review.screens.find(s=>s.id===id);if(!s)return;activeId=id;
+ document.querySelectorAll('.screen-button').forEach(b=>b.setAttribute('aria-current',String(Number(b.dataset.id)===id)));
+ document.getElementById('viewer').innerHTML=`<div class="viewer-top"><div><h2>${String(s.id).padStart(2,'0')} · ${esc(s.title)}</h2><p class="meta">${esc(s.group)} · 原图：${esc(s.file)}</p></div><span class="priority ${s.priority}">${s.priority} · ${priorityNames[s.priority]}</span></div><a class="capture" href="captures/${s.file}" target="_blank" rel="noopener" aria-label="打开${esc(s.title)}的原始截图"><img src="captures/${s.file}" alt="上次导出版本的${esc(s.title)}实际截图"></a><div class="findings"><article class="finding wide"><h3>截图中的事实</h3><p>${esc(s.fact)}</p></article><article class="finding"><h3>首次游玩</h3><p>${esc(s.novice)}</p></article><article class="finding"><h3>熟练游玩</h3><p>${esc(s.expert)}</p></article><article class="finding wide"><h3>建议调整</h3><p>${esc(s.proposal)}</p></article><article class="finding"><h3>判断是否有效</h3><p>${esc(s.check)}</p></article><article class="finding"><h3>参照与取舍</h3><p>${esc(s.reference)}</p></article></div>`;
+}
+function filterScreens(){
+ const p=document.getElementById('priority').value,g=document.getElementById('group').value,q=document.getElementById('search').value.trim().toLowerCase();
+ const matches=review.screens.filter(s=>(p==='all'||s.priority===p)&&(g==='all'||s.group===g)&&(!q||[s.title,s.fact,s.proposal,s.novice,s.expert].join(' ').toLowerCase().includes(q)));
+ document.getElementById('count').textContent=`显示 ${matches.length} / 23 张 · P0 为显示或核心语义问题`;
+ const list=document.getElementById('screen-list');list.replaceChildren();
+ for(const s of matches){const b=document.createElement('button');b.className='screen-button';b.dataset.id=s.id;b.setAttribute('aria-current',String(s.id===activeId));b.innerHTML=`<span class="ordinal">${String(s.id).padStart(2,'0')}</span><span class="screen-name">${esc(s.title)}</span><span class="priority ${s.priority}">${s.priority}</span>`;b.onclick=()=>showScreen(s.id);list.appendChild(b);}
+ if(matches.length&&!matches.some(s=>s.id===activeId))showScreen(matches[0].id);
+ else if(!matches.length)document.getElementById('viewer').innerHTML='<p class="notice">没有匹配的截图。调整筛选条件即可查看其他页面。</p>';
+ else showScreen(activeId);
+}
+for(const id of ['priority','group','search'])document.getElementById(id).addEventListener(id==='search'?'input':'change',filterScreens);
+document.querySelectorAll('[data-tab]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(b=>b.setAttribute('aria-selected',String(b===button)));document.querySelectorAll('[role=tabpanel]').forEach(p=>p.hidden=p.id!=='panel-'+button.dataset.tab);}));
+document.querySelectorAll('[data-prototype]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-prototype]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));document.querySelectorAll('.prototype-panel').forEach(p=>p.hidden=p.id!=='prototype-'+button.dataset.prototype);}));
+document.getElementById('references').innerHTML=review.references.map(r=>`<article class="reference"><h2>${esc(r.title)}</h2><a href="${r.file}" target="_blank" rel="noopener"><img src="${r.file}" alt="${esc(r.title)}官方参考图片" loading="lazy"></a><p>${esc(r.note)}</p><a href="${r.url}" target="_blank" rel="noopener">查看官方页面</a> · <a href="${r.imageUrl}" target="_blank" rel="noopener">官方原图</a></article>`).join('');
+document.getElementById('density').onclick=function(){const on=document.getElementById('inventory-mock').classList.toggle('dense');this.setAttribute('aria-pressed',String(on));this.textContent=on?'恢复常规行距':'查看紧凑行距';};
+document.getElementById('preview-condition').onclick=function(){const on=this.getAttribute('aria-pressed')!=='true';this.setAttribute('aria-pressed',String(on));this.textContent=on?'取消选牌预览':'查看选中“架盾猛击”后的预览';document.getElementById('condition-label').textContent=on?'已选牌 · 提交前预演，尚未执行':'尚未选牌 · 显示当前状态';document.getElementById('mock-enemy-health').textContent=on?'当前 24/24 · 打出后 19/24':'当前生命 24/24';document.getElementById('mock-action').textContent=on?'行动点 3 → 2':'行动点 3/3';document.getElementById('mock-guard').textContent=on?'护盾 0 → 4':'护盾 0';document.getElementById('guard-card').classList.toggle('active',on);document.getElementById('after-card-end').hidden=!on;document.getElementById('mock-card-submit').hidden=!on;};
+filterScreens();
+</script>
+</body>
+</html>

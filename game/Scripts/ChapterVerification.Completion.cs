@@ -80,9 +80,9 @@ public partial class ChapterVerification
         await Capture("completion-pickup-plan.png");await PressKey(Key.Escape);Require(Game.Session.ToJson()==before,"Nested plan cancellation does not finish free pickup");
 
         Game.ReplaceSession(ChapterSession.FromJson(completed));await Frames(8);await RawClick("camp_trial");before=Game.Session.ToJson();
-        var hand=Game.GetNode<Control>("ChapterPresentation/FloatingHand");var names=hand.GetChildren().OfType<Button>().Select(b=>b.Name.ToString()).ToArray();
+        var hand=Game.GetNode<Control>("ChapterPresentation/HandViewport/FloatingHand");var names=hand.GetChildren().OfType<Button>().Select(b=>b.Name.ToString()).ToArray();
         await RawClick("hand_order");await RawClick("card_0");await RawClick("hand_right");
-        hand=Game.GetNode<Control>("ChapterPresentation/FloatingHand");Require(hand.GetChild(1).Name=="card_0"&&Game.Session.ToJson()==before,"Hand ordering changes display only, preserving RNG and real piles");
+        hand=Game.GetNode<Control>("ChapterPresentation/HandViewport/FloatingHand");Require(hand.GetChild(1).Name=="card_0"&&Game.Session.ToJson()==before,"Hand ordering changes display only, preserving RNG and real piles");
         await RawClick("hand_order");await RawDragCard(0,new Vector2(8,8));Require(Game.Session.ToJson()==before,"Invalid card drop is lossless");
         var resource=(Control)Game.GetNode<Control>("ChapterPresentation").FindChild("BattleResources",true,false);
         await RawDragCard(0,resource.GetGlobalRect().GetCenter(),true);Require(Game.Session.ToJson()==before,"Esc cancels card drag without playing");

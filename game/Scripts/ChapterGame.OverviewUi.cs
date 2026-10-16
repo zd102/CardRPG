@@ -10,87 +10,135 @@ public partial class ChapterGame
 {
     private string _deckFilter = "all", _deckSort = "cost", _selectedOverviewCard = "";
     private bool _prepareMapExpanded;
+
     private void LootSummary(VBoxContainer box)
     {
-        var page = Scroll(box); page.AddChild(Text(UiCopy.Text("UI_9C3B6012486E"), 18, Ink));
         var items = Session.State.Stock.Where(i => Session.State.Ground.TryGetValue(i.Container, out var ground) && ground.Place == Session.State.Location).ToArray();
-        foreach (var group in items.GroupBy(i => _recentLoot.Contains(i.Id)).OrderByDescending(g => g.Key))
+        var status = Row(28); box.AddChild(status);
+        Metric(status, "随身容量", CapacityText(Session.CarryUsed, Session.CarryCapacity), Session.CarryUsed >= Session.CarryCapacity ? Danger : Ink, "bag");
+        Metric(status, "当前负重", $"{Session.CarriedGrams / 1000m:0.#} / 20 kg", Session.Overweight ? Danger : Ink);
+        var workspace = Row(18); workspace.Name = "PickupWorkspace"; workspace.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(workspace);
+        var carry = Section(workspace, .7f); carry.AddChild(Text("随身携带", 20, Ink));
+        var carryPage = Scroll(carry, "pickup_carry");
+        foreach (var held in Session.CarriedItems)
         {
-            page.AddChild(Text(group.Key ? UiCopy.Text("UI_2A6C929F7701") : UiCopy.Text("UI_00AE799F3AB4"), 20, Ink));
-            foreach (var item in group) page.AddChild(Text(ChapterContent.ItemName(item.Kind) + " ×" + item.Quantity + " · " + Session.State.Ground[item.Container].Name, 16, Ink));
+            var row = Row(8); carryPage.AddChild(row); ItemVisual(row, held.Kind, 36);
+            var copy = FlexibleColumn(row); copy.AddChild(Text(ChapterContent.ItemName(held.Kind) + " ×" + held.Quantity, 16, Ink));
+            copy.AddChild(Text((held.Kind.StartsWith('T') ? "任务物 · " : "") + (held.KeepOnPerson ? "保留随身 · " : "") + $"{ChapterContent.Items[held.Kind].Grams * held.Quantity / 1000m:0.##} kg", 14, Muted));
+        }
+        if (!Session.CarriedItems.Any()) carryPage.AddChild(Text("背包为空", 16, Muted));
+        var found = Section(workspace, 1.3f); found.AddChild(Text("本地搜获", 20, Ink));
+        var page = Scroll(found, "pickup");
+        if (items.Length == 0)
+        {
+            page.AddChild(Text("已收入背包", 28, Success));
+            page.AddChild(Text("继续探索，或带着收获安全撤离。", 18, Muted));
         }
         foreach (var pair in Session.GroundHere.ToArray())
         {
-            var key = pair.Key; var next = Session.Preview(s => s.PickupAll(key));
-            page.AddChild(Button("loot_take_" + key.Replace(':', '_'), UiCopy.Text("UI_12C024A193B4") + pair.Value.Name + (pair.Value.FreePickup ? UiCopy.Text("UI_705FC6E91775") : UiCopy.Format("UI_D266454ACC02", Session.SceneActionCost())), () => Change(() => Session.PickupAll(key)), next != null, true));
-            if (next?.State.Phase == ChapterPhase.Battle) page.AddChild(Text(UiCopy.Text("UI_D4799862BA2B"), 16, Danger));
+            var key = pair.Key; var sourceItems = items.Where(i => i.Container == key).ToArray();
+            if (sourceItems.Length == 0) continue;
+            var source = Column(10); page.AddChild(source);
+            var title = Row(12); source.AddChild(title);
+            var caption = Text(pair.Value.Name, 20, Ink); caption.SizeFlagsHorizontal = SizeFlags.ExpandFill; title.AddChild(caption);
+            var takeAll = Session.Preview(s => s.PickupAll(key));
+            if (sourceItems.Length > 1) title.AddChild(Button("loot_take_" + key.Replace(':', '_'), "全部拿取", () => Change(() => Session.PickupAll(key)), takeAll != null, true));
+            source.AddChild(Text(pair.Value.FreePickup ? "本次免费装包 · 关闭后再次拿取会增加区域压力" : "每次拿取增加区域压力 · 全部拿取合为一次", 14, Muted));
+            foreach (var item in sourceItems)
+            {
+                var row = Row(10); source.AddChild(row); ItemVisual(row, item.Kind, 48);
+                var info = FlexibleColumn(row); info.AddChild(Text(ChapterContent.ItemName(item.Kind) + " ×" + item.Quantity, 20, Ink));
+                info.AddChild(Text(ItemPurpose(item.Kind), 16, Muted));
+                var count = ChosenQuantity(item);
+                var can = Session.CanPickup(item.Id, count);
+                var prediction = Session.Preview(s => s.Pickup(item.Id, count));
+                var cost = prediction == null ? "" : prediction.State.Phase == ChapterPhase.Battle ? " · 巡逻拦截" : prediction.State.Pressure == Session.State.Pressure ? " · 免费" : $" · 压力 +{prediction.State.Pressure - Session.State.Pressure}";
+                if (prediction != null && prediction.State.Phase != ChapterPhase.Battle) info.AddChild(Text("拿取后：" + CapacityText(prediction.CarryUsed, prediction.CarryCapacity) + $"\n负重 {prediction.CarriedGrams / 1000m:0.##}/20 kg", 14, prediction.Overweight ? Danger : Muted));
+                var controls = Row(6); source.AddChild(controls);
+                controls.AddChild(Button((item.Quantity > 1 ? "pickup_stack_" : "pickup_") + item.Id, can ? $"拿取 ×{count}" + cost : "腾出空间…", () =>
+                {
+                    if (can) RequestStockMove(item.Id, item.Container, count);
+                    else { _spacePlanItem = item.Id; OpenNested("space-plan"); }
+                }, primary: sourceItems.Length == 1));
+                if (item.Quantity > 1) controls.AddChild(QuietButton("pickup_quantity_" + item.Id, "选择数量", () => OpenQuantity(item)));
+                BindStockPointer(controls.GetChild<Button>(0), item);
+            }
+            var fitting = Session.FittingPickup(key);
+            if (sourceItems.Length > 1) source.AddChild(QuietButton("loot_plan_" + key.Replace(':', '_'), takeAll == null ? "选择数量 / 安排装包顺序" : "自选数量与顺序", () => ConfirmPartialPickup(key, fitting)));
         }
-        if (items.Length == 0) page.AddChild(Text(UiCopy.Text("UI_FD82A3676DBB"), 18, Success));
-        else page.AddChild(Text(UiCopy.Text("UI_4F6B5AFB275A"), 16, Muted));
-        page.AddChild(Text(Session.LoadDescription, 16, Muted));
-        box.AddChild(Button("loot_manage", UiCopy.Text("UI_23BCA41DE06A"), () => { _panel = "gear"; _gearFilter = "cargo"; Render(); }, primary: true));
-        box.AddChild(Button("loot_return", UiCopy.Text("UI_A8AB98831F5C"), ClosePanel));
+        if (Session.State.Warned && items.Length > 0) box.AddChild(Text("巡逻已抵达：消耗行动的拿取会先触发拦截。", 16, Danger));
+        var actions = Row(12); box.AddChild(actions);
+        actions.AddChild(Button("loot_manage", "整理背包 / 腾出空间", () => { _panel = "gear"; _gearFilter = "cargo"; Render(); }));
+        actions.AddChild(new Control { SizeFlagsHorizontal = SizeFlags.ExpandFill });
+        actions.AddChild(Button("loot_return", items.Length == 0 ? "继续探索 →" : "留在原地 · 返回", ClosePanel, primary: items.Length == 0));
     }
 
     private void Preparation(VBoxContainer box)
     {
         var s = Session.State; var camp = s.Phase == ChapterPhase.Camp;
         if (_prepareMapExpanded) { PreparationRoute(box); return; }
-        var split = Row(12); split.Name = "PreparationWorkspace"; split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
-        LoadoutColumn(split);
-        var route = Section(split, 1.2f);
-        route.AddChild(Text(UiCopy.Text("UI_A3487362C507"), 20, Ink));
-        route.AddChild(Button("prepare_map", _prepareMapExpanded ? UiCopy.Text("UI_E9478C9F038B") : UiCopy.Text("UI_11D640133504"), () => { _prepareMapExpanded = !_prepareMapExpanded; Render(); }));
-        route.AddChild(Text(UiCopy.Text("UI_50C50999461F"), 14, Muted));
-        route.AddChild(Text(Session.NextObjective, 16, Ink));
-        route.AddChild(Button("prepare_presets", Session.State.LastPreparation == null ? UiCopy.Text("UI_E7138FEBD5FD") : UiCopy.Text("UI_59187622893F"), () => OpenNested("presets")));
+        var split = Row(24); split.Name = "PreparationWorkspace"; split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
+        var route = Section(split, .85f); var routeBody = Scroll(route);
+        var picture = ChapterArt.Picture(s.Start); picture.CustomMinimumSize = new Vector2(0, CompactDensity ? 130 : 180); routeBody.AddChild(picture);
+        Eyebrow(routeBody, "部署起点"); routeBody.AddChild(Text(ChapterContent.Places[s.Start].Name, 28, Ink));
+        if (ChapterContent.Places.TryGetValue(Session.QuestPlace(Session.ObjectiveQuest), out var destination)) routeBody.AddChild(Text("任务目的地 · " + destination.Name, 16, Accent));
+        routeBody.AddChild(Text(Session.NextObjective, 18, Ink));
         foreach (var id in new[] { "A01", "A05" })
         {
             var place = id;
-            route.AddChild(Button("start_" + id, (s.Start == id ? UiCopy.Text("UI_1AFA2E65E8D5") : "") + ChapterContent.Places[id].Name + (id == "A05" && !s.Done.Contains("S01") ? UiCopy.Text("UI_6AD6E33D33A2") : ""),
-                () => Change(() => Session.SetStart(place)), camp && (id == "A01" || s.Done.Contains("S01"))));
+            routeBody.AddChild(NavigationButton("start_" + id, (s.Start == id ? "✓  " : "") + ChapterContent.Places[id].Name + (id == "A05" && !s.Done.Contains("S01") ? " · 尚未开放" : ""), s.Start == id, () => Change(() => Session.SetStart(place))));
+            Buttons["start_" + id].Disabled = !camp || id == "A05" && !s.Done.Contains("S01");
         }
-        var right = Section(split); var manifest = Scroll(right);
-        manifest.AddChild(Text(UiCopy.Text("UI_E432AF181280"), 20, Ink));
-        LastPreparationSummary(manifest);
-        PreparationTaskManifest(manifest);
+        var routeActions = Row(8); route.AddChild(routeActions);
+        routeActions.AddChild(QuietButton("prepare_map", "查看路线", () => { _prepareMapExpanded = true; Render(); }));
+
+        var ready = Section(split, 1.15f); var manifest = Scroll(ready);
+        manifest.AddChild(Text("带上装备，准备出发", 20, Ink));
+        manifest.AddChild(Text($"生命 {s.Health}/42 · 卡组 {Session.Deck().Count} 张\n" + string.Join(" · ", new[] { "body", "hands", "backpack" }.Select(slot => SlotName(slot) + "：" + (Session.Equipped.FirstOrDefault(id => ChapterContent.Gear[id].Slot == slot) is { } worn ? ChapterContent.ItemName(worn) : "空槽"))), 16, Ink));
         if (s.Extractions == 0)
         {
-            manifest.AddChild(Text(UiCopy.Text("UI_B48A85B1C2E0"), 16, Ink));
+            manifest.AddChild(Text("选择一种起始工具。首趟可以避开战斗。", 16, Muted));
+            var starters = Row(10); manifest.AddChild(starters);
             foreach (var id in new[] { "G01", "G02" })
             {
                 var kind = id;
-                manifest.AddChild(Button("starter_" + id, (s.Weapon == id ? UiCopy.Text("UI_1AFA2E65E8D5") : "") + ChapterContent.ItemName(id), () => Change(() => Session.SelectStarter(kind)), camp));
-                var example = ChapterContent.Cards[ChapterContent.Gear[id].Cards[0]];
-                manifest.AddChild(Text(ChapterContent.Gear[id].Hint + UiCopy.Format("UI_30829EE49194", example.Name, example.Action, example.Mana, example.Text), 16, Muted));
+                var button = EquipmentTile("starter_" + id, id, id == "G01" ? "攻击 · 使用行动" : "导能 · 使用魔法", () => Change(() => Session.SelectStarter(kind)), s.Weapon == id);
+                button.Disabled = !camp; starters.AddChild(button);
             }
-            manifest.AddChild(Text(UiCopy.Text("UI_5155189C64C2"), 16, Muted));
+            var starterCard = ChapterContent.Cards[Session.GearCards(s.Weapon).First()];
+            manifest.AddChild(Text("代表卡 · " + starterCard.Name + $"  {starterCard.Action} 行动点 / {starterCard.Mana} 魔法\n" + CardCoreEffect(starterCard), 16, Ink));
         }
-        var free = new CheckBox { Name = "free_supplies", Text = UiCopy.Text("UI_769AD1429B30"), ButtonPressed = s.FreeSupplyAllowance == 2, Disabled = !camp };
+        else
+        {
+            manifest.AddChild(Text(string.Join(" · ", Session.Equipped.Select(ChapterContent.ItemName)), 18, Ink));
+            manifest.AddChild(Text($"装备提供 {Session.Deck().Count} 张卡牌", 16, Muted));
+        }
+        var changes = Row(8); manifest.AddChild(changes);
+        changes.AddChild(QuietButton("prepare_presets", "整备预设", () => OpenNested("presets")));
+        changes.AddChild(Button("prepare_equipment", "调整装备", () => { _gearFilter = "all"; OpenNested("gear"); }));
+        changes.AddChild(Button("prepare_storage", "整理背包", () => { OpenNested("gear"); _gearFilter = "cargo"; Render(); }));
+        changes.AddChild(QuietButton("nav_craft", "工坊", () => Toggle("craft")));
+        Rule(manifest);
+        var free = new CheckBox { Name = "free_supplies", Text = "领取免费补给 ×2", ButtonPressed = s.FreeSupplyAllowance == 2, Disabled = !camp, CustomMinimumSize = new Vector2(0, 44) };
         free.AddThemeFontSizeOverride("font_size", (int)(16 * ReadingScale));
         foreach (var color in new[] { "font_color", "font_hover_color", "font_pressed_color", "font_focus_color", "font_hover_pressed_color" }) free.AddThemeColorOverride(color, Ink);
         free.Toggled += on => Change(() => Session.SetFreeSupplies(on ? 2 : 0)); manifest.AddChild(free); Buttons["free_supplies"] = free;
-        manifest.AddChild(Text(UiCopy.Text("UI_CCF39CA33921"), 14, Muted));
-        foreach (var item in Session.CarriedItems) manifest.AddChild(Text(ChapterContent.ItemName(item.Kind) + " ×" + item.Quantity, 16, Ink));
-        if (s.StoredItems.Contains("T02") && !s.StoredCalibration) manifest.AddChild(Button("carry_T02", UiCopy.Text("UI_9FB6B2D02BC4"), () => Change(() => Session.ToggleCarryItem("T02")), camp));
+        manifest.AddChild(Text("占用 1 格，探索中可恢复生命；本趟结束后清除。", 16, Muted));
         var load = Session.DepartureLoad();
-        Rule(right);
-        right.AddChild(Text(UiCopy.Format("UI_61F183655F85", Math.Max(0, load.Capacity - load.Slots), load.Slots, load.Capacity), 20, Ink));
-        right.AddChild(Text(UiCopy.Format("UI_3B67A2C20355", Session.CarriedGrams / 1000m, load.Grams / 1000m), 20, load.Grams > ChapterSession.WeightLimitGrams ? Danger : Ink));
-        var finalState = Text(UiCopy.Format("UI_126A14DFC5BF", s.FreeSupplyAllowance, load.Reserved), 16, Muted); finalState.Name = "DepartureManifest"; right.AddChild(finalState);
-        if (load.Grams > ChapterSession.WeightLimitGrams) right.AddChild(Text(UiCopy.Text("UI_71392C7F540A"), 16, Danger));
-        right.AddChild(Button("prepare_equipment", UiCopy.Text("UI_E5A826863B87"), () => { _gearFilter = "all"; OpenNested("gear"); }));
-        right.AddChild(Button("prepare_storage", UiCopy.Text("UI_D39C3868F6FD"), () => { OpenNested("gear"); _gearFilter = "cargo"; Render(); }));
-        if (!Session.CanDepart && camp)
+        var metrics = Row(26); manifest.AddChild(metrics);
+        Metric(metrics, "出发容量", CapacityText(load.Slots, load.Capacity), load.Slots > load.Capacity ? Danger : Ink);
+        Metric(metrics, "出发负重", $"{load.Grams / 1000m:0.#} / 20 kg", load.Grams > ChapterSession.WeightLimitGrams ? Danger : Ink);
+        if (load.Grams > ChapterSession.WeightLimitGrams) manifest.AddChild(Text("负重超限：探索行动消耗翻倍。", 16, Danger));
+        var advanced = ToolsSection(manifest, "prepare", "随身清单、任务与仓储明细");
+        LastPreparationSummary(advanced); PreparationTaskManifest(advanced);
+        foreach (var item in Session.CarriedItems) advanced.AddChild(Text(ChapterContent.ItemName(item.Kind) + " ×" + item.Quantity, 16, Ink));
+        if (s.StoredItems.Contains("T02") && !s.StoredCalibration) advanced.AddChild(Button("carry_T02", "携带工坊夹具", () => Change(() => Session.ToggleCarryItem("T02")), camp));
+        var details = Text($"生命 {s.Health}/42 · 配发 {s.FreeSupplyAllowance} 份 · 仓库预留 {load.Reserved} 格", 16, Muted); details.Name = "DepartureManifest"; advanced.AddChild(details);
+        if (!Session.CanDepart)
         {
-            foreach(var (container,shortage,items) in new[]{("carry",Math.Max(0,load.Slots-load.Capacity),Session.CarriedItems),("warehouse",Math.Max(0,Session.WarehouseUsed+load.Reserved-Session.WarehouseCapacity),Session.StoredStock)})
-            {
-                if(shortage==0)continue;var culprit=items.OrderByDescending(i=>ChapterContent.Items[i.Kind].Slots*i.Quantity).FirstOrDefault();
-                if(culprit!=null)manifest.AddChild(Button("prepare_blocker_"+container,ContainerName(container)+UiCopy.Text("UI_8C78227ABA0B")+shortage+UiCopy.Text("UI_A1A88CD59435"),()=>OpenStockObject(culprit.Id)));
-            }
+            ready.AddChild(Text(!camp ? "返回余火站后出发。" : load.Slots > load.Capacity ? $"背包超出 {load.Slots - load.Capacity} 格，请先整理。" : $"仓库需要预留 {load.Reserved} 格，请先腾出空间。", 16, Danger));
         }
-        if (!Session.CanDepart) right.AddChild(Text(camp ? load.Slots > load.Capacity ? UiCopy.Format("UI_E6DCD225F717", load.Slots - load.Capacity) : UiCopy.Format("UI_B539D6B5BBDE", load.Reserved, Session.WarehouseCapacity - Session.WarehouseUsed) : UiCopy.Text("UI_2B84B0F842EC"), 16, Danger));
-        right.AddChild(Button("prepare_depart", UiCopy.Text("UI_144E31E3C50C") + ChapterContent.Places[s.Start].Name + " →", () => { _panel = ""; _panelHistory.Clear(); Change(Session.Depart); }, camp && Session.CanDepart, true));
+        ready.AddChild(Button("prepare_depart", "出发 · " + ChapterContent.Places[s.Start].Name + "  →", () => { _panel = ""; _panelHistory.Clear(); Change(Session.Depart); }, camp && Session.CanDepart, true));
     }
 
     private void PreparationRoute(VBoxContainer box)
@@ -113,54 +161,63 @@ public partial class ChapterGame
         map.PlaceSelected += id => { if (Session.State.Phase == ChapterPhase.Camp && (id == "A01" || id == "A05" && Session.State.Done.Contains("S01"))) Change(() => Session.SetStart(id)); };
     }
 
+
     private void CharacterOverview(VBoxContainer box)
     {
         var s = Session.State; var battle = s.Battle;
         var equipment = (battle?.Equipment ?? Session.Equipped.ToList()).ToArray();
         var cards = battle == null ? Session.Deck() : battle.Hand.Concat(battle.Draw).Concat(battle.Discard).ToList();
-        var summary = Row(20); box.AddChild(summary);
-        var hp = Inline($"{s.Health} / {ChapterSession.MaxHealth}", 28, Ink); hp.Name = "OverviewHealth"; summary.AddChild(hp);
-        summary.AddChild(Inline(UiCopy.Text("UI_45BC77BC1C58"), 16, Muted));
-        summary.AddChild(Inline(UiCopy.Format("UI_45D55566C47D", battle?.Action ?? 3, battle?.Mana ?? 3, battle?.Shield ?? 0), 16, Ink));
-        box.AddChild(Text((battle?.Id == "trial" ? UiCopy.Text("UI_1ACBFF88D150") : UiCopy.Text("UI_8036F7C90D5B")) + UiCopy.Format("UI_650CE0C73167", cards.Count, cards.Count(id => ChapterContent.Cards[id].Damage > 0), cards.Count(id => ChapterContent.Cards[id].Shield > 0), cards.Count(id => id is "C26" or "C36")), 16, Ink));
-        var split = Row(16); split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
-        var wear = Directory(split); var board = Scroll(wear); EquipmentBoard(board, equipment, "overview", true);
-        board.AddChild(Text(Session.LoadDescription, 16, Ink));
-        board.AddChild(Text(s.Resonance switch { "R01" => "余烬护层：首回合 +5 护盾", "R07" => "厚壁余温：每回合首次获得至少 7 护盾时额外 +2", _ => "无临时共鸣" }, 16, Muted));
-        wear.AddChild(Button("overview_inventory", UiCopy.Text("UI_0B9B670A717D"), () => { OpenNested("gear"); _gearFilter = "cargo"; Render(); }));
-        var deck = Section(split); var title = Text(UiCopy.Format("UI_FDF5FE3921B9", cards.Count), 20, Ink); title.Name = "OverviewDeckCount"; deck.AddChild(title);
-        deck.AddChild(Text(battle?.Id == "trial" ? UiCopy.Text("UI_775EAC4A49CA") : battle != null ? UiCopy.Text("UI_FD4EAEDC73B9") : UiCopy.Text("UI_E37F4D078556"), 14, Muted));
-        CostDistribution(deck, cards);
+        var split = Row(20); split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
+        var wear = Directory(split); var board = Scroll(wear);
+        var hp = Text($"生命  {s.Health} / {ChapterSession.MaxHealth}", 20, Ink); hp.Name = "OverviewHealth"; board.AddChild(hp);
+        HealthBar(board, s.Health, ChapterSession.MaxHealth, Success);
+        board.AddChild(Text("穿戴装备 → 获得对应卡牌", 16, Accent));
+        EquipmentBoard(board, equipment, "overview", true);
+        board.AddChild(Text(Session.LoadDescription, 16, Muted));
+        if (s.Resonance != "") board.AddChild(Text(s.Resonance == "R01" ? "余烬护层：首回合 +5 护盾" : "厚壁余温：每回合首次获得至少 7 护盾时额外 +2", 16, Muted));
+        wear.AddChild(Button("overview_inventory", "打开背包", () => { OpenNested("gear"); _gearFilter = "cargo"; Render(); }));
+        var deck = Section(split);
+        var title = Text($"当前卡组 · {cards.Count} 张", 20, Ink); title.Name = "OverviewDeckCount"; deck.AddChild(title);
+        deck.AddChild(Text(battle?.Id == "trial" ? "当前为台架借用装备，结束试用后恢复。" : "每张牌下方显示装备来源；更换装备会同步改变卡组。", 16, Muted));
         Tabs(deck, "deck_filter_", [("all", "全部"), ("attack", "攻击"), ("guard", "防护"), ("draw", "抽牌")], _deckFilter, value => _deckFilter = value);
-        var tools = new HFlowContainer(); tools.AddThemeConstantOverride("h_separation", 8); deck.AddChild(tools);
+        var analysis = ToolsSection(deck, "deck", "卡组分析、来源筛选与排序");
+        CostDistribution(analysis, cards);
+        var tools = new HFlowContainer(); tools.AddThemeConstantOverride("h_separation", 8); analysis.AddChild(tools);
         var sourceFilter = new OptionButton { Name = "DeckSourceFilter", CustomMinimumSize = new Vector2(180, 40) }; sourceFilter.AddItem("全部装备来源");
         foreach (var source in equipment) sourceFilter.AddItem(ChapterContent.ItemName(source));
         sourceFilter.Selected = Array.IndexOf(equipment, _deckSource) + 1;
         sourceFilter.ItemSelected += index => { _deckSource = index == 0 ? "" : equipment[index - 1]; Render(); }; tools.AddChild(sourceFilter);
-        var sortKeys=new[]{"cost","function","source","name"};
-        tools.AddChild(Button("deck_sort", UiCopy.Text("UI_DE3C35C2A69A")+(_deckSort switch {"function"=>"功能","source"=>"装备来源","name"=>"名称",_=>"行动 / 魔法费用"}), () => { _deckSort=sortKeys[(Array.IndexOf(sortKeys,_deckSort)+1)%sortKeys.Length]; Render(); }));
-        tools.AddChild(Button("deck_sources", _deckMatrix ? UiCopy.Text("UI_1CB44F18C1F2") : UiCopy.Text("UI_BAC0D7C71275"), () => { _deckMatrix = !_deckMatrix; Render(); }));
+        var sortKeys = new[] { "cost", "function", "source", "name" };
+        tools.AddChild(Button("deck_sort", "排序：" + (_deckSort switch { "function" => "功能", "source" => "装备来源", "name" => "名称", _ => "费用" }), () => { _deckSort = sortKeys[(Array.IndexOf(sortKeys, _deckSort) + 1) % sortKeys.Length]; Render(); }));
+        tools.AddChild(Button("deck_sources", _deckMatrix ? "返回卡牌清单" : "来源矩阵", () => { _deckMatrix = !_deckMatrix; Render(); }));
+        if (_deckSource != "") deck.AddChild(QuietButton("deck_clear_source", "仅看 " + ChapterContent.ItemName(_deckSource) + " · 清除筛选", () => { _deckSource = ""; Render(); }));
         var list = Scroll(deck); list.Name = "OverviewDeck";
         var groups = cards.GroupBy(c => c).Where(g => _deckFilter switch { "attack" => ChapterContent.Cards[g.Key].Damage > 0, "guard" => ChapterContent.Cards[g.Key].Shield > 0, "draw" => g.Key is "C26" or "C36", _ => true });
         if (_deckSource != "" && equipment.Contains(_deckSource)) groups = groups.Where(g => (battle?.Id == "trial" ? ChapterContent.Gear[_deckSource].Cards : Session.GearCards(_deckSource)).Contains(g.Key));
         if (_deckMatrix) { DeckSourceMatrix(list, equipment, groups, battle?.Id == "trial"); return; }
-        string SourceKey(string card)=>string.Join("/",equipment.Where(id=>(battle?.Id=="trial"?ChapterContent.Gear[id].Cards:Session.GearCards(id)).Contains(card)).Select(ChapterContent.ItemName).Order());
-        foreach (var group in groups.OrderBy(g => _deckSort == "cost" ? ChapterContent.Cards[g.Key].Action * 10 + ChapterContent.Cards[g.Key].Mana : _deckSort=="function"?g.Key is "C26" or "C36"?0:ChapterContent.Cards[g.Key].Damage>0?1:2:0).ThenBy(g=>_deckSort=="source"?SourceKey(g.Key):"").ThenBy(g => ChapterContent.Cards[g.Key].Name))
+        string SourceKey(string card) => string.Join("/", equipment.Where(id => (battle?.Id == "trial" ? ChapterContent.Gear[id].Cards : Session.GearCards(id)).Contains(card)).Select(ChapterContent.ItemName).Order());
+        foreach (var group in groups.OrderBy(g => _deckSort == "cost" ? ChapterContent.Cards[g.Key].Action * 10 + ChapterContent.Cards[g.Key].Mana : _deckSort == "function" ? g.Key is "C26" or "C36" ? 0 : ChapterContent.Cards[g.Key].Damage > 0 ? 1 : 2 : 0).ThenBy(g => _deckSort == "source" ? SourceKey(g.Key) : "").ThenBy(g => ChapterContent.Cards[g.Key].Name))
         {
-            var card = ChapterContent.Cards[group.Key]; var row = Column(4); list.AddChild(row);
+            var card = ChapterContent.Cards[group.Key]; var row = Row(14); list.AddChild(row);
+            if (!CompactDensity)
+            {
+                var art = ActionArt(card); art.CustomMinimumSize = new Vector2(94, 94); row.AddChild(art);
+            }
+            var description = FlexibleColumn(row);
             var sources = string.Join("、", equipment.Select(id => (Id: id, Count: (battle?.Id == "trial" ? ChapterContent.Gear[id].Cards : Session.GearCards(id)).Count(c => c == card.Id))).Where(p => p.Count > 0).Select(p => ChapterContent.ItemName(p.Id) + " ×" + p.Count));
-            var line = Row(10); row.AddChild(line);
-            var button = Button("overview_card_" + card.Id, (_selectedOverviewCard == card.Id ? "◆ " : "") + card.Name + $" ×{group.Count()}", () => { _selectedOverviewCard = card.Id; Render(); });
-            button.CustomMinimumSize = new Vector2(200, 40);
-            button.SetMeta("copies", group.Count()); button.Alignment = HorizontalAlignment.Left;
-            button.TooltipText = card.Name + "\n" + card.Text + UiCopy.Text("UI_0C72AA33E7B3") + sources; line.AddChild(button);
-            var cost = Text($"{card.Action} 行动\n{card.Mana} 魔法", 16, Ink); cost.CustomMinimumSize = new Vector2(90, 0); cost.SizeFlagsVertical = SizeFlags.ShrinkCenter; line.AddChild(cost);
-            var core = Text(CardCoreEffect(card), 16, Ink); core.SizeFlagsHorizontal = SizeFlags.ExpandFill; core.SizeFlagsVertical = SizeFlags.ShrinkCenter; line.AddChild(core);
-            if (_selectedOverviewCard != card.Id) continue;
-            var effect = Row(8); row.AddChild(effect); effect.AddChild(Glyph(CardSymbol(card), Ink, 24));
-            var copy = Text(card.Text, 16, Ink); copy.SizeFlagsHorizontal = SizeFlags.ExpandFill; effect.AddChild(copy);
-            row.AddChild(Text(UiCopy.Text("UI_3C7FDE7B25EE") + sources, 14, Muted)); Rule(row);
-            row.AddChild(Button("overview_detail", UiCopy.Text("UI_06BF8093448E"), () => { _detailItemId = 0; _detailTitle = card.Name; _detailText = CardRules(card.Id); OpenNested("detail"); }));
+            var line = Row(10); description.AddChild(line);
+            var button = QuietButton("overview_card_" + card.Id, card.Name + $" ×{group.Count()}", () => { _selectedOverviewCard = _selectedOverviewCard == card.Id ? "" : card.Id; Render(); });
+            button.SizeFlagsHorizontal = SizeFlags.ExpandFill; button.Alignment = HorizontalAlignment.Left;
+            button.SetMeta("copies", group.Count()); button.TooltipText = card.Name + "\n" + card.Text + "\n来自：" + sources; line.AddChild(button);
+            var cost = Inline($"{card.Action} 行动 / {card.Mana} 魔法", 14, Muted); cost.SizeFlagsVertical = SizeFlags.ShrinkCenter; line.AddChild(cost);
+            description.AddChild(Text(CardCoreEffect(card), 16, Ink));
+            description.AddChild(Text("来自 " + sources, 14, Muted));
+            if (_selectedOverviewCard == card.Id)
+            {
+                description.AddChild(Text(card.Text, 16, Ink));
+                description.AddChild(QuietButton("overview_detail", "完整规则", () => { _detailItemId = 0; _detailTitle = card.Name; _detailText = CardRules(card.Id); OpenNested("detail"); }));
+            }
+            Rule(list);
         }
     }
 
@@ -176,7 +233,13 @@ public partial class ChapterGame
             {
                 page.AddChild(Text(title, 20, color));
                 if (items.Count == 0) page.AddChild(Text(UiCopy.Text("UI_484D55613910"), 16, Muted));
-                foreach (var (kind, count) in items) page.AddChild(Text(ChapterContent.ItemName(kind) + " ×" + count, 16, Ink));
+                foreach (var (kind, count) in items)
+                {
+                    var reward = Row(14); page.AddChild(reward); ItemVisual(reward, kind, 64);
+                    var rewardName = Text(ChapterContent.ItemName(kind) + " ×" + count, 20, Ink);
+                    rewardName.Name = "ReportItem_" + kind; rewardName.SizeFlagsHorizontal = SizeFlags.ExpandFill;
+                    rewardName.SizeFlagsVertical = SizeFlags.ShrinkCenter; reward.AddChild(rewardName);
+                }
             }
             if (ok)
             {
@@ -209,9 +272,10 @@ public partial class ChapterGame
         }
         page.AddChild(Text(UiCopy.Text("UI_9163A1CB0C4F"),14,Muted));
         Rule(page); page.AddChild(Text(UiCopy.Format("UI_29390557D71B", Session.WarehouseUsed, Session.WarehouseCapacity, Session.CarryUsed, Session.CarryCapacity), 14, Muted));
-        body.AddChild(Button("camp", UiCopy.Text("UI_1658F952FA07"), () => Change(Session.ReturnToCamp), primary: true)); FocusLater(Buttons["camp"]);
         var returning = Session.Preview(s => s.ReturnToCamp());
-        if (returning != null && ChapterContent.Quests.Any(q => returning.CanTurnIn(q.Id))) body.AddChild(Button("report_quests", UiCopy.Text("UI_D489913ABD56"), () => { Change(Session.ReturnToCamp); if (Session.State.Phase == ChapterPhase.Camp) { _questFilter = "active"; Toggle("journal"); } }));
+        var canDeliver = returning != null && ChapterContent.Quests.Any(q => returning.CanTurnIn(q.Id));
+        if (canDeliver) body.AddChild(Button("report_quests", "返回据点 · 交付任务 →", () => { Change(Session.ReturnToCamp); if (Session.State.Phase == ChapterPhase.Camp) { _questFilter = "active"; Toggle("journal"); } }, primary: true));
+        body.AddChild(Button("camp", "返回余火站", () => Change(Session.ReturnToCamp), primary: !canDeliver)); FocusLater(Buttons[canDeliver ? "report_quests" : "camp"]);
     }
 
     private static string WorldChange(string key) => key switch

@@ -19,20 +19,20 @@ public partial class ChapterGame
     private void StockRow(VBoxContainer box, ChapterItem item, bool ground)
     {
         var def = ChapterContent.Items[item.Kind];
-        var row = Row(16); box.AddChild(row);
-        var info = Row(8); info.CustomMinimumSize = new Vector2(228, 0); row.AddChild(info);
+        var row = Column(12); box.AddChild(row);
+        var info = Row(8); row.AddChild(info);
         if (item.Kind is "U01" or "M08") info.AddChild(Glyph("supply", Accent, 40));
         else Illustration(info, ItemArt(item.Kind), 42, 44, false);
         var words = FlexibleColumn(info);
         words.AddChild(Text($"{def.Name} ×{item.Quantity}" + (item.FreeSupply ? UiCopy.Text("UI_042308E133F8") : item.Calibrated ? UiCopy.Text("UI_916E1FD310AB") : ""), 16, Ink));
         words.AddChild(Text(ContainerName(item.Container) + $" · {def.Grams * item.Quantity / 1000m:0.##} kg" + (item.KeepOnPerson ? UiCopy.Text("UI_CDDBA48664BF") : ""), 14, Muted));
-        var forecast = FlexibleColumn(row); forecast.SizeFlagsVertical = SizeFlags.ShrinkCenter;
+        var forecast = Column(6); row.AddChild(forecast);
         var count = ChosenQuantity(item);
         var predicted = Session.Preview(copy => StockCommand(copy, item.Id, item.Container, count, true));
         var summary = predicted == null ? QuantityForecast(item, count) : predicted.State.Phase == ChapterPhase.Battle ? "巡逻先拦截 · 本次物品不移动"
-            : $"{ContainerName(item.Container)} → {ContainerName(StockDestination(item))} · {count} 件\n推进 {predicted.State.Pressure - Session.State.Pressure} 步";
+            : $"{ContainerName(item.Container)} → {ContainerName(StockDestination(item))} · {count} 件\n操作后：{CapacityText(predicted.CarryUsed, predicted.CarryCapacity)}\n区域压力 +{predicted.State.Pressure - Session.State.Pressure}";
         _dragForecast = Text(summary, 16, Ink); forecast.AddChild(_dragForecast);
-        var actions = Row(5); actions.SizeFlagsVertical = SizeFlags.ShrinkCenter; row.AddChild(actions);
+        var actions = Column(6); row.AddChild(actions);
         if (ground)
         {
             actions.AddChild(Button((item.Quantity > 1 ? "pickup_stack_" : "pickup_") + item.Id, UiCopy.Format("UI_3541B21D9AA0", count), () => RequestStockMove(item.Id, item.Container, count), Session.CanPickup(item.Id, count), true));

@@ -11,6 +11,7 @@ public partial class ChapterGame
     private readonly List<long> _handTokens = new(), _handDisplayOrder = new();
     private long _nextHandToken, _focusedHandToken;
     private int _cardCommandIndex = -1;
+    private int _handScroll;
     private bool _reorderHand, _dragCards = true;
     private ulong _battleGestureVersion, _battleDeltaUntil;
     private PanelContainer? _cardZoom;

@@ -5,25 +5,26 @@ using System.Collections.Generic;
 
 namespace CardRPG;
 
-/// <summary>One logical inventory slot is one cell; wide items occupy adjacent cells.</summary>
+/// <summary>Item batches in a responsive catalog or list. Capacity is a separate aggregate.</summary>
 public partial class ChapterSlotGrid : Container
 {
     public int Capacity { get; set; }
     public bool ShowEmpty { get; set; } = true;
     public bool ListMode { get; set; }
+    public bool Compact { get; set; }
     public float ReadingScale { get; set; } = 1;
     public int Columns { get; private set; } = 1;
     private float _height;
-    private const float Gap = 6;
-    private float Cell => 118 * ReadingScale;
-    private float RowHeight => ListMode ? 72 * ReadingScale : 118 + (ReadingScale - 1) * 80;
+    private const float Gap = 4;
+    private float Cell => (Compact ? 112 : 130) * ReadingScale;
+    private float RowHeight => ListMode ? (Compact ? 48 : 50) * ReadingScale : (Compact ? 110 : 126) + (ReadingScale - 1) * 100;
 
     public override Vector2 _GetMinimumSize() => new(0, _height);
 
     public override void _Notification(int what)
     {
         if (what != NotificationSortChildren) return;
-        Columns = ListMode ? 1 : Math.Max(2, (int)((Size.X + Gap) / (Cell + Gap)));
+        Columns = ListMode ? 1 : Math.Max(1, (int)((Size.X + Gap) / (Cell + Gap)));
         var width = (Size.X - (Columns - 1) * Gap) / Columns;
         var cells = 0; var occupied = new HashSet<int>();
         foreach (var item in GetChildren().OfType<Control>())
@@ -36,7 +37,7 @@ public partial class ChapterSlotGrid : Container
             cells = Math.Max(cells, start + span);
         }
         var total = ListMode || !ShowEmpty ? cells : Math.Max(cells, Capacity);
-        var height = Math.Max(1, (int)Math.Ceiling(total / (float)Columns)) * (RowHeight + Gap) - Gap;
+        var height = total == 0 ? 0 : (int)Math.Ceiling(total / (float)Columns) * (RowHeight + Gap) - Gap;
         if (!Mathf.IsEqualApprox(height, _height)) { _height = height; UpdateMinimumSize(); }
         QueueRedraw();
     }

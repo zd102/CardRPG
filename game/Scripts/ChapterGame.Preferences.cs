@@ -73,7 +73,9 @@ public partial class ChapterGame
         if (_modalityHint != null && GodotObject.IsInstanceValid(_modalityHint)) _modalityHint.Text = InputHelp;
         return false;
     }
-    private string InputHelp => _inputModality == "controller" ? "方向键选择 · A 确认 · B 返回 · 肩键跨区" : _inputModality == "keyboard" ? "Tab / 方向键选择 · F6 跨区 · Esc 返回" : "点击选择 · 更多 / 右键 · Esc 返回";
+    private string InputHelp => _inputModality == "controller" ? "方向键选择 · A 确认 · B 返回 · 肩键跨区"
+        : _panel == "gear" && _gearFilter == "cargo" ? _inputModality == "keyboard" ? "Shift+Enter 取放 · F6 跨区 · Esc 返回" : _quickMove && Session.AtBase ? "Shift+点击 取放 · 拖放移动 · 右键更多 · Esc 返回" : "点击选中 · 拖放移动 · 右键更多 · Esc 返回"
+        : _inputModality == "keyboard" ? "Tab / 方向键选择 · F6 跨区 · Esc 返回" : "点击选择 · 更多 / 右键 · Esc 返回";
     private bool HandleController(InputEvent input)
     {
         Key key = Key.None; bool pressed = true;

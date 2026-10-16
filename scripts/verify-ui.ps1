@@ -2,7 +2,7 @@
     [string]$OutputDirectory = (Join-Path $PSScriptRoot '../artifacts/ui-rework-captures'),
     [string]$Executable,
     [switch]$Headless,
-    [ValidateSet('Chapter','Management','Completion','Layout')][string]$Suite = 'Chapter'
+    [ValidateSet('Chapter','Management','Completion','Layout','Design','Inventory')][string]$Suite = 'Chapter'
 )
 $ErrorActionPreference = 'Stop'
 . "$PSScriptRoot\common.ps1"
@@ -53,12 +53,16 @@ $auditArguments = $auditProject + $auditMode + '--log-file "' + $auditLog + '" -
 if ($Suite -eq 'Management') { $auditArguments += ' --verify-management-only' }
 if ($Suite -eq 'Completion') { $auditArguments += ' --verify-completion-only' }
 if ($Suite -eq 'Layout') { $auditArguments += ' --verify-layout-only' }
+if ($Suite -eq 'Design') { $auditArguments += ' --verify-design-only' }
+if ($Suite -eq 'Inventory') { $auditArguments += ' --verify-inventory-only' }
 $auditWorkingDirectory = if ($Executable) { Split-Path -Parent $auditExecutable } else { $GameRoot }
 $auditExit = [BackgroundVerificationDesktop]::Run($auditExecutable, $auditArguments, $auditWorkingDirectory)
 $captureOutput = Get-Content -LiteralPath $auditLog -Encoding UTF8 -Raw
 Write-Output $captureOutput
 $suitePassed = if ($Suite -eq 'Management') { $captureOutput -match 'UI_MANAGEMENT_VERIFIED' } elseif ($Suite -eq 'Completion') { $captureOutput -match 'UI_COMPLETION_VERIFIED' } else { $captureOutput -match 'CHAPTER_VERIFIED' -and $captureOutput -match 'UI_REWORK_VERIFIED' -and $captureOutput -match 'UI_MANAGEMENT_VERIFIED' -and $captureOutput -match 'UI_COMPLETION_VERIFIED' }
 if($Suite -eq 'Layout') { $suitePassed = $captureOutput -match 'UI_LAYOUT_VERIFIED' }
+if($Suite -eq 'Design') { $suitePassed = $captureOutput -match 'UI_DESIGN_VERIFIED' }
+if($Suite -eq 'Inventory') { $suitePassed = $captureOutput -match 'UI_INVENTORY_VERIFIED' }
 if ($auditExit -ne 0 -or $captureOutput -match '(?m)^ERROR:' -or -not $suitePassed) {
     throw "Background verification failed or did not finish: $auditExit"
 }

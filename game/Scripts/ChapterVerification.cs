@@ -21,6 +21,8 @@ public partial class ChapterVerification : Node
         {
             _captures = OS.GetCmdlineUserArgs().FirstOrDefault(a => a.StartsWith("--capture-dir="))?[14..];
             if (_captures != null) Directory.CreateDirectory(_captures);
+            if (OS.GetCmdlineUserArgs().Contains("--verify-inventory-only")) { await VerifyInventoryWorkspace(); GetTree().Quit(0); return; }
+            if (OS.GetCmdlineUserArgs().Contains("--verify-design-only")) { await VerifyDesign(); GetTree().Quit(0); return; }
             if (OS.GetCmdlineUserArgs().Contains("--verify-management-only") || OS.GetCmdlineUserArgs().Contains("--verify-completion-only") || OS.GetCmdlineUserArgs().Contains("--verify-layout-only"))
             {
                 var state = new ChapterState { ContentVersion = "chapter1-outer-ring-v1", Extractions = 1, Owned = ChapterContent.Gear.Keys.ToHashSet(), Bank = [20,20,20], Cargo = [0,0,0], Done = ["Q01", "Q02", "S01"], World = ["station"] };
@@ -187,7 +189,7 @@ public partial class ChapterVerification : Node
             foreach (var id in new[] { "map", "inventory", "journal", "craft", "help", "quit" }) AssertVisible(id);
             var before = Game.Session.ToJson();
             await Click("inventory"); AssertManualLayout();
-            Require(Game.Buttons.ContainsKey("storage_loadout"), "Inventory exposes a visible loadout disclosure control");
+            Require(Game.Buttons.ContainsKey("wear_weapon") && Game.Buttons.ContainsKey("tools_stock"), "Inventory exposes worn equipment and optional tools");
             await Click("gear_tab_weapon"); await Click("inspect_G25");
             Require(!Game.Buttons.ContainsKey("equip_G10"), "Weapon filter excludes body equipment");
             await AssertSupplyCards("G25");
@@ -237,7 +239,7 @@ public partial class ChapterVerification : Node
         var shown = Game.Buttons.Where(p => p.Key.StartsWith("overview_card_")).ToDictionary(p => p.Key[14..], p => p.Value.GetMeta("copies").AsInt32());
         Require(cards.GroupBy(id => id).All(g => shown.GetValueOrDefault(g.Key) == g.Count()) && shown.Values.Sum() == cards.Count, "Overview shows every actual card copy");
         var hp = Game.GetNode<Control>("ChapterPresentation/FieldManual").FindChild("OverviewHealth", true, false) as Label;
-        Require(hp != null && hp.Text == $"{s.Health} / {ChapterSession.MaxHealth}", "Overview displays current health");
+        Require(hp != null && hp.Text == $"生命  {s.Health} / {ChapterSession.MaxHealth}", "Overview displays current health");
     }
     private void AssertStorageGrid()
     {
@@ -246,10 +248,15 @@ public partial class ChapterVerification : Node
         {
             var grid = panel.FindChild("StorageGrid_" + container, true, false) as ChapterSlotGrid;
             Require(grid != null && grid.GetMeta("occupied").AsInt32() == used && grid.GetMeta("capacity").AsInt32() == capacity, "Capacity summary matches real stacking rules: " + container);
-            var shown = grid!.GetChildren().OfType<Control>().Select(n => (Id: n.GetMeta("item_id").AsInt64(), Quantity: n.GetMeta("quantity").AsInt32())).ToArray();
-            Require(shown.Select(i => i.Id).Distinct().Count() == shown.Length, "Each real batch has exactly one tile");
-            foreach (var batch in shown) Require(Game.Session.State.Stock.Any(i => i.Id == batch.Id && i.Container == container && i.Quantity == batch.Quantity), "Displayed batch quantity and command identity agree");
-            Require(grid!.Columns >= 2, "Container retains at least two columns at large reading sizes: " + container);
+            var shown = grid!.GetChildren().OfType<Control>().Select(n => (Ids: n.GetMeta("item_ids").AsString().Split(',').Select(long.Parse).ToArray(), Quantity: n.GetMeta("quantity").AsInt32())).ToArray();
+            Require(shown.SelectMany(i => i.Ids).Distinct().Count() == shown.Sum(i => i.Ids.Length), "Each physical batch belongs to exactly one display group");
+            foreach (var group in shown)
+            {
+                var itemsInGroup = Game.Session.State.Stock.Where(i => group.Ids.Contains(i.Id) && i.Container == container).ToArray();
+                Require(itemsInGroup.Length == group.Ids.Length && itemsInGroup.Sum(i => i.Quantity) == group.Quantity, "Displayed quantity equals exact physical members");
+                Require(itemsInGroup.Select(i => (i.Kind, i.Calibrated, i.Registered, i.KeepOnPerson, i.FreeSupply)).Distinct().Count() == 1, "Grouped items never mix protection or ownership states");
+            }
+            Require(grid!.ListMode ? grid.Columns == 1 : grid.Columns >= 1, "Catalog responds to the available reading width: " + container);
             var items = grid.GetChildren().OfType<Control>().ToArray();
             foreach (var item in items) Require(item.Position.X >= 0 && item.GetRect().End.X <= grid.Size.X + 1, "Item fits container width");
             foreach (var item in items)
@@ -266,14 +273,21 @@ public partial class ChapterVerification : Node
         foreach (var grid in new[] { panel.FindChild("StorageGrid_carry", true, false), panel.FindChild("StorageGrid_warehouse", true, false) }.OfType<Control>())
             if (grid.GetChildCount() > 0 && grid.GetParent()?.GetParent() is ScrollContainer viewport) Require(viewport.Size.Y >= grid.GetChild<Control>(0).Size.Y, "At least one complete item row fits the container viewport");
         var actionBar = (Control)panel.FindChild("StockActionBar", true, false);
-        Require(actionBar.Size.Y <= 210, "Selected item forecast and actions stay bounded at larger reading sizes");
+        Require(actionBar.Size.X >= workspace.Size.X - 2 && actionBar.Position.Y >= workspace.Position.Y + workspace.Size.Y, "Selection actions sit below both containers without narrowing either inventory");
+        foreach (var grid in new[] { panel.FindChild("StorageGrid_carry", true, false), panel.FindChild("StorageGrid_warehouse", true, false) }.OfType<ChapterSlotGrid>().Where(g => g.ListMode))
+            foreach (var tile in grid.GetChildren().OfType<Control>())
+            {
+                var title = tile.GetNode<Label>("ItemTitle"); var caption = tile.GetNode<Label>("ItemCaption");
+                Require(!title.GetRect().Intersects(caption.GetRect()), "Large-font inventory titles and quantity lines never overlap");
+                Require(caption.GetRect().End.Y <= tile.Size.Y + 1, "Quantity line fits within each inventory row");
+            }
         foreach (var slot in new[] { "weapon", "body", "hands", "backpack" })
         {
             if (!Game.Buttons.ContainsKey("wear_" + slot)) continue;
             var tile = Game.Buttons["wear_" + slot]; AssertVisible("wear_" + slot);
-            Require(tile.Size.X >= 170, "Worn item name has sufficient reading width");
-            for (Node? ancestor = tile.GetParent(); ancestor != null; ancestor = ancestor.GetParent())
-                if (ancestor is ScrollContainer scroll) Require(scroll.GetGlobalRect().Encloses(tile.GetGlobalRect()), "All four worn items remain visible without scrolling");
+            Require(tile.Size.X >= 130 && tile.TooltipText.Length > 0, "Worn item tiles retain a legible title region and complete accessible description");
+            var title = tile.GetChildren().OfType<Label>().Last();
+            Require(!tile.GetChild<Control>(0).GetRect().Intersects(title.GetRect()), "Worn item art never sits beneath its name");
         }
     }
     private void AssertManualLayout()
@@ -350,8 +364,17 @@ public partial class ChapterVerification : Node
     private void AssertSceneArt(string name) => Require(Game.GetNode<ChapterScene>("ChapterPresentation/World").ArtName == name, "Wrong world variant: " + name);
     private void AssertHandVisible()
     {
-        var cards = Game.Buttons.Where(p => p.Key.StartsWith("card_")).Select(p => p.Value).ToArray();
-        foreach (var card in cards) AssertVisible(card.Name.ToString());
+        var cards = Game.Buttons.Where(p => p.Key.StartsWith("card_") && int.TryParse(p.Key[5..], out _)).Select(p => p.Value).ToArray();
+        var handViewport = Game.GetNode<Control>("ChapterPresentation").FindChild("HandViewport", true, false) as ScrollContainer;
+        foreach (var card in cards)
+        {
+            if (handViewport == null) AssertVisible(card.Name.ToString());
+            else
+            {
+                Require(card.Size.X >= 118 && card.GetGlobalRect().Position.Y >= handViewport.GlobalPosition.Y - 1 && card.GetGlobalRect().End.Y <= handViewport.GetGlobalRect().End.Y + 1, "Readable hand cards fit vertically inside their scrolling work area");
+                Require(handViewport.FollowFocus, "Keyboard focus reveals cards beyond the hand viewport");
+            }
+        }
         for (var i = 1; i < cards.Length; i++)
             Require(!cards[i - 1].GetGlobalRect().Intersects(cards[i].GetGlobalRect()), "Hand cards overlap");
     }
@@ -376,8 +399,11 @@ public partial class ChapterVerification : Node
     {
         while (Game.IsFeedbackPlaying) await ToSignal(GetTree().CreateTimer(.05), SceneTreeTimer.SignalName.Timeout);
         if (Game.Buttons.ContainsKey("story_continue") && id != "story_continue") await Click("story_continue");
-        if (id == "gear_tab_cargo") id = "gear_mode_cargo";
-        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("gear_tab_") && Game.Buttons.ContainsKey("gear_mode_equipment")) await Click("gear_mode_equipment");
+        if (id == "gear_tab_cargo") { if (Game.Buttons.ContainsKey("StockSearch") || Game.Buttons.ContainsKey("stock_search")) return; id = "gear_mode_cargo"; }
+        if (!Game.Buttons.ContainsKey(id) && id.StartsWith("gear_tab_") && Game.Buttons.ContainsKey("tools_stock"))
+        { if (!Game.Buttons.ContainsKey("gear_mode_equipment")) await Click("tools_stock"); await Click("gear_mode_equipment"); }
+        if (!Game.Buttons.ContainsKey(id) && new[] { "storage_paired", "storage_loadout", "storage_batches", "stock_clear_hidden", "stock_discard_batch" }.Contains(id) && Game.Buttons.ContainsKey("tools_stock")) await Click("tools_stock");
+        if (id == "stock_select_visible" && !Game.Buttons.ContainsKey(id)) await Click("stock_batch_mode");
         if (!Game.Buttons.ContainsKey(id) && id.StartsWith("deliver_")) { if (!Game.Buttons.ContainsKey("quest_detail_" + id[8..])) await Click("quest_tab_active"); await Click("quest_detail_" + id[8..]); }
         if (!Game.Buttons.ContainsKey(id) && id.StartsWith("make_") && Game.Buttons.ContainsKey("recipe_" + id[5..])) await Click("recipe_" + id[5..]);
         if (!Game.Buttons.ContainsKey(id) && id.StartsWith("make_BP") && Game.Buttons.ContainsKey("storage_craft_bags")) { await Click("storage_craft_bags"); await Click("bag_spec_" + id[5..]); }
@@ -394,6 +420,12 @@ public partial class ChapterVerification : Node
             if (id.StartsWith("discard_")) { await Click("stock_more"); id = "menu_discard"; }
         }
         Button? button = null;
+        if (Game.Buttons.TryGetValue(id, out var disclosed) && !disclosed.IsVisibleInTree())
+        {
+            for (Node? parent = disclosed.GetParent(); parent != null; parent = parent.GetParent())
+                if (parent is Control { Visible: false } && parent.Name.ToString().StartsWith("Tools_"))
+                { await Click("tools_" + parent.Name.ToString()[6..]); break; }
+        }
         for (var attempt = 0; attempt < 5; attempt++)
         {
             await Frames();

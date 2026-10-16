@@ -169,8 +169,9 @@ public partial class ChapterVerification
         Require(Game.Session.ToJson() == before && Game.Buttons.ContainsKey("stock_more"), "Wrong equipment slot rejects drag without changing inventory");
         await Drag(armor.Id, Game.Buttons["wear_body"].GetGlobalRect().GetCenter());
         Require(Game.Session.ToJson() == before && Game.Buttons.ContainsKey("equip_" + armor.Kind), "Equipment drop opens comparison and requires a separate equip action");
-        await Capture("management-equipment-drop.png"); await PressKey(Key.Escape);
-        Require(Game.Buttons.ContainsKey("stock_more"), "Equipment comparison returns to original inventory mode");
+        await Capture("management-equipment-drop.png");
+        Require(Game.Buttons.ContainsKey("stock_search") && Game.Buttons.ContainsKey("stock_more"), "Equipment drop previews in place without navigating away from the inventory");
+        await Click("stock_clear");
         await Click("nav_map"); Require(Game.GetNode<Control>("ChapterPresentation").FindChild("RouteMap", true, false) is ChapterRouteMap, "Route map available");
         await Click("map_place_A05"); await Click("map_waypoint");
         var map = (ChapterRouteMap)Game.GetNode<Control>("ChapterPresentation").FindChild("RouteMap", true, false);
@@ -183,7 +184,7 @@ public partial class ChapterVerification
         Require(Game.GetNode<Control>("ChapterPresentation").FindChild("DeploymentMap", true, false) == null, "Preparation starts with compact deployment cards");
         await Click("prepare_map"); Require(Game.GetNode<Control>("ChapterPresentation").FindChild("DeploymentMap", true, false) != null, "Full deployment map remains explicitly available");
         await Click("prepare_map"); Require(Game.Session.ToJson() == before, "Expanding preparation map preserves chosen deployment and inventory");
-        await Click("nav_character"); await Click("deck_sources");
+        await PressKey(Key.C); await Click("deck_sources");
         var matrix = (GridContainer)Game.GetNode<Control>("ChapterPresentation").FindChild("DeckSourceMatrix", true, false);
         var cellsByCard = matrix.GetChildren().OfType<Control>().Where(c => c.HasMeta("source_card")).GroupBy(c => c.GetMeta("source_card").AsString());
         foreach (var group in cellsByCard)

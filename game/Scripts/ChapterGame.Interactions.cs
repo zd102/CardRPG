@@ -12,7 +12,7 @@ public partial class ChapterGame
     private string _dialogTitle = "", _dialogText = "", _dialogAccept = "确认", _choice = "", _story = "";
     private Action? _dialogAction;
     private static float ReadingScale = 1;
-    private bool _reducedMotion, _sound = true, _labels, _turnReminder = true, _battleGuide = true;
+    private bool _reducedMotion, _sound = true, _labels = true, _turnReminder = true, _battleGuide = true;
     private bool _holdLabels;
     private string _trialRecipeReturn = "";
     private int _feedbackStepMs = 180;
@@ -24,7 +24,7 @@ public partial class ChapterGame
     private int _lastFeedbackIndex = -1;
     private Vector2 _playedFrom;
     private bool FeedbackBusy => Session.State.Phase == ChapterPhase.Battle && !_reducedMotion && _feedback.Count > 0 && Time.GetTicksMsec() - _feedbackStarted < (ulong)(_feedback.Count * _feedbackStepMs);
-    private bool ExclusivePanel => _panel is "startup" or "confirm" or "choice" or "story" or "quantity" or "pickup-plan" or "detail" or "recipe-preview" or "keybind";
+    private bool ExclusivePanel => _panel is "startup" or "confirm" or "choice" or "story" or "quantity" or "stock-batches" or "pickup-plan" or "detail" or "recipe-preview" or "keybind";
     private bool TextEntryFocused() => GetViewport().GuiGetFocusOwner() is LineEdit or TextEdit;
 
     public override void _Input(InputEvent input)
@@ -74,7 +74,8 @@ public partial class ChapterGame
             var item = Session.State.Stock.FirstOrDefault(i => i.Id == _selectedStock);
             if (item != null && !FeedbackBusy)
             {
-                RequestStockMove(item.Id, item.Container, ChosenQuantity(item));
+                if (item.Container is "carry" or "warehouse" || item.Container.StartsWith("ground:"))
+                    RequestBundleMove(item, StockBundle(item).Length == 1 ? ChosenQuantity(item) : StockBundle(item).Sum(i => i.Quantity));
             }
             GetViewport().SetInputAsHandled(); return;
         }
@@ -215,22 +216,45 @@ public partial class ChapterGame
         var resonance = _choice.StartsWith('R');
         box.AddChild(Text(resonance ? UiCopy.Text("UI_9778AA715537") : UiCopy.Text("UI_4613C1254439"), 20, Accent));
         box.AddChild(Text(resonance ? UiCopy.Text("UI_38EDE15DFD34") : UiCopy.Text("UI_EC0409E1D56D"), 16, Muted));
-        var page = Scroll(box); var choices = new GridContainer { Columns=Size.X>=1400? (resonance?2:3):1,SizeFlagsHorizontal=SizeFlags.ExpandFill }; choices.AddThemeConstantOverride("h_separation",12);choices.AddThemeConstantOverride("v_separation",12);page.AddChild(choices);
+        var page = Scroll(box); var choices = new GridContainer { Columns=ReadingScale > 1.25f ? 1 : (resonance ? 2 : 3),SizeFlagsHorizontal=SizeFlags.ExpandFill }; choices.AddThemeConstantOverride("h_separation",12);choices.AddThemeConstantOverride("v_separation",12);page.AddChild(choices);
         foreach (var a in Session.Actions().Where(a => resonance ? a.Id is "R01" or "R07" : a.Id is "train-wire" or "train-supply" or "train-parcel"))
         {
             var item = CardBox(choices); var action = a;
             item.GetParent<Control>().SizeFlagsHorizontal=SizeFlags.ExpandFill;
+            var optionPanel = item.GetParent<PanelContainer>();
+            var optionStyle = Style(_choice == a.Id ? new Color("e0e6d8") : Surface, _choice == a.Id ? Accent : Outline, 14);
+            optionStyle.BorderWidthTop = _choice == a.Id ? 5 : 1; optionPanel.AddThemeStyleboxOverride("panel", optionStyle);
+            optionPanel.MouseFilter = MouseFilterEnum.Stop;
+            optionPanel.GuiInput += e => { if (e is InputEventMouseButton { ButtonIndex: MouseButton.Left, Pressed: true }) { optionPanel.AcceptEvent(); _choice = action.Id; Render(); } };
             item.AddChild(Button("choose_" + a.Id, (_choice == a.Id ? "◆ " : "○ ") + a.Name, () => { _choice = action.Id; Render(); }));
-            item.AddChild(Text(a.Description, 16, Ink));
+            var artKind = a.Id switch { "train-wire" => "wire", "train-parcel" => "T14", _ => "G09" };
+            Control illustration;
+            if (a.Id == "train-supply") { illustration = Glyph("supply", Accent, 96); item.AddChild(illustration); }
+            else illustration = Illustration(item, artKind, 96, 114, false);
+            illustration.SizeFlagsHorizontal = SizeFlags.ShrinkCenter;
             var kind = a.Id switch { "train-wire" => "M02", "train-supply" => "U01", "train-parcel" => "T14", _ => "" };
             if (kind != "")
-            { var def = ChapterContent.Items[kind]; var count=kind=="M02"?2:1; var slots=ChapterSession.Slots([new ChapterItem { Id=1,Kind=kind,Quantity=count,Container="carry" }]); item.AddChild(Text(UiCopy.Format("UI_528DA07F2DB3", count, slots, def.Grams * count / 1000m) + (kind == "T14" ? UiCopy.Text("UI_5C5A2EBB7A5F") : kind == "U01" ? UiCopy.Text("UI_F8FA7DA2623D") : UiCopy.Text("UI_B4F35D0C07E8"))+UiCopy.Format("UI_364C31ECC456", Session.SceneActionCost()), 16, Muted)); }
-            else item.AddChild(Text(a.Id=="R01" ? UiCopy.Text("UI_FC2B052A8A98") : UiCopy.Format("UI_4145D1DEF59B", Session.Deck().Count(id => ChapterContent.Cards[id].Shield >= 7)),16,Ink));
+            {
+                var def = ChapterContent.Items[kind]; var count = kind == "M02" ? 2 : 1;
+                var slots = ChapterSession.Slots([new ChapterItem { Id = 1, Kind = kind, Quantity = count, Container = "carry" }]);
+                item.AddChild(Text(kind == "T14" ? "居民委托" : kind == "U01" ? "恢复生命" : "制作材料", 20, Ink));
+                item.AddChild(Text(kind == "T14" ? UiCopy.Text("UI_5C5A2EBB7A5F") : kind == "U01" ? UiCopy.Text("UI_F8FA7DA2623D") : UiCopy.Text("UI_B4F35D0C07E8"), 16, Ink));
+                item.AddChild(Text(UiCopy.Format("UI_528DA07F2DB3", count, slots, def.Grams * count / 1000m).TrimEnd(), 16, Muted));
+                Rule(item);
+                item.AddChild(Text(kind == "T14" ? "替代本次物资奖励。" : kind == "U01" ? "使用或安全带回后不再补发。" : "与补给互斥，安全带回后不再补发。", 16, Muted));
+            }
+            else
+            {
+                item.AddChild(Text(a.Description, 16, Ink));
+                item.AddChild(Text(a.Id == "R01" ? UiCopy.Text("UI_FC2B052A8A98") : UiCopy.Format("UI_4145D1DEF59B", Session.Deck().Count(id => ChapterContent.Cards[id].Shield >= 7)), 16, Ink));
+            }
         }
+        if (!resonance) box.AddChild(Text(UiCopy.Format("UI_364C31ECC456", Session.SceneActionCost()).Trim(), 16, Muted));
         if (Session.State.Warned) box.AddChild(Text(UiCopy.Text("UI_93D7C1A82A6F"), 16, Danger));
         var row = Row(12); box.AddChild(row); row.AddChild(Button("choice_cancel", UiCopy.Text("UI_410641B40D8B"), ClosePanel));
         var selectedName = Session.Actions().FirstOrDefault(a => a.Id == _choice)?.Name ?? "此选项";
-        row.AddChild(Button("choice_confirm", UiCopy.Text("UI_60AE1D960968") + selectedName + UiCopy.Text("UI_E042C199C39B") + Session.SceneActionCost() + UiCopy.Text("UI_E010E3F578CC"), () => { var id = _choice; ClosePanel(); Change(() => Session.Act(id)); }, primary: true));
+        var choiceResult = Session.Preview(s => s.Act(_choice));
+        row.AddChild(Button("choice_confirm", "确认 · " + selectedName + (choiceResult?.State.Phase == ChapterPhase.Battle ? " · 将被巡逻拦截" : $" · 区域压力 +{(choiceResult?.State.Pressure ?? Session.State.Pressure) - Session.State.Pressure}"), () => { var id = _choice; ClosePanel(); Change(() => Session.Act(id)); }, choiceResult != null, true));
     }
 
     private void SystemMenu(VBoxContainer box)
@@ -245,7 +269,7 @@ public partial class ChapterGame
         page.AddChild(Text(UiCopy.Text("UI_3432881850AC"), 20, Ink));
         Tabs(page, "font_", [("100", "标准 16"), ("125", "较大 20"), ("150", "大字 24")], ((int)(ReadingScale * 100)).ToString(), value => { ReadingScale = int.Parse(value) / 100f; SavePreferences(); });
         page.AddChild(Text(UiCopy.Text("UI_F974A43C9B9F"), 16, Muted));
-        page.AddChild(Button("setting_density", UiCopy.Text("UI_388B413287A2") + (CompactDensity ? UiCopy.Text("UI_5D63D587B0B0") : UiCopy.Text("UI_521479CD0B2A")) + UiCopy.Text("UI_6580720DA7FE"), () => { CompactDensity = !CompactDensity; SavePreferences(); Render(); }));
+        page.AddChild(Button("setting_density", "默认信息密度 · " + (_defaultCompact ? "紧凑" : "舒展") + "（各页面可单独记忆）", () => { _defaultCompact = !_defaultCompact; SavePreferences(); Render(); }));
         page.AddChild(Button("setting_ui_scale", UiCopy.Format("UI_F786EAD0E26A", _uiScale), () => { _uiScale = _uiScale < 1.05f ? 1.1f : _uiScale < 1.2f ? 1.25f : 1; ApplyUiScale(); SavePreferences(); Render(); }));
         page.AddChild(Button("setting_nav_labels", UiCopy.Text("UI_A680E23089A5") + (_navigationLabels ? UiCopy.Text("UI_4E1449E7D5E5") : UiCopy.Text("UI_0D720EEEA264")), () => { _navigationLabels = !_navigationLabels; SavePreferences(); Render(); }));
         page.AddChild(Text(UiCopy.Format("UI_F2270527FC21", GetWindow().CurrentScreen + 1, CurrentUiDpi(), Input.GetConnectedJoypads().Count), 14, Muted));
@@ -272,9 +296,13 @@ public partial class ChapterGame
         var file = new ConfigFile(); if (file.Load("user://ui-settings.cfg") != Error.Ok) return;
         var scale = (float)file.GetValue("ui", "reading", 1f); ReadingScale = scale is 1f or 1.25f or 1.5f ? scale : 1f;
         _reducedMotion = (bool)file.GetValue("ui", "reduced", false); _sound = (bool)file.GetValue("ui", "sound", true);
-        _labels = (bool)file.GetValue("ui", "labels", false); _turnReminder = (bool)file.GetValue("ui", "reminder", true);
+        _labels = (bool)file.GetValue("ui", "labels", true); _turnReminder = (bool)file.GetValue("ui", "reminder", true);
         _battleGuide = (bool)file.GetValue("ui", "guide", true);
-        CompactDensity = (bool)file.GetValue("ui", "compact", false);
+        _defaultCompact = CompactDensity = (bool)file.GetValue("ui", "compact", false);
+        if (file.HasSection("density")) foreach (var key in file.GetSectionKeys("density")) _pageDensity[key] = (bool)file.GetValue("density", key, false);
+        _expandedTools.UnionWith(file.GetValue("ui", "expanded_tools", "").AsString().Split(';', StringSplitOptions.RemoveEmptyEntries));
+        _stockList = (bool)file.GetValue("ui", "stock_list_v2", false);
+        _stockPaired = (bool)file.GetValue("ui", "stock_paired_v2", false);
         ReadKeyBindings(file);
         _turnReminderMode = file.GetValue("ui", "turn_reminder_mode", _turnReminder ? "playable" : "never").AsString();
         if (_turnReminderMode is not ("always" or "playable" or "never")) _turnReminderMode = "playable";
@@ -298,7 +326,10 @@ public partial class ChapterGame
         var file = new ConfigFile(); file.SetValue("ui", "reading", ReadingScale); file.SetValue("ui", "reduced", _reducedMotion);
         file.SetValue("ui", "sound", _sound); file.SetValue("ui", "labels", _labels); file.SetValue("ui", "reminder", _turnReminder); file.SetValue("ui", "guide", _battleGuide);
         file.SetValue("ui", "turn_reminder_mode", _turnReminderMode); file.SetValue("ui", "feedback_ms", _feedbackStepMs);
-        file.SetValue("ui", "compact", CompactDensity);
+        file.SetValue("ui", "compact", _defaultCompact);
+        foreach (var pair in _pageDensity) file.SetValue("density", pair.Key, pair.Value);
+        file.SetValue("ui", "expanded_tools", string.Join(";", _expandedTools));
+        file.SetValue("ui", "stock_list_v2", _stockList); file.SetValue("ui", "stock_paired_v2", _stockPaired);
         file.SetValue("convenience", "quick_move", _quickMove); file.SetValue("convenience", "drag", _dragItems);
         file.SetValue("convenience", "drag_cards", _dragCards);
         file.SetValue("convenience", "hover", _hoverTips); file.SetValue("convenience", "pin", _pinEntry); file.SetValue("convenience", "delay_ms", _hoverDelayMs);
@@ -385,13 +416,21 @@ public partial class ChapterGame
         if (key == null) return;
         _story = key; _panelHistory.Push(new(_panel, GetViewport().GuiGetFocusOwner()?.Name.ToString(), [], _gearFilter)); _panel = "story"; Cue("reward");
     }
+
     private void Story(VBoxContainer box)
     {
-        var story = Stories[_story]; var page = Scroll(box);
-        var identity = Row(12); page.AddChild(identity); Illustration(identity,DiscoveryArt(_story),76,80,false);
-        var caption=FlexibleColumn(identity); caption.AddChild(Text(story.Person, 16, Accent)); caption.AddChild(Text(story.Title, 28, Ink));
+        var story = Stories[_story];
+        var split = Row(24); split.SizeFlagsVertical = SizeFlags.ExpandFill; box.AddChild(split);
+        var portrait = Illustration(split, DiscoveryArt(_story), Size.X < 1100 ? 120 : 180, 240, false);
+        var copy = FlexibleColumn(split); var page = Scroll(copy);
+        page.AddChild(Text(story.Person, 16, Accent));
+        page.AddChild(Text(story.Title, 28, Ink));
         page.AddChild(Text(story.Copy, 18, Ink));
-        box.AddChild(Button("story_continue", UiCopy.Text("UI_6A9D3749323A"), ClosePanel, primary: true));
-        if (_batchQuestRunning && _batchQuestRemaining.Count > 0) box.AddChild(Button("story_stop_batch", UiCopy.Text("UI_7D57764EAFAD"), () => { _batchQuestRunning = false; ClosePanel(); }));
+        var actions = Row(12); box.AddChild(actions);
+        if (_batchQuestRunning && _batchQuestRemaining.Count > 0) actions.AddChild(QuietButton("story_stop_batch", "稍后处理其余委托", () => { _batchQuestRunning = false; ClosePanel(); }));
+        actions.AddChild(new Control { SizeFlagsHorizontal = SizeFlags.ExpandFill });
+        actions.AddChild(Button("story_continue", "继续 →", ClosePanel, primary: true));
     }
+
+
 }

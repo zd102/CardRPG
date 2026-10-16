@@ -36,7 +36,7 @@ public partial class ChapterGame
         {
             BgColor = background, BorderColor = border,
             BorderWidthLeft = 1, BorderWidthRight = 1, BorderWidthTop = 1, BorderWidthBottom = 1,
-            CornerRadiusTopLeft = 0, CornerRadiusTopRight = 0, CornerRadiusBottomLeft = 0, CornerRadiusBottomRight = 0,
+            CornerRadiusTopLeft = 4, CornerRadiusTopRight = 4, CornerRadiusBottomLeft = 4, CornerRadiusBottomRight = 4,
             ContentMarginLeft = padding, ContentMarginRight = padding, ContentMarginTop = CompactDensity ? 6 : 10, ContentMarginBottom = CompactDensity ? 6 : 10
         };
     }
@@ -49,13 +49,13 @@ public partial class ChapterGame
     private static PanelContainer FlatPanel(Node parent, int padding = 12)
     {
         var panel = new PanelContainer();
-        panel.AddThemeStyleboxOverride("panel", Style(new Color("eee9db"), Outline, padding));
+        panel.AddThemeStyleboxOverride("panel", Style(new Color("f3eddf"), new Color("c5c9b9"), padding));
         parent.AddChild(panel); return panel;
     }
     private Button NavigationButton(string id, string caption, bool selected, Action action)
     {
         var button = Button(id, caption, action);
-        button.CustomMinimumSize = new Vector2(0, 40);
+        button.CustomMinimumSize = new Vector2(0, CompactDensity ? 32 : 40);
         var normal = Style(selected ? new Color("dce2d3") : Colors.Transparent, selected ? Ink : Colors.Transparent, 12);
         normal.BorderWidthLeft = normal.BorderWidthRight = normal.BorderWidthTop = 0;
         normal.BorderWidthBottom = selected ? 3 : 0;
@@ -76,7 +76,7 @@ public partial class ChapterGame
     private static VBoxContainer Section(Node parent, float ratio = 1)
     {
         var panel = new PanelContainer(); parent.AddChild(panel);
-        panel.AddThemeStyleboxOverride("panel", Style(new Color("e7e3d5"), new Color("c1c5b6"), 12));
+        panel.AddThemeStyleboxOverride("panel", Style(new Color("faf7ef"), Colors.Transparent, CompactDensity ? 12 : 18));
         panel.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         panel.SizeFlagsVertical = SizeFlags.ExpandFill;
         panel.SizeFlagsStretchRatio = ratio;
@@ -123,7 +123,7 @@ public partial class ChapterGame
     {
         var button = new ChapterButton
         {
-            Name = id, Text = UiCopy.Present(label), Disabled = !enabled, CustomMinimumSize = new Vector2(0, 46),
+            Name = id, Text = UiCopy.Present(label), Disabled = !enabled, CustomMinimumSize = new Vector2(0, CompactDensity ? 36 : 44),
             FocusMode = FocusModeEnum.All, MouseDefaultCursorShape = CursorShape.PointingHand,
             TextureFilter = TextureFilterEnum.Linear
         };
@@ -134,8 +134,8 @@ public partial class ChapterGame
         button.AddThemeColorOverride("font_pressed_color", Ink);
         button.AddThemeColorOverride("font_disabled_color", primary ? new Color("e7dcc2") : new Color("56665b"));
         button.AddThemeStyleboxOverride("normal", Style(primary ? Accent : new Color("e9e5d8"), primary ? Accent : ControlEdge, 12));
-        button.AddThemeStyleboxOverride("hover", Style(primary ? new Color("aa4935") : new Color("f3f0e5"), Ink, 12));
-        button.AddThemeStyleboxOverride("pressed", Style(primary ? new Color("743222") : new Color("d8dfc7"), Ink, 12));
+        button.AddThemeStyleboxOverride("hover", Style(primary ? new Color("426d58") : new Color("fffaf0"), Ink, 12));
+        button.AddThemeStyleboxOverride("pressed", Style(primary ? new Color("203f33") : new Color("d8dfc7"), Ink, 12));
         button.AddThemeStyleboxOverride("disabled", Style(new Color("d8d4c4"), new Color("a1a28f"), 12));
         button.AddThemeColorOverride("font_disabled_color", Muted);
         button.AddThemeColorOverride("font_pressed_color", primary ? new Color("f1e7ce") : Ink);

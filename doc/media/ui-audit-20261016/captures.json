@@ -1,0 +1,1325 @@
+[
+  {
+    "file": "01-camp.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1666973,
+    "sha256": "68e191cd55d064b8371597bcf8d98cafa02cef8499019a00d82bc5b319686289",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "01-help.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 307754,
+    "sha256": "6bdb314e13037ed794524a116b0b1dcb9a510d1dfe5da2d7edee22fb9cc79776",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "01-preparation.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 216611,
+    "sha256": "91e0bd9cc4528affd9be622495f5db679de9c7a25e718f6c3048a7203acd1ec4",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "02-gate.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1650135,
+    "sha256": "d7e8ba91e59fd67a0ddcb0ed7b1432688b17853275d61baa768e8bc4c8b2d126",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "02-map.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 503983,
+    "sha256": "1f9fadb31a32a86133a2cd4752fa27321ddef1959754e683c9c47275cfc3e245",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "03-scrap-rescued.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1255876,
+    "sha256": "d85df622405aca2cf36483d8f4c9cb919f32dea985f88f3599d3bf7e6b137d20",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "03-scrap.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1588407,
+    "sha256": "93e6aebfd9fac4635a8a3b514488f7d9f792be87f07e59a447e18b0b8ef82f6f",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "04-battle.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 902738,
+    "sha256": "d1fc2ad0f61d6df6d2f4358e092ed557e7c2aac08e901087cb0e1d42adcbeece",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "04-card-inspection.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 905814,
+    "sha256": "110646d8e43fa565752e997412730f74881e015d95e690a81f037a2ca622c6f4",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "04-workshop-dark.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1444979,
+    "sha256": "829dae7e6cfe4146344be71a0827b732dd7dd255499fd0dfc0440765f7c7b00f",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "04-workshop.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1534747,
+    "sha256": "fe836b662ec71c024ecfe123562469c5cc9d7602ff672660ffa84a43a280780e",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "05-hidden-room.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1378709,
+    "sha256": "1008409aba6fdfb0aa7000335b8de4feef13d0ebb0a7fffb7e3f47930966c320",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "05-square.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1523803,
+    "sha256": "87895e592d67c711fc019c6ed4d441c52778b173b17a6ff355df5cb157e37bbe",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "06-extraction.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 491228,
+    "sha256": "a809040529f5c6cf1ff7d9e8de52260d8ba8124f834c342dfcfe9469eacfc867",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "07-lit-home.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1395317,
+    "sha256": "5094c9c236c054cd41d28f326a9eedbb8df7a1966ff79f6c8c0780ceb73d99af",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "07-station-powered.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1298531,
+    "sha256": "bf8c0c1d5d9ef9ab8164ea20db377adc6d1c610a81c44b01f24d2ab79f292b20",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "07-station.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1626878,
+    "sha256": "1a201b108a0567d271310f3e86f670264e4dcd3ac5c5c6514d9885ef20817b48",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "08-trial.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 861439,
+    "sha256": "163139c162ed3c39129bdf9b058f5ee24ed22275f824a6865f66fe453e948fc2",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "09-crafting.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 188939,
+    "sha256": "5a36220a2090f6e788ff9fb18242f341fa2741c5b5a569c4aef5b41807a73dad",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "10-equipment.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 213597,
+    "sha256": "aca73ff79b7aca1f3e02bb994ce636cf9a87f767fd9bdb961d04f20ef6ce982b",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "11-lived-in-home.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1401865,
+    "sha256": "1be0d1e6329dcf9a9bcf1f68fe83ffee5bd25f4fb4d8b757f00a31a155c1d1a5",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "11-train-choices.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1590600,
+    "sha256": "7cc0f04423edfa1f3f8ff03c6234febedf74eb1ea54d841943cc59e5c70c32c8",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "11-train.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1591191,
+    "sha256": "f08f55b4aabed6009e68b21e943ffe21ced286888d5d5ede07c9bb998dfefcd0",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-camp.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 1153264,
+    "sha256": "13468f182248cb9f40cf10fe982b22dbfc59bc53ef88e1d73e48cc49999431c1",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-cargo.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 178477,
+    "sha256": "2f046de1374b68571cab4ef1ae0558c2a7e15907c9624cda1e33818cfcd14138",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-character.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 206338,
+    "sha256": "31e105cf4b813dde8c0a5cd6c7f117529db7d5aa4770e5f19cf0df07286c6712",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1100-crafting.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 186979,
+    "sha256": "361c1e03f063dabdb6f342b88b1b92acbb2786d837f0e52b797f52a228f4ea6c",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1100-equipment-detail.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 166156,
+    "sha256": "99a1ee5c633c8f2c79710c89a837ec0f8ef6d6d15e3c54814d3013af91c1ec77",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-exploration.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 1242342,
+    "sha256": "d62b82fe661ed0fbb019e623a0e7a79460a9835299dfee8313d6608408e63017",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-extra-cards.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 617610,
+    "sha256": "2e34c4df29f5180f3b46f2b5e1e9942e2ed06ec5520f9d1cb8d70380a5b10477",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1100-journal.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 142420,
+    "sha256": "0f3b955a69d21769fe1d688123b29d2bed87f3e3f314e38cf214e990b5e35c39",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1100-map.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 456507,
+    "sha256": "edd09f682685f7914fb8ca8405b109ecb654ec01dd35451f3d1faa22e6f1b03d",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-mods.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 182307,
+    "sha256": "392c41b6dca3a5d9007188f47e5da9653953c552b5093935743dd7bec190d178",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-patrol-warning.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 1258497,
+    "sha256": "bc1e89fa7f8d13f4cdf0b81f81c7a8d6f464ec27f543a53610100ef8026420aa",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-preparation.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 194694,
+    "sha256": "f6c083119589fd77df305a752982bb962e8319ffd3afac6007b6a41e4164fbdd",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-route-map.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 460492,
+    "sha256": "6632e1341c4bac63000870030ca59ae8e52d89c53f5686455ffd5663c8cf14c3",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1100-three-enemies.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 621323,
+    "sha256": "9a4d81fad4cdab0fe03b05717cd5f3d37e94866676cbd209b9b5182f1145584a",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "12-journal.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 149594,
+    "sha256": "e9fce9a354a633994d574b56e2eb708184f6c678a17193f45e9293eb01af00da",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1280-cargo.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 195499,
+    "sha256": "dee37c8ef074d577eec073a5e005155907eb6efeb89d8c2c2166a73505c57aae",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1280-character.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 214793,
+    "sha256": "ca48df8da6c01b35e8ebcaa18aac4a67846d7cd01a176ba1d2448e22e8776f02",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1280-crafting.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 193353,
+    "sha256": "2b2a49156bc60c6b881dfb251f9865d4b312e6c2c0613ae686b173122abc55fe",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1280-equipment-detail.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 194381,
+    "sha256": "3e28215b7760208475893d02087d855b38d26c42dcfe8686bd07a9f2348209d1",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1280-journal.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 146200,
+    "sha256": "55b1f5dbacaeb1910b5b96209ff5fbe0855bd7d34ca40e82bb1c846d728a2d9f",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1280-mods.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 190622,
+    "sha256": "8f950fceded035aa4705279cc3e620783dc946f0a704ef7b55232697ddf6a8a3",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1280-patrol-warning.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1543684,
+    "sha256": "977b3839db38ee2b02e3c13009ff3b95f91e5add4cde427c656be34df52b6ed3",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1280-preparation.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 199123,
+    "sha256": "00199470cf14dedb14b7393d30cb98d39f38f402fd48ebd69f7f38723d90e380",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1280-route-map.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 512401,
+    "sha256": "155ded4622cedf31d5893325abef58a151883a86ecea798c9b353e27df06fdc1",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1280-three-enemies.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 812624,
+    "sha256": "55161c68aea5bcd10d151534d855ca9630214f69aa799ff272a7e99e13879031",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "13-patrol.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 850901,
+    "sha256": "8da273fbc1edb138a6c0c33b76b0bfd5af5a3e67d79549360a633b92bdf02e3a",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "14-defeated.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 504053,
+    "sha256": "d95d6414a7cb663cce3166c2b81b84178ba1dae7e67aa42423540c4df7682fe2",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "15-unavailable-card.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 673340,
+    "sha256": "83d2515f0d9029cf21a9b8faa7c0e1ae62706bdcf05e13788ac977e5bd3ad47a",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-camp.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 2125908,
+    "sha256": "bf16d6642c02bdf6cae9236519ca64492ad929f690e769cd270dbd1c990a1ab4",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-cargo.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 228247,
+    "sha256": "255200a1566b093d2acfe92907b2e26e65c64d13ab2646649e875e4fd3721566",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1600-character.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 248495,
+    "sha256": "5c5a1b51b65308a9f06e7264acdb94079d96b6450008d48fa6ad70b2ccccef70",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1600-crafting.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 213907,
+    "sha256": "0d8eeb22d8f45fc299661d9a31d0e5a3dc10293cd82b11171785bd504c98a051",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-equipment-detail.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 243294,
+    "sha256": "9fb1347ac3316efdd09d0304b5038b12380ea0a4cf1bd608db90192a029d5c29",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-exploration.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 2065190,
+    "sha256": "8803b2565a39765b062f89227a99aad4fa7b81ad2d365d275ab3c8f11f1be82d",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-extra-cards.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 1201714,
+    "sha256": "5c6291f609d4a94a38bd52ecee9563abd933f93dd488c287921104aa41c609e5",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-journal.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 157110,
+    "sha256": "a2fc31b68254f974251b71d81f741cde6f1ed0f5e83fb36db590e0ab168b42ea",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-map.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 639204,
+    "sha256": "ad3605392b7a1f5d30f8576dfe76f4b98712a0e4ae956089c9cab520c256107b",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-mods.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 208004,
+    "sha256": "18a4d1755c4c343d7db6af7d871c484353131d2d533dd25736ccb078cbe73011",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-patrol-warning.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 2092968,
+    "sha256": "03ec0f1457199eb1ea26c40ac813162cf542dee2b47a56b1e35141809e8c80b7",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-preparation.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 211632,
+    "sha256": "a6a5ee3ce75e60469a41998f22e028c35e482453be423659cb692045bb1f9242",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "1600-route-map.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 640612,
+    "sha256": "b674ca7199447ec2fa5436c654d7fc4723ceab8eee5f2c305bc981370a7bdd9a",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "1600-three-enemies.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 1211609,
+    "sha256": "e321ade706f55decdab268511d1bdd2fa279b6e47f657ebd6a4647006f1a4ba0",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "chapter-cover.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 2125908,
+    "sha256": "bf16d6642c02bdf6cae9236519ca64492ad929f690e769cd270dbd1c990a1ab4",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "character-battle.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 218198,
+    "sha256": "7fd6b6cf1ecd49cbf1e98b82df7e477b89789a40bbded8c4c6083dc3e7243f4b",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "completion-720.png",
+    "width": 1280,
+    "height": 720,
+    "bytes": 220544,
+    "sha256": "bd524543d31d41378b41412b3cd3b94515702a0768804b02898163b767743207",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "completion-batch-complete.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 109682,
+    "sha256": "ed9948a791ae789a578fbd9759605802f0fa8ad5e5b3bb5175560312b442e954",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "completion-batch-story.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1289258,
+    "sha256": "59e3edb32d00ac8d8608996d3a286171b1ddcdabc45ac1b6b29b847695e8118c",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "completion-battle-drag.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 854164,
+    "sha256": "8d7d3dde2bb52e031b48317b70a9594c8d68e54418f9c1f363713a6f733ef02d",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "completion-expanded-copy.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 196334,
+    "sha256": "50ccf4d8357073d3a5733a8eebc9d644dca0efd282a52fca3554c3966fa90ebe",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "completion-expanded-detail.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 352902,
+    "sha256": "251346f14626fcdfd40e12e91105b9712639c869c42d4b0c9c99fc9e6146cfe7",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "completion-inventory.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 220750,
+    "sha256": "72fcefe7a1d76f6e6c10b4d944a67d2f599347789d2e18bc180b8279df134d2d",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "completion-pickup-plan.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 139716,
+    "sha256": "8d123b9ebf9075ae1a3b0970b63c3cd4063836e93faa4eed54aa5fa9e8f513ad",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "completion-pinned-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 560154,
+    "sha256": "fc87a54d12e8415d5f1503ecc9f80300796b73f7af4e9dd7bffae2fc88faa80f",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "completion-six-cards.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 811937,
+    "sha256": "f7145e38bcd853c1eb02cd19c14cbf88406748d083804b4692378976444b39b9",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "completion-startup.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 418602,
+    "sha256": "bf0452adbcf308220d636dc7d73c848ca08be17f539b5a04fedd46cb94f03dfa",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "contrast-background.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 134430,
+    "sha256": "91a2f7e1eb98c45cc84e9e0bcf36cd34e608d1e388532276bf89c4314d5b2715",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "contrast-with-text.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 220750,
+    "sha256": "72fcefe7a1d76f6e6c10b4d944a67d2f599347789d2e18bc180b8279df134d2d",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "inventory-backpack-crafting.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 171480,
+    "sha256": "008205dfb1f1b5887a71cadcb0b5f9efda8227a25b69f346794f835f4954629c",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "inventory-full-pockets.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 197100,
+    "sha256": "3e7e7dd0c29a68bd41d5ea64aad80b722eacc1ac4c806651fb4d30fe104e71d9",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "inventory-ground-return.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 175191,
+    "sha256": "da1e5c48ae1978d0fac599f6c06596e470c2d51715bb1382a158466fc71a0463",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "inventory-overweight.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 1211494,
+    "sha256": "cf8ddfcc6fa8825537e43245a3009c578ad2e3f86cda0e586ea1881aa49c0a2d",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "inventory-three-backups.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 190375,
+    "sha256": "da622f670604a0bdf593c8960e236177f61586760396610de0e1e632bf139002",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "inventory-warehouse.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 192882,
+    "sha256": "216306103c51165c78f48c569054b0942ee4f1d1c5c24db53ea8e6914ecf92b7",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "management-bag-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 170508,
+    "sha256": "ff455e600ef7bf3552b684ba1027de3e5ec73be7447a75fadd6f737bf2b24bb2",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-context-menu.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 200160,
+    "sha256": "ee4b8f64b6194856ad788e6ecea1fd4369e74f6a0e3cc137e295efed3dc13177",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-deck-sources.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 194835,
+    "sha256": "385c9ac73ad41eb71d97438ea0a5a4ac6fd6bc57c252923aecf60c02d89d4631",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-drag-result.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 196567,
+    "sha256": "74f2710172bf51850a1d6af7453f012e9c828e8d15231a564d92dfaacbe6a2de",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "management-equipment-drop.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 218692,
+    "sha256": "b5504dbc7c57689cf1a965c87f214f8bed716c4b95a2e37509b2069233af160b",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "management-large-type.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 187074,
+    "sha256": "43bb5b1adf7dee53286dcd419fc8732d055d1ce628866ca4b293972c044bff99",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-map-large-type.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 411979,
+    "sha256": "c641b41d9d992c727e185b6c6d01c1e09e35aba5a4d48ea9b43d6a96a0c74e44",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-map-target.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 514688,
+    "sha256": "c0987bde86015b1651aa72b777229dc4054c008814a5dfd8af4d82b3f0f7fba1",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "management-material-plan.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 159520,
+    "sha256": "c164a1664f5168f4fd64f291a59f63e95dada7c62fbaec29f71e73344187e454",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-material-recipe.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 523796,
+    "sha256": "ffaa02eef90d8e382c6081a625109da64159c6b22d20f6de8a746572c8642ef9",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-modifications.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 189109,
+    "sha256": "334a43941d661e4f884d9913c6e8ddb21ab68f4c519fd832397f5cb02b2caca6",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-paired-large-type.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 189697,
+    "sha256": "2d0b63bf6638b7ffa48c6c131da03f8fba43c816cba7d5549213181b568af44d",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "management-paired-table.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 176644,
+    "sha256": "13be73395dfa3613bf667cfd1b0ff64d2bea5a7e51ed73ab50d506ae14ff7a6f",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-prepare-large-type.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 214872,
+    "sha256": "7277a9974677ff7bfd84932d295411209625c1c9d30bc317f47f62e6fa863af6",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-preset-preview.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 612291,
+    "sha256": "bfb0508b23070fac3870816ff48bbeea9d2c5fc90e9e4a0f0ae310d120e769e0",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "management-storage.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 203384,
+    "sha256": "da945787653901dcf6c8bdd5937ff4a2e1ade2135fc7b6e7d8f10d00de24351c",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "management-structured-log.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 149529,
+    "sha256": "6218e3df60f0a3bfa6824c498a3afef457ab6b5e514b183e3b7b31f357e652f7",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "management-supply-quantity.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 152316,
+    "sha256": "9f4e496ca1fbd9acfb2197494a99554ee20fbc91bb1db1718c7ce0ee2b411f6c",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-1100-100-comparison.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 213425,
+    "sha256": "1245abe58b17c52272aff8b86807d047f3b764b74b3493ff0ded265d9399cddd",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-100-prepare.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 193774,
+    "sha256": "4765a268f7bd939aeb645eb3984daf693f43611136d330a92849ec7310cfd03f",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-100-recipe.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 186959,
+    "sha256": "ad335a86558a65e9e7ce597571b602fc4f8936f0c173750a5c714a2bfa359c77",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-100-storage.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 178477,
+    "sha256": "2f046de1374b68571cab4ef1ae0558c2a7e15907c9624cda1e33818cfcd14138",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-125-comparison.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 219262,
+    "sha256": "46f7198b3ef6f328ef280768bee128252d1ba1973e6a1dc99739dc7544ce17c5",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-125-prepare.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 206583,
+    "sha256": "ba8b0b8bc6d107fa18c53e79f93742ee5514200cf9a18cdcb314e96b380bf232",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-125-recipe.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 191012,
+    "sha256": "f729d78518938c2bb242a9a919b5c6cdefaf2c8f42b1e046be85e5328be01942",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-125-storage.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 186522,
+    "sha256": "3344d22ed1f43fbe1dbc34e839297bd26758ea075723d6131fd101617a0e0e1e",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-150-comparison.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 221181,
+    "sha256": "0770326282a4cea64e4ea51fcb2ecd9b95956700b8209f994fdde8180a15519d",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-1100-150-prepare.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 214872,
+    "sha256": "7277a9974677ff7bfd84932d295411209625c1c9d30bc317f47f62e6fa863af6",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-1100-150-recipe.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 197092,
+    "sha256": "e0a704b3b904876a85ce1e5524b25b7f86f18eb44228ca4605bf330b63bb65e8",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1100-150-storage.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 188848,
+    "sha256": "16d0ca0a59c09f12240f026924d1d7bec54428f74d7c8a84a9d2424e5ae3b73c",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-1100-labels.png",
+    "width": 1100,
+    "height": 760,
+    "bytes": 1304218,
+    "sha256": "b75b17b1853fc2e349a4daff6b8b637da90a9687c5d07ad509719d48f2148322",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-1280-100-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 218668,
+    "sha256": "817af857c17c1252e3db8e140d14184b13b23bb442f4b8d93f57abe8af2e4b37",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-100-prepare.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 198299,
+    "sha256": "91604e251ae625c3ef777710d3cb4130ce0206138594b0818c534930ea7c2b1c",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-100-recipe.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 193316,
+    "sha256": "2e55cced6f87f3acaa39d47ecb4eefa9939497feddd1423c07f0029843d22b1e",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-100-storage.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 195499,
+    "sha256": "dee37c8ef074d577eec073a5e005155907eb6efeb89d8c2c2166a73505c57aae",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-125-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 232979,
+    "sha256": "a8e2e811896c184b02ecc1f9a0feb02d562a9bd43e1116f669db9b4217b88293",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-125-prepare.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 211371,
+    "sha256": "bbe1113dd6da418c40eacaee6da3221196b45969bd381e8272e324532fc6704b",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-125-recipe.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 203118,
+    "sha256": "c1662a7a487c1648994579c1c24160bc421e51f1593c731ea4fbdb14464ff0fd",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-125-storage.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 192193,
+    "sha256": "391340ad135d5e68a59e091a6db586bdbfe0eebf75a55b1607c4f70f1a1e3015",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-150-comparison.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 238543,
+    "sha256": "1290c4b87f68b33caad90c27e8831f016820c717e6cd505bb6e5cd5fc62973e0",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-150-prepare.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 223870,
+    "sha256": "22da4430395ed12fb915cd668dcba9a7863ff5f078978eab47e0b31bc3fc2e81",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-150-recipe.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 206077,
+    "sha256": "2fafdb500196f0e9ca629be7cd5d2a38590cb8dec2b1afcaf544085158bde3cc",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-150-storage.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 197150,
+    "sha256": "1fe98e2ee33219465c62af4c8ad53f806ba9924bae033f7f48563d2e5d9326ef",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1280-labels.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 1610413,
+    "sha256": "d243655cdc206c268078945d048278d74d21fbf9469b7b3558fe7fae64aa8020",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-100-comparison.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 243357,
+    "sha256": "a491b9a303a9f3d4b648a5d013c9dfa0714f16cf07a6d5972a873ffca4382a50",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-100-prepare.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 210641,
+    "sha256": "7ca127dd88fdb954ecd9142fa7f4e4edd21b016bdf413770098c4f77bb5c1797",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-100-recipe.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 213880,
+    "sha256": "734723062c21c40e469cf9e18a3194aa0ac20be0a2592fb3591f28690440ce2f",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-100-storage.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 228247,
+    "sha256": "255200a1566b093d2acfe92907b2e26e65c64d13ab2646649e875e4fd3721566",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-125-comparison.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 253542,
+    "sha256": "0fe6b649436efd76e83f25377b5733f5e77faabe4393d8324919dff64a1dee17",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-125-prepare.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 223376,
+    "sha256": "0bfa6f7f2fde91a390b01541e8650b42f94acb1ccdd98381e00aa507f7e91b87",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-125-recipe.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 225281,
+    "sha256": "5f3af0374812ddcb318d4476769343d2d4cf47147dc3548a27a0d1aa2dfde6d2",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-125-storage.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 228164,
+    "sha256": "ca0001deab31995bbad65a09e299b200b22188fdf29284775d2647f6b9de949c",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-150-comparison.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 264875,
+    "sha256": "ea181b3e22489b9af0c55a5be950e0381ee5a85247ed2bfbacd2671b9a30e308",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-150-prepare.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 236457,
+    "sha256": "4a432b1d73fb3feb5faab0232d42bf1f6bc19f9e2f3e72b3aefbc0712a2479e0",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-150-recipe.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 229897,
+    "sha256": "90c7eeca6f634cc7429f3fde6ab03bc4b9bb2c51f7a2f17f6aede3093b4b84d6",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-150-storage.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 219323,
+    "sha256": "b6e0e2cce6a68bd8ff94ad47d9688ec88ec8e241409611e1ea192913951aff71",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-1600-labels.png",
+    "width": 1600,
+    "height": 900,
+    "bytes": 2185845,
+    "sha256": "46ccdb1596578800377e45d90b8b6a33753d4bd28f8d836cb4e60ce666f86895",
+    "visually_reviewed": false,
+    "retained": false
+  },
+  {
+    "file": "rework-card-preview.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 883537,
+    "sha256": "097263fc09d8b2c18047cb55206f6d61283c66ab584eb47d5b91fdf21604c949",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-lethal-retreat.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 813313,
+    "sha256": "64894d580a070af4a9fe48e2ee122e4f35a81289c62e893f3c27c37801d7dce3",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-save-failure.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 222220,
+    "sha256": "efc821c78408d837451d09365ad295c29a30c9f3cca1eae986a3e2be16aad47f",
+    "visually_reviewed": true,
+    "retained": true
+  },
+  {
+    "file": "rework-train-choice.png",
+    "width": 1280,
+    "height": 800,
+    "bytes": 533015,
+    "sha256": "e8e2c512d5c8405e36af57eb4074feadd0aa55a7066b0b9267a715897dfddae0",
+    "visually_reviewed": true,
+    "retained": true
+  }
+]

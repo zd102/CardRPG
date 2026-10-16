@@ -12,10 +12,12 @@ public partial class ChapterGame
     private string _pairedIdentity = "", _pairedSource = "";
     private static string StockIdentity(ChapterItem item) => $"{item.Kind}_{item.FreeSupply}_{item.Calibrated}_{item.Registered}";
 
+    private static string CapacityText(int used, int capacity) => $"已用 {used}/{capacity} 格 · " + (used > capacity ? $"超出 {used - capacity} 格" : $"空余 {capacity - used} 格");
+
     private void CapacityMeter(Node parent, string id, string title, int current, int predicted, int capacity)
     {
-        parent.AddChild(Text(UiCopy.Format("UI_2AB391448B7D", title, current, predicted, capacity) + (predicted > capacity ? UiCopy.Format("UI_626EE0D8E0E9", predicted - capacity) : UiCopy.Format("UI_A3C3F394DC76", capacity - predicted)), 14, predicted > capacity ? Danger : Ink));
-        AddLoadMeter(parent, id, current, predicted, capacity);
+        parent.AddChild(Text(title + " · " + CapacityText(current, capacity), 16, current > capacity ? Danger : Ink));
+        AddLoadMeter(parent, id, current, current, capacity);
     }
     private void AddLoadMeter(Node parent, string id, int current, int predicted, int limit)
     {
@@ -31,11 +33,12 @@ public partial class ChapterGame
     private void PairedStockTable(Node parent, ChapterItem[] local)
     {
         var container = Section(parent); container.Name = "PairedStockWorkspace";
-        container.AddChild(Text(UiCopy.Text("UI_DE49E69A94E9"), 16, Ink));
+        var header = new GridContainer { Name = "PairedStockHeader", Columns = 3, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        header.AddThemeConstantOverride("h_separation", 10); container.AddChild(header);
+        foreach (var title in new[] { "物品 / 批次", "随身", "仓库" }) header.AddChild(Text(title, 16, Ink));
         var page = Scroll(container, "paired_stock");
         var table = new GridContainer { Columns = 3, SizeFlagsHorizontal = SizeFlags.ExpandFill };
         table.AddThemeConstantOverride("h_separation", 10); table.AddThemeConstantOverride("v_separation", 6); page.AddChild(table);
-        table.AddChild(Text(UiCopy.Text("UI_359B34B424EA"), 16, Ink)); table.AddChild(Text(UiCopy.Text("UI_B4666BF14344"), 16, Ink)); table.AddChild(Text(UiCopy.Text("UI_89B2ECBE1F09"), 16, Ink));
         foreach (var group in local.Where(StockMatches).GroupBy(StockIdentity).OrderBy(g => _stockSort == "weight" ? -g.Sum(i => ChapterContent.Items[i.Kind].Grams * i.Quantity) : _stockSort == "quantity" ? -g.Sum(i => i.Quantity) : 0).ThenBy(g => _stockSort == "name" ? ChapterContent.ItemName(g.First().Kind) : g.Key, StringComparer.CurrentCulture))
         {
             var item = group.First(); var key = group.Key;
@@ -51,7 +54,7 @@ public partial class ChapterGame
             var batchesInSource = group.Where(i => i.Container == _pairedSource).OrderBy(i => i.Id).ToArray();
             foreach (var batch in batchesInSource)
             {
-                table.AddChild(Text(UiCopy.Format("UI_6238EDE8BE6C", batch.Id) + (batch.KeepOnPerson ? UiCopy.Text("UI_CDDBA48664BF") : ""), 14, Muted));
+                table.AddChild(Text(ChapterContent.ItemName(batch.Kind) + "\n" + UiCopy.Format("UI_6238EDE8BE6C", batch.Id) + (batch.KeepOnPerson ? " · 保留随身" : ""), 14, Muted));
                 foreach (var source in new[] { "carry", "warehouse" })
                 {
                     if (source != batch.Container) { table.AddChild(Text("—", 14, Muted)); continue; }
@@ -62,10 +65,10 @@ public partial class ChapterGame
         }
         if (!local.Any(StockMatches)) page.AddChild(Text(UiCopy.Text("UI_03078FD783FB"), 16, Muted));
         var index = 0;
-        foreach (var cell in table.GetChildren().OfType<Control>())
+        foreach (var cell in header.GetChildren().Concat(table.GetChildren()).OfType<Control>())
         {
             cell.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-            cell.CustomMinimumSize = new Vector2(index++ % 3 == 0 ? 220 : 140, 0);
+            cell.CustomMinimumSize = new Vector2(index++ % 3 == 0 ? 190 : 118, 0);
         }
     }
 }
